@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="546.0" prefWidth="355.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.ServiceInfoCardController">
+   <Pane prefHeight="579.0" prefWidth="303.0">
+      <children>
+          <ImageView fx:id="serviceImage" fitHeight="250.0" fitWidth="267.0" layoutX="53.0" layoutY="23.0" preserveRatio="true">
+            <image>
+               <Image url="@imageservices/CarpentryServices.png" />
+            </image>
+         </ImageView>
+          <Label fx:id="serviceTitle" alignment="CENTER" layoutX="68.0" layoutY="282.0" prefHeight="35.0" prefWidth="220.0" text="Plumbing Service" textAlignment="CENTER">
+            <font>
+               <Font name="System Bold" size="20.0" />
+            </font>
+         </Label>
+          <Label fx:id="serviceDescription" layoutX="39.0" layoutY="325.0" prefHeight="151.0" prefWidth="278.0" wrapText="true" />
+         <Button alignment="CENTER" layoutX="54.0" layoutY="502.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="248.0" style="-fx-background-color: #FFC527; -fx-text-fill: #222222;" text="Choose Service">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Button>
+      </children>
+   </Pane>
+</VBox>

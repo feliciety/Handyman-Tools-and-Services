@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="651.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.CartPageController">
+   <children>
+      <VBox prefHeight="454.0" prefWidth="1174.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="100.0">
+         <ScrollPane prefWidth="1174.0">
+            <content>
+                <TableView fx:id="cartTable" prefHeight="451.0" prefWidth="1172.0">
+                    <columns>
+                        <TableColumn fx:id="productImageCol" prefWidth="278.1333658695221" text="Image" />
+                        <TableColumn fx:id="productNameCol" prefWidth="222.13336181640625" text="Name" />
+                        <TableColumn fx:id="productQuantityCol" prefWidth="106.66665649414062" text="Quantity" />
+                        <TableColumn fx:id="productPriceCol" prefWidth="302.13323974609375" text="Price" />
+                        <TableColumn fx:id="deleteButtonCol" prefWidth="261.8668212890625" text="Delete" />
+                    </columns>
+                </TableView>
+            </content>
+            <VBox.margin>
+               <Insets />
+            </VBox.margin>
+         </ScrollPane>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="52.0" prefWidth="1218.0" style="-fx-padding: 10;">
+         <children>
+            <Label prefHeight="46.0" prefWidth="137.0" text="Your Cart" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
