@@ -54,7 +54,7 @@ public class CartItem {
 
         // Initialize delete button
         // Delete button logic
-        this.deleteButton = new Button("Remove");
+        this.deleteButton = new Button("X");
         deleteButton.setOnAction(event -> {
             if (cartPageController != null) {
                 cartPageController.removeCartItem(this);

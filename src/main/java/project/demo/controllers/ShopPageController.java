@@ -84,6 +84,7 @@ public class ShopPageController {
         products.add(new Product("Waterproof Boots", "$55.00", "/project/demo/imageproducts/steel_toed_boots1.png", "Safety Gear"));
         products.add(new Product("Insulated Boots", "$60.00", "/project/demo/imageproducts/steel_toed_boots2.png", "Safety Gear"));
 
+        //Measuring and Marking Tools
         products.add(new Product("Carpenter's Square", "$12.00", "/project/demo/imageproducts/Carpentersquare1.png", "Measuring and Marking Tools"));
         products.add(new Product("Framing Square", "$15.00", "/project/demo/imageproducts/Carpentersquare2.png", "Measuring and Marking Tools"));
         products.add(new Product("Blue Chalk Line", "$8.00", "/project/demo/imageproducts/chalkline1.png", "Measuring and Marking Tools"));
@@ -96,6 +97,63 @@ public class ShopPageController {
         products.add(new Product("Spirit Level", "$11.00", "/project/demo/imageproducts/Spiritlevel1.png", "Measuring and Marking Tools"));
         products.add(new Product("Bubble Spirit Level", "$12.00", "/project/demo/imageproducts/Spiritlevel2.png", "Measuring and Marking Tools"));
         products.add(new Product("Magnetic Spirit Level", "$14.00", "/project/demo/imageproducts/Spiritlevel3.png", "Measuring and Marking Tools"));
+
+        // Cutting Tools
+        products.add(new Product("Hacksaw", "$12.00", "/project/demo/imageproducts/Hacksaw.png", "Cutting Tools"));
+        products.add(new Product("Carpet Knife", "$8.00", "/project/demo/imageproducts/CarpetKnife.png", "Cutting Tools"));
+        products.add(new Product("CrossCut Handsaw", "$14.00", "/project/demo/imageproducts/CrossCutHandSaw.png", "Cutting Tools"));
+        products.add(new Product("Circular Saw", "$55.00", "/project/demo/imageproducts/CircularSaw.png", "Cutting Tools"));
+        products.add(new Product("Bandsaw", "$75.00", "/project/demo/imageproducts/Bandsaw.png", "Cutting Tools"));
+        products.add(new Product("Foldable Utility Knife", "$7.00", "/project/demo/imageproducts/FoldableUtilityKnife.png", "Cutting Tools"));
+        products.add(new Product("Back Saw", "$20.00", "/project/demo/imageproducts/BackSaw.png", "Cutting Tools"));
+        products.add(new Product("Cordless Circular Saw", "$120.00", "/project/demo/imageproducts/CordlessCircularSaw.png", "Cutting Tools"));
+
+        // Shaping and Smoothing Tools
+        products.add(new Product("Palm Sanding", "$10.00", "/project/demo/imageproducts/PalmSanding.png", "Shaping and Smoothing Tools"));
+        products.add(new Product("Nikken Sandpaper", "$6.00", "/project/demo/imageproducts/NikkenSandPaper.png", "Shaping and Smoothing Tools"));
+        products.add(new Product("Flat Wood File", "$9.00", "/project/demo/imageproducts/FlatWoodFile.png", "Shaping and Smoothing Tools"));
+        products.add(new Product("Belt Sander", "$65.00", "/project/demo/imageproducts/BeltSander.png", "Shaping and Smoothing Tools"));
+        products.add(new Product("Nut Slotting File", "$15.00", "/project/demo/imageproducts/NutSlottingFile.png", "Shaping and Smoothing Tools"));
+        products.add(new Product("Bench Chisel", "$12.00", "/project/demo/imageproducts/BenchChisel.png", "Shaping and Smoothing Tools"));
+
+        // Drilling and Fastening Tools
+        products.add(new Product("Impact Drill", "$50.00", "/project/demo/imageproducts/ImpactDrill.png", "Drilling and Fastening Tools"));
+        products.add(new Product("Electric Drill", "$45.00", "/project/demo/imageproducts/ElectrilDrill.png", "Drilling and Fastening Tools"));
+        products.add(new Product("Flathead Screwdriver", "$4.00", "/project/demo/imageproducts/FlatheadScrewdriver.png", "Drilling and Fastening Tools"));
+        products.add(new Product("Phillip Screwdriver", "$4.00", "/project/demo/imageproducts/PhillipScrewdriver.png", "Drilling and Fastening Tools"));
+
+        // Joining Tools and Supplies
+        products.add(new Product("Cordless Biscuit Joiner", "$90.00", "/project/demo/imageproducts/CordlessBiscuitJoiner.png", "Joining Tools and Supplies"));
+        products.add(new Product("Makita Biscuit Joiner", "$110.00", "/project/demo/imageproducts/MakitaBiscuitJoiner.png", "Joining Tools and Supplies"));
+        products.add(new Product("White Wood Glue", "$5.00", "/project/demo/imageproducts/WhiteWoodGlue.png", "Joining Tools and Supplies"));
+        products.add(new Product("Resin Wood Adhesive", "$6.00", "/project/demo/imageproducts/ResinWoodAdhesive.png", "Joining Tools and Supplies"));
+        products.add(new Product("Hex Bolts & Nuts", "$8.00", "/project/demo/imageproducts/HexBolts&Nuts.png", "Joining Tools and Supplies"));
+        products.add(new Product("G Clamp", "$10.00", "/project/demo/imageproducts/GClamp.png", "Joining Tools and Supplies"));
+        products.add(new Product("Quick Clamp", "$12.00", "/project/demo/imageproducts/QuickClamp.png", "Joining Tools and Supplies"));
+        products.add(new Product("Black Screw", "$3.00", "/project/demo/imageproducts/BlackScrew.png", "Joining Tools and Supplies"));
+        products.add(new Product("Steel Screw", "$3.50", "/project/demo/imageproducts/SteelScrew.png", "Joining Tools and Supplies"));
+        products.add(new Product("Text Screw", "$3.00", "/project/demo/imageproducts/TextScrew.png", "Joining Tools and Supplies"));
+
+        // Support Tools
+        products.add(new Product("Adjustable Workbench", "$80.00", "/project/demo/imageproducts/AdjustableWorkbench.png", "Support Tools"));
+        products.add(new Product("Heavy Duty Hinge", "$12.00", "/project/demo/imageproducts/HeavyDutyHinge.png", "Support Tools"));
+        products.add(new Product("Adjustable Hacksaw", "$14.00", "/project/demo/imageproducts/AdjustableHacksaw.png", "Support Tools"));
+        products.add(new Product("Folding Sawhorse", "$28.00", "/project/demo/imageproducts/FoldingSawhorse.png", "Support Tools"));
+        products.add(new Product("Multipurpose Workbench", "$95.00", "/project/demo/imageproducts/MultipurposeWorkbench.png", "Support Tools"));
+
+        // Storage and Organization
+        products.add(new Product("Plastic Toolbox", "$25.00", "/project/demo/imageproducts/PlasticToolBox.png", "Storage and Organization"));
+
+        // Wood and Materials
+        products.add(new Product("Wood Sawhorse", "$30.00", "/project/demo/imageproducts/WoodSawhorse.png", "Wood and Materials"));
+        products.add(new Product("Dowel Rods", "$5.00", "/project/demo/imageproducts/DowelRods.png", "Wood and Materials"));
+        products.add(new Product("Concrete Nail", "$4.00", "/project/demo/imageproducts/ConcreteNail.png", "Wood and Materials"));
+        products.add(new Product("Flat Washers (1 Pack)", "$3.50", "/project/demo/imageproducts/FlatWashers(1Pack).png", "Wood and Materials"));
+        products.add(new Product("Galvanized Nail", "$3.50", "/project/demo/imageproducts/GalvanizeNail.png", "Wood and Materials"));
+        products.add(new Product("Dowel", "$4.00", "/project/demo/imageproducts/Dowel.png", "Wood and Materials"));
+
+        // Cleanup Supplies
+        products.add(new Product("Sia Sandpaper", "$2.50", "/project/demo/imageproducts/SiaSandPaper.png", "Cleanup Supplies"));
     }
 
     private void displayProducts(List<Product> productsToDisplay) {

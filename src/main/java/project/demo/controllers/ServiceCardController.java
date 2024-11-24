@@ -40,7 +40,7 @@ public class ServiceCardController {
         InputStream imageStream = getClass().getResourceAsStream(imagePath);
         if (imageStream == null) {
             System.err.println("Image not found: " + imagePath);
-            imageStream = getClass().getResourceAsStream("/project/demo/imageservices/RoofingServices.png"); // Fallback image
+            imageStream = getClass().getResourceAsStream("/project/demo/imageservices/errorimage.png"); // Fallback image
         }
         serviceImage.setImage(new Image(imageStream));
 

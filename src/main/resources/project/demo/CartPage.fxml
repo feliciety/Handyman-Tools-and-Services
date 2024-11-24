@@ -9,19 +9,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="651.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.CartPageController">
    <children>
-      <VBox prefHeight="454.0" prefWidth="1174.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="100.0">
-         <ScrollPane prefWidth="1174.0">
+      <VBox layoutX="24.8" layoutY="103.2" prefHeight="520.0" prefWidth="883.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="103.0">
+         <ScrollPane prefHeight="520.0" prefWidth="810.0" style="-fx-background-color: transparent;">
             <content>
-                <TableView fx:id="cartTable" prefHeight="451.0" prefWidth="1172.0">
+                <TableView fx:id="cartTable" prefHeight="518.0" prefWidth="864.0">
                     <columns>
-                        <TableColumn fx:id="productImageCol" prefWidth="278.1333658695221" text="Image" />
-                        <TableColumn fx:id="productNameCol" prefWidth="222.13336181640625" text="Name" />
-                        <TableColumn fx:id="productQuantityCol" prefWidth="106.66665649414062" text="Quantity" />
-                        <TableColumn fx:id="productPriceCol" prefWidth="302.13323974609375" text="Price" />
-                        <TableColumn fx:id="deleteButtonCol" prefWidth="261.8668212890625" text="Delete" />
+                        <TableColumn fx:id="productImageCol" prefWidth="127.99992710351944" text="Image" />
+                        <TableColumn fx:id="productNameCol" prefWidth="273.60008239746094" text="Name" />
+                        <TableColumn fx:id="productQuantityCol" prefWidth="125.5999755859375" text="Quantity" />
+                        <TableColumn fx:id="productPriceCol" prefWidth="149.5999755859375" text="Price" />
+                        <TableColumn fx:id="deleteButtonCol" prefWidth="123.20001220703125" text="Remove" />
                     </columns>
                 </TableView>
             </content>

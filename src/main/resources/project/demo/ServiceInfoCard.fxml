@@ -16,17 +16,17 @@
                <Image url="@imageservices/CarpentryServices.png" />
             </image>
          </ImageView>
-          <Label fx:id="serviceTitle" alignment="CENTER" layoutX="68.0" layoutY="282.0" prefHeight="35.0" prefWidth="220.0" text="Plumbing Service" textAlignment="CENTER">
-            <font>
-               <Font name="System Bold" size="20.0" />
-            </font>
-         </Label>
-          <Label fx:id="serviceDescription" layoutX="39.0" layoutY="325.0" prefHeight="151.0" prefWidth="278.0" wrapText="true" />
+          <Label fx:id="serviceDescription" contentDisplay="TOP" layoutX="39.0" layoutY="322.0" prefHeight="135.0" prefWidth="278.0" wrapText="true" />
          <Button alignment="CENTER" layoutX="54.0" layoutY="502.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="248.0" style="-fx-background-color: #FFC527; -fx-text-fill: #222222;" text="Choose Service">
             <font>
                <Font size="14.0" />
             </font>
          </Button>
+         <Label fx:id="serviceTitle" alignment="CENTER" layoutX="53.0" layoutY="255.0" prefHeight="93.0" prefWidth="250.0" text="Plumbing Service" textAlignment="CENTER" wrapText="true">
+            <font>
+               <Font name="System Bold" size="20.0" />
+            </font>
+         </Label>
       </children>
    </Pane>
 </VBox>

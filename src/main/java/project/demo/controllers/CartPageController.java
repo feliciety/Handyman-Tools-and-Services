@@ -2,7 +2,10 @@ package project.demo.controllers;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -43,10 +46,18 @@ public class CartPageController {
         productPriceCol.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
         deleteButtonCol.setCellValueFactory(new PropertyValueFactory<>("deleteButton"));
 
+        centerColumnContent(productImageCol);
+        centerColumnContent(productNameCol);
+        centerColumnContent(productQuantityCol);
+        centerColumnContent(productPriceCol);
+        centerColumnContent(deleteButtonCol);
 
         // Bind the cartItems from CartManager to the table
         cartTable.setItems(cartItems);
     }
+
+
+
 
     public void addToCart(Product product) {
         // Add to CartManager instead of local list
@@ -64,5 +75,28 @@ public class CartPageController {
         // Refresh the table to reflect changes
         cartTable.refresh();
     };
+
+    private <T> void centerColumnContent(TableColumn<CartItem, T> column) {
+        column.setCellFactory(tc -> {
+            TableCell<CartItem, T> cell = new TableCell<>() {
+                @Override
+                protected void updateItem(T item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setText(null);
+                        setGraphic(null);
+                    } else if (item instanceof Node) {
+                        setGraphic((Node) item);
+                        setText(null);
+                    } else {
+                        setText(item.toString());
+                        setGraphic(null);
+                    }
+                    setAlignment(Pos.CENTER); // Center align content
+                }
+            };
+            return cell;
+        });
+}
 }
 
