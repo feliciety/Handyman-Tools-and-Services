@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="306.0" prefWidth="207.0" spacing="5.0" style="-fx-border-color: #ddd; -fx-border-width: 1; -fx-padding: 10; -fx-background-color: #f9f9f9; -fx-background-radius: 15;" styleClass="product-card" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.ProductCardController">
+<VBox alignment="CENTER" prefHeight="306.0" prefWidth="207.0" spacing="5.0" style="-fx-border-color: #ddd; -fx-border-width: 1; -fx-padding: 10; -fx-background-color: #f9f9f9; -fx-background-radius: 15;" styleClass="product-card" stylesheets="@application.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.ProductCardController">
     <ImageView fx:id="productImage" fitHeight="187.0" fitWidth="180.0" preserveRatio="true" styleClass="rounded-image" />
     <Label fx:id="productName" style="-fx-font-size: 14; -fx-font-weight: bold;" text="Product Name">
       <font>
