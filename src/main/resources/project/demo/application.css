@@ -1,0 +1,40 @@
+<style>
+.button {
+    -fx-background-color: white;
+    -fx-border-color: #1ECD97;
+    -fx-border-width: 2px;
+    -fx-border-radius: 40px;
+    -fx-text-fill: #1ECD97;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
+    -fx-transition: all 0.25s ease-in-out;
+}
+
+.button:hover {
+    -fx-background-color: #1ECD97;
+    -fx-text-fill: white;
+}
+
+.button:pressed {
+    -fx-text-fill: white;
+    -fx-letter-spacing: 2px;
+}
+
+.button.success {
+    -fx-background-color: #1ECD97;
+    -fx-text-fill: white;
+}
+
+.button.error {
+    -fx-background-color: red;
+    -fx-text-fill: white;
+}
+
+.button.loading {
+    -fx-background-color: white;
+    -fx-border-color: #bbbbbb;
+    -fx-text-fill: #bbbbbb;
+}
+</style>

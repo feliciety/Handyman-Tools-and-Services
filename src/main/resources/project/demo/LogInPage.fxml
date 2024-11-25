@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="1200.0" style="-fx-background-color: #3E66FF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.LogInController">
+    <ImageView fitHeight="655.0" fitWidth="1245.0" layoutX="-23.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 50;">
+        <image>
+            <Image url="@imageloginsignup/loginsignupBG.png" />
+        </image>
+    </ImageView>
+    <Pane layoutX="93.8" layoutY="52.0" prefHeight="565.0" prefWidth="1010.0" style="-fx-background-color: WHITE; -fx-background-radius: 35;" AnchorPane.leftAnchor="93.8" AnchorPane.topAnchor="52.0">
+        <children>
+            <ImageView fitHeight="773.0" fitWidth="1074.0" layoutX="-306.0" layoutY="-34.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@imageloginsignup/SignInPerson.png" />
+                </image>
+         </ImageView>
+            <Button fx:id="signUpOption" layoutX="718.0" layoutY="149.0" mnemonicParsing="false" onMouseClicked="#signUpSwap" style="-fx-background-color: white;" text="Sign Up." textFill="#3e66ff">
+                <font>
+                    <Font name="Inter Light BETA" size="16.0" />
+                </font>
+            </Button>
+            <Text fill="#67608f" layoutX="543.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="START YOUR JOURNEY">
+                <font>
+                    <Font name="System Bold" size="14.0" />
+                </font>
+            </Text>
+            <Text fill="#1f1567" layoutX="543.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log in to HandyMan.">
+                <font>
+                    <Font name="Inter Extra Bold" size="33.5" />
+                </font>
+            </Text>
+            <Text fill="#67608f" layoutX="545.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account?">
+                <font>
+                    <Font name="Inter Extra Light BETA" size="16.0" />
+                </font>
+            </Text>
+            <VBox layoutX="545.0" layoutY="192.0" prefHeight="318.0" prefWidth="379.0" spacing="20.0">
+                <children>
+                    <Text fill="#67608f" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail">
+                        <font>
+                            <Font name="Inter Extra Bold" size="16.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets />
+                        </VBox.margin>
+                    </Text>
+                    <TextField fx:id="emailField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #67608f;" />
+                    <Text fill="#67608f" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+                        <font>
+                            <Font name="Inter Extra Bold" size="16.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets />
+                        </VBox.margin>
+                    </Text>
+                    <!-- Replacing TextField with PasswordField -->
+                    <PasswordField fx:id="passwordField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #67608f;" />
+                    <Button fx:id="LogInButton" mnemonicParsing="false" onMouseClicked="#SignInButtonClicked" prefHeight="51.0" prefWidth="430.0" styleClass="secondary-button" stylesheets="@../CSS/Words.css" text="Log In">
+                        <VBox.margin>
+                            <Insets />
+                        </VBox.margin>
+                        <font>
+                            <Font name="Inter Extra Bold" size="12.0" />
+                        </font>
+                    </Button>
+                    <Text fill="#67608f" strokeType="OUTSIDE" strokeWidth="0.0" text="By clicking the Sign in Button, you therefore agree to the Privacy Policy. For more information, read about our privacy here." wrappingWidth="428.38006591796875">
+                        <font>
+                            <Font name="Inter Extra Light BETA" size="10.5" />
+                        </font>
+                        <VBox.margin>
+                            <Insets />
+                        </VBox.margin>
+                    </Text>
+                </children>
+            </VBox>
+            <ImageView fitHeight="18.0" fitWidth="30.0" layoutX="961.0" layoutY="296.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../images/emailIconG.png" />
+                </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="25.0" layoutX="964.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../images/lockIconG.png" />
+                </image>
+            </ImageView>
+            <ImageView fitHeight="71.0" fitWidth="307.0" layoutX="62.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../images/3.png" />
+                </image>
+            </ImageView>
+        </children>
+    </Pane>
+    <StackPane layoutX="1108.8" layoutY="447.4" prefHeight="38.0" prefWidth="38.0" AnchorPane.rightAnchor="204.79999999999995" AnchorPane.topAnchor="447.4" />
+    <StackPane layoutX="1108.8" layoutY="345.4" prefHeight="38.0" prefWidth="38.0" AnchorPane.rightAnchor="204.79999999999995" AnchorPane.topAnchor="345.4" />
+</AnchorPane>
