@@ -10,51 +10,44 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="651.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.BookingPageController">
-   <children>
-      <ScrollPane layoutX="87.0" layoutY="86.0" prefHeight="505.0" prefWidth="704.0">
-         <content>
-         
-                                              <TableView fx:id="employeeTable" prefHeight="503.0" prefWidth="701.0">
-                 <columns>
-                     <TableColumn fx:id="imageColumn" prefWidth="161.866665661335" text="Photo" />
-                     <TableColumn fx:id="nameColumn" prefWidth="158.39999389648438" text="Name" />
-                     <TableColumn fx:id="serviceColumn" prefWidth="177.60000610351562" text="Service" />
-                     <TableColumn fx:id="statusColumn" prefWidth="185.33331298828125" text="Status" />
-                 </columns>
-             </TableView>
-         </content>
-      </ScrollPane>
-   
-                            <VBox fx:id="bookingPane" layoutX="884.0" layoutY="115.0" spacing="10.0">
-           <padding>
-               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-           </padding>
-           <Label text="Name:" />
-           <TextField fx:id="nameField" />
-           <Label text="Address:" />
-           <TextField fx:id="addressField" />
-           <Label text="Date:" />
-           <DatePicker fx:id="datePicker" />
-           <Label text="Time:" />
-           <ComboBox fx:id="timeComboBox" />
-           <Label text="Severity:" />
-           <HBox spacing="10.0">
-               <RadioButton text="Low">
-               <toggleGroup>
-                  <ToggleGroup fx:id="severityGroup" />
-               </toggleGroup>
-            </RadioButton>
-               <RadioButton text="Medium" toggleGroup="$severityGroup" />
-               <RadioButton text="High" toggleGroup="$severityGroup" />
-           </HBox>
-      
-                                     <Button fx:id="bookServiceButton" text="Book Service" />
-       </VBox>
-   </children>
+    <children>
+        <ScrollPane layoutX="87.0" layoutY="86.0" prefHeight="505.0" prefWidth="704.0">
+            <content>
+                <TableView fx:id="employeeTable" prefHeight="503.0" prefWidth="701.0">
+                    <columns>
+                        <TableColumn fx:id="imageColumn" prefWidth="161.866665661335" text="Photo" />
+                        <TableColumn fx:id="nameColumn" prefWidth="158.39999389648438" text="Name" />
+                        <TableColumn fx:id="serviceColumn" prefWidth="177.60000610351562" text="Service" />
+                        <TableColumn fx:id="statusColumn" prefWidth="185.33331298828125" text="Status" />
+                    </columns>
+                </TableView>
+            </content>
+        </ScrollPane>
+
+        <VBox fx:id="bookingPane" layoutX="884.0" layoutY="115.0" spacing="10.0">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+            <Label text="Name:" />
+            <TextField fx:id="nameField" />
+            <Label text="Address:" />
+            <TextField fx:id="addressField" />
+            <Label text="Date:" />
+            <DatePicker fx:id="datePicker" />
+            <Label text="Time:" />
+            <ComboBox fx:id="timeComboBox" />
+            <Label text="Severity:" />
+            <HBox spacing="10.0">
+                <RadioButton fx:id="lowSeverity" text="Low" />
+                <RadioButton fx:id="mediumSeverity" text="Medium" />
+                <RadioButton fx:id="highSeverity" text="High" />
+            </HBox>
+            <Button fx:id="bookServiceButton" text="Book Service" />
+        </VBox>
+    </children>
 </AnchorPane>

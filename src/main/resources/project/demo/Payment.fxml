@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="549.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.PaymentController">
+
+    <!-- Main Container -->
+    <VBox layoutX="99.0" layoutY="16.8" prefHeight="524.0" prefWidth="570.0" spacing="20.0" AnchorPane.leftAnchor="99.0" AnchorPane.topAnchor="16.8">
+        <!-- Header -->
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Payment Details" />
+
+        <!-- Payment Summary -->
+        <VBox prefHeight="90.0" prefWidth="570.0" spacing="10.0" style="-fx-padding: 10; -fx-border-color: lightgray; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #f9f9f9;">
+            <Label style="-fx-font-size: 18px;" text="Order Summary" />
+            <HBox spacing="10.0">
+                <Label style="-fx-font-size: 14px;" text="Total Items:" />
+                <Label fx:id="totalItemsLabel" style="-fx-font-size: 14px;" text="3" />
+            </HBox>
+            <HBox spacing="10.0">
+                <Label style="-fx-font-size: 14px;" text="Total Amount:" />
+                <Label fx:id="totalAmountLabel" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="120.00" />
+            </HBox>
+        </VBox>
+
+        <!-- Payment Methods -->
+        <VBox prefHeight="100.0" prefWidth="650.0" spacing="15.0">
+            <Label style="-fx-font-size: 18px;" text="Select Payment Method" />
+            <!-- Payment Method Selection -->
+            <HBox prefHeight="50.0" prefWidth="650.0" spacing="15.0">
+                <Button onAction="#showCardFields" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: lightgray;" text="Credit/Debit Card" />
+                <Button onAction="#showPayPalFields" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: lightgray;" text="PayPal" />
+                <Button onAction="#showBankFields" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: lightgray;" text="Bank Transfer" />
+                <Button onAction="#showCODFields" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: lightgray;" text="Cash on Delivery (COD)" />
+            </HBox>
+        </VBox>
+
+        <!-- Payment Details Form -->
+        <VBox fx:id="paymentDetailsBox" prefHeight="155.0" prefWidth="570.0" spacing="15.0" style="-fx-padding: 10; -fx-border-color: lightgray; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #f9f9f9;">
+            <Label style="-fx-font-size: 18px;" text="Payment Details" />
+
+            <!-- Credit/Debit Card Fields -->
+            <VBox fx:id="cardFields" managed="false" prefWidth="650.0" spacing="10.0" visible="false">
+                <TextField fx:id="cardNameField" promptText="Name on Card" />
+                <TextField fx:id="cardNumberField" promptText="Card Number" />
+                <HBox spacing="10.0">
+                    <TextField fx:id="expiryField" prefWidth="100.0" promptText="MM/YY" />
+                    <TextField fx:id="cvvField" prefWidth="100.0" promptText="CVV" />
+                </HBox>
+            </VBox>
+
+            <!-- PayPal Fields -->
+            <VBox fx:id="paypalFields" managed="false" prefWidth="650.0" spacing="10.0" visible="false">
+                <TextField fx:id="paypalEmailField" promptText="PayPal Email Address" />
+            </VBox>
+
+            <!-- Bank Transfer Fields -->
+            <VBox fx:id="bankFields" managed="false" prefWidth="650.0" spacing="10.0" visible="false">
+                <TextField fx:id="bankAccountNameField" promptText="Account Name" />
+                <TextField fx:id="bankAccountNumberField" promptText="Account Number" />
+                <TextField fx:id="bankNameField" promptText="Bank Name" />
+                <TextField fx:id="bankBranchField" promptText="Branch Name" />
+            </VBox>
+
+            <!-- Cash on Delivery Fields -->
+            <VBox fx:id="codFields" managed="false" prefWidth="650.0" spacing="10.0" visible="false">
+                <Label style="-fx-font-size: 14px;" text="Cash on Delivery is available for this order. You will pay at the time of delivery." />
+            </VBox>
+        </VBox>
+
+        <!-- Buttons -->
+        <HBox alignment="CENTER_LEFT" prefHeight="74.0" prefWidth="570.0" spacing="20.0">
+            <Button onAction="#backToShipping" prefHeight="40.0" prefWidth="151.0" style="-fx-background-color: lightgray;" text="Back to Shipping" />
+            <Button onAction="#confirmPayment" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #FFC527; -fx-text-fill: #222222;" text="Confirm Payment">
+            <HBox.margin>
+               <Insets left="250.0" />
+            </HBox.margin></Button>
+        </HBox>
+    </VBox>
+</AnchorPane>

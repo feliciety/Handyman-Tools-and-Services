@@ -48,25 +48,29 @@ public class MainStructureController {
 
     // Handle Home button click
     public void handleHomeClick(ActionEvent actionEvent) {
+        System.out.println("Cart Home Page button clicked");
         loadPage("/project/demo/HomePage.fxml");
     }
 
     // Handle Shop button click
     public void handleShopClick(ActionEvent actionEvent) {
+        System.out.println("Shop Page Page button clicked");
         loadPage("/project/demo/ShopPage.fxml");
     }
 
     // Handle Cart button click
     public void handleCartClick(ActionEvent actionEvent) {
+        System.out.println("Cart Page button clicked");
         loadPage("/project/demo/CartPage.fxml");
     }
 
     public void handleServiceClick(ActionEvent actionEvent) {
+        System.out.println("Service Page button clicked");
         loadPage("/project/demo/ServicePage.fxml");
     }
 
-    // Handle Book Service button click
     public void handleBookingClick(ActionEvent actionEvent) {
+        System.out.println("Booking Page button clicked");
         loadPage("/project/demo/BookingPage.fxml");
     }
 }

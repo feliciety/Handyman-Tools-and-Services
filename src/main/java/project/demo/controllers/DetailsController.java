@@ -122,19 +122,17 @@ public class DetailsController {
     @FXML
     public void goToShipping(ActionEvent actionEvent) {
         if (mainController != null) {
-            System.out.println("Navigating to Shipping.fxml...");
+            System.out.println("Navigating to Shipping view...");
             mainController.loadView("/project/demo/Shipping.fxml");
         } else {
             System.err.println("Main controller is not set!");
         }
     }
 
-
     @FXML
     public void goToCart(ActionEvent actionEvent) {
-        // Navigate to CartTable.fxml
         if (mainController != null) {
-            System.out.println("Navigating to CartTable.fxml...");
+            System.out.println("Navigating back to Cart view...");
             mainController.loadView("/project/demo/CartTable.fxml");
         } else {
             System.err.println("Main controller is not set!");
