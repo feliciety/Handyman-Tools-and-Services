@@ -12,7 +12,7 @@
       <font>
          <Font size="14.0" />
       </font></Label>
-    <Label fx:id="productPrice" style="-fx-text-fill: #333;" text="Price: $0.00">
+    <Label fx:id="productPrice" style="-fx-text-fill: #333333;" text="Price: $0.00">
       <font>
          <Font size="14.0" />
       </font></Label>

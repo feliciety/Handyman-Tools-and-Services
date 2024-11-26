@@ -18,7 +18,7 @@
                      <TableColumn fx:id="productNameCol" prefWidth="176.0" text="Name" />
                      <TableColumn fx:id="productQuantityCol" prefWidth="87.20004272460938" text="Quantity" />
                      <TableColumn fx:id="productPriceCol" prefWidth="110.66668701171875" text="Price" />
-                     <TableColumn fx:id="deleteButtonCol" prefWidth="70.9332275390625" text="Remove" />
+                     <TableColumn fx:id="deleteButtonCol" prefWidth="60.0" text="Remove" />
                  </columns>
              </TableView>
             <HBox prefHeight="50.0" prefWidth="570.0" spacing="10.0">
