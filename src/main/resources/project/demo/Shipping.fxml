@@ -65,8 +65,8 @@
          <HBox prefHeight="94.0" prefWidth="570.0">
             <children>
 
-                <Button fx:id="toCartButton" onAction="#goToCart" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: lightgray; -fx-text-fill: black;" text="Back to Details" />
-                <Button fx:id="toPaymentButton" onAction="#goToPayment" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #007bff; -fx-text-fill: white;" text="Continue to Payment">
+                <Button fx:id="toCartButton" onAction="#goToDetails" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: lightgray; -fx-text-fill: black;" text="Back to Details" />
+                <Button fx:id="toPaymentButton" onAction="#goToPayment" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #FFC527; -fx-text-fill: #222222;" text="Continue to Payment">
                   <HBox.margin>
                      <Insets left="270.0" />
                   </HBox.margin></Button>

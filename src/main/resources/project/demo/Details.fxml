@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="549.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.DetailsController">
    <children>
-      <VBox layoutX="100.0" layoutY="17.0" prefHeight="524.0" prefWidth="570.0" spacing="10.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="17.0">
+      <VBox layoutX="99.2" layoutY="17.8" prefHeight="524.0" prefWidth="570.0" spacing="10.0" AnchorPane.leftAnchor="99.2" AnchorPane.topAnchor="17.8">
          <children>
              <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Contact" />
              <TextField fx:id="contactField" prefHeight="40.0" prefWidth="751.0" promptText="Email or mobile phone number" />
@@ -33,12 +33,12 @@
                    <ComboBox fx:id="provinceComboBox" prefHeight="40.0" prefWidth="190.0" promptText="Province" />
                </children>
             </HBox>
-             <ComboBox fx:id="countryComboBox" prefHeight="40.0" prefWidth="787.0" promptText="Region" />
+             <ComboBox fx:id="regionComboBox" prefHeight="40.0" prefWidth="787.0" promptText="Region" />
              <CheckBox fx:id="saveInfoCheckBox" text="Save this information for faster checkout next time" />
             <HBox prefHeight="51.0" prefWidth="570.0" spacing="10.0">
                <children>
                    <Button fx:id="backToCartButton" onAction="#goToCart" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: lightgray; -fx-text-fill: black;" text="Back to Cart" />
-                   <Button fx:id="toShippingButton" alignment="CENTER" onAction="#goToShipping" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #007bff; -fx-text-fill: white;" text="Go to Shipping">
+                   <Button fx:id="toShippingButton" alignment="CENTER" onAction="#goToShipping" prefHeight="40.0" prefWidth="151.0" style="-fx-background-color: #FFC527; -fx-text-fill: #222222;" text="Go to Shipping">
                      <HBox.margin>
                         <Insets left="260.0" />
                      </HBox.margin></Button>
