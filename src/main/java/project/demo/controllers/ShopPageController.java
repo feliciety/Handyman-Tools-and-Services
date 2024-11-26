@@ -250,8 +250,8 @@ public class ShopPageController {
 
     @FXML
     private void addToCart(Product product) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/CartPage.fxml"));
-        CartPageController cartPageController = loader.getController();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/CartTble.fxml"));
+        CartTableController cartPageController = loader.getController();
         cartPageController.addToCart(product);
     }
 

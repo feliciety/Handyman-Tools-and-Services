@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import project.demo.controllers.CartPageController;
+import project.demo.controllers.CartTableController;
 
 public class CartItem {
     private final Product product;
@@ -18,7 +18,7 @@ public class CartItem {
     private final Button deleteButton;
     private final HBox quantityControl;
 
-    public CartItem(Product product, CartPageController cartPageController) {
+    public CartItem(Product product, CartTableController cartPageController) {
         this.product = product;
 
         // Initialize quantity to 1 and calculate the total price
@@ -33,28 +33,25 @@ public class CartItem {
         this.quantityControl = new HBox(decreaseButton, quantityLabel, increaseButton);
         this.quantityControl.setSpacing(5);
 
-
         // Decrease button logic
         decreaseButton.setOnAction(event -> {
             if (quantity.get() > 1) {
-                quantity.set(quantity.get() - 1);
+                decrementQuantity();
                 quantityLabel.setText(String.valueOf(quantity.get())); // Update quantity display
-                updateTotalPrice();
                 cartPageController.updateTable();
             }
         });
 
         // Increase button logic
         increaseButton.setOnAction(event -> {
-            quantity.set(quantity.get() + 1);
+            incrementQuantity();
             quantityLabel.setText(String.valueOf(quantity.get())); // Update quantity display
-            updateTotalPrice();
             cartPageController.updateTable();
         });
 
         // Initialize delete button
-        // Delete button logic
         this.deleteButton = new Button("X");
+        deleteButton.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-weight: bold;");
         deleteButton.setOnAction(event -> {
             if (cartPageController != null) {
                 cartPageController.removeCartItem(this);
@@ -62,6 +59,7 @@ public class CartItem {
         });
     }
 
+    // Public Getters
     public ImageView getProductImage() {
         return product.getImageView();
     }
@@ -85,20 +83,20 @@ public class CartItem {
     public Button getDeleteButton() {
         return deleteButton;
     }
+
     public int getQuantity() {
-        return quantity.get(); // Add this getter for quantity
+        return quantity.get();
     }
 
-
-    private void updateTotalPrice() {
-        this.totalPrice.set(formatPrice());
+    public IntegerProperty quantityProperty() {
+        return quantity;
     }
 
-    private String formatPrice() {
-        double pricePerUnit = Double.parseDouble(product.getPrice().replace("$", ""));
-        return String.format("$%.2f", pricePerUnit * quantity.get());
+    public Product getProduct() {
+        return product;
     }
 
+    // Public Methods
     public void incrementQuantity() {
         quantity.set(quantity.get() + 1);
         updateTotalPrice();
@@ -109,5 +107,27 @@ public class CartItem {
             quantity.set(quantity.get() - 1);
             updateTotalPrice();
         }
+    }
+
+    public void resetQuantity() {
+        quantity.set(1);
+        updateTotalPrice();
+    }
+
+    public void setQuantity(int newQuantity) {
+        if (newQuantity > 0) {
+            quantity.set(newQuantity);
+            updateTotalPrice();
+        }
+    }
+
+    // Private Helper Methods
+    private void updateTotalPrice() {
+        this.totalPrice.set(formatPrice());
+    }
+
+    private String formatPrice() {
+        double pricePerUnit = Double.parseDouble(product.getPrice().replace("$", ""));
+        return String.format("$%.2f", pricePerUnit * quantity.get());
     }
 }

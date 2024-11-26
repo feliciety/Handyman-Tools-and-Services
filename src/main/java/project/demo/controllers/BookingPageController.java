@@ -58,9 +58,9 @@ public class BookingPageController {
 
         // Load employee data
         employeeList = FXCollections.observableArrayList(
-                new Employee(new ImageView("/images/employee1.png"), "John Doe", "Plumbing", "Available"),
-                new Employee(new ImageView("/images/employee2.png"), "Jane Smith", "Carpentry", "Busy"),
-                new Employee(new ImageView("/images/employee3.png"), "Bob Brown", "Electrical", "Available")
+                new Employee(new ImageView("/project/demo/imagesemployee/Electrician.png"), "John Doe", "Plumbing", "Available"),
+                new Employee(new ImageView("/project/demo/imagesemployee/Electrician.png"), "Jane Smith", "Carpentry", "Busy"),
+                new Employee(new ImageView("/project/demo/imagesemployee/Electrician.png"), "Bob Brown", "Electrical", "Available")
         );
         employeeTable.setItems(employeeList);
 

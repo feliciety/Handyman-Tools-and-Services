@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="project.demo.controllers.ShippingController"
+            prefHeight="520.0" prefWidth="800.0">
+
+    <!-- Contact Information -->
+    <VBox spacing="10.0" layoutX="20.0" layoutY="20.0" prefWidth="760.0">
+        <Label text="Contact" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+        <Label text="Email or mobile phone number:" />
+        <Label fx:id="contactInfo" text="joe.spagnuolo@uxbly.com" style="-fx-padding: 5; -fx-background-color: #f4f4f4; -fx-border-color: lightgray;" />
+        <Button text="Edit" style="-fx-font-size: 12px; -fx-background-color: transparent; -fx-text-fill: #007bff;" onAction="#editContact" />
+    </VBox>
+
+    <!-- Address Information -->
+    <VBox spacing="10.0" layoutX="20.0" layoutY="110.0" prefWidth="760.0">
+        <Label text="Shipping Address" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+        <Label text="Address:" />
+        <Label fx:id="addressInfo" text="Via Firenze 23, 92023, Campobello di Licata, Italy" style="-fx-padding: 5; -fx-background-color: #f4f4f4; -fx-border-color: lightgray;" />
+        <Button text="Edit" style="-fx-font-size: 12px; -fx-background-color: transparent; -fx-text-fill: #007bff;" onAction="#editAddress" />
+    </VBox>
+
+    <!-- Shipping Options -->
+    <VBox spacing="10.0" layoutX="20.0" layoutY="220.0" prefWidth="760.0">
+        <Label text="Shipping Method" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+        <ToggleGroup fx:id="shippingOptionsGroup" />
+        <RadioButton text="Standard Shipping ($5.00)" fx:id="standardShipping" toggleGroup="$shippingOptionsGroup" />
+        <RadioButton text="Express Shipping ($15.00)" fx:id="expressShipping" toggleGroup="$shippingOptionsGroup" />
+    </VBox>
+
+    <!-- Buttons -->
+    <Button text="Back to Cart" fx:id="toCartButton" layoutX="20.0" layoutY="450.0" style="-fx-background-color: lightgray; -fx-text-fill: black;" onAction="#goToCart" />
+    <Button text="Continue to Payment" fx:id="toPaymentButton" layoutX="650.0" layoutY="450.0" style="-fx-background-color: #007bff; -fx-text-fill: white;" onAction="#goToPayment" />
+</AnchorPane>
