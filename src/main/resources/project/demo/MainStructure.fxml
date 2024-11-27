@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -13,16 +14,19 @@
          <children>
             <HBox alignment="CENTER" prefHeight="35.0" prefWidth="1315.0" spacing="20">
                <children>
-                  <Button onAction="#handleHomeClick" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Home" />
-                  <Button onAction="#handleShopClick" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Shop" />
-                  <Button onAction="#handleCartClick" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Cart" />
-                  <Button onAction="#handleServiceClick" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Services" />
-                  <Button onAction="#handleBookingClick" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Booking" />
+                  <Button onAction="#handleHomeClick" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Home">
+                     <HBox.margin>
+                        <Insets left="100.0" />
+                     </HBox.margin></Button>
+                  <Button onAction="#handleShopClick" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Shop" />
+                  <Button onAction="#handleCartClick" prefWidth="100.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Cart" />
+                  <Button onAction="#handleServiceClick" prefWidth="100.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Services" />
+                  <Button onAction="#handleBookingClick" prefWidth="100.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Booking" />
                </children>
             </HBox>
          </children>
       </HBox>
-      <ImageView fitHeight="80.0" fitWidth="293.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="80.0" fitWidth="234.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@imagelogo/logo3.png" />
          </image>

@@ -12,13 +12,13 @@
    <children>
       <VBox layoutX="59.0" layoutY="17.0" prefHeight="572.0" prefWidth="646.0" AnchorPane.leftAnchor="59.0" AnchorPane.topAnchor="17.0">
          <children>
-             <TableView fx:id="cartTable" prefHeight="471.0" prefWidth="558.0">
+             <TableView fx:id="cartTable" prefHeight="489.0" prefWidth="678.0">
                  <columns>
-                     <TableColumn fx:id="productImageCol" prefWidth="132.00004118680954" text="Product" />
-                     <TableColumn fx:id="productNameCol" prefWidth="183.9999237060547" text="Name" />
-                     <TableColumn fx:id="productQuantityCol" prefWidth="117.60003662109375" text="Quantity" />
-                     <TableColumn fx:id="productPriceCol" prefWidth="106.39999389648438" text="Price" />
-                     <TableColumn fx:id="deleteButtonCol" prefWidth="104.79998779296875" text="Remove" />
+                     <TableColumn fx:id="productImageCol" prefWidth="111.20005339384079" text="Product" />
+                     <TableColumn fx:id="productNameCol" prefWidth="229.59996032714844" text="Name" />
+                     <TableColumn fx:id="productQuantityCol" prefWidth="112.00003051757812" text="Quantity" />
+                     <TableColumn fx:id="productPriceCol" prefWidth="122.4000244140625" text="Price" />
+                     <TableColumn fx:id="deleteButtonCol" prefWidth="69.60001220703123" text="Remove" />
                  </columns>
              </TableView>
             <HBox prefHeight="50.0" prefWidth="570.0" spacing="10.0">
