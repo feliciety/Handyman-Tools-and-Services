@@ -10,6 +10,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.control.Alert.AlertType;
 import project.demo.models.Employee;
 
 public class BookingPageController {
@@ -27,6 +28,27 @@ public class BookingPageController {
 
     @FXML
     private ComboBox<String> timeComboBox;
+
+    @FXML
+    private DatePicker datePicker;
+
+    @FXML
+    private TextField nameField;
+
+    @FXML
+    private TextField addressField;
+
+    @FXML
+    private RadioButton lowSeverity;
+
+    @FXML
+    private RadioButton mediumSeverity;
+
+    @FXML
+    private RadioButton highSeverity;
+
+    @FXML
+    private Button bookServiceButton;
 
     @FXML
     private HBox employeeCardContainer;
@@ -48,6 +70,9 @@ public class BookingPageController {
                 showEmployeeCard(newValue);
             }
         });
+
+        // Add a listener for the "Book Service" button
+        bookServiceButton.setOnAction(event -> handleBookService());
     }
 
     private void initializeTableColumns() {
@@ -142,5 +167,42 @@ public class BookingPageController {
 
         // Add the card to the HBox
         employeeCardContainer.getChildren().add(employeeCard);
+    }
+
+    private void handleBookService() {
+        // Validate required fields
+        if (nameField.getText().isEmpty() || addressField.getText().isEmpty() || datePicker.getValue() == null || timeComboBox.getValue() == null) {
+            showAlert("Missing Information", "Please fill out all the required fields before booking.");
+            return;
+        }
+
+        // Get the selected severity
+        String severity = lowSeverity.isSelected() ? "Low" :
+                mediumSeverity.isSelected() ? "Medium" :
+                        highSeverity.isSelected() ? "High" : "Not Specified";
+
+        // Gather booking information
+        String employeeName = employeeTableView.getSelectionModel().getSelectedItem().getName();
+        String service = employeeTableView.getSelectionModel().getSelectedItem().getSpecialization();
+        String name = nameField.getText();
+        String address = addressField.getText();
+        String date = datePicker.getValue().toString();
+        String time = timeComboBox.getValue();
+
+        // Display confirmation message
+        String message = String.format(
+                "Thank you for choosing Handyman Repair Service!\n\nBooking Details:\n" +
+                        "Service: %s\nEmployee: %s\nName: %s\nAddress: %s\nDate & Time: %s %s\nSeverity: %s",
+                service, employeeName, name, address, date, time, severity
+        );
+        showAlert("Booking Successful", message);
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
