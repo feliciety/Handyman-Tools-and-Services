@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import project.demo.controllers.CartTableController;
+import project.demo.controllers.CartPageController;
 
 public class CartItem {
     private final Product product;
@@ -18,12 +18,20 @@ public class CartItem {
     private final Button deleteButton;
     private final HBox quantityControl;
 
-    public CartItem(Product product, CartTableController cartPageController) {
+    public CartItem(Product product, CartPageController cartPageController) {
         this.product = product;
 
         // Initialize quantity to 1 and calculate the total price
         this.quantity = new SimpleIntegerProperty(1);
         this.totalPrice = new SimpleStringProperty(formatPrice());
+
+        // Add a listener to update the subtotal in the CartPageController
+        this.quantity.addListener((observable, oldValue, newValue) -> {
+            updateTotalPrice(); // Update the total price
+            if (cartPageController != null) {
+                cartPageController.recalculateSubtotal(); // Notify the controller to update subtotal
+            }
+        });
 
         // Create quantity control
         Button decreaseButton = new Button("-");
@@ -38,7 +46,6 @@ public class CartItem {
             if (quantity.get() > 1) {
                 decrementQuantity();
                 quantityLabel.setText(String.valueOf(quantity.get())); // Update quantity display
-                cartPageController.updateTable();
             }
         });
 
@@ -46,8 +53,9 @@ public class CartItem {
         increaseButton.setOnAction(event -> {
             incrementQuantity();
             quantityLabel.setText(String.valueOf(quantity.get())); // Update quantity display
-            cartPageController.updateTable();
         });
+
+        quantity.addListener((observable, oldValue, newValue) -> updateTotalPrice());
 
         // Initialize delete button
         this.deleteButton = new Button("X");
@@ -99,25 +107,11 @@ public class CartItem {
     // Public Methods
     public void incrementQuantity() {
         quantity.set(quantity.get() + 1);
-        updateTotalPrice();
     }
 
     public void decrementQuantity() {
         if (quantity.get() > 1) {
             quantity.set(quantity.get() - 1);
-            updateTotalPrice();
-        }
-    }
-
-    public void resetQuantity() {
-        quantity.set(1);
-        updateTotalPrice();
-    }
-
-    public void setQuantity(int newQuantity) {
-        if (newQuantity > 0) {
-            quantity.set(newQuantity);
-            updateTotalPrice();
         }
     }
 

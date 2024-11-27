@@ -14,6 +14,12 @@ public class MainStructureController {
 
     private String currentPage = ""; // Track the currently loaded page
 
+    @FXML
+    public void initialize() {
+        // Load the initial page (HomePage.fxml) when the application starts
+        loadPage("/project/demo/FXMLCartPage/CartPage.fxml");
+    }
+
     /**
      * Utility method to load an FXML page into the contentContainer.
      *
@@ -61,14 +67,15 @@ public class MainStructureController {
     // Handle Cart button click
     public void handleCartClick(ActionEvent actionEvent) {
         System.out.println("Cart Page button clicked");
-        loadPage("/project/demo/CartPage.fxml");
+        loadPage("/project/demo/FXMLCartPage/CartPage.fxml");
     }
 
     public void handleServiceClick(ActionEvent actionEvent) {
         System.out.println("Service Page button clicked");
-        loadPage("/project/demo/ServicePage.fxml");
+        loadPage("/project/demo/FXMLServicePage/ServicePage.fxml");
     }
 
+    // Add this method to handle Booking button clicks
     public void handleBookingClick(ActionEvent actionEvent) {
         System.out.println("Booking Page button clicked");
         loadPage("/project/demo/BookingPage.fxml");

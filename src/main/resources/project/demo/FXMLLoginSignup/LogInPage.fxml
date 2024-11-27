@@ -17,14 +17,14 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="1200.0" style="-fx-background-color: #3E66FF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.LogInController">
     <ImageView fitHeight="655.0" fitWidth="1245.0" layoutX="-23.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 50;">
         <image>
-            <Image url="@imageloginsignup/loginsignupBG.png" />
+            <Image url="@../imageloginsignup/loginsignupBG.png" />
         </image>
     </ImageView>
     <Pane layoutX="93.8" layoutY="52.0" prefHeight="565.0" prefWidth="1010.0" style="-fx-background-color: WHITE; -fx-background-radius: 35;" AnchorPane.leftAnchor="93.8" AnchorPane.topAnchor="52.0">
         <children>
             <ImageView fitHeight="773.0" fitWidth="1074.0" layoutX="-306.0" layoutY="-34.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                    <Image url="@imageloginsignup/SignInPerson.png" />
+                    <Image url="@../imageloginsignup/SignInPerson.png" />
                 </image>
          </ImageView>
             <Button fx:id="signUpOption" layoutX="718.0" layoutY="149.0" mnemonicParsing="false" onMouseClicked="#signUpSwap" style="-fx-background-color: white;" text="Sign Up." textFill="#3e66ff">

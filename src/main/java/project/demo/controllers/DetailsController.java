@@ -123,7 +123,7 @@ public class DetailsController {
     public void goToShipping(ActionEvent actionEvent) {
         if (mainController != null) {
             System.out.println("Navigating to Shipping view...");
-            mainController.loadView("/project/demo/Shipping.fxml");
+            mainController.loadView("/project/demo/FXMLCartPage/Shipping.fxml");
         } else {
             System.err.println("Main controller is not set!");
         }
@@ -133,7 +133,7 @@ public class DetailsController {
     public void goToCart(ActionEvent actionEvent) {
         if (mainController != null) {
             System.out.println("Navigating back to Cart view...");
-            mainController.loadView("/project/demo/CartTable.fxml");
+            mainController.loadView("/project/demo/FXMLCartPage/CartTable.fxml");
         } else {
             System.err.println("Main controller is not set!");
         }

@@ -9,10 +9,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="651.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.ServicePageController">
+<AnchorPane prefHeight="643.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.ServicePageController">
    <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="52.0" prefWidth="1218.0" style="-fx-padding: 10;">
       <children>
-         <Label prefHeight="46.0" prefWidth="238.0" text="Services Offered" textAlignment="CENTER">
+         <Label prefHeight="46.0" prefWidth="1171.0" text="Services Offered" textAlignment="CENTER">
             <font>
                <Font name="System Bold" size="30.0" />
             </font>
@@ -37,7 +37,7 @@
          </ScrollPane>
       
           <!-- Service Info Placeholder -->
-          <VBox fx:id="serviceInfoVBox" prefHeight="546.0" prefWidth="355.0" spacing="10.0" style="-fx-background-color: #E4EAEA; -fx-background-radius: 15;">
+          <VBox fx:id="serviceInfoVBox" prefHeight="546.0" prefWidth="355.0" spacing="10.0" style="-fx-background-color: #E1E3DC; -fx-background-radius: 15;">
             <HBox.margin>
                <Insets left="20.0" right="20.0" />
             </HBox.margin>

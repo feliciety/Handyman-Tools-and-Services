@@ -3,7 +3,6 @@ package project.demo.controllers;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -16,8 +15,6 @@ import javafx.scene.layout.HBox;
 import project.demo.models.CartItem;
 import project.demo.models.CartManager;
 import project.demo.models.Product;
-
-import java.io.IOException;
 
 public class CartTableController {
 
@@ -174,7 +171,7 @@ public class CartTableController {
     public void goToDetails(ActionEvent actionEvent) {
         if (mainController != null) {
             System.out.println("Navigating to Details view...");
-            mainController.loadView("/project/demo/Details.fxml");
+            mainController.loadView("/project/demo/FXMLCartPage/Details.fxml");
         } else {
             System.err.println("Main controller is not set!");
         }
@@ -183,7 +180,7 @@ public class CartTableController {
 
     public void goToShop(ActionEvent actionEvent) {
         if (mainController != null) {
-            mainController.loadView("/project/demo/CartTable.fxml");
+            mainController.loadView("/project/demo/FXMLCartPage/CartTable.fxml");
         }
     }
 }

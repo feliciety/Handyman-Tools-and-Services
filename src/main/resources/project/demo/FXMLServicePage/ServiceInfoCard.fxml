@@ -13,7 +13,7 @@
       <children>
           <ImageView fx:id="serviceImage" fitHeight="250.0" fitWidth="267.0" layoutX="53.0" layoutY="23.0" preserveRatio="true">
             <image>
-               <Image url="@imageservices/CarpentryServices.png" />
+               <Image url="@../imageservices/CarpentryServices.png" />
             </image>
          </ImageView>
           <Label fx:id="serviceDescription" contentDisplay="TOP" layoutX="39.0" layoutY="322.0" prefHeight="135.0" prefWidth="278.0" wrapText="true" />

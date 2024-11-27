@@ -1,71 +1,31 @@
 package project.demo.models;
 
-import javafx.beans.property.*;
-import javafx.scene.image.ImageView;
-
 public class Employee {
+    private final String name;
+    private final String specialization;
+    private final String status;
+    private final String image;
 
-    private final ObjectProperty<ImageView> image;
-    private final StringProperty name;
-    private final StringProperty service;
-    private final StringProperty status;
-
-    // Constructor
-    public Employee(ImageView image, String name, String service, String status) {
-        this.image = new SimpleObjectProperty<>(image);
-        this.name = new SimpleStringProperty(name);
-        this.service = new SimpleStringProperty(service);
-        this.status = new SimpleStringProperty(status);
-    }
-
-    // Getters for properties
-    public ObjectProperty<ImageView> imageProperty() {
-        return image;
-    }
-
-    public StringProperty nameProperty() {
-        return name;
-    }
-
-    public StringProperty serviceProperty() {
-        return service;
-    }
-
-    public StringProperty statusProperty() {
-        return status;
-    }
-
-    // Getters for values
-    public ImageView getImage() {
-        return image.get();
+    public Employee(String name, String specialization, String status, String image) {
+        this.name = name;
+        this.specialization = specialization;
+        this.status = status;
+        this.image = image;
     }
 
     public String getName() {
-        return name.get();
+        return name;
     }
 
-    public String getService() {
-        return service.get();
+    public String getSpecialization() {
+        return specialization;
     }
 
     public String getStatus() {
-        return status.get();
+        return status;
     }
 
-    // Setters
-    public void setImage(ImageView image) {
-        this.image.set(image);
-    }
-
-    public void setName(String name) {
-        this.name.set(name);
-    }
-
-    public void setService(String service) {
-        this.service.set(service);
-    }
-
-    public void setStatus(String status) {
-        this.status.set(status);
+    public String getImage() {
+        return image;
     }
 }

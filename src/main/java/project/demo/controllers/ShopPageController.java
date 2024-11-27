@@ -178,7 +178,7 @@ public class ShopPageController {
                 // Add product card to the grid
                 productGrid.add(productCard, column, row);
                 column++;
-                if (column == 4) { // 4 columns per row
+                if (column == 3) { // 4 columns per row
                     column = 0;
                     row++;
                 }
