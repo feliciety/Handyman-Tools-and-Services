@@ -132,7 +132,7 @@ public class CartPageController {
             }
 
             appliedCoupon = promoCode;
-            appliedCouponLabel.setText("Applied Coupon: " + promoCode);
+            appliedCouponLabel.setText(promoCode);
             removeCouponButton.setVisible(true);
 
             updateTotal();

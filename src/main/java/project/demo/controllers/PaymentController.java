@@ -68,9 +68,7 @@ public class    PaymentController {
      */
     @FXML
     public void initialize() {
-        // Example: Populate total items and amount dynamically
-        totalItemsLabel.setText("3");
-        totalAmountLabel.setText("$120.00");
+
     }
 
     /**
