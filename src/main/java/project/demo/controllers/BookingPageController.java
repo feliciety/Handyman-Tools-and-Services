@@ -2,16 +2,20 @@ package project.demo.controllers;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableCell;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.control.Alert.AlertType;
 import project.demo.models.Employee;
+
+import java.io.IOException;
 
 public class BookingPageController {
 
@@ -51,7 +55,8 @@ public class BookingPageController {
     private Button bookServiceButton;
 
     @FXML
-    private HBox employeeCardContainer;
+    private AnchorPane employeeCardContainer;
+
 
     @FXML
     public void initialize() {
@@ -141,33 +146,26 @@ public class BookingPageController {
     }
 
     private void showEmployeeCard(Employee employee) {
-        // Clear any existing card
-        employeeCardContainer.getChildren().clear();
+        try {
+            // Load the EmployeeCard FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/EmployeeCard.fxml"));
+            VBox employeeCard = loader.load();
 
-        // Create a VBox to display employee details
-        VBox employeeCard = new VBox();
-        employeeCard.setSpacing(10);
+            // Get the controller for the FXML and pass the employee data
+            EmployeeCardController controller = loader.getController();
+            controller.setEmployee(employee);
 
-        // Employee photo
-        ImageView photo = new ImageView(new Image(getClass().getResourceAsStream(employee.getImage())));
-        photo.setFitWidth(100);
-        photo.setFitHeight(100);
-
-        // Employee name
-        Text name = new Text("Name: " + employee.getName());
-
-        // Employee service
-        Text service = new Text("Service: " + employee.getSpecialization());
-
-        // Employee status
-        Text status = new Text("Status: " + employee.getStatus());
-
-        // Add components to the VBox
-        employeeCard.getChildren().addAll(photo, name, service, status);
-
-        // Add the card to the HBox
-        employeeCardContainer.getChildren().add(employeeCard);
+            // Clear the container and add the employee card
+            employeeCardContainer.getChildren().clear();
+            employeeCardContainer.getChildren().add(employeeCard);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+
+
+
 
     private void handleBookService() {
         // Validate required fields
@@ -205,4 +203,5 @@ public class BookingPageController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 }

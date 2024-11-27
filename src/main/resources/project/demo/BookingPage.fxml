@@ -28,10 +28,8 @@
         <VBox layoutX="718.0" layoutY="53.0" prefHeight="577.0" prefWidth="336.0" spacing="20.0">
             <children>
                 <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Selected Service:" />
-                <HBox fx:id="employeeCardContainer" spacing="10.0">
-               <children>
-                  <AnchorPane fx:id="employeedetcard" prefHeight="287.0" prefWidth="336.0" style="-fx-background-color: #E1E3DC; -fx-background-radius: 15;" />
-               </children></HBox>
+                <!-- Placeholder for dynamically loaded EmployeeCard -->
+                <AnchorPane fx:id="employeeCardContainer" prefHeight="200.0" prefWidth="300.0" />
                 <TextField fx:id="nameField" prefWidth="300.0" promptText="Name:" />
                 <TextField fx:id="addressField" prefWidth="300.0" promptText="Address:" />
                 <DatePicker fx:id="datePicker" prefWidth="300.0" promptText="Date:" />
