@@ -87,7 +87,7 @@ public class SignUpController {
     public void signInSwap(MouseEvent mouseEvent) {
         Stage stage = (Stage) signUpButton.getScene().getWindow();
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/project/demo/LogInPage.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/project/demo/FXMLLoginSignup/LogInPage.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             stage.setScene(scene);
         } catch (IOException e) {

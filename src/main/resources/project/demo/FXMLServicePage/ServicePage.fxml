@@ -12,7 +12,7 @@
 <AnchorPane prefHeight="643.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.ServicePageController">
    <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="52.0" prefWidth="1218.0" style="-fx-padding: 10;">
       <children>
-         <Label prefHeight="46.0" prefWidth="238.0" text="Services Offered" textAlignment="CENTER">
+         <Label prefHeight="46.0" prefWidth="1171.0" text="Services Offered" textAlignment="CENTER">
             <font>
                <Font name="System Bold" size="30.0" />
             </font>

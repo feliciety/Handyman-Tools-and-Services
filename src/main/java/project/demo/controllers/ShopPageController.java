@@ -156,12 +156,6 @@ public class ShopPageController {
         products.add(new Product("Sia Sandpaper", "$2.50", "/project/demo/imageproducts/SiaSandPaper.png", "Cleanup Supplies"));
     }
 
-    public void resetState() {
-        searchField.clear();
-        categoriesList.getSelectionModel().clearSelection();
-        priceSlider.setValue(priceSlider.getMax());
-    }
-
     private void displayProducts(List<Product> productsToDisplay) {
         productGrid.getChildren().clear(); // Clear the grid
 
@@ -184,7 +178,7 @@ public class ShopPageController {
                 // Add product card to the grid
                 productGrid.add(productCard, column, row);
                 column++;
-                if (column == 4) { // 4 columns per row
+                if (column == 3) { // 4 columns per row
                     column = 0;
                     row++;
                 }

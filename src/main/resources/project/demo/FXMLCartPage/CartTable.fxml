@@ -8,17 +8,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="549.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.CartTableController">
+<AnchorPane prefHeight="595.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.CartTableController">
    <children>
-      <VBox layoutX="94.0" layoutY="16.0" prefHeight="524.0" prefWidth="570.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="15.0">
+      <VBox layoutX="59.0" layoutY="17.0" prefHeight="572.0" prefWidth="646.0" AnchorPane.leftAnchor="59.0" AnchorPane.topAnchor="17.0">
          <children>
              <TableView fx:id="cartTable" prefHeight="471.0" prefWidth="558.0">
                  <columns>
-                     <TableColumn fx:id="productImageCol" prefWidth="111.73332977294922" text="Product" />
-                     <TableColumn fx:id="productNameCol" prefWidth="176.0" text="Name" />
-                     <TableColumn fx:id="productQuantityCol" prefWidth="87.20004272460938" text="Quantity" />
-                     <TableColumn fx:id="productPriceCol" prefWidth="110.66668701171875" text="Price" />
-                     <TableColumn fx:id="deleteButtonCol" prefWidth="60.0" text="Remove" />
+                     <TableColumn fx:id="productImageCol" prefWidth="132.00004118680954" text="Product" />
+                     <TableColumn fx:id="productNameCol" prefWidth="183.9999237060547" text="Name" />
+                     <TableColumn fx:id="productQuantityCol" prefWidth="117.60003662109375" text="Quantity" />
+                     <TableColumn fx:id="productPriceCol" prefWidth="106.39999389648438" text="Price" />
+                     <TableColumn fx:id="deleteButtonCol" prefWidth="104.79998779296875" text="Remove" />
                  </columns>
              </TableView>
             <HBox prefHeight="50.0" prefWidth="570.0" spacing="10.0">
@@ -26,12 +26,12 @@
                   <Button mnemonicParsing="false" onAction="#goToShop" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: lightgray; -fx-text-fill: black;" text="Back to Shop" />
                   <Button mnemonicParsing="false" onAction="#goToDetails" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #FFC527; -fx-text-fill: #222222;" text="Checkout">
                      <HBox.margin>
-                        <Insets left="260.0" />
+                        <Insets left="335.0" />
                      </HBox.margin>
                   </Button>
                </children>
                <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
+                  <Insets bottom="10.0" top="30.0" />
                </VBox.margin>
             </HBox>
          </children>

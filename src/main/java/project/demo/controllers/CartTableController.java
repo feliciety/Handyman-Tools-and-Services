@@ -3,7 +3,6 @@ package project.demo.controllers;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -12,13 +11,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import project.demo.models.CartItem;
 import project.demo.models.CartManager;
 import project.demo.models.Product;
-
-import java.io.IOException;
 
 public class CartTableController {
 
@@ -175,7 +171,7 @@ public class CartTableController {
     public void goToDetails(ActionEvent actionEvent) {
         if (mainController != null) {
             System.out.println("Navigating to Details view...");
-            mainController.loadView("/project/demo/Details.fxml");
+            mainController.loadView("/project/demo/FXMLCartPage/Details.fxml");
         } else {
             System.err.println("Main controller is not set!");
         }
@@ -183,36 +179,8 @@ public class CartTableController {
 
 
     public void goToShop(ActionEvent actionEvent) {
-        // Get the root of the current view
-        Node source = (Node) actionEvent.getSource();
-        AnchorPane root = (AnchorPane) source.getScene().getRoot();
-
-        // Find the contentContainer in the root AnchorPane
-        AnchorPane contentContainer = (AnchorPane) root.lookup("#contentContainer");
-        if (contentContainer == null) {
-            System.err.println("[ERROR] contentContainer not found in the root.");
-            return;
-        }
-
-        // Load ShopPage.fxml into the contentContainer
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/ShopPage.fxml"));
-            AnchorPane shopPage = loader.load();
-
-            contentContainer.getChildren().clear();
-            contentContainer.getChildren().add(shopPage);
-
-            // Ensure the new view fills the contentContainer
-            AnchorPane.setTopAnchor(shopPage, 0.0);
-            AnchorPane.setBottomAnchor(shopPage, 0.0);
-            AnchorPane.setLeftAnchor(shopPage, 0.0);
-            AnchorPane.setRightAnchor(shopPage, 0.0);
-
-            System.out.println("[INFO] Successfully navigated to Shop Page.");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("[ERROR] Failed to load ShopPage.fxml.");
+        if (mainController != null) {
+            mainController.loadView("/project/demo/FXMLCartPage/CartTable.fxml");
         }
     }
-
 }

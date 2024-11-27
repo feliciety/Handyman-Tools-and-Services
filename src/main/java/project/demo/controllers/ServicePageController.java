@@ -102,7 +102,7 @@ public class ServicePageController {
 
         for (Service service : servicesToDisplay) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/ServiceCard.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLServicePage/ServiceCard.fxml"));
                 VBox serviceCard = loader.load();
                 ServiceCardController controller = loader.getController();
                 controller.setService(service, selectedService -> {
@@ -125,7 +125,7 @@ public class ServicePageController {
 
     private void showServiceDetails(Service service) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/ServiceInfoCard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLServicePage/ServiceInfoCard.fxml"));
             VBox serviceInfoCard = loader.load();
 
             // Set service info in the card

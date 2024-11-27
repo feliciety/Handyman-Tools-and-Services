@@ -140,7 +140,7 @@ public class    PaymentController {
     public void backToShipping(ActionEvent actionEvent) {
         if (mainController != null) {
             System.out.println("Navigating back to Shipping view...");
-            mainController.loadView("/project/demo/Shipping.fxml");
+            mainController.loadView("/project/demo/FXMLCartPage/Shipping.fxml");
         } else {
             System.err.println("Main controller is not set!");
         }
