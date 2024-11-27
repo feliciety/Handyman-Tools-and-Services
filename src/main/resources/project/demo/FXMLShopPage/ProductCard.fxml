@@ -23,7 +23,7 @@
       <font>
          <Font size="14.0" />
       </font></Label>
-    <Button fx:id="addToCartButton" prefHeight="6.0" prefWidth="146.0" styleClass="button_addtocart" stylesheets="@application.css" text="Add to Cart">
+    <Button fx:id="addToCartButton" prefHeight="6.0" prefWidth="146.0" styleClass="button_addtocart" stylesheets="@../application.css" text="Add to Cart">
       <font>
          <Font name="Inter Light BETA" size="14.0" />
       </font>

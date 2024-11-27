@@ -164,7 +164,7 @@ public class ShopPageController {
 
         for (Product product : productsToDisplay) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/productCard.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLShopPage/ProductCard.fxml"));
                 Pane productCard = loader.load();
 
                 // Get the controller and set the product

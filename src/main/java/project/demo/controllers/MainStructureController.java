@@ -17,7 +17,7 @@ public class MainStructureController {
     @FXML
     public void initialize() {
         // Load the initial page (HomePage.fxml) when the application starts
-        loadPage("/project/demo/FXMLCartPage/CartPage.fxml");
+        loadPage("/project/demo/FXMLHomePage/HomePage.fxml");
     }
 
     /**
@@ -55,13 +55,13 @@ public class MainStructureController {
     // Handle Home button click
     public void handleHomeClick(ActionEvent actionEvent) {
         System.out.println("Cart Home Page button clicked");
-        loadPage("/project/demo/HomePage.fxml");
+        loadPage("/project/demo/FXMLHomePage/HomePage.fxml");
     }
 
     // Handle Shop button click
     public void handleShopClick(ActionEvent actionEvent) {
         System.out.println("Shop Page Page button clicked");
-        loadPage("/project/demo/ShopPage.fxml");
+        loadPage("/project/demo/FXMLShopPage/ShopPage.fxml");
     }
 
     // Handle Cart button click
@@ -78,6 +78,6 @@ public class MainStructureController {
     // Add this method to handle Booking button clicks
     public void handleBookingClick(ActionEvent actionEvent) {
         System.out.println("Booking Page button clicked");
-        loadPage("/project/demo/BookingPage.fxml");
+        loadPage("/project/demo/FXMLBookingPage/BookingPage.fxml");
     }
 }

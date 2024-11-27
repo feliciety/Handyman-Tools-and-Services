@@ -87,17 +87,17 @@
                   <children>
                      <ImageView fitHeight="166.0" fitWidth="162.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                           <Image url="@imagelogo/WC1.png" />
+                           <Image url="@../imagelogo/WC1.png" />
                         </image>
                      </ImageView>
                      <ImageView fitHeight="167.0" fitWidth="162.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                           <Image url="@imagelogo/WC2.png" />
+                           <Image url="@../imagelogo/WC2.png" />
                         </image>
                      </ImageView>
                      <ImageView fitHeight="172.0" fitWidth="163.0" pickOnBounds="true" preserveRatio="true">
                         <image>
-                           <Image url="@imagelogo/WC3.png" />
+                           <Image url="@../imagelogo/WC3.png" />
                         </image>
                      </ImageView>
                   </children>

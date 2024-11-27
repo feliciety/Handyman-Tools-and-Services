@@ -9,9 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableCell;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.scene.control.Alert.AlertType;
 import project.demo.models.Employee;
 
@@ -148,7 +146,7 @@ public class BookingPageController {
     private void showEmployeeCard(Employee employee) {
         try {
             // Load the EmployeeCard FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/EmployeeCard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLBookingPage/EmployeeCard.fxml"));
             VBox employeeCard = loader.load();
 
             // Get the controller for the FXML and pass the employee data
