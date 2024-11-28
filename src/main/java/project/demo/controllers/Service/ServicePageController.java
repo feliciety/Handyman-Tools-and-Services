@@ -1,19 +1,26 @@
 package project.demo.controllers.Service;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import project.demo.DataBase.DatabaseConfig;
 import project.demo.models.Service;
 
 import java.io.IOException;
-import java.security.cert.PolicyNode;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ServicePageController {
 
@@ -29,135 +36,223 @@ public class ServicePageController {
     @FXML
     private TextField searchField;
 
-    private final Map<String, List<String>> subcategories = new HashMap<>();
-    private final Map<String, List<Service>> servicesBySubcategory = new HashMap<>();
+    @FXML
+    private Slider servicePriceSlider;
 
+    @FXML
+    private Label priceLabel;
 
     @FXML
     public void initialize() {
-        try {
-            // Setup categories, subcategories, and services
-            setupCategories();
-            setupSubcategories();
+        loadCategories();
 
-            // Populate categories in the ListView
-            categoriesList.setItems(javafx.collections.FXCollections.observableArrayList(subcategories.keySet()));
-            categoriesList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                if (newValue != null) {
-                    populateSubcategories(newValue);
+        // Add a listener for the search field
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterServices(newValue);
+        });
+
+        // Add a listener for the price slider
+        servicePriceSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            priceLabel.setText("Max Price: $" + newValue.intValue());
+            filterServices(searchField.getText());
+        });
+    }
+
+    private void loadCategories() {
+        List<String> categories = fetchCategoriesFromDatabase();
+        categories.add(0, "All Services"); // Add "All Services" option at the top
+        categoriesList.setItems(FXCollections.observableArrayList(categories));
+
+        // Add listener for category selection
+        categoriesList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                if (newValue.equals("All Services")) {
+                    populateAllServices();
+                } else {
+                    loadSubcategories(newValue);
                 }
-            });
+            }
+        });
+    }
 
-            // Setup search functionality
-            searchField.textProperty().addListener((observable, oldValue, newValue) -> filterServices(newValue));
-        } catch (Exception e) {
-            System.err.println("[ERROR] Initialization failed: " + e.getMessage());
-            e.printStackTrace();
+    private void loadSubcategories(String category) {
+        subcategoriesBox.getChildren().clear();
+
+        List<String> subcategories = fetchSubcategoriesFromDatabase(category);
+
+        for (String subcategory : subcategories) {
+            Button subcategoryButton = new Button(subcategory);
+            subcategoryButton.setOnAction(event -> populateServices(subcategory));
+            subcategoryButton.setStyle("-fx-background-color: #3E4546; -fx-text-fill: white; -fx-font-weight: bold;");
+            subcategoriesBox.getChildren().add(subcategoryButton);
         }
     }
 
-    private void setupCategories() {
-        subcategories.put("Carpentry Services", Arrays.asList(
-                "Made-to-Order Furniture",
-                "Furniture Repair",
-                "Installation Services",
-                "Custom Woodwork",
-                "Outdoor Carpentry"
-        ));
-    }
+    private void populateAllServices() {
+        serviceGrid.getChildren().clear();
+        List<Service> services = fetchAllServicesFromDatabase();
 
-    private void setupSubcategories() {
-        servicesBySubcategory.put("Made-to-Order Furniture", generateServices(List.of(
-                new Service("Custom Dining Table Set", "Tailor-made dining tables and chairs", "$360 – $900", "/project/demo/imagesservices/CustomDiningTableSet.png"),
-                new Service("Custom Office Desk", "Personalized office desks with ergonomic design", "$180 – $540", "/project/demo/imagesservices/CustomOfficeDesk.png"),
-                new Service("Custom Bed Frames", "Wooden bed frames in various sizes and designs", "$270 – $720", "/project/demo/imagesservices/CustomBedFrames.png"),
-                new Service("Custom Bookshelves", "Tailored bookshelves to fit any space", "$144 – $450", "/project/demo/imagesservices/CustomBookshelves.png"),
-                new Service("Custom Kitchen Cabinets", "Space-efficient and modern cabinet designs", "$540 – $1,800", "/project/demo/imagesservices/CustomKitchenCabinets.png")
-        )));
-
-        servicesBySubcategory.put("Furniture Repair", generateServices(List.of(
-                new Service("Table & Chair Repair", "Fix scratches, loose joints, or broken parts", "$27 – $90", "/project/demo/imagesservices/TableAndChairRepair.png"),
-                new Service("Wood Refinishing", "Restore shine and color to wooden furniture", "$54 – $180", "/project/demo/imagesservices/WoodRefinishing.png"),
-                new Service("Cabinet Door Repairs", "Repair hinges, knobs, or structural issues", "$18 – $72", "/project/demo/imagesservices/CabinetDoorRepairs.png"),
-                new Service("Upholstered Furniture Repair", "Repair frames or replace fabric for chairs", "$90 – $270", "/project/demo/imagesservices/UpholsteredFurnitureRepair.png"),
-                new Service("Antique Furniture Restoration", "Preserve or restore vintage pieces", "$180 – $540", "/project/demo/imagesservices/AntiqueFurnitureRestoration.png")
-        )));
-
-        // Add more subcategories here...
-    }
-
-    private List<Service> generateServices(List<Service> services) {
-        return new ArrayList<>(services);
-    }
-
-    private void populateSubcategories(String category) {
-        subcategoriesBox.getChildren().clear(); // Clear existing buttons
-
-        List<String> subcategoriesForCategory = subcategories.get(category);
-        if (subcategoriesForCategory != null) {
-            for (String subcategory : subcategoriesForCategory) {
-                Button subcategoryButton = new Button(subcategory);
-                subcategoryButton.setPrefWidth(200); // Set button width for uniformity
-                subcategoryButton.setStyle("-fx-background-color: #3E4546; -fx-text-fill: white; -fx-font-weight: bold;");
-                subcategoryButton.setOnAction(event -> populateServices(subcategory)); // Populate services when clicked
-                subcategoriesBox.getChildren().add(subcategoryButton);
-            }
+        if (services != null) {
+            populateServiceGrid(services);
         }
     }
 
     private void populateServices(String subcategory) {
-        serviceGrid.getChildren().clear(); // Clear the grid
+        serviceGrid.getChildren().clear();
+        List<Service> services = fetchServicesFromDatabase(subcategory);
 
-        List<Service> services = servicesBySubcategory.get(subcategory);
         if (services != null) {
-            for (int i = 0; i < services.size(); i++) {
-                Service service = services.get(i);
+            populateServiceGrid(services);
+        }
+    }
 
-                VBox serviceCard = createServiceCard(service); // Create a service card for each service
-                serviceGrid.add(serviceCard, i % 3, i / 3); // Arrange in a grid (3 columns)
+    private void filterServices(String query) {
+        serviceGrid.getChildren().clear();
+
+        int maxPrice = (int) servicePriceSlider.getValue();
+        List<Service> filteredServices = filterServicesByQueryAndPrice(query, maxPrice);
+
+        if (filteredServices != null) {
+            populateServiceGrid(filteredServices);
+        }
+    }
+
+    private void populateServiceGrid(List<Service> services) {
+        for (int i = 0; i < services.size(); i++) {
+            Service service = services.get(i);
+            Node serviceCard = createServiceCard(service);
+            if (serviceCard != null) {
+                serviceGrid.add(serviceCard, i % 3, i / 3); // Arrange in 3 columns
             }
         }
     }
 
+    private List<String> fetchCategoriesFromDatabase() {
+        List<String> categories = new ArrayList<>();
+        String query = "SELECT DISTINCT category_name FROM ServiceCategory";
 
-    private VBox createServiceCard(Service service) {
-        // Create a simple service card layout (you can replace this with an FXML-based card if required)
-        VBox card = new VBox();
-        card.setSpacing(10);
-        card.setStyle("-fx-padding: 10; -fx-border-color: #ccc; -fx-background-color: #f9f9f9; -fx-border-radius: 5;");
+        try (Connection connection = new DatabaseConfig().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
 
-        // Add service details to the card (e.g., name, description)
-        Button serviceButton = new Button(service.getName());
-        serviceButton.setStyle("-fx-font-weight: bold; -fx-text-fill: #333;");
-        card.getChildren().add(serviceButton);
-
-        return card;
+            while (resultSet.next()) {
+                categories.add(resultSet.getString("category_name"));
+            }
+        } catch (Exception e) {
+            System.err.println("[ERROR] Failed to fetch categories: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return categories;
     }
 
+    private List<String> fetchSubcategoriesFromDatabase(String category) {
+        List<String> subcategories = new ArrayList<>();
+        String query = "SELECT subcategory_name FROM Subcategory WHERE category_id = (SELECT category_id FROM ServiceCategory WHERE category_name = ?)";
 
-    private void filterServices(String query) {
-        String selectedCategory = categoriesList.getSelectionModel().getSelectedItem();
+        try (Connection connection = new DatabaseConfig().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-        if (selectedCategory != null) {
-            List<String> subcategoriesForCategory = subcategories.get(selectedCategory);
+            preparedStatement.setString(1, category);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (subcategoriesForCategory != null) {
-                serviceGrid.getChildren().clear();
-                for (String subcategory : subcategoriesForCategory) {
-                    List<Service> services = servicesBySubcategory.get(subcategory);
-
-                    if (services != null) {
-                        for (Service service : services) {
-                            if (service.getName().toLowerCase().contains(query.toLowerCase())) {
-                                Node serviceCard = createServiceCard(service);
-                                serviceGrid.add(serviceCard, serviceGrid.getChildren().size() % 3, serviceGrid.getChildren().size() / 3);
-                            }
-                        }
-                    }
-                }
+            while (resultSet.next()) {
+                subcategories.add(resultSet.getString("subcategory_name"));
             }
-        } else {
-            System.err.println("[ERROR] No category selected for filtering.");
+        } catch (Exception e) {
+            System.err.println("[ERROR] Failed to fetch subcategories: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return subcategories;
+    }
+
+    private List<Service> fetchAllServicesFromDatabase() {
+        List<Service> services = new ArrayList<>();
+        String query = "SELECT service_name, service_description, service_price, service_image_path FROM Service";
+
+        try (Connection connection = new DatabaseConfig().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                services.add(extractServiceFromResultSet(resultSet));
+            }
+        } catch (Exception e) {
+            System.err.println("[ERROR] Failed to fetch all services: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return services;
+    }
+
+    private List<Service> fetchServicesFromDatabase(String subcategory) {
+        List<Service> services = new ArrayList<>();
+        String query = "SELECT service_name, service_description, service_price, service_image_path " +
+                "FROM Service WHERE subcategory_id = (SELECT subcategory_id FROM Subcategory WHERE subcategory_name = ?)";
+
+        try (Connection connection = new DatabaseConfig().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, subcategory);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                services.add(extractServiceFromResultSet(resultSet));
+            }
+        } catch (Exception e) {
+            System.err.println("[ERROR] Failed to fetch services: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return services;
+    }
+
+    private List<Service> filterServicesByQueryAndPrice(String query, int maxPrice) {
+        List<Service> services = new ArrayList<>();
+        String sqlQuery = "SELECT service_name, service_description, service_price, service_image_path " +
+                "FROM Service WHERE (service_name LIKE ? OR service_description LIKE ?) " +
+                "AND CAST(service_price AS UNSIGNED) <= ?";
+
+        try (Connection connection = new DatabaseConfig().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+
+            String searchTerm = "%" + (query != null ? query : "") + "%";
+            preparedStatement.setString(1, searchTerm);
+            preparedStatement.setString(2, searchTerm);
+            preparedStatement.setInt(3, maxPrice);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                services.add(extractServiceFromResultSet(resultSet));
+            }
+        } catch (Exception e) {
+            System.err.println("[ERROR] Failed to filter services: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return services;
+    }
+
+    private Service extractServiceFromResultSet(ResultSet resultSet) throws Exception {
+        String name = resultSet.getString("service_name");
+        String description = resultSet.getString("service_description");
+        String price = resultSet.getString("service_price");
+        String imagePath = resultSet.getString("service_image_path");
+
+        return new Service(name, description, price, imagePath);
+    }
+
+    private Node createServiceCard(Service service) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLServicePage/ServiceCard.fxml"));
+            VBox card = loader.load();
+
+            ServiceCardController controller = loader.getController();
+            if (controller != null) {
+                controller.setServiceDetails(service);
+            }
+
+            return card;
+        } catch (IOException e) {
+            System.err.println("[ERROR] Failed to load ServiceCard.fxml: " + e.getMessage());
+            e.printStackTrace();
+            return null;
         }
     }
 }

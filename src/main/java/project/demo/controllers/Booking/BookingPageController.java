@@ -1,4 +1,4 @@
-package project.demo.controllers;
+package project.demo.controllers.Booking;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;

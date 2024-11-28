@@ -11,10 +11,6 @@ module project.demo {
     requires java.sql;
     requires java.desktop;
 
-    opens project.demo to javafx.fxml;
-    exports project.demo;
-    exports project.demo.controllers;
-    opens project.demo.controllers to javafx.fxml;
     exports project.demo.models;
     opens project.demo.models to javafx.fxml;
     exports project.demo.controllers.Home;
@@ -27,4 +23,8 @@ module project.demo {
     opens project.demo.controllers.LoginSignup to javafx.fxml;
     exports project.demo.controllers.Service;
     opens project.demo.controllers.Service to javafx.fxml;
+    exports project.demo.controllers.Booking;
+    opens project.demo.controllers.Booking to javafx.fxml;
+    exports project.demo.controllers.Main;
+    opens project.demo.controllers.Main to javafx.fxml;
 }

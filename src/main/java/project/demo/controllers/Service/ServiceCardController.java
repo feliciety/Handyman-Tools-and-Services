@@ -8,18 +8,14 @@ import javafx.scene.image.ImageView;
 import project.demo.models.Service;
 
 public class ServiceCardController {
-
     @FXML
-    private ImageView serviceImage;
-
+    private Label serviceName; // Corresponds to service_name
     @FXML
-    private Label serviceName;
-
+    private Label serviceDescription; // Corresponds to service_description
     @FXML
-    private Label serviceDescription;
-
+    private Label servicePrice; // Corresponds to service_price
     @FXML
-    private Label servicePrice;
+    private ImageView serviceImage; // Corresponds to service_image_path
 
     @FXML
     private Button bookNowButton;
@@ -28,7 +24,20 @@ public class ServiceCardController {
         serviceName.setText(homeService.getName());
         serviceDescription.setText(homeService.getDescription());
         servicePrice.setText(homeService.getPrice());
-        serviceImage.setImage(new Image(homeService.getImagePath())); // Set the homeService image
+
+        try {
+            String imagePath = homeService.getImagePath();
+            System.out.println("[DEBUG] Loading image from path: " + imagePath);
+
+            if (getClass().getResource(imagePath) != null) {
+                serviceImage.setImage(new Image(getClass().getResource(imagePath).toExternalForm()));
+            } else {
+                System.err.println("[ERROR] Image not found at path: " + imagePath);
+            }
+        } catch (IllegalArgumentException e) {
+            System.err.println("[ERROR] Invalid image path: " + e.getMessage());
+        }
+
         bookNowButton.setOnAction(event -> System.out.println("Booking homeService: " + homeService.getName()));
     }
 }

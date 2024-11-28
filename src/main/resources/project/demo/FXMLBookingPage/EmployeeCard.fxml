@@ -4,7 +4,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="200.0" prefWidth="302.0" spacing="10" style="-fx-background-radius: 15; -fx-background-color: #E1E3DC;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.EmployeeCardController">
+<VBox alignment="CENTER" prefHeight="200.0" prefWidth="302.0" spacing="10" style="-fx-background-radius: 15; -fx-background-color: #E1E3DC;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Booking.EmployeeCardController">
     <children>
         <ImageView fx:id="employeeImage" fitHeight="100.0" fitWidth="100.0" />
         <Label fx:id="employeeName" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Name: " />
