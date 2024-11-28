@@ -7,15 +7,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="368.0" prefWidth="249.0" style="-fx-border-width: 1; -fx-padding: 15; -fx-background-color: #E4EAEA; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Service.ServiceCardController">
-    <ImageView fx:id="serviceImage" fitHeight="195.0" fitWidth="214.0" preserveRatio="true" styleClass="rounded-image">
+<VBox alignment="CENTER" prefHeight="346.0" prefWidth="231.0" style="-fx-border-width: 1; -fx-padding: 15; -fx-background-color: #E4EAEA; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Service.ServiceCardController">
+    <ImageView fx:id="serviceImage" fitHeight="175.0" fitWidth="176.0" preserveRatio="true" styleClass="rounded-image">
         <VBox.margin>
             <Insets />
         </VBox.margin>
     </ImageView>
-   <VBox alignment="CENTER" prefHeight="130.0" prefWidth="219.0">
+   <VBox alignment="CENTER" prefHeight="122.0" prefWidth="201.0">
       <children>
-         <Label fx:id="serviceName" alignment="CENTER" prefHeight="90.0" prefWidth="219.0" style="-fx-font-size: 16; -fx-text-fill: black; -fx-font-weight: bold;" text="Service" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+         <Label fx:id="serviceName" alignment="CENTER" prefHeight="82.0" prefWidth="219.0" style="-fx-font-size: 16; -fx-text-fill: black; -fx-font-weight: bold;" text="Service" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
             <font>
                <Font name="System Bold" size="12.0" />
             </font>

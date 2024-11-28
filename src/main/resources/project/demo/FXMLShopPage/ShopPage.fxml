@@ -22,23 +22,19 @@
         <VBox alignment="CENTER" prefHeight="52.0" prefWidth="1218.0" style="-fx-padding: 10;">
          <HBox prefHeight="46.0" prefWidth="1062.0">
             <children>
-                  <Label prefHeight="46.0" prefWidth="617.0" text="Hardware Depot" textAlignment="CENTER">
+                  <Label prefHeight="46.0" prefWidth="670.0" text="    Hardware Depot" textAlignment="CENTER">
                   <font>
                      <Font name="System Bold" size="30.0" />
                   </font>
                </Label>
-                   <TextField fx:id="searchField" prefHeight="40.0" prefWidth="340.0" promptText="Search Product" style="-fx-border-radius: 15; -fx-background-radius: 15;">
-                  <HBox.margin>
-                     <Insets top="3.5" />
-                  </HBox.margin>
-               </TextField>
             </children>
          </HBox>
         </VBox>
 
-              <HBox alignment="TOP_LEFT" prefHeight="602.0" prefWidth="1218.0" spacing="5.0">
+              <HBox alignment="TOP_LEFT" prefHeight="526.0" prefWidth="1218.0" spacing="5.0">
             <!-- Sidebar -->
             <VBox alignment="CENTER_LEFT" prefHeight="586.0" prefWidth="237.0" spacing="10.0">
+                <TextField fx:id="searchField" prefHeight="37.0" prefWidth="217.0" promptText="Search Product" style="-fx-border-radius: 15; -fx-background-radius: 15;" />
             <Pane prefHeight="364.0" prefWidth="212.0" style="-fx-background-color: #E4EAEA; -fx-background-radius: 10;">
                <children>
                   <Label layoutX="10.0" layoutY="7.0" text="Categories">
@@ -64,13 +60,13 @@
                </children>
             </Pane>
             <HBox.margin>
-               <Insets left="20.0" />
+               <Insets left="30.0" />
             </HBox.margin>
             <padding>
                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
             </VBox>
-         <ScrollPane prefHeight="540.0" prefWidth="698.0" style="-fx-background-color: transaprent;">
+         <ScrollPane prefHeight="486.0" prefWidth="702.0" style="-fx-background-color: transaprent;">
             <content>
                    <GridPane fx:id="productGrid" hgap="10" vgap="10" />
             </content>
@@ -78,12 +74,12 @@
                <Insets left="10.0" />
             </HBox.margin>
          </ScrollPane>
-         <Pane prefHeight="565.0" prefWidth="226.0" style="-fx-background-radius: 15;">
+         <Pane prefHeight="511.0" prefWidth="194.0" style="-fx-background-radius: 15;">
             <HBox.margin>
                <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
             </HBox.margin>
             <children>
-               <VBox alignment="CENTER" layoutX="14.0" layoutY="10.0" prefHeight="528.0" prefWidth="150.0" spacing="10.0">
+               <VBox alignment="CENTER" layoutX="15.0" layoutY="-21.0" prefHeight="528.0" prefWidth="150.0" spacing="10.0">
                   <children>
                      <ImageView fitHeight="166.0" fitWidth="162.0" pickOnBounds="true" preserveRatio="true">
                         <image>
@@ -104,6 +100,9 @@
                </VBox>
             </children>
          </Pane>
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
         </HBox>
     </VBox>
 </AnchorPane>

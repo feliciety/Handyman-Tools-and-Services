@@ -46,6 +46,8 @@ public class ServicePageController {
     public void initialize() {
         loadCategories();
 
+        populateAllServices();
+
         // Add a listener for the search field
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             filterServices(newValue);
@@ -83,7 +85,14 @@ public class ServicePageController {
         for (String subcategory : subcategories) {
             Button subcategoryButton = new Button(subcategory);
             subcategoryButton.setOnAction(event -> populateServices(subcategory));
-            subcategoryButton.setStyle("-fx-background-color: #3E4546; -fx-text-fill: white; -fx-font-weight: bold;");
+            subcategoryButton.setStyle(
+                    "-fx-background-color: #3E4546; " +
+                            "-fx-text-fill: white; " +
+                            "-fx-font-size: 14px; " +  // Increase font size
+                            "-fx-padding: 10 20 10 20; " +  // Add padding (top-right-bottom-left)
+                            "-fx-pref-width: 200px; " +  // Set a preferred width
+                            "-fx-pref-height: 40px;"     // Set a preferred height
+            );
             subcategoriesBox.getChildren().add(subcategoryButton);
         }
     }

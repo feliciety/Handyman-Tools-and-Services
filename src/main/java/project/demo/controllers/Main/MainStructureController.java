@@ -17,7 +17,7 @@ public class MainStructureController {
     @FXML
     public void initialize() {
         // Load the initial page (HomePage.fxml) when the application starts
-        loadPage("/project/demo/FXMLHomePage/HomePage.fxml");
+        loadPage("/project/demo/FXMLServicePage/ServicePage.fxml");
     }
 
     /**
