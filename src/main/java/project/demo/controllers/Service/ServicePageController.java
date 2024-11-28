@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import project.demo.models.Service;
 
 import java.io.IOException;
+import java.security.cert.PolicyNode;
 import java.util.*;
 
 public class ServicePageController {
@@ -31,22 +32,28 @@ public class ServicePageController {
     private final Map<String, List<String>> subcategories = new HashMap<>();
     private final Map<String, List<Service>> servicesBySubcategory = new HashMap<>();
 
+
     @FXML
     public void initialize() {
-        setupCategories();
-        setupSubcategories();
-        setupServices();
+        try {
+            // Setup categories, subcategories, and services
+            setupCategories();
+            setupSubcategories();
 
-        // Populate categories in the ListView
-        categoriesList.setItems(javafx.collections.FXCollections.observableArrayList(subcategories.keySet()));
-        categoriesList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                populateSubcategories(newValue);
-            }
-        });
+            // Populate categories in the ListView
+            categoriesList.setItems(javafx.collections.FXCollections.observableArrayList(subcategories.keySet()));
+            categoriesList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue != null) {
+                    populateSubcategories(newValue);
+                }
+            });
 
-        // Setup search functionality
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> filterServices(newValue));
+            // Setup search functionality
+            searchField.textProperty().addListener((observable, oldValue, newValue) -> filterServices(newValue));
+        } catch (Exception e) {
+            System.err.println("[ERROR] Initialization failed: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void setupCategories() {
@@ -57,30 +64,26 @@ public class ServicePageController {
                 "Custom Woodwork",
                 "Outdoor Carpentry"
         ));
-        // Add other categories here if needed
     }
 
     private void setupSubcategories() {
         servicesBySubcategory.put("Made-to-Order Furniture", generateServices(List.of(
-                new Service("Custom Dining Table Set", "Tailor-made dining tables and chairs", "₱20,000 – ₱50,000", "CustomDiningTableSet.png"),
-                new Service("Custom Office Desk", "Personalized office desks with ergonomic design", "₱10,000 – ₱30,000", "CustomOfficeDesk.png"),
-                new Service("Custom Bed Frames", "Wooden bed frames in various sizes and designs", "₱15,000 – ₱40,000", "CustomBedFrames.png"),
-                new Service("Custom Bookshelves", "Tailored bookshelves to fit any space", "₱8,000 – ₱25,000", "CustomBookshelves.png"),
-                new Service("Custom Kitchen Cabinets", "Space-efficient and modern cabinet designs", "₱30,000 – ₱100,000", "CustomKitchenCabinets.png")
+                new Service("Custom Dining Table Set", "Tailor-made dining tables and chairs", "$360 – $900", "/project/demo/imagesservices/CustomDiningTableSet.png"),
+                new Service("Custom Office Desk", "Personalized office desks with ergonomic design", "$180 – $540", "/project/demo/imagesservices/CustomOfficeDesk.png"),
+                new Service("Custom Bed Frames", "Wooden bed frames in various sizes and designs", "$270 – $720", "/project/demo/imagesservices/CustomBedFrames.png"),
+                new Service("Custom Bookshelves", "Tailored bookshelves to fit any space", "$144 – $450", "/project/demo/imagesservices/CustomBookshelves.png"),
+                new Service("Custom Kitchen Cabinets", "Space-efficient and modern cabinet designs", "$540 – $1,800", "/project/demo/imagesservices/CustomKitchenCabinets.png")
         )));
 
         servicesBySubcategory.put("Furniture Repair", generateServices(List.of(
-                new Service("Table & Chair Repair", "Fix scratches, loose joints, or broken parts", "₱1,500 – ₱5,000", "TableAndChairRepair.png"),
-                new Service("Wood Refinishing", "Restore shine and color to wooden furniture", "₱3,000 – ₱10,000", "WoodRefinishing.png"),
-                new Service("Cabinet Door Repairs", "Repair hinges, knobs, or structural issues", "₱1,000 – ₱4,000", "CabinetDoorRepairs.png"),
-                new Service("Upholstered Furniture Repair", "Repair frames or replace fabric for chairs", "₱5,000 – ₱15,000", "UpholsteredFurnitureRepair.png"),
-                new Service("Antique Furniture Restoration", "Preserve or restore vintage pieces", "₱10,000 – ₱30,000", "AntiqueFurnitureRestoration.png")
+                new Service("Table & Chair Repair", "Fix scratches, loose joints, or broken parts", "$27 – $90", "/project/demo/imagesservices/TableAndChairRepair.png"),
+                new Service("Wood Refinishing", "Restore shine and color to wooden furniture", "$54 – $180", "/project/demo/imagesservices/WoodRefinishing.png"),
+                new Service("Cabinet Door Repairs", "Repair hinges, knobs, or structural issues", "$18 – $72", "/project/demo/imagesservices/CabinetDoorRepairs.png"),
+                new Service("Upholstered Furniture Repair", "Repair frames or replace fabric for chairs", "$90 – $270", "/project/demo/imagesservices/UpholsteredFurnitureRepair.png"),
+                new Service("Antique Furniture Restoration", "Preserve or restore vintage pieces", "$180 – $540", "/project/demo/imagesservices/AntiqueFurnitureRestoration.png")
         )));
-        // Add other subcategories similarly
-    }
 
-    private void setupServices() {
-        // Additional logic to handle services by subcategories
+        // Add more subcategories here...
     }
 
     private List<Service> generateServices(List<Service> services) {
@@ -88,67 +91,73 @@ public class ServicePageController {
     }
 
     private void populateSubcategories(String category) {
-        subcategoriesBox.getChildren().clear();
+        subcategoriesBox.getChildren().clear(); // Clear existing buttons
+
         List<String> subcategoriesForCategory = subcategories.get(category);
         if (subcategoriesForCategory != null) {
             for (String subcategory : subcategoriesForCategory) {
                 Button subcategoryButton = new Button(subcategory);
-                subcategoryButton.setOnAction(event -> populateServices(subcategory));
-                subcategoryButton.setStyle("-fx-background-color: #F0F0F0; -fx-border-color: #ccc; -fx-padding: 5;");
+                subcategoryButton.setPrefWidth(200); // Set button width for uniformity
+                subcategoryButton.setStyle("-fx-background-color: #3E4546; -fx-text-fill: white; -fx-font-weight: bold;");
+                subcategoryButton.setOnAction(event -> populateServices(subcategory)); // Populate services when clicked
                 subcategoriesBox.getChildren().add(subcategoryButton);
             }
         }
     }
 
     private void populateServices(String subcategory) {
-        serviceGrid.getChildren().clear();
+        serviceGrid.getChildren().clear(); // Clear the grid
+
         List<Service> services = servicesBySubcategory.get(subcategory);
         if (services != null) {
             for (int i = 0; i < services.size(); i++) {
                 Service service = services.get(i);
-                try {
-                    Node serviceCard = createServiceCard(service);
-                    serviceGrid.add(serviceCard, i % 3, i / 3); // Populate in grid (3 columns)
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+                VBox serviceCard = createServiceCard(service); // Create a service card for each service
+                serviceGrid.add(serviceCard, i % 3, i / 3); // Arrange in a grid (3 columns)
             }
         }
     }
 
-    private Node createServiceCard(Service service) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/fxml/ServiceCard.fxml"));
-        VBox card = loader.load();
 
-        // Set service details in the card
-        project.demo.controllers.ServiceCardController controller = loader.getController();
-        controller.setServiceDetails(service);
+    private VBox createServiceCard(Service service) {
+        // Create a simple service card layout (you can replace this with an FXML-based card if required)
+        VBox card = new VBox();
+        card.setSpacing(10);
+        card.setStyle("-fx-padding: 10; -fx-border-color: #ccc; -fx-background-color: #f9f9f9; -fx-border-radius: 5;");
+
+        // Add service details to the card (e.g., name, description)
+        Button serviceButton = new Button(service.getName());
+        serviceButton.setStyle("-fx-font-weight: bold; -fx-text-fill: #333;");
+        card.getChildren().add(serviceButton);
 
         return card;
     }
 
+
     private void filterServices(String query) {
         String selectedCategory = categoriesList.getSelectionModel().getSelectedItem();
+
         if (selectedCategory != null) {
             List<String> subcategoriesForCategory = subcategories.get(selectedCategory);
+
             if (subcategoriesForCategory != null) {
                 serviceGrid.getChildren().clear();
                 for (String subcategory : subcategoriesForCategory) {
                     List<Service> services = servicesBySubcategory.get(subcategory);
+
                     if (services != null) {
                         for (Service service : services) {
                             if (service.getName().toLowerCase().contains(query.toLowerCase())) {
-                                try {
-                                    Node serviceCard = createServiceCard(service);
-                                    serviceGrid.add(serviceCard, serviceGrid.getChildren().size() % 3, serviceGrid.getChildren().size() / 3);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                                Node serviceCard = createServiceCard(service);
+                                serviceGrid.add(serviceCard, serviceGrid.getChildren().size() % 3, serviceGrid.getChildren().size() / 3);
                             }
                         }
                     }
                 }
             }
+        } else {
+            System.err.println("[ERROR] No category selected for filtering.");
         }
     }
 }

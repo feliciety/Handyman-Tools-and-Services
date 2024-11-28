@@ -23,8 +23,8 @@
              </TableView>
             <HBox prefHeight="50.0" prefWidth="570.0" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#goToShop" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: lightgray; -fx-text-fill: black;" text="Back to Shop" />
-                  <Button mnemonicParsing="false" onAction="#goToDetails" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #FFC527; -fx-text-fill: #222222;" text="Checkout">
+                  <Button mnemonicParsing="false" onAction="#goToShop" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #F4F4F5; -fx-text-fill: black;" text="Back to Shop" />
+                  <Button mnemonicParsing="false" onAction="#goToDetails" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #ffdb00; -fx-text-fill: #222222;" text="Checkout">
                      <HBox.margin>
                         <Insets left="335.0" />
                      </HBox.margin>

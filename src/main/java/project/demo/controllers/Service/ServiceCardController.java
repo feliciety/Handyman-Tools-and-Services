@@ -1,4 +1,4 @@
-package project.demo.controllers;
+package project.demo.controllers.Service;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

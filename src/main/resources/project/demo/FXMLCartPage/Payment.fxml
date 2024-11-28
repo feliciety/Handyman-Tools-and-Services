@@ -67,8 +67,8 @@
 
         <!-- Buttons -->
         <HBox alignment="CENTER_LEFT" prefHeight="74.0" prefWidth="570.0" spacing="20.0">
-            <Button onAction="#backToShipping" prefHeight="40.0" prefWidth="151.0" style="-fx-background-color: lightgray;" text="Back to Shipping" />
-            <Button onAction="#confirmPayment" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #FFC527; -fx-text-fill: #222222;" text="Confirm Payment">
+            <Button onAction="#backToShipping" prefHeight="40.0" prefWidth="151.0" style="-fx-background-color: #F4F4F5;" text="Back to Shipping" />
+            <Button onAction="#confirmPayment" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #ffdb00; -fx-text-fill: #222222;" text="Confirm Payment">
                 <HBox.margin>
                     <Insets left="328.0" />
                 </HBox.margin></Button>

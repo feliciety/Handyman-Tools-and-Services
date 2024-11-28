@@ -48,8 +48,8 @@
              <CheckBox fx:id="saveInfoCheckBox" text="Save this information for faster checkout next time" />
             <HBox prefHeight="51.0" prefWidth="570.0" spacing="10.0">
                <children>
-                   <Button fx:id="backToCartButton" onAction="#goToCart" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: lightgray; -fx-text-fill: black;" text="Back to Cart" />
-                   <Button fx:id="toShippingButton" alignment="CENTER" onAction="#goToShipping" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #FFC527; -fx-text-fill: #222222;" text="Go to Shipping">
+                   <Button fx:id="backToCartButton" onAction="#goToCart" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #F4F4F5; -fx-text-fill: black;" text="Back to Cart" />
+                   <Button fx:id="toShippingButton" alignment="CENTER" onAction="#goToShipping" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #ffdb00; -fx-text-fill: #222222;" text="Go to Shipping">
                      <HBox.margin>
                         <Insets left="335.0" />
                      </HBox.margin></Button>
