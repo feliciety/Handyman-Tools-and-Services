@@ -24,7 +24,7 @@
             </columns>
         </TableView>
 
-        <!-- Selected Service Card -->
+        <!-- Selected HomeService Card -->
         <VBox layoutX="718.0" layoutY="53.0" prefHeight="577.0" prefWidth="336.0" spacing="20.0">
             <children>
                 <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Selected Service:" />

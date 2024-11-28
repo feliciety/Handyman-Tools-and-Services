@@ -1,14 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="project.demo.controllers.ServicePageController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="651.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Service.ServicePageController">
+   <VBox prefHeight="661.0" prefWidth="1218.0" spacing="10">
 
+      <!-- Banner -->
+      <VBox alignment="CENTER" prefHeight="52.0" prefWidth="1218.0" style="-fx-padding: 10;">
+         <HBox prefHeight="46.0" prefWidth="1062.0">
+            <children>
+               <Label prefHeight="46.0" prefWidth="617.0" text="Handyman Services" textAlignment="CENTER">
+                  <font>
+                     <Font name="System Bold" size="30.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="searchField" prefHeight="40.0" prefWidth="340.0" promptText="Search Service" style="-fx-border-radius: 15; -fx-background-radius: 15;">
+                  <HBox.margin>
+                     <Insets top="3.5" />
+                  </HBox.margin>
+               </TextField>
+            </children>
+         </HBox>
+      </VBox>
+
+      <VBox prefHeight="619.0" prefWidth="1218.0" spacing="10.0">
+         <!-- Subcategory Buttons -->
+         <HBox fx:id="subcategoryButtonsBox" alignment="CENTER_LEFT" prefHeight="50.0" spacing="10.0" style="-fx-padding: 10;" visible="false">
+            <!-- Subcategory buttons will be dynamically added here -->
+         </HBox>
+
+         <HBox alignment="TOP_LEFT" prefHeight="519.0" prefWidth="1218.0" spacing="5.0">
+            <!-- Sidebar -->
+            <VBox alignment="CENTER_LEFT" prefHeight="586.0" prefWidth="237.0" spacing="10.0">
+               <Pane prefHeight="364.0" prefWidth="212.0" style="-fx-background-color: #E4EAEA; -fx-background-radius: 10;">
+                  <children>
+                     <Label layoutX="10.0" layoutY="7.0" text="Categories">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Label>
+                     <ListView fx:id="categoriesList" layoutX="8.0" layoutY="28.0" prefHeight="318.0" prefWidth="198.0" />
+                  </children>
+               </Pane>
+               <Pane prefHeight="74.0" prefWidth="242.0">
+                  <children>
+                     <Pane prefHeight="75.0" prefWidth="214.0" style="-fx-background-color: #E4EAEA; -fx-background-radius: 10;">
+                        <children>
+                           <Label layoutX="12.0" layoutY="11.0" text="Price Filter">
+                              <font>
+                                 <Font name="System Bold" size="12.0" />
+                              </font>
+                           </Label>
+                           <Slider fx:id="servicePriceSlider" blockIncrement="5" layoutX="12.0" layoutY="32.0" majorTickUnit="20" max="100" min="0" prefHeight="37.0" prefWidth="192.0" showTickLabels="true" showTickMarks="true" value="100" />
+                        </children>
+                     </Pane>
+                  </children>
+               </Pane>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+
+            <!-- Services Grid -->
+            <ScrollPane prefHeight="502.0" prefWidth="699.0" style="-fx-background-color: transparent;">
+               <content>
+                  <GridPane fx:id="serviceGrid" hgap="10" vgap="10" />
+               </content>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </ScrollPane>
+
+            <!-- Promotional Images -->
+            <Pane prefHeight="565.0" prefWidth="226.0" style="-fx-background-radius: 15;">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+               </HBox.margin>
+               <children>
+                  <VBox alignment="CENTER" layoutX="14.0" layoutY="10.0" prefHeight="528.0" prefWidth="200.0" spacing="10.0" />
+               </children>
+            </Pane>
+         </HBox>
+      </VBox>
+   </VBox>
 </AnchorPane>

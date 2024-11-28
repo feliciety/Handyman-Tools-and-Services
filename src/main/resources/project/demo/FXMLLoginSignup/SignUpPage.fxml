@@ -8,33 +8,64 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="1200.0" style="-fx-background-color: #3E66FF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.SignUpController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="1200.0" style="-fx-background-color: #3E66FF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.LoginSignup.SignUpPageController">
 
-          <ImageView fitHeight="649.0" fitWidth="1297.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 50;">
+          <ImageView fitHeight="651.0" fitWidth="1228.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 50;">
         <image>
             <Image url="@../imageloginsignup/loginsignupBG.png" />
         </image>
     </ImageView>
 
-    <Pane layoutX="93.6" layoutY="45.4" onMouseClicked="#signInSwap" prefHeight="565.0" prefWidth="1010.0" style="-fx-background-color: WHITE; -fx-background-radius: 35;" AnchorPane.leftAnchor="93.6" AnchorPane.topAnchor="45.4">
+    <Pane layoutX="93.6" layoutY="45.4" prefHeight="565.0" prefWidth="1010.0" style="-fx-background-color: WHITE; -fx-background-radius: 35;" AnchorPane.leftAnchor="93.6" AnchorPane.topAnchor="45.4">
         <children>
-            <Button fx:id="signInOption" layoutX="267.0" layoutY="111.0" mnemonicParsing="false" onMouseClicked="#signInSwap" style="-fx-background-color: white;" text="Sign In." textFill="#3e66ff">
-                <font>
-                    <Font name="Inter Light BETA" size="16.0" />
-                </font>
-            </Button>
 
-            <VBox layoutX="81.0" layoutY="153.0" prefHeight="384.0" prefWidth="350.0">
+            <VBox layoutX="74.0" layoutY="21.0" prefHeight="529.0" prefWidth="350.0">
                 <children>
+               <VBox spacing="1.0">
+                  <children>
+            
+                        <Text fill="#67608f" text="REGISTER NOW">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Text>
+                     <Label text="Sign Up For Free." textFill="#1f1567">
+                        <font>
+                           <Font name="System Bold" size="33.5" />
+                        </font>
+                     </Label>
+                     <HBox alignment="CENTER_LEFT">
+                        <children>
+                           <Label prefHeight="13.0" prefWidth="180.0" text="Already have an account?" textFill="#67608f">
+                              <font>
+                                 <Font size="16.0" />
+                              </font>
+                              <HBox.margin>
+                                 <Insets top="1.0" />
+                              </HBox.margin>
+                           </Label>
+                              <Button mnemonicParsing="false" onAction="#LogInSwap" prefHeight="6.0" prefWidth="76.0" style="-fx-background-color: white;" text="Log In." textFill="#3e66ff">
+                                  <font>
+                                      <Font name="Inter Light BETA" size="15.5" />
+                                  </font>
+                              </Button>
+                        </children>
+                     </HBox>
+                  </children>
+               </VBox>
                <Label text="Username" textFill="#67608f">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>
+                  <VBox.margin>
+                     <Insets top="20.0" />
+                  </VBox.margin>
                </Label>
                     <TextField fx:id="usernameField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #67608f;">
                         <VBox.margin>
@@ -61,16 +92,22 @@
                   <VBox.margin>
                      <Insets bottom="10.0" top="5.0" />
                   </VBox.margin></PasswordField>
-                    <Label fx:id="warningLabel" prefHeight="20.0" prefWidth="354.0" style="-fx-text-fill: red;" text="Warning" textFill="RED" visible="false">
+               <Label text="Confirm Password" textFill="#67608f">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Label>
+               <PasswordField fx:id="confirmPasswordField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #67608f;" />
+                    <Label fx:id="warningLabel" prefHeight="9.0" prefWidth="350.0" style="-fx-text-fill: red;" text="Warning" textFill="RED" visible="false">
                   <VBox.margin>
-                     <Insets bottom="10.0" top="10.0" />
+                     <Insets bottom="10.0" top="5.0" />
                   </VBox.margin>
                   <font>
                      <Font size="10.0" />
                   </font></Label>
 
                       <!-- Sign Up Button -->
-                <Button fx:id="signUpButton" mnemonicParsing="false" onMouseClicked="#signUpButtonClicked" prefHeight="52.0" prefWidth="350.0" stylesheets="@../application.css" text="Sign Up">
+                <Button mnemonicParsing="false" onAction="#signUpButtonClicked" prefHeight="52.0" prefWidth="350.0" stylesheets="@../application.css" text="Sign Up">
                   <VBox.margin>
                      <Insets />
                   </VBox.margin></Button>
@@ -85,23 +122,6 @@
                 </Text>
                 </children>
             </VBox>
-         <Label layoutX="82.0" layoutY="114.0" text="Already have an account?" textFill="#67608f">
-            <font>
-               <Font size="16.0" />
-            </font>
-         </Label>
-
-            <Text fill="#1f1567" layoutX="82.0" layoutY="99.0" text="Sign Up For Free.">
-                <font>
-                    <Font name="Inter Extra Bold" size="34.0" />
-                </font>
-            </Text>
-
-            <Text fill="#67608f" layoutX="82.0" layoutY="59.0" text="REGISTER NOW">
-                <font>
-                    <Font name="System Bold" size="14.0" />
-                </font>
-            </Text>
         </children>
     </Pane>
 

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="595.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.DetailsController">
+<AnchorPane prefHeight="595.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.DetailsController">
    <children>
       <VBox layoutX="61.0" layoutY="18.4" prefHeight="572.0" prefWidth="646.0" spacing="10.0" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="18.4">
          <children>
@@ -35,7 +35,7 @@
                    <TextField fx:id="lastNameField" prefHeight="40.0" prefWidth="324.0" promptText="Last Name" />
                </children>
             </HBox>
-             <TextField fx:id="addressField" prefHeight="40.0" promptText="Address and number" />
+             <TextField fx:id="addressField" prefHeight="40.0" promptText="Address and number" text="Street Name, Building, House No." />
              <TextField fx:id="shippingNoteField" prefHeight="40.0" promptText="Shipping note (optional)" />
             <HBox prefHeight="42.0" prefWidth="751.0" spacing="10.0">
                <children>

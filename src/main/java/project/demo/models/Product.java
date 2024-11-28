@@ -4,13 +4,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Product {
-
     private final String name;
-    private final String price;
+    private final double price; // Store price as a double
     private final String imagePath;
     private final String category;
 
-    public Product(String name, String price, String imagePath, String category) {
+    public Product(String name, double price, String imagePath, String category) {
         this.name = name;
         this.price = price;
         this.imagePath = imagePath;
@@ -21,8 +20,12 @@ public class Product {
         return name;
     }
 
-    public String getPrice() {
-        return price;
+    public double getPrice() {
+        return price; // Return raw double for calculations
+    }
+
+    public String getFormattedPrice() {
+        return String.format("$%.2f", price); // Format for display
     }
 
     public String getImagePath() {
@@ -33,24 +36,18 @@ public class Product {
         return category;
     }
 
-    /**
-     * Returns an ImageView created from the imagePath.
-     */
+    // ImageView getter for UI
     public ImageView getImageView() {
         try {
-            // Ensure the image path is correct relative to the resources directory
             Image image = new Image(getClass().getResourceAsStream(imagePath));
             ImageView imageView = new ImageView(image);
-
-            // Set the desired dimensions for the image
             imageView.setFitWidth(50);
             imageView.setFitHeight(50);
             imageView.setPreserveRatio(true);
-
             return imageView;
         } catch (Exception e) {
-            System.err.println("Error loading image from path: " + imagePath);
-            return new ImageView(); // Return an empty ImageView in case of an error
+            System.err.println("Error loading image: " + imagePath);
+            return new ImageView();
         }
     }
 }

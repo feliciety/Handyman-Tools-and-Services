@@ -1,9 +1,8 @@
-package project.demo.controllers;
+package project.demo.controllers.Cart;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -44,10 +43,8 @@ public class CartPageController {
 
     private final ObservableList<CartItem> cartItems = CartManager.getInstance().getCartItems();
     private final SimpleDoubleProperty subtotal = new SimpleDoubleProperty(0.0);
-    private final SimpleDoubleProperty shippingFee = new SimpleDoubleProperty(10.0); // Example fixed fee
+    private final SimpleDoubleProperty shippingFee = new SimpleDoubleProperty(0.0); // Example fixed fee
     private final SimpleDoubleProperty couponDiscount = new SimpleDoubleProperty(0.0);
-
-
 
     private final Map<String, Double> promoCodes = Map.of(
             "SAVE10", 10.0,         // Flat $10 discount
@@ -57,22 +54,22 @@ public class CartPageController {
             "BLACKFRIDAY", 15.0,    // Flat $15 discount for Black Friday
             "CYBERMONDAY", 20.0,    // Flat $20 discount for Cyber Monday
             "WELCOME", 10.0,        // Discount for new users
-            "WINTER30", 0.3,       // $10 off for summer promotion
-            "WINTER40", 0.4,
-            "WINTER50", 0.5        //50% off subtotal for winter promotion
+            "WINTER30", 0.3,        // 30% off
+            "WINTER40", 0.4,        // 40% off
+            "WINTER50", 0.5         // 50% off
     );
 
     private String appliedCoupon = null;
 
     @FXML
     public void initialize() {
-        // Bind subtotal label to subtotal property
+        // Bind labels to their respective properties
         subtotalLabel.textProperty().bind(subtotal.asString("$%.2f"));
         couponDiscountLabel.textProperty().bind(couponDiscount.asString("-$%.2f"));
-
-        // Set initial shipping label
-        shippingLabel.setText("$" + shippingFee.get());
-        updateTotal();
+        totalLabel.textProperty().bind(
+                subtotal.subtract(couponDiscount).add(shippingFee).asString("$%.2f")
+        );
+        shippingLabel.textProperty().bind(shippingFee.asString("$%.2f"));
 
         // Add listener to cart items for real-time updates
         cartItems.addListener((ListChangeListener<CartItem>) change -> {
@@ -97,22 +94,27 @@ public class CartPageController {
     }
 
     /**
-     * Recalculates the subtotal and total amounts based on the cart items.
+     * Recalculates the subtotal and updates the coupon discount dynamically.
      */
     public void recalculateSubtotal() {
         double total = cartItems.stream()
                 .mapToDouble(item -> Double.parseDouble(item.getTotalPrice().replace("$", "")))
                 .sum();
         subtotal.set(total);
-        updateTotal();
-    }
 
-    /**
-     * Updates the total amount based on subtotal, shipping fee, and applied discounts.
-     */
-    private void updateTotal() {
-        double total = subtotal.get() + shippingFee.get();
-        totalLabel.setText("$" + String.format("%.2f", total));
+        // Dynamically recalculate the coupon discount
+        if (appliedCoupon != null && promoCodes.containsKey(appliedCoupon)) {
+            double discount = promoCodes.get(appliedCoupon);
+
+            // Check if the discount is a percentage or flat
+            if (discount < 1.0) {
+                couponDiscount.set(subtotal.get() * discount); // Percentage discount
+            } else {
+                couponDiscount.set(Math.min(discount, subtotal.get())); // Flat discount (capped at subtotal)
+            }
+        } else {
+            couponDiscount.set(0.0); // No discount
+        }
     }
 
     /**
@@ -122,26 +124,31 @@ public class CartPageController {
     public void applyPromoCode() {
         String promoCode = promoCodeField.getText().toUpperCase();
         if (promoCodes.containsKey(promoCode)) {
-            double discount = promoCodes.get(promoCode);
-
-            // Check if the discount is a percentage or flat
-            if (discount < 1.0) {
-                couponDiscount.set(subtotal.get() * discount); // Percentage discount
-            } else {
-                couponDiscount.set(discount); // Flat discount
-            }
-
             appliedCoupon = promoCode;
-            appliedCouponLabel.setText(promoCode);
+
+            // Dynamically update the discount based on the current subtotal
+            recalculateSubtotal();
+
+            appliedCouponLabel.setText("Applied: " + promoCode);
             removeCouponButton.setVisible(true);
 
-            updateTotal();
             System.out.println("Promo code applied: " + promoCode);
         } else {
             System.err.println("[ERROR] Invalid promo code: " + promoCode);
         }
     }
 
+    /**
+     * Removes the applied promo code.
+     */
+    @FXML
+    public void removeCoupon() {
+        appliedCoupon = null;
+        couponDiscount.set(0.0);
+        appliedCouponLabel.setText("No coupon applied");
+        removeCouponButton.setVisible(false);
+        System.out.println("Coupon removed.");
+    }
 
     /**
      * Dynamically loads a new view into the content pane.
@@ -186,7 +193,6 @@ public class CartPageController {
      */
     public void removeCartItem(CartItem cartItem) {
         if (cartItem != null) {
-            // Remove the item from the cart
             cartItems.remove(cartItem);
 
             // Recalculate the subtotal and update the UI
@@ -198,18 +204,7 @@ public class CartPageController {
         }
     }
 
-    public void removeCoupon() {
-        couponDiscount.set(0.0);
-        appliedCoupon = null;
-        appliedCouponLabel.setText("No coupon applied");
-        removeCouponButton.setVisible(false);
-        updateTotal();
-        System.out.println("Coupon removed.");
-    }
-
     public void setShippingFee(double shippingFee) {
         this.shippingFee.set(shippingFee);
-        shippingLabel.setText("$" + String.format("%.2f", shippingFee));
-        updateTotal();
     }
 }

@@ -1,9 +1,9 @@
-package project.demo.controllers;
+package project.demo.controllers.Profile;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class ServicePageController extends Application {
+public class ProfilePageController extends Application {
 
     public static void main(String[] args) {
         launch(args);

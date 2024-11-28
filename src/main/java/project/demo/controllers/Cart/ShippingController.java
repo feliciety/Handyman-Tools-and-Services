@@ -1,4 +1,4 @@
-package project.demo.controllers;
+package project.demo.controllers.Cart;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;

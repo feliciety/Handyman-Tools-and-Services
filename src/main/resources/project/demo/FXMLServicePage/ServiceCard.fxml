@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="300.0" prefWidth="250.0" spacing="10.0" style="-fx-border-width: 1; -fx-padding: 15; -fx-background-color: #E4EAEA; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Service.ServiceCardController">
+    <ImageView fx:id="serviceImage" fitHeight="148.0" fitWidth="158.0" preserveRatio="true" styleClass="rounded-image">
+        <VBox.margin>
+            <Insets />
+        </VBox.margin>
+    </ImageView>
+    <Label fx:id="serviceName" alignment="CENTER" prefHeight="20.0" prefWidth="256.0" style="-fx-font-size: 16; -fx-font-weight: bold;" text="Service Name" textAlignment="CENTER">
+        <font>
+            <Font size="16.0" />
+        </font>
+    </Label>
+    <Label fx:id="servicePrice" text="Price Range: $0.00">
+        <VBox.margin>
+            <Insets bottom="5.0" />
+        </VBox.margin>
+        <font>
+            <Font size="14.0" />
+        </font>
+    </Label>
+    <Label fx:id="serviceDescription" alignment="CENTER" prefHeight="50.0" prefWidth="219.0" style="-fx-font-size: 12; -fx-text-fill: gray;" text="Short description of the homeService" wrapText="true">
+        <VBox.margin>
+            <Insets bottom="10.0" />
+        </VBox.margin>
+        <font>
+            <Font size="12.0" />
+        </font>
+    </Label>
+    <Button fx:id="bookNowButton" prefHeight="30.0" prefWidth="146.0" styleClass="button_booknow" stylesheets="@../application.css" text="Book Now">
+        <font>
+            <Font name="Inter Light BETA" size="14.0" />
+        </font>
+        <VBox.margin>
+            <Insets top="10.0" />
+        </VBox.margin>
+    </Button>
+</VBox>

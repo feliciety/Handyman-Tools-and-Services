@@ -22,7 +22,7 @@ public class EmployeeCardController {
 
     public void setEmployee(Employee employee) {
         employeeName.setText("Name: " + employee.getName());
-        employeeService.setText("Service: " + employee.getSpecialization());
+        employeeService.setText("HomeService: " + employee.getSpecialization());
         employeeStatus.setText("Status: " + employee.getStatus());
 
         if (employee.getImage() != null) {

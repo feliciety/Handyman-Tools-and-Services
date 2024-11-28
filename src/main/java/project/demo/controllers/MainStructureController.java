@@ -71,7 +71,7 @@ public class MainStructureController {
     }
 
     public void handleServiceClick(ActionEvent actionEvent) {
-        System.out.println("Service Page button clicked");
+        System.out.println("HomeService Page button clicked");
         loadPage("/project/demo/FXMLServicePage/ServicePage.fxml");
     }
 

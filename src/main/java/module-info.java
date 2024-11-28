@@ -8,6 +8,8 @@ module project.demo {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires com.almasb.fxgl.all;
+    requires java.sql;
+    requires java.desktop;
 
     opens project.demo to javafx.fxml;
     exports project.demo;
@@ -15,4 +17,14 @@ module project.demo {
     opens project.demo.controllers to javafx.fxml;
     exports project.demo.models;
     opens project.demo.models to javafx.fxml;
+    exports project.demo.controllers.Home;
+    opens project.demo.controllers.Home to javafx.fxml;
+    exports project.demo.controllers.Cart;
+    opens project.demo.controllers.Cart to javafx.fxml;
+    exports project.demo.controllers.Shop;
+    opens project.demo.controllers.Shop to javafx.fxml;
+    exports project.demo.controllers.LoginSignup;
+    opens project.demo.controllers.LoginSignup to javafx.fxml;
+    exports project.demo.controllers.Service;
+    opens project.demo.controllers.Service to javafx.fxml;
 }

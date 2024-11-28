@@ -1,15 +1,15 @@
 package project.demo.models;
 
 public class Service {
-    private String name;
-    private String description;
-    private String shortDescription;
-    private String imagePath;
+    private final String name;
+    private final String description;
+    private final String price;
+    private final String imagePath;
 
-    public Service(String name, String description, String shortDescription, String imagePath) {
+    public Service(String name, String description, String price, String imagePath) {
         this.name = name;
         this.description = description;
-        this.shortDescription = shortDescription;
+        this.price = price;
         this.imagePath = imagePath;
     }
 
@@ -21,8 +21,8 @@ public class Service {
         return description;
     }
 
-    public String getShortDescription() {
-        return shortDescription;
+    public String getPrice() {
+        return price;
     }
 
     public String getImagePath() {

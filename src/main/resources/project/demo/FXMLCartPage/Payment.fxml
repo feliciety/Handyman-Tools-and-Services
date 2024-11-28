@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="595.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.PaymentController">
+<AnchorPane prefHeight="595.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.PaymentController">
 
     <!-- Main Container -->
     <VBox layoutX="60.2" layoutY="16.8" prefHeight="572.0" prefWidth="646.0" AnchorPane.leftAnchor="60.2" AnchorPane.topAnchor="16.8">
@@ -31,8 +31,8 @@
         <VBox fx:id="paymentDetailsBox" prefHeight="332.0" prefWidth="646.0" spacing="15.0" style="-fx-padding: 10; -fx-border-color: lightgray; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #f9f9f9;">
 
             <!-- Credit/Debit Card Fields -->
-            <VBox fx:id="cardFields" managed="false" prefWidth="650.0" spacing="10.0" visible="false">
-                <TextField fx:id="cardNameField" prefHeight="40.0" prefWidth="326.0" promptText="Name on Card" />
+            <VBox fx:id="cardFields" managed="false" prefHeight="79.0" prefWidth="218.0" spacing="10.0">
+                <TextField fx:id="cardNameField" prefHeight="26.0" prefWidth="247.0" promptText="Name on Card" />
                 <TextField fx:id="cardNumberField" prefHeight="40.0" prefWidth="326.0" promptText="Card Number" />
                 <HBox spacing="10.0">
                     <TextField fx:id="expiryField" prefHeight="40.0" prefWidth="150.0" promptText="MM/YY" />

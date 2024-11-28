@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import project.demo.controllers.CartPageController;
+import project.demo.controllers.Cart.CartPageController;
 
 public class CartItem {
     private final Product product;
@@ -54,8 +54,6 @@ public class CartItem {
             incrementQuantity();
             quantityLabel.setText(String.valueOf(quantity.get())); // Update quantity display
         });
-
-        quantity.addListener((observable, oldValue, newValue) -> updateTotalPrice());
 
         // Initialize delete button
         this.deleteButton = new Button("X");
@@ -121,7 +119,6 @@ public class CartItem {
     }
 
     private String formatPrice() {
-        double pricePerUnit = Double.parseDouble(product.getPrice().replace("$", ""));
-        return String.format("$%.2f", pricePerUnit * quantity.get());
+        return String.format("$%.2f", product.getPrice() * quantity.get());
     }
 }

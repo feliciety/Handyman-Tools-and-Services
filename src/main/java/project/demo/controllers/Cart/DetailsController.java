@@ -1,4 +1,4 @@
-package project.demo.controllers;
+package project.demo.controllers.Cart;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

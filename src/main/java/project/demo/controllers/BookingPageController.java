@@ -74,7 +74,7 @@ public class BookingPageController {
             }
         });
 
-        // Add a listener for the "Book Service" button
+        // Add a listener for the "Book HomeService" button
         bookServiceButton.setOnAction(event -> handleBookService());
     }
 
@@ -187,8 +187,8 @@ public class BookingPageController {
 
         // Display confirmation message
         String message = String.format(
-                "Thank you for choosing Handyman Repair Service!\n\nBooking Details:\n" +
-                        "Service: %s\nEmployee: %s\nName: %s\nAddress: %s\nDate & Time: %s %s\nSeverity: %s",
+                "Thank you for choosing Handyman Repair HomeService!\n\nBooking Details:\n" +
+                        "HomeService: %s\nEmployee: %s\nName: %s\nAddress: %s\nDate & Time: %s %s\nSeverity: %s",
                 service, employeeName, name, address, date, time, severity
         );
         showAlert("Booking Successful", message);

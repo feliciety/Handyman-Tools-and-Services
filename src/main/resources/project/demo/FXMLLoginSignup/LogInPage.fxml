@@ -8,13 +8,14 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="1200.0" style="-fx-background-color: #3E66FF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.LogInController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="1200.0" style="-fx-background-color: #3E66FF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.LoginSignup.LogInPageController">
     <ImageView fitHeight="655.0" fitWidth="1245.0" layoutX="-23.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 50;">
         <image>
             <Image url="@../imageloginsignup/loginsignupBG.png" />
@@ -27,44 +28,59 @@
                     <Image url="@../imageloginsignup/SignInPerson.png" />
                 </image>
          </ImageView>
-            <Button fx:id="signUpOption" layoutX="718.0" layoutY="149.0" mnemonicParsing="false" onMouseClicked="#signUpSwap" style="-fx-background-color: white;" text="Sign Up." textFill="#3e66ff">
-                <font>
-                    <Font name="Inter Light BETA" size="16.0" />
-                </font>
-            </Button>
-            <Text fill="#67608f" layoutX="543.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="START YOUR JOURNEY">
-                <font>
-                    <Font name="System Bold" size="14.0" />
-                </font>
-            </Text>
-            <Text fill="#1f1567" layoutX="543.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log in to HandyMan.">
-                <font>
-                    <Font name="Inter Extra Bold" size="33.5" />
-                </font>
-            </Text>
-            <Text fill="#67608f" layoutX="545.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account?">
-                <font>
-                    <Font name="Inter Extra Light BETA" size="16.0" />
-                </font>
-            </Text>
-            <VBox layoutX="545.0" layoutY="192.0" prefHeight="318.0" prefWidth="379.0" spacing="20.0">
+            <VBox layoutX="543.0" layoutY="71.0" prefHeight="467.0" prefWidth="429.0" spacing="10.0">
                 <children>
-               <Label text="E-mail">
-                  <font>
-                     <Font name="System Bold" size="16.0" />
-                  </font>
-               </Label>
-                    <TextField fx:id="emailField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #67608f;" />
-               <Label text="Password">
-                  <font>
-                     <Font name="System Bold" size="16.0" />
-                  </font>
-               </Label>
-                    <!-- Replacing TextField with PasswordField -->
-                    <PasswordField fx:id="passwordField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #67608f;" />
-                    <Button fx:id="LogInButton" mnemonicParsing="false" onMouseClicked="#LogInButtonClicked" prefHeight="51.0" prefWidth="430.0" text="Log In">
+               <VBox spacing="5.0">
+                  <children>
+                        <Text fill="#67608f" strokeType="OUTSIDE" strokeWidth="0.0" text="START YOUR JOURNEY">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Text>
+                     <Label text="Log in to HandyMan." textFill="#1f1567">
+                        <font>
+                           <Font name="System Bold" size="33.5" />
+                        </font>
+                     </Label>
+                     <HBox alignment="CENTER_LEFT">
+                        <children>
+                              <Text fill="#67608f" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account?">
+                                  <font>
+                                      <Font name="Inter Extra Light BETA" size="16.0" />
+                                  </font>
+                              </Text>
+                              <Button mnemonicParsing="false" onAction="#signUpSwap" style="-fx-background-color: white;" text="Sign Up." textFill="#3e66ff">
+                                  <font>
+                                      <Font name="Inter Light BETA" size="16.0" />
+                                  </font>
+                              </Button>
+                        </children>
+                     </HBox>
+                  </children>
+               </VBox>
+               <VBox spacing="5.0">
+                  <children>
+                     <Label text="Email/Username">
+                        <font>
+                           <Font name="System Bold" size="16.0" />
+                        </font>
+                     </Label>
+                          <TextField fx:id="emailOrUsernameField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #67608f;" />
+                     <Label text="Password">
+                        <font>
+                           <Font name="System Bold" size="16.0" />
+                        </font>
+                     </Label>
+                          <!-- Replacing TextField with PasswordField -->
+                          <PasswordField fx:id="passwordField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #67608f;" />
+                  </children>
+                  <VBox.margin>
+                     <Insets top="20.0" />
+                  </VBox.margin>
+               </VBox>
+                    <Button mnemonicParsing="false" onAction="#LogInButtonClicked" prefHeight="51.0" prefWidth="430.0" stylesheets="@../application.css" text="Log In">
                         <VBox.margin>
-                            <Insets />
+                            <Insets top="20.0" />
                         </VBox.margin>
                         <font>
                             <Font name="Inter Extra Bold" size="12.0" />

@@ -4,11 +4,14 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="549.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.ShippingController">
+<AnchorPane prefHeight="549.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.ShippingController">
     <VBox layoutX="20.0" layoutY="20.0" prefHeight="524.0" prefWidth="570.0" spacing="10.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="15.0">
         <children>
 
@@ -17,13 +20,10 @@
                 <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333;" text="Contact" />
                 <HBox>
                     <children>
-                        <Label fx:id="contactLabel" prefHeight="40.0" prefWidth="530.0" style="-fx-padding: 5; -fx-background-color: #f8f9fa; -fx-border-color: lightgray; -fx-border-radius: 5;" />
+                        <Label fx:id="contactLabel" prefHeight="40.0" prefWidth="599.0" style="-fx-padding: 5; -fx-background-color: WHITE; -fx-border-color: lightgray; -fx-border-radius: 5;" />
                         <Button onAction="#editContact" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 12px; -fx-background-color: transparent; -fx-text-fill: #007bff;" text="Edit" />
                     </children>
                 </HBox>
-                <VBox.margin>
-                    <Insets />
-                </VBox.margin>
             </VBox>
 
             <!-- Address Information -->
@@ -31,10 +31,13 @@
                 <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333;" text="Shipping Address" />
                 <HBox>
                     <children>
-                        <Label fx:id="addressInfo" prefHeight="40.0" prefWidth="532.0" style="-fx-padding: 5; -fx-background-color: #f8f9fa; -fx-border-color: lightgray; -fx-border-radius: 5;" />
+                        <Label fx:id="addressInfo" prefHeight="38.0" prefWidth="593.0" style="-fx-padding: 5; -fx-background-color: WHITE; -fx-border-color: lightgray; -fx-border-radius: 5;" />
                         <Button onAction="#editAddress" prefHeight="40.0" prefWidth="170.0" style="-fx-font-size: 12px; -fx-background-color: transparent; -fx-text-fill: #007bff;" text="Edit" />
                     </children>
                 </HBox>
+            <VBox.margin>
+               <Insets top="-20.0" />
+            </VBox.margin>
             </VBox>
 
             <!-- Shipping Method -->
@@ -43,60 +46,96 @@
                     <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333;" text="Shipping Method" />
 
                     <!-- Standard Shipping -->
-                    <HBox spacing="10.0">
-                        <children>
-                            <RadioButton fx:id="standardShipping" mnemonicParsing="false" prefHeight="20.0" prefWidth="171.0" style="-fx-font-size: 14px; -fx-text-fill: #555;" text="Standard Shipping">
-                                <HBox.margin>
-                                    <Insets right="50.0" />
-                                </HBox.margin>
-                            </RadioButton>
-                            <Label prefHeight="30.0" prefWidth="234.0" style="-fx-text-fill: #555;" text="5.00" />
-                        </children>
-                    </HBox>
+                    <VBox style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #ffffff; -fx-padding: 10; -fx-border-color: lightgray; -fx-border-width: 1; -fx-effect: dropshadow(gaussian, lightgray, 5, 0.2, 0, 2);">
+                        <HBox spacing="10.0">
+                            <children>
+                                <RadioButton fx:id="standardShipping" mnemonicParsing="false" style="-fx-font-size: 14px; -fx-text-fill: #555;" text="">
+                                    <HBox.margin>
+                                        <Insets right="10.0" />
+                                    </HBox.margin>
+                                </RadioButton>
+                                <ImageView fitHeight="24.0" fitWidth="24.0">
+                                    <image>
+                                        <Image url="@/icons/truck.png" />
+                                    </image>
+                                </ImageView>
+                                <VBox>
+                                    <Label prefHeight="26.0" prefWidth="326.0" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Standard Shipping" />
+                                    <Label style="-fx-font-size: 12px; -fx-text-fill: #666;" text="3-5 business days" />
+                                </VBox>
+                                <Label style="-fx-font-size: 14px; -fx-text-fill: #555; -fx-alignment: center-right;" text="5.00">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="101.0" />
+                           </HBox.margin></Label>
+                            </children>
+                        </HBox>
+                    </VBox>
 
                     <!-- Express Shipping -->
-                    <HBox spacing="10.0">
-                        <children>
-                            <RadioButton fx:id="expressShipping" mnemonicParsing="false" prefHeight="20.0" prefWidth="161.0" style="-fx-font-size: 14px; -fx-text-fill: #555;" text="Express Shipping">
-                                <HBox.margin>
-                                    <Insets right="53.0" />
-                                </HBox.margin>
-                            </RadioButton>
-                            <Label prefHeight="30.0" prefWidth="199.0" style="-fx-text-fill: #555;" text="15.00" />
-                        </children>
-                    </HBox>
+                    <VBox style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #ffffff; -fx-padding: 10; -fx-border-color: lightgray; -fx-border-width: 1; -fx-effect: dropshadow(gaussian, lightgray, 5, 0.2, 0, 2);">
+                        <HBox spacing="10.0">
+                            <children>
+                                <RadioButton fx:id="expressShipping" mnemonicParsing="false" style="-fx-font-size: 14px; -fx-text-fill: #555;" text="">
+                                    <HBox.margin>
+                                        <Insets right="10.0" />
+                                    </HBox.margin>
+                                </RadioButton>
+                                <ImageView fitHeight="24.0" fitWidth="24.0">
+                                    <image>
+                                        <Image url="@/icons/bolt.png" />
+                                    </image>
+                                </ImageView>
+                                <VBox prefHeight="43.0" prefWidth="324.0">
+                                    <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Express Shipping" />
+                                    <Label style="-fx-font-size: 12px; -fx-text-fill: #666;" text="1-2 business days" />
+                                </VBox>
+                                <Label style="-fx-font-size: 14px; -fx-text-fill: #555; -fx-alignment: center-right;" text="15.00">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="101.0" />
+                           </HBox.margin></Label>
+                            </children>
+                        </HBox>
+                    </VBox>
 
                     <!-- Priority Shipping -->
-                    <HBox spacing="10.0">
-                        <children>
-                            <RadioButton fx:id="priorityShipping" mnemonicParsing="false" prefHeight="20.0" prefWidth="168.0" style="-fx-font-size: 14px; -fx-text-fill: #555;" text="Priority Shipping">
-                                <HBox.margin>
-                                    <Insets right="48.0" />
-                                </HBox.margin>
-                            </RadioButton>
-                            <Label prefHeight="30.0" prefWidth="199.0" style="-fx-text-fill: #555;" text="25.00" />
-                        </children>
-                    </HBox>
-
-                    <!-- Same-Day Shipping -->
-                    <HBox spacing="10.0">
-                        <children>
-                            <RadioButton fx:id="sameDayShipping" mnemonicParsing="false" prefHeight="20.0" prefWidth="286.0" style="-fx-font-size: 14px; -fx-text-fill: #555;" text="Same-Day Shipping">
-                                <HBox.margin>
-                                    <Insets right="33.0" />
-                                </HBox.margin>
-                            </RadioButton>
-                            <Label prefHeight="30.0" prefWidth="199.0" style="-fx-text-fill: #555;" text="50.00" />
-                        </children>
-                    </HBox>
+                    <VBox style="-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-color: #ffffff; -fx-padding: 10; -fx-border-color: lightgray; -fx-border-width: 1; -fx-effect: dropshadow(gaussian, lightgray, 5, 0.2, 0, 2);">
+                        <HBox spacing="10.0">
+                            <children>
+                                <RadioButton fx:id="priorityShipping" mnemonicParsing="false" style="-fx-font-size: 14px; -fx-text-fill: #555;" text="">
+                                    <HBox.margin>
+                                        <Insets right="10.0" />
+                                    </HBox.margin>
+                                </RadioButton>
+                                <ImageView fitHeight="24.0" fitWidth="24.0">
+                                    <image>
+                                        <Image url="@/icons/clock.png" />
+                                    </image>
+                                </ImageView>
+                                <VBox>
+                                    <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Priority Shipping" />
+                                    <Label style="-fx-font-size: 12px; -fx-text-fill: #666;" text="Next day delivery" />
+                                </VBox>
+                                <Label style="-fx-font-size: 14px; -fx-text-fill: #555; -fx-alignment: center-right;" text="25.00">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="101.0" />
+                           </HBox.margin></Label>
+                            </children>
+                        </HBox>
+                    </VBox>
                 </children>
-                <VBox.margin>
-                    <Insets top="10.0" />
-                </VBox.margin>
             </VBox>
 
             <!-- Navigation Buttons -->
-            <HBox prefHeight="94.0" prefWidth="570.0">
+            <HBox prefHeight="76.0" prefWidth="570.0">
                 <children>
                     <Button fx:id="toCartButton" onAction="#goToDetails" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: lightgray; -fx-text-fill: black;" text="Back to Details" />
                     <Button fx:id="toPaymentButton" onAction="#goToPayment" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #FFC527; -fx-text-fill: #222222;" text="Continue to Payment">
@@ -105,6 +144,9 @@
                         </HBox.margin>
                     </Button>
                 </children>
+            <VBox.margin>
+               <Insets top="30.0" />
+            </VBox.margin>
             </HBox>
         </children>
     </VBox>

@@ -1,4 +1,4 @@
-package project.demo.controllers;
+package project.demo.controllers.Shop;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -28,17 +28,13 @@ public class ProductCardController {
         this.product = product;
 
         // Set product details
-        productName.setText(product.getName() != null ? product.getName() : "Unknown Product");
-        productPrice.setText(product.getPrice() != null ? product.getPrice() : "Price: N/A");
+        productName.setText(product.getName());
+        productPrice.setText(product.getFormattedPrice());
 
         // Load product image
         try {
-            if (product.getImagePath() != null) {
-                Image image = new Image(getClass().getResourceAsStream(product.getImagePath()));
-                productImage.setImage(image);
-            } else {
-                System.err.println("Image path is null for product: " + product.getName());
-            }
+            Image image = new Image(getClass().getResourceAsStream(product.getImagePath()));
+            productImage.setImage(image);
         } catch (Exception e) {
             System.err.println("Failed to load image for product: " + product.getName());
         }
@@ -51,5 +47,4 @@ public class ProductCardController {
         CartManager.getInstance().addProductToCart(product);
         System.out.println("Added to cart: " + product.getName());
     }
-
 }

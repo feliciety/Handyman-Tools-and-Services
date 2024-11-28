@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="270.0" prefWidth="218.0" spacing="5.0" style="-fx-border-width: 1; -fx-padding: 10; -fx-background-color: #E4EAEA; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.ProductCardController">
+<VBox alignment="CENTER" prefHeight="270.0" prefWidth="218.0" spacing="5.0" style="-fx-border-width: 1; -fx-padding: 10; -fx-background-color: #E4EAEA; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Shop.ProductCardController">
     <ImageView fx:id="productImage" fitHeight="148.0" fitWidth="158.0" preserveRatio="true" styleClass="rounded-image">
       <VBox.margin>
          <Insets />
