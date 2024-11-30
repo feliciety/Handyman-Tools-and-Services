@@ -3,6 +3,7 @@ package project.demo.controllers.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -79,5 +80,9 @@ public class MainStructureController {
     public void handleBookingClick(ActionEvent actionEvent) {
         System.out.println("Booking Page button clicked");
         loadPage("/project/demo/FXMLBookingPage/BookingPage.fxml");
+    }
+
+    public void handleProfileClick(MouseEvent mouseEvent) {
+        loadPage("/project/demo/FXMLProfilePage/ProfilePage.fxml");
     }
 }

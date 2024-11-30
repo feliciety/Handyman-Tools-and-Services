@@ -1,5 +1,6 @@
 package project.demo.controllers.LoginSignup;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,6 +9,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import project.demo.DataBase.DatabaseConfig;
+import project.demo.models.UserSession;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -46,9 +48,20 @@ public class LogInPageController {
 
             if (resultSet.next()) {
                 System.out.println("Login Success! Welcome!");
+
+                // Populate UserSession
+                UserSession session = UserSession.getInstance();
+                session.setUserId(resultSet.getInt("id"));
+                session.setUsername(resultSet.getString("username"));
+                session.setEmail(resultSet.getString("email"));
+                session.setContactNumber(resultSet.getString("contact_number"));
+
+                System.out.println("User session created for: " + session.getUsername());
+
+                // Navigate to the main application
                 navigateToPage("/project/demo/MainStructure.fxml", "Main Application");
             } else {
-                System.out.println("Invalid email/username or password.");
+                System.out.println("Invalid email or password.");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,8 +69,13 @@ public class LogInPageController {
         }
     }
 
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        return email.matches(emailRegex);
+    }
+
     @FXML
-    public void signUpSwap() {
+    public void SignInSwap() {
         navigateToPage("/project/demo/FXMLLoginSignup/SignUpPage.fxml", "Sign Up");
     }
 

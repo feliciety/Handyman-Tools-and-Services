@@ -59,7 +59,7 @@
                      </HBox>
                   </children>
                </VBox>
-               <Label text="Username" textFill="#67608f">
+               <Label text="Full Name" textFill="#67608f">
                   <font>
                      <Font name="System Bold" size="14.0" />
                   </font>

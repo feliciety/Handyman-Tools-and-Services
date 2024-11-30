@@ -33,6 +33,9 @@ public class ShippingController {
     @FXML
     private RadioButton expressShipping; // Express shipping option
 
+    @FXML
+    private RadioButton priorityShipping;
+
 
     private final SimpleDoubleProperty shippingFee = new SimpleDoubleProperty(0.0); // Shipping fee
 
@@ -40,20 +43,25 @@ public class ShippingController {
     public void initialize() {
         System.out.println("Initializing ShippingController...");
 
-        // Initialize labels with data from ShippingDetails model
+        // Load initial data into labels
         ShippingDetails details = ShippingDetails.getInstance();
         if (contactLabel != null) contactLabel.setText(details.getContact());
         if (addressLabel != null) addressLabel.setText(details.getAddress());
 
+        // Setup ToggleGroup for shipping methods
         ToggleGroup shippingGroup = new ToggleGroup();
         standardShipping.setToggleGroup(shippingGroup);
         expressShipping.setToggleGroup(shippingGroup);
+        priorityShipping.setToggleGroup(shippingGroup);
 
+        // Add listener to update the shipping fee dynamically
         shippingGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (standardShipping.isSelected()) {
                 shippingFee.set(5.00);
             } else if (expressShipping.isSelected()) {
                 shippingFee.set(15.00);
+            } else if (priorityShipping.isSelected()) {
+                shippingFee.set(25.00);
             }
             updateShippingPrice();
         });

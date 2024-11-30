@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Profile.EditProfileController">
+   <children>
+      <VBox alignment="CENTER_LEFT" layoutX="66.0" layoutY="106.0" prefHeight="258.0" prefWidth="513.0" spacing="15.0">
+         <children>
+            <Label fx:id="nameWarningLabel" alignment="CENTER" prefHeight="18.0" prefWidth="340.0" style="-fx-text-fill: red; -fx-font-size: 12px;" text="Name is required." visible="false">
+               <VBox.margin>
+                  <Insets bottom="-5.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <Label prefHeight="20.0" prefWidth="102.0" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Name:" />
+                  <TextField fx:id="nameField" prefHeight="40.0" prefWidth="400.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" />
+               </children>
+               <VBox.margin>
+                  <Insets top="-10.0" />
+               </VBox.margin>
+            </HBox>
+            <Label fx:id="emailWarningLabel" alignment="CENTER" prefHeight="18.0" prefWidth="362.0" style="-fx-text-fill: red; -fx-font-size: 12px;" text="Valid email is required." visible="false">
+               <VBox.margin>
+                  <Insets bottom="-15.0" top="-10.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="506.0" spacing="10.0">
+               <children>
+                  <Label prefHeight="20.0" prefWidth="181.0" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Email:" />
+                  <TextField fx:id="emailField" prefHeight="40.0" prefWidth="480.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" />
+               </children>
+            </HBox>
+            <Label fx:id="phoneWarningLabel" alignment="CENTER" prefHeight="18.0" prefWidth="410.0" style="-fx-text-fill: red; -fx-font-size: 12px;" text="Valid phone number is required." visible="false">
+               <VBox.margin>
+                  <Insets bottom="-15.0" top="-10.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <Label prefHeight="20.0" prefWidth="286.0" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Phone:" />
+                  <TextField fx:id="contactNumberField" prefHeight="40.0" prefWidth="585.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" />
+               </children>
+            </HBox>
+            <Button alignment="CENTER" onAction="#handleSaveChanges" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #333333; -fx-text-fill: white; -fx-background-radius: 10;" text="Save Changes">
+               <VBox.margin>
+                  <Insets left="360.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <Label layoutX="32.0" layoutY="18.0" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Profile Information" />
+      <Label layoutX="32.0" layoutY="61.0" style="-fx-text-fill: #666666; -fx-font-size: 14px;" text="Update your account details here." />
+   </children>
+</AnchorPane>

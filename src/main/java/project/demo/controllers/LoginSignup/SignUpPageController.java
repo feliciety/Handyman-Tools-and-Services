@@ -63,7 +63,7 @@ public class SignUpPageController {
     }
 
     @FXML
-    public void signInSwap() {
+    public void LogInSwap() {
         navigateToPage("/project/demo/FXMLLoginSignup/LogInPage.fxml", "Login");
     }
 

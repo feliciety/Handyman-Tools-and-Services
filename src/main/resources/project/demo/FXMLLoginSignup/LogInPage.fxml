@@ -49,7 +49,7 @@
                                       <Font name="Inter Extra Light BETA" size="16.0" />
                                   </font>
                               </Text>
-                              <Button mnemonicParsing="false" onAction="#signUpSwap" style="-fx-background-color: white;" text="Sign Up." textFill="#3e66ff">
+                              <Button mnemonicParsing="false" onAction="#SignInSwap" style="-fx-background-color: white;" text="Sign Up." textFill="#3e66ff">
                                   <font>
                                       <Font name="Inter Light BETA" size="16.0" />
                                   </font>
@@ -60,7 +60,7 @@
                </VBox>
                <VBox spacing="5.0">
                   <children>
-                     <Label text="Email/Username">
+                     <Label text="Email">
                         <font>
                            <Font name="System Bold" size="16.0" />
                         </font>

@@ -1,13 +1,7 @@
 .button {
     -fx-background-color: #ffdb00;
-    -fx-border-width: 2px;
-    -fx-border-radius: 15px;
-    -fx-background-radius: 15px;
     -fx-text-fill: #000000;
-    -fx-font-size: 12px;
-    -fx-font-weight: bold;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
     -fx-transition: all 0.25s ease-in-out;
 }
 
@@ -56,7 +50,28 @@
 }
 
 .button_addtocart:pressed {
-    -fx-background-color: #fffc00;
+    -fx-background-color: #ffdb00;
     -fx-text-fill: #000000;
     -fx-letter-spacing: 2px;
 }
+
+
+.buttonpfp {
+    -fx-background-color:  #E4EAEA;
+    -fx-text-fill: #000000;
+    -fx-font-size: 12px;
+    -fx-transition: all 0.25s ease-in-out;
+}
+.buttonpfp:hover {
+    -fx-background-color: #ffdb00;
+    -fx-text-fill: #000000;
+}
+
+.buttonpfp:pressed {
+    -fx-background-color: #ffdb00;
+    -fx-text-fill: #000000;
+    -fx-letter-spacing: 2px;
+}
+
+
+

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="643.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Profile.OrderHistoryController">
+   <children>
+      <VBox layoutX="20.0" layoutY="47.0" prefHeight="306.0" prefWidth="602.0" spacing="15.0">
+         <children>
+            <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Order History" />
+            <Label style="-fx-text-fill: #666666; -fx-font-size: 14px;" text="View your past orders and their status." />
+            <VBox prefWidth="640.0" spacing="20.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefWidth="640.0" spacing="10.0" style="-fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0; -fx-padding: 10 0 10 0;">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0">
+                           <image>
+                              <Image url="@../imagelogo/box.png" />
+                           </image>
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT" prefWidth="500.0" spacing="2.0">
+                           <children>
+                              <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Order #1" />
+                              <Label style="-fx-text-fill: #666666;" text="2023-05-01" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="121.0" spacing="2.0">
+                           <children>
+                              <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="125.99" />
+                              <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="65.0" style="-fx-text-fill: #1ecd97; -fx-font-size: 12px;" text="Delivered" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefWidth="640.0" spacing="10.0" style="-fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0; -fx-padding: 10 0 10 0;">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0">
+                           <image>
+                              <Image url="@../imagelogo/box.png" />
+                           </image>
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT" prefWidth="500.0" spacing="2.0">
+                           <children>
+                              <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Order #2" />
+                              <Label style="-fx-text-fill: #666666;" text="2023-06-15" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="134.0" spacing="2.0">
+                           <children>
+                              <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="79.99" />
+                              <Label style="-fx-text-fill: #ff9900; -fx-font-size: 12px;" text="Shipped" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefWidth="640.0" spacing="10.0" style="-fx-padding: 10 0 10 0;">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0">
+                           <image>
+                              <Image url="@../imagelogo/box.png" />
+                           </image>
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT" prefWidth="500.0" spacing="2.0">
+                           <children>
+                              <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Order #3" />
+                              <Label style="-fx-text-fill: #666666;" text="2023-07-03" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="145.0" spacing="2.0">
+                           <children>
+                              <Label style="-fx-font-weight: bold; -fx-font-size: 14px;" text="249.99" />
+                              <Label style="-fx-text-fill: #ffcc00; -fx-font-size: 12px;" text="Processing" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

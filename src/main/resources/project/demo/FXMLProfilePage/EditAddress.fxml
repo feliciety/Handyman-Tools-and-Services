@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Profile.EditAddressController">
+    <children>
+        <!-- Header -->
+        <VBox layoutX="30.0" layoutY="20.0" prefHeight="62.0" prefWidth="600.0" spacing="10.0">
+            <children>
+                <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Shipping Addresses" />
+                <Label style="-fx-text-fill: #666666; -fx-font-size: 14px;" text="Manage your shipping addresses." />
+            </children>
+        </VBox>
+
+        <!-- Address List -->
+        <VBox layoutX="48.0" layoutY="106.0" prefHeight="220.0" prefWidth="552.0">
+            <children>
+                <!-- Address Block 1 -->
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="640.0" spacing="15.0" style="-fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0; -fx-padding: 15;">
+                    <children>
+                        <VBox alignment="CENTER_LEFT" prefWidth="500.0" spacing="5.0">
+                            <children>
+                                <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Home" />
+                                <Label style="-fx-font-size: 14px; -fx-text-fill: #666666;" text="123 Main St" />
+                                <Label style="-fx-font-size: 14px; -fx-text-fill: #666666;" text="Anytown, CA 12345" />
+                            </children>
+                        </VBox>
+                        <HBox spacing="10.0" />
+                  <Button mnemonicParsing="false" onAction="#editBTN" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: F4F4F5;">
+                     <graphic>
+                        <ImageView fitHeight="33.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagelogo/pen.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#deleteBTN" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: wF4F4F5hite;">
+                     <graphic>
+                        <ImageView fitHeight="33.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagelogo/bin.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                    </children>
+                </HBox>
+
+                <!-- Address Block 2 -->
+                <HBox alignment="CENTER_LEFT" prefHeight="106.0" prefWidth="590.0" spacing="15.0" style="-fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0; -fx-padding: 15;">
+                    <children>
+                        <VBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="446.0" spacing="5.0">
+                            <children>
+                                <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Work" />
+                                <Label style="-fx-font-size: 14px; -fx-text-fill: #666666;" text="456 Office Blvd" />
+                                <Label style="-fx-font-size: 14px; -fx-text-fill: #666666;" text="Workville, NY 67890" />
+                            </children>
+                        </VBox>
+                  <Button mnemonicParsing="false" onAction="#editBTN" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: F4F4F5;" />
+                        <HBox spacing="10.0" />
+                  <Button mnemonicParsing="false" onAction="#editBTN" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: F4F4F5;">
+                     <graphic>
+                        <ImageView fitHeight="33.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagelogo/pen.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#deleteBTN" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: wF4F4F5hite;">
+                     <graphic>
+                        <ImageView fitHeight="33.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagelogo/bin.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+
+        <!-- Add New Address Button -->
+        <HBox alignment="CENTER" layoutX="30.0" layoutY="400.0" prefWidth="640.0" />
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="35.0" layoutY="343.0" mnemonicParsing="false" onAction="#addNewAddressBTN" prefHeight="42.0" prefWidth="568.0" style="-fx-background-color: #333333; -fx-text-fill: white; -fx-background-radius: 10;" text="+ Add New Address" />
+    </children>
+   <padding>
+      <Insets right="-30.0" />
+   </padding>
+</AnchorPane>
