@@ -4,85 +4,95 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import project.demo.models.UserSession;
 
 import java.io.IOException;
 
 public class MainStructureController {
 
     @FXML
-    private AnchorPane contentContainer; // The placeholder for dynamic content
+    private AnchorPane contentContainer;
 
-    private String currentPage = ""; // Track the currently loaded page
+    @FXML
+    private Circle profileImageCircle;
+
+    private String currentPage = "";
 
     @FXML
     public void initialize() {
-        // Load the initial page (HomePage.fxml) when the application starts
-        loadPage("/project/demo/FXMLServicePage/ServicePage.fxml");
+        System.out.println("[DEBUG] MainStructureController initialized.");
+
+        // Load the default home page
+        loadPage("/project/demo/FXMLHomePage/HomePage.fxml");
+
+        // Dynamically update the profile image
+        refreshProfileImage();
     }
 
+    public void refreshProfileImage() {
+        Image userProfileImage = UserSession.getInstance().getUserImage();
+        profileImageCircle.setFill(new ImagePattern(userProfileImage));
+        System.out.println("[INFO] MainStructureController profile image refreshed.");
+    }
+
+
+
     /**
-     * Utility method to load an FXML page into the contentContainer.
+     * Loads the specified FXML page into the content container.
      *
-     * @param fxmlFile the FXML file to load
+     * @param fxmlPath Path to the FXML file.
      */
-    private void loadPage(String fxmlFile) {
-        if (contentContainer == null) {
-            System.err.println("[ERROR] contentContainer is null.");
-            return;
-        }
-
-        if (currentPage.equals(fxmlFile)) {
-            System.out.println("[INFO] Page already loaded: " + fxmlFile);
-            return;
-        }
-
+    private void loadPage(String fxmlPath) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             AnchorPane newPage = loader.load();
 
-            // Clear current content and load the new page
+            // Retrieve the controller and inject MainStructureController
+            Object controller = loader.getController();
+            if (controller instanceof InjectMainController) {
+                ((InjectMainController) controller).setMainStructureController(this);
+            }
+
             contentContainer.getChildren().clear();
             contentContainer.getChildren().add(newPage);
 
-            currentPage = fxmlFile;
-            System.out.println("[INFO] Successfully loaded: " + fxmlFile);
+            currentPage = fxmlPath;
+            System.out.println("[INFO] Successfully loaded: " + fxmlPath);
         } catch (IOException e) {
+            System.err.println("[ERROR] Failed to load page: " + fxmlPath);
             e.printStackTrace();
-            System.err.println("[ERROR] Failed to load page: " + fxmlFile);
         }
     }
+    public interface InjectMainController {
+        void setMainStructureController(MainStructureController mainController);
+    }
 
-    // Handle Home button click
+    public void handleProfileClick(MouseEvent mouseEvent) {
+        System.out.println("[DEBUG] Profile Clicked - Event Triggered");
+        loadPage("/project/demo/FXMLProfilePage/ProfilePage.fxml");
+    }
+
     public void handleHomeClick(ActionEvent actionEvent) {
-        System.out.println("Cart Home Page button clicked");
         loadPage("/project/demo/FXMLHomePage/HomePage.fxml");
     }
 
-    // Handle Shop button click
     public void handleShopClick(ActionEvent actionEvent) {
-        System.out.println("Shop Page Page button clicked");
         loadPage("/project/demo/FXMLShopPage/ShopPage.fxml");
     }
 
-    // Handle Cart button click
     public void handleCartClick(ActionEvent actionEvent) {
-        System.out.println("Cart Page button clicked");
         loadPage("/project/demo/FXMLCartPage/CartPage.fxml");
     }
 
     public void handleServiceClick(ActionEvent actionEvent) {
-        System.out.println("HomeService Page button clicked");
         loadPage("/project/demo/FXMLServicePage/ServicePage.fxml");
     }
 
-    // Add this method to handle Booking button clicks
     public void handleBookingClick(ActionEvent actionEvent) {
-        System.out.println("Booking Page button clicked");
         loadPage("/project/demo/FXMLBookingPage/BookingPage.fxml");
-    }
-
-    public void handleProfileClick(MouseEvent mouseEvent) {
-        loadPage("/project/demo/FXMLProfilePage/ProfilePage.fxml");
     }
 }

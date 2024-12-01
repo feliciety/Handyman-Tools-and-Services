@@ -49,6 +49,9 @@
                </children>
             </HBox>
             <Button alignment="CENTER" onAction="#handleSaveChanges" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #333333; -fx-text-fill: white; -fx-background-radius: 10;" text="Save Changes">
+               <Label fx:id="loadingSpinner" styleClass="loading-spinner" visible="false" />
+               <Label fx:id="successIcon" styleClass="success-icon" visible="false" />
+               <Label fx:id="errorIcon" styleClass="error-icon" visible="false" />  
                <VBox.margin>
                   <Insets left="360.0" top="10.0" />
                </VBox.margin>

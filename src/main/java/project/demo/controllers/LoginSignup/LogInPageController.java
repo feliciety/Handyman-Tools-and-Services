@@ -97,4 +97,19 @@ public class LogInPageController {
             System.out.println("Failed to load the page.");
         }
     }
+    private void loginUser(int userId, String username, String email, String contactNumber, String profilePicturePath) {
+        UserSession session = UserSession.getInstance();
+        session.setUserId(userId);
+        session.setUsername(username);
+        session.setEmail(email);
+        session.setContactNumber(contactNumber);
+
+        System.out.println("[INFO] User session initialized:");
+        System.out.println("User ID: " + userId);
+        System.out.println("Username: " + username);
+        System.out.println("Email: " + email);
+        System.out.println("Contact Number: " + contactNumber);
+        System.out.println("Profile Picture Path: " + profilePicturePath);
+    }
+
 }

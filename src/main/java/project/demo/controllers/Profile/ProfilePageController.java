@@ -1,162 +1,160 @@
 package project.demo.controllers.Profile;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
+import project.demo.DataBase.DatabaseConfig;
 import project.demo.models.UserSession;
 
+import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class ProfilePageController {
 
     @FXML
-    private AnchorPane contentPane; // Dynamic content pane for loading views
+    private Circle profileImageCircle;
 
     @FXML
-    private Label UserName; // Label to display the user's name
+    private Label usernameLabel;
 
     @FXML
-    private Label userEmail; // Label to display the user's email
+    private Label useremailLabel;
+
+    @FXML
+    private AnchorPane contentPane;
+
+    private final DatabaseConfig db = new DatabaseConfig();
 
     /**
-     * Initializes the profile page by loading the default view (Edit Profile).
+     * Initialize the profile page, fetch data from the database, and update UI elements.
      */
     @FXML
     public void initialize() {
-        // Load the Edit Profile view by default
-        loadView("/project/demo/FXMLProfilePage/EditProfile.fxml");
-
-        // Fetch and display logged-in user information
-        UserSession session = UserSession.getInstance();
-        UserName.setText(session.getUsername());
-        userEmail.setText(session.getEmail());
-
-        if (session.getUserImage() != null) {
-            userImage.setImage(session.getUserImage());
-        }
-
-        System.out.println("[INFO] Logged-in User ID: " + session.getUserId());
-        System.out.println("[INFO] Username: " + session.getUsername());
-        System.out.println("[INFO] Email: " + session.getEmail());
+        updateUserDetails();
     }
 
     /**
-     * Dynamically loads a new view into the content pane.
-     *
-     * @param fxmlPath The FXML file path to load.
+     * Fetch user details from the database and update the UI.
      */
-    public void loadView(String fxmlPath) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            AnchorPane newView = loader.load();
+    private void updateUserDetails() {
+        UserSession session = UserSession.getInstance();
 
-            // Set main controller in subcontrollers dynamically
-            Object controller = loader.getController();
-            if (controller instanceof EditProfileController) {
-                EditProfileController editProfileController = (EditProfileController) controller;
-                editProfileController.setMainController(this);
+        try (Connection connection = db.getConnection()) {
+            String query = "SELECT username, email, profile_image_path FROM users WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, session.getUserId());
+            ResultSet resultSet = statement.executeQuery();
 
-                // Populate user details
-                UserSession session = UserSession.getInstance();
-                editProfileController.initializeUserDetails(
-                        session.getUsername(),
-                        session.getEmail(),
-                        session.getContactNumber()
-                );
-            } else if (controller instanceof OrderHistoryController) {
-                ((OrderHistoryController) controller).setMainController(this);
-            } else if (controller instanceof EditAddressController) {
-                ((EditAddressController) controller).setMainController(this);
-            } else if (controller instanceof EditPaymentMethodsController) {
-                ((EditPaymentMethodsController) controller).setMainController(this);
+            if (resultSet.next()) {
+                String username = resultSet.getString("username");
+                String email = resultSet.getString("email");
+                String profileImagePath = resultSet.getString("profile_image_path");
+
+                // Update labels
+                usernameLabel.setText(username);
+                useremailLabel.setText(email);
+
+                // Update profile image
+                if (profileImagePath != null && !profileImagePath.isEmpty()) {
+                    File file = new File(profileImagePath);
+                    if (file.exists()) {
+                        profileImageCircle.setFill(new ImagePattern(new Image(file.toURI().toString())));
+                    } else {
+                        // Default image if the file path is invalid
+                        profileImageCircle.setFill(new ImagePattern(new Image("default_profile_picture.png")));
+                    }
+                } else {
+                    profileImageCircle.setFill(new ImagePattern(new Image("default_profile_picture.png")));
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("[ERROR] Failed to fetch user details: " + e.getMessage());
+        }
+    }
 
-            // Clear and replace content pane
+    /**
+     * Handle changing the profile image.
+     */
+    @FXML
+    public void handleImageChange(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Profile Image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(contentPane.getScene().getWindow());
+        if (selectedFile != null) {
+            String imagePath = selectedFile.getAbsolutePath();
+
+            // Update the database with the new image path
+            UserSession session = UserSession.getInstance();
+            try (Connection connection = db.getConnection()) {
+                String query = "UPDATE users SET profile_image_path = ? WHERE id = ?";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1, imagePath);
+                statement.setInt(2, session.getUserId());
+                statement.executeUpdate();
+
+                // Update the profile image in the UI
+                profileImageCircle.setFill(new ImagePattern(new Image(selectedFile.toURI().toString())));
+
+                System.out.println("[INFO] Profile image updated: " + imagePath);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println("[ERROR] Failed to update profile image: " + e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Generic method to load views into the content pane.
+     *
+     * @param fxmlFilePath Path to the FXML file.
+     */
+    private void loadView(String fxmlFilePath) {
+        try {
+            AnchorPane newView = FXMLLoader.load(getClass().getResource(fxmlFilePath));
             contentPane.getChildren().clear();
             contentPane.getChildren().add(newView);
-
-            // Anchor the new view
-            AnchorPane.setTopAnchor(newView, 0.0);
-            AnchorPane.setBottomAnchor(newView, 0.0);
-            AnchorPane.setLeftAnchor(newView, 0.0);
-            AnchorPane.setRightAnchor(newView, 0.0);
-
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("[ERROR] Failed to load view: " + fxmlPath);
+            System.err.println("[ERROR] Failed to load view: " + fxmlFilePath);
         }
     }
 
-    /**
-     * Handle the "Edit Profile" button click event.
-     */
     @FXML
-    public void clickEditProfile() {
+    public void clickEditProfile(ActionEvent actionEvent) {
         loadView("/project/demo/FXMLProfilePage/EditProfile.fxml");
     }
 
-    /**
-     * Handle the "Order History" button click event.
-     */
     @FXML
-    public void clickOrderHistory() {
+    public void clickOrderHistory(ActionEvent actionEvent) {
         loadView("/project/demo/FXMLProfilePage/OrderHistory.fxml");
     }
 
-    /**
-     * Handle the "Manage Addresses" button click event.
-     */
     @FXML
-    public void clickManageAddresses() {
-        loadView("/project/demo/FXMLProfilePage/EditAddress.fxml");
+    public void clickServiceHistory(ActionEvent actionEvent) {
+        loadView("/project/demo/FXMLProfilePage/ServiceHistory.fxml");
     }
 
-    /**
-     * Handle the "Payment Methods" button click event.
-     */
     @FXML
-    public void clickPaymentMethods() {
-        loadView("/project/demo/FXMLProfilePage/EditPaymentMethods.fxml");
+    public void clickManageAddresses(ActionEvent actionEvent) {
+        loadView("/project/demo/FXMLProfilePage/ManageAddresses.fxml");
     }
 
-    /**
-     * Updates profile details for the logged-in user.
-     *
-     * @param newName          Updated name
-     * @param newEmail         Updated email
-     * @param newContactNumber Updated contact number
-     */
-    public void updateProfileDetails(String newName, String newEmail, String newContactNumber) {
-        if (newName == null || newName.isEmpty()) {
-            System.err.println("[ERROR] Name cannot be null or empty.");
-            return;
-        }
-        if (newEmail == null || newEmail.isEmpty()) {
-            System.err.println("[ERROR] Email cannot be null or empty.");
-            return;
-        }
-        if (newContactNumber == null || newContactNumber.isEmpty()) {
-            System.err.println("[ERROR] Contact number cannot be null or empty.");
-            return;
-        }
-
-        try {
-            // Update session details
-            UserSession session = UserSession.getInstance();
-            session.setUsername(newName);
-            session.setEmail(newEmail);
-            session.setContactNumber(newContactNumber);
-
-            // Log updates for debugging
-            System.out.println("[INFO] Profile details updated successfully:");
-            System.out.println("Name: " + newName);
-            System.out.println("Email: " + newEmail);
-            System.out.println("Contact Number: " + newContactNumber);
-
-        } catch (Exception e) {
-            System.err.println("[ERROR] Failed to update profile details: " + e.getMessage());
-            e.printStackTrace();
-        }
+    @FXML
+    public void clickPaymentMethods(ActionEvent actionEvent) {
+        loadView("/project/demo/FXMLProfilePage/PaymentMethods.fxml");
     }
 }

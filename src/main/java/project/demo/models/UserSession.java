@@ -1,5 +1,7 @@
 package project.demo.models;
 
+import javafx.scene.image.Image;
+
 public class UserSession {
     private static UserSession instance;
 
@@ -7,6 +9,7 @@ public class UserSession {
     private String username;
     private String email;
     private String contactNumber;
+    private String userImagePath; // Stores the file path for the profile picture
 
     private UserSession() {
     }
@@ -52,5 +55,25 @@ public class UserSession {
 
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
+    }
+
+    public String getUserImagePath() {
+        return userImagePath;
+    }
+
+    public void setUserImagePath(String userImagePath) {
+        this.userImagePath = userImagePath;
+    }
+
+    public Image getUserImage() {
+        try {
+            if (userImagePath != null && !userImagePath.isEmpty()) {
+                return new Image(userImagePath); // Load user image from path
+            }
+        } catch (Exception e) {
+            System.err.println("[ERROR] Failed to load user image: " + e.getMessage());
+        }
+        // Fallback to default image
+        return new Image(getClass().getResource("/project/demo/imagelogo/user.png").toString());
     }
 }

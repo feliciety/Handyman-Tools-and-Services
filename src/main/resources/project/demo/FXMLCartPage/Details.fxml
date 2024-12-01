@@ -35,7 +35,7 @@
                    <TextField fx:id="lastNameField" prefHeight="40.0" prefWidth="324.0" promptText="Last Name" />
                </children>
             </HBox>
-             <TextField fx:id="addressField" prefHeight="40.0" promptText="Address and number" text="Street Name, Building, House No." />
+             <TextField fx:id="addressField" prefHeight="40.0" promptText="Street Name, Building, House No." />
              <TextField fx:id="shippingNoteField" prefHeight="40.0" promptText="Shipping note (optional)" />
             <HBox prefHeight="42.0" prefWidth="751.0" spacing="10.0">
                <children>

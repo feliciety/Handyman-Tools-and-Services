@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 
 <AnchorPane prefHeight="780.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Main.MainStructureController">
    <children>
@@ -25,15 +26,12 @@
                   <Button onAction="#handleBookingClick" prefWidth="100.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Booking" />
                </children>
             </HBox>
-            <Label onMouseClicked="#handleProfileClick" prefHeight="35.0" prefWidth="121.0">
-               <graphic>
-                  <ImageView fitHeight="34.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@imagesemployee/ApplianceRepairer1.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Label>
+            <Circle fx:id="profileImageCircle" fill="WHITE" onMouseClicked="#handleProfileClick" radius="22.0" stroke="BLACK" strokeType="INSIDE">
+               <HBox.margin>
+                  <Insets bottom="-10.0" top="-10.0" />
+               </HBox.margin>
+            </Circle>
+            <Label onMouseClicked="#handleProfileClick" prefHeight="35.0" prefWidth="121.0" />
          </children>
       </HBox>
       <ImageView fitHeight="80.0" fitWidth="234.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true">
@@ -46,6 +44,6 @@
             <HBox spacing="10" />
          </children>
       </VBox>
-      <AnchorPane fx:id="contentContainer" layoutX="-1.0" layoutY="56.0" prefHeight="682.0" prefWidth="1220.0" />
+      <AnchorPane fx:id="contentContainer" layoutX="-1.0" layoutY="56.0" onMouseClicked="#handleProfileClick" prefHeight="682.0" prefWidth="1220.0" />
    </children>
 </AnchorPane>
