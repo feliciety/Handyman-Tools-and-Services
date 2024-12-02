@@ -186,6 +186,7 @@ public class CartPageController {
         }
     }
 
+
     /**
      * Removes a cart item from the cartItems list and updates the subtotal.
      *

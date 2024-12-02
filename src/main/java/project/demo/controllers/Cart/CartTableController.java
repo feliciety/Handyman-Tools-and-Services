@@ -170,7 +170,6 @@ public class CartTableController {
     @FXML
     public void goToDetails(ActionEvent actionEvent) {
         if (mainController != null) {
-            System.out.println("Navigating to Details view...");
             mainController.loadView("/project/demo/FXMLCartPage/Details.fxml");
         } else {
             System.err.println("Main controller is not set!");
@@ -180,7 +179,7 @@ public class CartTableController {
 
     public void goToShop(ActionEvent actionEvent) {
         if (mainController != null) {
-            mainController.loadView("/project/demo/FXMLCartPage/CartTable.fxml");
+            mainController.loadView("/project/demo/FXMLCartPage/CartTable.fxml"); // Ensure this path is correct
         }
     }
 }

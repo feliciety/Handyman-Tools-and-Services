@@ -1,14 +1,15 @@
 package project.demo.controllers.Profile;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
 import project.demo.dao.AddressDAO;
 import project.demo.dao.AddressDAOImpl;
 import project.demo.models.Address;
@@ -28,14 +29,17 @@ public class ManageAddressRowController {
 
     private Address address; // Holds the address data for this row
     private AddressDAO addressDAO = new AddressDAOImpl(); // DAO for database operations
+    private ManageAddressesController parentController; // Reference to the parent controller for grid updates
 
     /**
      * Sets the address data for this row and updates the UI labels.
      *
      * @param address The address to display.
+     * @param parentController The parent controller to handle grid updates.
      */
-    public void setAddress(Address address) {
+    public void setAddress(Address address, ManageAddressesController parentController) {
         this.address = address;
+        this.parentController = parentController;
 
         if (address != null) {
             // Populate the labels with the address details
@@ -71,7 +75,7 @@ public class ManageAddressRowController {
 
             Address updatedAddress = controller.getUpdatedAddress();
             if (updatedAddress != null) {
-                setAddress(updatedAddress);
+                setAddress(updatedAddress, parentController);
                 System.out.println("[INFO] Address updated successfully.");
             }
         } catch (IOException e) {
@@ -101,9 +105,8 @@ public class ManageAddressRowController {
                 boolean success = addressDAO.deleteAddress(address.getId());
                 if (success) {
                     System.out.println("[INFO] Address deleted successfully.");
-
-                    // Remove the row from the grid
-                    removeRowFromGrid();
+                    // Remove the row from the grid and update the grid
+                    parentController.removeAddressFromGrid(address);
                 } else {
                     System.err.println("[ERROR] Failed to delete address from the database.");
                     Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -115,39 +118,4 @@ public class ManageAddressRowController {
             }
         });
     }
-
-    /**
-     * Removes this row from the GridPane.
-     */
-    private void removeRowFromGrid() {
-        try {
-            // Get the parent AnchorPane for this row
-            AnchorPane parentRow = (AnchorPane) AddressTyepeLabel.getParent();
-            if (parentRow == null) {
-                System.err.println("[ERROR] Parent AnchorPane not found for row.");
-                return;
-            }
-
-            // Get the GridPane that contains the rows
-            GridPane addressGridPane = (GridPane) parentRow.getParent();
-            if (addressGridPane == null) {
-                System.err.println("[ERROR] Parent GridPane not found.");
-                return;
-            }
-
-            // Remove the row from the GridPane
-            addressGridPane.getChildren().remove(parentRow);
-
-            // Reorganize remaining rows' indices
-            for (int i = 0; i < addressGridPane.getChildren().size(); i++) {
-                GridPane.setRowIndex(addressGridPane.getChildren().get(i), i);
-            }
-
-            System.out.println("[INFO] Row successfully removed from the grid.");
-        } catch (ClassCastException | NullPointerException e) {
-            e.printStackTrace();
-            System.err.println("[ERROR] Failed to remove row from grid: " + e.getMessage());
-        }
-    }
-
 }

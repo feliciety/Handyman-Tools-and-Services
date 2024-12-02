@@ -14,8 +14,8 @@
 <AnchorPane prefHeight="651.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.CartPageController">
     <children>
         <!-- Dynamic Content Pane (Cart Table) -->
-        <AnchorPane fx:id="contentPane" layoutX="32.0" layoutY="89.0" prefHeight="522.0" prefWidth="762.0" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="89.0" />
-      <AnchorPane layoutX="826.0" layoutY="109.0" prefHeight="482.0" prefWidth="342.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #dcdcdc; -fx-background-color: #f5f5f5;">
+        <AnchorPane fx:id="contentPane" layoutX="37.0" layoutY="64.0" prefHeight="522.0" prefWidth="762.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #dcdcdc; -fx-background-color: #f5f5f5;" AnchorPane.leftAnchor="37.0" AnchorPane.topAnchor="64.0" />
+      <AnchorPane layoutX="825.0" layoutY="84.0" prefHeight="482.0" prefWidth="342.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #dcdcdc; -fx-background-color: #f5f5f5;">
          <children>
       
                                       <!-- Static Order Summary -->
@@ -42,12 +42,12 @@
                            <Insets right="10.0" />
                         </HBox.margin>
                         <font>
-                           <Font size="18.0" />
+                           <Font size="15.0" />
                         </font>
                      </Label>
                           <Label fx:id="subtotalLabel" alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="130.0" text="0.00">
                         <font>
-                           <Font size="18.0" />
+                           <Font size="15.0" />
                         </font>
                      </Label>
                      <VBox.margin>
@@ -61,12 +61,12 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                            <font>
-                              <Font size="18.0" />
+                              <Font size="15.0" />
                            </font>
                         </Label>
                         <Label fx:id="couponDiscountLabel" alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="130.0" text="0.00">
                            <font>
-                              <Font size="18.0" />
+                              <Font size="15.0" />
                            </font>
                         </Label>
                      </children>
@@ -79,12 +79,12 @@
                            <Insets right="8.0" />
                         </HBox.margin>
                         <font>
-                           <Font size="18.0" />
+                           <Font size="15.0" />
                         </font>
                      </Label>
                           <Label fx:id="shippingLabel" alignment="CENTER_RIGHT" prefWidth="130.0" text="0.00">
                         <font>
-                           <Font size="18.0" />
+                           <Font size="15.0" />
                         </font>
                      </Label>
                       </HBox>
@@ -96,11 +96,11 @@
                         <Insets top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <HBox spacing="10.0">
+                  <HBox alignment="CENTER" spacing="10.0">
                      <children>
                              <TextField fx:id="promoCodeField" prefHeight="36.0" prefWidth="185.0" promptText="Enter Promo Code" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #dcdcdc; -fx-background-color: white;" />
-                             <Button onAction="#applyPromoCode" prefHeight="35.0" prefWidth="50.0" style="-fx-background-color: #4EEB00; -fx-background-radius: 5; -fx-border-radius: 5;" text="Apply" />
-                             <Button fx:id="removeCouponButton" onAction="#removeCoupon" prefHeight="35.0" prefWidth="46.0" style="-fx-background-color: red;" text="X" />
+                             <Button onAction="#applyPromoCode" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #4EEB00; -fx-background-radius: 5; -fx-border-radius: 5;" text="✓" />
+                             <Button fx:id="removeCouponButton" onAction="#removeCoupon" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: red;" text="X" visible="false" />
                      </children>
                      <VBox.margin>
                         <Insets top="20.0" />

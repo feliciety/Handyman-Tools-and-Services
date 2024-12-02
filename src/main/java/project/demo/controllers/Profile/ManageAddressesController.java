@@ -7,11 +7,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.Scene;
 import project.demo.models.Address;
 import project.demo.dao.AddressDAO;
 import project.demo.dao.AddressDAOImpl;
@@ -65,7 +65,7 @@ public class ManageAddressesController {
 
                 // Pass address data to the row's controller
                 ManageAddressRowController controller = loader.getController();
-                controller.setAddress(addressList.get(i)); // Pass address to the controller
+                controller.setAddress(addressList.get(i), this); // Pass address and parent controller
 
                 addressGridPane.addRow(i, row); // Add the row to the grid
             } catch (IOException e) {
@@ -73,6 +73,15 @@ public class ManageAddressesController {
                 System.err.println("[ERROR] Failed to load ManageAddressRow.fxml: " + e.getMessage());
             }
         }
+    }
+
+    /**
+     * Removes the deleted address from the grid.
+     * @param address The address to remove.
+     */
+    public void removeAddressFromGrid(Address address) {
+        addressList.remove(address); // Remove from the list
+        refreshGrid(); // Refresh the grid to reflect the removal
     }
 
     /**

@@ -68,7 +68,9 @@ public class    PaymentController {
      */
     @FXML
     public void initialize() {
-
+        // Example: Populate total items and amount dynamically
+        totalItemsLabel.setText("3");
+        totalAmountLabel.setText("$120.00");
     }
 
     /**
@@ -138,7 +140,7 @@ public class    PaymentController {
     public void backToShipping(ActionEvent actionEvent) {
         if (mainController != null) {
             System.out.println("Navigating back to Shipping view...");
-            mainController.loadView("/project/demo/FXMLCartPage/Shipping.fxml");
+            mainController.loadView("/project/demo/Shipping.fxml");
         } else {
             System.err.println("Main controller is not set!");
         }

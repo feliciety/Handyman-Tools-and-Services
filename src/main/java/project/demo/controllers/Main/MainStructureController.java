@@ -67,6 +67,9 @@ public class MainStructureController {
             e.printStackTrace();
         }
     }
+
+
+
     public interface InjectMainController {
         void setMainStructureController(MainStructureController mainController);
     }
@@ -75,7 +78,8 @@ public class MainStructureController {
         System.out.println("[DEBUG] Profile Clicked - Event Triggered");
         loadPage("/project/demo/FXMLProfilePage/ProfilePage.fxml");
     }
-
+    public void handleAboutUsClick(ActionEvent actionEvent) {
+    }
     public void handleHomeClick(ActionEvent actionEvent) {
         loadPage("/project/demo/FXMLHomePage/HomePage.fxml");
     }

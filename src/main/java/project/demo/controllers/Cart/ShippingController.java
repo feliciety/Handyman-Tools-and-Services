@@ -22,12 +22,6 @@ public class ShippingController {
     private CartPageController mainController; // Reference to the main controller
 
     @FXML
-    private Label contactLabel; // Label for contact information
-
-    @FXML
-    private Label addressLabel; // Label for shipping address
-
-    @FXML
     private RadioButton standardShipping; // Standard shipping option
 
     @FXML
@@ -42,11 +36,6 @@ public class ShippingController {
     @FXML
     public void initialize() {
         System.out.println("Initializing ShippingController...");
-
-        // Load initial data into labels
-        ShippingDetails details = ShippingDetails.getInstance();
-        if (contactLabel != null) contactLabel.setText(details.getContact());
-        if (addressLabel != null) addressLabel.setText(details.getAddress());
 
         // Setup ToggleGroup for shipping methods
         ToggleGroup shippingGroup = new ToggleGroup();
@@ -71,40 +60,10 @@ public class ShippingController {
         this.mainController = mainController;
     }
 
-    @FXML
-    public void editContact(ActionEvent actionEvent) {
-        // Show input dialog to edit contact information
-        TextInputDialog dialog = new TextInputDialog(contactLabel.getText());
-        dialog.setTitle("Edit Contact");
-        dialog.setHeaderText("Update your contact information");
-        dialog.setContentText("Enter your email or phone number:");
-
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(newContact -> {
-            contactLabel.setText(newContact);
-            ShippingDetails.getInstance().setContact(newContact);
-        });
-    }
-
-    @FXML
-    public void editAddress(ActionEvent actionEvent) {
-        // Show input dialog to edit the shipping address
-        TextInputDialog dialog = new TextInputDialog(addressLabel.getText());
-        dialog.setTitle("Edit Address");
-        dialog.setHeaderText("Update your shipping address");
-        dialog.setContentText("Enter your new address:");
-
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(newAddress -> {
-            addressLabel.setText(newAddress);
-            ShippingDetails.getInstance().setAddress(newAddress);
-        });
-    }
 
     @FXML
     public void goToPayment(ActionEvent actionEvent) {
         if (mainController != null) {
-            System.out.println("Navigating to Payment view...");
             mainController.loadView("/project/demo/FXMLCartPage/Payment.fxml");
         } else {
             System.err.println("Main controller is not set!");
@@ -114,25 +73,9 @@ public class ShippingController {
     @FXML
     public void goToDetails(ActionEvent actionEvent) {
         if (mainController != null) {
-            System.out.println("Navigating back to Details view...");
             mainController.loadView("/project/demo/FXMLCartPage/Details.fxml");
         } else {
             System.err.println("Main controller is not set!");
-        }
-    }
-
-    private void loadFXML(String fxmlPath, ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Parent root = loader.load();
-
-            // Set the new scene
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Failed to load FXML file: " + fxmlPath);
         }
     }
 

@@ -181,6 +181,6 @@ public class ProfilePageController {
 
     @FXML
     public void clickPaymentMethods(ActionEvent actionEvent) {
-        loadView("/project/demo/FXMLProfilePage/PaymentMethods.fxml");
+        loadView("/project/demo/FXMLProfilePage/PaymentFXML/EditPaymentMethods.fxml");
     }
 }

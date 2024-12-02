@@ -7,34 +7,45 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="101.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.CartAddressRowController">
+<AnchorPane prefHeight="119.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.CartAddressRowController">
     <children>
-        <VBox layoutX="22.0" layoutY="14.0" prefHeight="74.0" prefWidth="558.0">
-            <children>
-                <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="548.0" spacing="15.0">
-                    <children>
-                        <RadioButton fx:id="selectAddressRadioButton" prefHeight="42.0" prefWidth="70.0">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="toggleGroup" />
-                     </toggleGroup></RadioButton>
-                        <VBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="474.0" spacing="5.0">
-                            <children>
-                                <Label fx:id="AddressTyepeLabel" prefHeight="26.0" prefWidth="422.0" style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Address Name" />
-                                <Label fx:id="StreetCityPostalCodeLabel" prefHeight="20.0" prefWidth="533.0" text="Street, City, Postal Code" />
-                                <Label fx:id="ProvinceRegionLabel" prefHeight="20.0" prefWidth="403.0" text="Province, Region" />
-                            </children>
-                        </VBox>
-                  <ImageView fitHeight="38.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imagelogo/map.png" />
-                     </image>
-                  </ImageView>
-                        <HBox spacing="10.0" />
-                    </children>
-                </HBox>
-            </children>
-        </VBox>
+      <Pane layoutX="10.0" layoutY="12.0" prefHeight="96.0" prefWidth="578.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #dcdcdc; -fx-background-color: #f5f5f5;">
+         <children>
+              <VBox layoutX="10.0" layoutY="11.0" prefHeight="74.0" prefWidth="558.0">
+                  <children>
+                      <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="548.0" spacing="15.0">
+                          <children>
+                              <RadioButton fx:id="selectAddressRadioButton" prefHeight="42.0" prefWidth="70.0">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="toggleGroup" />
+                           </toggleGroup>
+                        </RadioButton>
+                              <VBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="474.0" spacing="5.0">
+                                  <children>
+                                      <Label fx:id="AddressTyepeLabel" prefHeight="26.0" prefWidth="422.0" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Address Name">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                                      <Label fx:id="StreetCityPostalCodeLabel" prefHeight="20.0" prefWidth="533.0" text="Street, City, Postal Code" />
+                                      <Label fx:id="ProvinceRegionLabel" prefHeight="20.0" prefWidth="403.0" text="Province, Region" />
+                                  </children>
+                              </VBox>
+                        <ImageView fitHeight="46.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagelogo/map.png" />
+                           </image>
+                        </ImageView>
+                              <HBox spacing="10.0" />
+                          </children>
+                      </HBox>
+                  </children>
+              </VBox>
+         </children>
+      </Pane>
     </children>
 </AnchorPane>

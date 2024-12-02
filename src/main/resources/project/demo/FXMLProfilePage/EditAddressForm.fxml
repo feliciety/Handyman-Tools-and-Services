@@ -42,10 +42,10 @@
              <TextField fx:id="cityField" prefHeight="40.0" promptText="City" styleClass="text-field" />
             <TextField fx:id="postalCodeField" prefHeight="40.0" promptText="Postal Code" styleClass="text-field" />
              <ComboBox fx:id="provinceComboBox" editable="true" prefHeight="40.0" prefWidth="356.0" promptText="Province" />
-             <ComboBox fx:id="regionComboBox" editable="true"  prefHeight="40.0" prefWidth="349.0" promptText="Region" />
+             <ComboBox fx:id="regionComboBox" editable="true" prefHeight="40.0" prefWidth="349.0" promptText="Region" />
              <HBox prefHeight="41.0" prefWidth="348.0" spacing="30.0">
-                 <Button onAction="#onCancel" prefHeight="30.0" prefWidth="200.0" text="Cancel" />
-                 <Button fx:id="saveButton" onAction="#onSave" prefHeight="30.0" prefWidth="200.0" text="Edit" />
+                 <Button onAction="#onCancel" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #F4F4F5; -fx-border-color: #dcdcdc;" text="Cancel" />
+                 <Button fx:id="saveButton" onAction="#onSave" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ffdb00; -fx-text-fill: #222222;" text="Save Edit" />
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>

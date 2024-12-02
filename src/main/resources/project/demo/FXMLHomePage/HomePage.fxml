@@ -7,11 +7,13 @@
 
 <AnchorPane prefHeight="643.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane layoutX="2.0" layoutY="-2.0" prefHeight="647.0" prefWidth="1218.0" style="-fx-background-color: White;" />
-      <ImageView fitHeight="659.0" fitWidth="1241.0" layoutX="-12.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../imageHomePage/HomePage.png" />
-         </image>
-      </ImageView>
+      <Pane layoutX="2.0" layoutY="-2.0" prefHeight="672.0" prefWidth="1218.0" style="-fx-background-color: White;">
+         <children>
+            <ImageView fitHeight="618.0" fitWidth="1218.0" layoutX="17.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../imageHomePage/HomePage.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
    </children>
 </AnchorPane>

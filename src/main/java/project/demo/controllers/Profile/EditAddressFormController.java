@@ -90,29 +90,7 @@ public class EditAddressFormController {
         provinceComboBox.setItems(provinces);
         regionComboBox.setItems(regions);
 
-        // Enable search filtering
-        setupSearchFilter(provinceComboBox, provinces);
-        setupSearchFilter(regionComboBox, regions);
     }
-    private void setupSearchFilter(ComboBox<String> comboBox, ObservableList<String> items) {
-        comboBox.setEditable(true);
-        comboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            ObservableList<String> filteredItems = FXCollections.observableArrayList(
-                    items.stream()
-                            .filter(item -> item.toLowerCase().contains(newValue.toLowerCase()))
-                            .collect(Collectors.toList())
-            );
-
-            comboBox.setItems(filteredItems);
-            comboBox.getEditor().setText(newValue);
-
-            if (!comboBox.isShowing()) {
-                comboBox.show();
-            }
-        });
-    }
-
-
 
     public void setAddress(Address address) {
         this.addressToEdit = address;

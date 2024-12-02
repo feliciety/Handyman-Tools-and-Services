@@ -28,23 +28,23 @@
                         <VBox alignment="CENTER_LEFT" prefWidth="500.0" spacing="5.0">
                             <children>
                                 <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="PayPal" />
-                                <Label style="-fx-font-size: 14px; -fx-text-fill: #666666;" text="user@example.com" />
+                                <Label fx:id="paypalEmailLabel" style="-fx-font-size: 14px; -fx-text-fill: #666666;" text="Enter Details" />
                             </children>
                         </VBox>
-                  <Button mnemonicParsing="false" onAction="#editBTN" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: F4F4F5;">
+                  <Button fx:id="editPayPalButton" mnemonicParsing="false" onAction="#openPayPalEditPopup" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: F4F4F5;">
                      <graphic>
                         <ImageView fitHeight="33.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../imagelogo/pen.png" />
+                              <Image url="@../../imagelogo/pen.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#deleteBTN" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: wF4F4F5hite;">
+                  <Button mnemonicParsing="false" onAction="#onDeletePaypal" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: wF4F4F5hite;">
                      <graphic>
                         <ImageView fitHeight="33.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../imagelogo/bin.png" />
+                              <Image url="@../../imagelogo/bin.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -58,23 +58,23 @@
                         <VBox alignment="CENTER_LEFT" prefWidth="500.0" spacing="5.0">
                             <children>
                                 <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Credit Card" />
-                                <Label style="-fx-font-size: 14px; -fx-text-fill: #666666;" text="**** **** **** 1234" />
+                                <Label fx:id="CreditCardNumLabel" style="-fx-font-size: 14px; -fx-text-fill: #666666;" text="Enter Details" />
                             </children>
                         </VBox>
-                  <Button mnemonicParsing="false" onAction="#editBTN" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: F4F4F5;">
+                  <Button fx:id="editCreditCardButton" mnemonicParsing="false" onAction="#openCreditCardEditPopup" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: F4F4F5;">
                      <graphic>
                         <ImageView fitHeight="33.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../imagelogo/pen.png" />
+                              <Image url="@../../imagelogo/pen.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#deleteBTN" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: wF4F4F5hite;">
+                  <Button mnemonicParsing="false" onAction="#onDeleteCreditCard" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: wF4F4F5hite;">
                      <graphic>
                         <ImageView fitHeight="33.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../imagelogo/bin.png" />
+                              <Image url="@../../imagelogo/bin.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -88,26 +88,24 @@
                         <VBox alignment="CENTER_LEFT" prefWidth="500.0" spacing="5.0">
                             <children>
                                 <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="GCash" />
-                                <Label style="-fx-font-size: 14px; -fx-text-fill: #666666;" text="+63 912 345 6789" />
+                                <Label fx:id="gcashNumebrLabel" style="-fx-font-size: 14px; -fx-text-fill: #666666;" text="Enter Details" />
                             </children>
                         </VBox>
-                  <Button mnemonicParsing="false" onAction="#editBTN" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: F4F4F5;" />
-                  <Button mnemonicParsing="false" onAction="#deleteBTN" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: wF4F4F5hite;" />
                         <HBox spacing="10.0" />
-                  <Button mnemonicParsing="false" onAction="#editBTN" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: F4F4F5;">
+                  <Button fx:id="editGCashButton" mnemonicParsing="false" onAction="#openGCashEditPopup" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: F4F4F5;">
                      <graphic>
                         <ImageView fitHeight="33.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../imagelogo/pen.png" />
+                              <Image url="@../../imagelogo/pen.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#deleteBTN" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: wF4F4F5hite;">
+                  <Button mnemonicParsing="false" onAction="#onDeleteGcash" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: wF4F4F5hite;">
                      <graphic>
                         <ImageView fitHeight="33.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../imagelogo/bin.png" />
+                              <Image url="@../../imagelogo/bin.png" />
                            </image>
                         </ImageView>
                      </graphic>

@@ -40,7 +40,6 @@ public class DetailsController {
     @FXML
     private TextField regionField; // Region input field
 
-
     private final DatabaseConfig db = new DatabaseConfig();
 
     public void setMainController(CartPageController mainController) {
@@ -58,11 +57,14 @@ public class DetailsController {
         addressGridPane.getChildren().clear();
         for (int i = 0; i < addresses.size(); i++) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLCart/CartAddressRow.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLCartPage/CartAddressRow.fxml"));
                 AnchorPane row = loader.load();
 
                 CartAddressRowController controller = loader.getController();
                 controller.setAddress(addresses.get(i));
+
+                // Set the correct row index for each address
+                GridPane.setRowIndex(row, i);
 
                 // Pass TextFields directly for address population
                 controller.setFields(addressField, cityField, postalCodeField, provinceField, regionField);
@@ -73,6 +75,7 @@ public class DetailsController {
             }
         }
     }
+
 
     private List<Address> fetchAddressesFromDatabase() {
         List<Address> addresses = new ArrayList<>();
@@ -103,23 +106,21 @@ public class DetailsController {
         return addresses;
     }
 
-    @FXML
+
     public void goToShipping(ActionEvent actionEvent) {
         if (mainController != null) {
-            System.out.println("Navigating to Shipping view...");
             mainController.loadView("/project/demo/FXMLCartPage/Shipping.fxml");
         } else {
             System.err.println("Main controller is not set!");
         }
     }
 
-    @FXML
     public void goToCart(ActionEvent actionEvent) {
         if (mainController != null) {
-            System.out.println("Navigating back to Cart view...");
             mainController.loadView("/project/demo/FXMLCartPage/CartTable.fxml");
         } else {
             System.err.println("Main controller is not set!");
         }
     }
+
 }
