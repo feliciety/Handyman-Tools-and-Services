@@ -1,19 +1,16 @@
 package project.demo.controllers.Profile;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import project.demo.dao.AddressDAO;
 import project.demo.dao.AddressDAOImpl;
-import project.demo.controllers.Profile.AddEditAddressController;
 import project.demo.models.Address;
 
 import java.io.IOException;
@@ -40,50 +37,53 @@ public class ManageAddressRowController {
     public void setAddress(Address address) {
         this.address = address;
 
-        // Populate the labels with the address details
-        AddressTyepeLabel.setText(address.getType());
-        StreetCityPostalCodeLabel.setText(address.getStreet() + ", " + address.getCity() + ", " + address.getPostalCode());
-        ProvinceRegionLabel.setText(address.getProvince() + ", " + address.getRegion()); // Include region here
+        if (address != null) {
+            // Populate the labels with the address details
+            AddressTyepeLabel.setText(address.getType());
+            StreetCityPostalCodeLabel.setText(address.getStreet() + ", " + address.getCity() + ", " + address.getPostalCode());
+            ProvinceRegionLabel.setText(address.getProvince() + ", " + address.getRegion());
+        } else {
+            System.err.println("[ERROR] Address data is null.");
+        }
     }
 
-
     /**
-     * Handles the Edit button click.
+     * Opens the Edit Address Form and updates the row data if the user saves changes.
      */
-    @FXML
-    public void onEditClicked(ActionEvent actionEvent) {
+    public void onEditClicked(javafx.event.ActionEvent actionEvent) {
         if (address == null) {
             System.err.println("[ERROR] No address is set for this row.");
             return;
         }
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLProfilePage/AddEditAddressForm.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLProfilePage/EditAddressForm.fxml"));
             AnchorPane popupContent = loader.load();
 
-            AddEditAddressController controller = loader.getController();
-            controller.setAddress(address); // Pass the current address to the form
+            EditAddressFormController controller = loader.getController();
+            controller.setAddress(address);
 
-            // Create a new stage for the popup
             Stage popupStage = new Stage();
             popupStage.initModality(Modality.APPLICATION_MODAL);
             popupStage.setTitle("Edit Address");
             popupStage.setScene(new Scene(popupContent));
-            popupStage.showAndWait(); // Wait for popup to close
+            popupStage.showAndWait();
 
-            // Automatically update the labels after editing
-            setAddress(controller.getUpdatedAddress());
+            Address updatedAddress = controller.getUpdatedAddress();
+            if (updatedAddress != null) {
+                setAddress(updatedAddress);
+                System.out.println("[INFO] Address updated successfully.");
+            }
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("[ERROR] Failed to load AddEditAddressForm.fxml: " + e.getMessage());
+            System.err.println("[ERROR] Failed to load EditAddressForm.fxml: " + e.getMessage());
         }
     }
 
     /**
-     * Handles the Delete button click.
+     * Deletes the address and removes the row from the grid.
      */
-    @FXML
-    public void onDeleteClicked(ActionEvent actionEvent) {
+    public void onDeleteClicked(javafx.event.ActionEvent actionEvent) {
         if (address == null) {
             System.err.println("[ERROR] No address is set for this row.");
             return;
@@ -97,13 +97,20 @@ public class ManageAddressRowController {
 
         confirmationAlert.showAndWait().ifPresent(response -> {
             if (response.getButtonData().isDefaultButton()) {
-                // Delete the address from the database
+                // Attempt to delete the address from the database
                 boolean success = addressDAO.deleteAddress(address.getId());
                 if (success) {
                     System.out.println("[INFO] Address deleted successfully.");
-                    removeRowFromGrid(); // Remove this row from the grid
+
+                    // Remove the row from the grid
+                    removeRowFromGrid();
                 } else {
-                    System.err.println("[ERROR] Failed to delete address.");
+                    System.err.println("[ERROR] Failed to delete address from the database.");
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setTitle("Deletion Failed");
+                    errorAlert.setHeaderText("Address deletion failed.");
+                    errorAlert.setContentText("An error occurred while attempting to delete the address. Please try again.");
+                    errorAlert.showAndWait();
                 }
             }
         });
@@ -113,8 +120,34 @@ public class ManageAddressRowController {
      * Removes this row from the GridPane.
      */
     private void removeRowFromGrid() {
-        HBox parentRow = (HBox) AddressTyepeLabel.getParent();
-        GridPane gridPane = (GridPane) parentRow.getParent();
-        gridPane.getChildren().remove(parentRow);
+        try {
+            // Get the parent AnchorPane for this row
+            AnchorPane parentRow = (AnchorPane) AddressTyepeLabel.getParent();
+            if (parentRow == null) {
+                System.err.println("[ERROR] Parent AnchorPane not found for row.");
+                return;
+            }
+
+            // Get the GridPane that contains the rows
+            GridPane addressGridPane = (GridPane) parentRow.getParent();
+            if (addressGridPane == null) {
+                System.err.println("[ERROR] Parent GridPane not found.");
+                return;
+            }
+
+            // Remove the row from the GridPane
+            addressGridPane.getChildren().remove(parentRow);
+
+            // Reorganize remaining rows' indices
+            for (int i = 0; i < addressGridPane.getChildren().size(); i++) {
+                GridPane.setRowIndex(addressGridPane.getChildren().get(i), i);
+            }
+
+            System.out.println("[INFO] Row successfully removed from the grid.");
+        } catch (ClassCastException | NullPointerException e) {
+            e.printStackTrace();
+            System.err.println("[ERROR] Failed to remove row from grid: " + e.getMessage());
+        }
     }
+
 }

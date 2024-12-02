@@ -2,20 +2,21 @@ package project.demo.controllers.Profile;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.Nullable;
 import project.demo.dao.AddressDAO;
 import project.demo.dao.AddressDAOImpl;
 import project.demo.models.Address;
 import project.demo.models.UserSession;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
-public class AddEditAddressController {
+public class EditAddressFormController {
 
     @FXML
     private RadioButton workRBTN;
@@ -42,7 +43,7 @@ public class AddEditAddressController {
     private ComboBox<String> regionComboBox;
 
     private Address addressToEdit;
-    private final AddressDAO addressDAO = new AddressDAOImpl();
+    private AddressDAO addressDAO = new AddressDAOImpl(); // Initialize DAO instance
 
     private final ObservableList<String> provinces = FXCollections.observableArrayList(
             "Abra", "Agusan del Norte", "Agusan del Sur", "Aklan", "Albay", "Antique",
@@ -50,7 +51,7 @@ public class AddEditAddressController {
             "Benguet", "Biliran", "Bohol", "Bukidnon", "Bulacan", "Cagayan",
             "Camarines Norte", "Camarines Sur", "Camiguin", "Capiz", "Catanduanes",
             "Cavite", "Cebu", "Cotabato", "Davao de Oro", "Davao del Norte",
-            "Davao del Sur", "Davao Occidental", "Davao Oriental", "Dinagat Islands",
+            "Davao del Sur  ", "Davao Occidental", "Davao Oriental", "Dinagat Islands",
             "Eastern Samar", "Guimaras", "Ifugao", "Ilocos Norte", "Ilocos Sur",
             "Iloilo", "Isabela", "Kalinga", "La Union", "Laguna", "Lanao del Norte",
             "Lanao del Sur", "Leyte", "Maguindanao del Norte", "Maguindanao del Sur",
@@ -84,7 +85,6 @@ public class AddEditAddressController {
             "CAR - Cordillera Administrative Region"
     );
 
-    @FXML
     public void initialize() {
         // Initialize combo boxes
         provinceComboBox.setItems(provinces);
@@ -94,7 +94,6 @@ public class AddEditAddressController {
         setupSearchFilter(provinceComboBox, provinces);
         setupSearchFilter(regionComboBox, regions);
     }
-
     private void setupSearchFilter(ComboBox<String> comboBox, ObservableList<String> items) {
         comboBox.setEditable(true);
         comboBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
@@ -111,31 +110,40 @@ public class AddEditAddressController {
                 comboBox.show();
             }
         });
-
-        comboBox.setOnAction(event -> {
-            if (comboBox.getValue() != null) {
-                comboBox.getEditor().setText(comboBox.getValue());
-            }
-        });
     }
 
-    public void setAddressToEdit(Address address) {
+
+
+    public void setAddress(Address address) {
         this.addressToEdit = address;
-
         if (address != null) {
-            streetField.setText(address.getStreet());
-            barangayField.setText(address.getBarangay());
-            cityField.setText(address.getCity());
-            postalCodeField.setText(address.getPostalCode());
-            provinceComboBox.setValue(address.getProvince());
-            regionComboBox.setValue(address.getRegion());
-
-            if ("Work".equalsIgnoreCase(address.getType())) {
-                workRBTN.setSelected(true);
-            } else {
-                homeRBTN.setSelected(true);
-            }
+            AddAddressFormController.AdressField(address, streetField, barangayField, cityField, postalCodeField, provinceComboBox, regionComboBox, workRBTN, homeRBTN);
         }
+    }
+
+    public Address getUpdatedAddress() {
+        return getAddress(streetField, cityField, provinceComboBox, regionComboBox, barangayField, postalCodeField, workRBTN);
+    }
+
+    @Nullable
+    static Address getAddress(TextField streetField, TextField cityField, ComboBox<String> provinceComboBox, ComboBox<String> regionComboBox, TextField barangayField, TextField postalCodeField, RadioButton workRBTN) {
+        if (streetField.getText().isEmpty() || cityField.getText().isEmpty() ||
+                provinceComboBox.getValue() == null || regionComboBox.getValue() == null) {
+            System.err.println("[ERROR] All required fields must be filled.");
+            return null;
+        }
+
+        Address updatedAddress = new Address();
+        updatedAddress.setStreet(streetField.getText());
+        updatedAddress.setBarangay(barangayField.getText());
+        updatedAddress.setCity(cityField.getText());
+        updatedAddress.setPostalCode(postalCodeField.getText());
+        updatedAddress.setProvince(provinceComboBox.getValue());
+        updatedAddress.setRegion(regionComboBox.getValue());
+        updatedAddress.setType(workRBTN.isSelected() ? "Work" : "Home");
+        updatedAddress.setUserId(UserSession.getInstance().getUserId());
+
+        return updatedAddress;
     }
 
     @FXML
@@ -174,55 +182,4 @@ public class AddEditAddressController {
         Stage stage = (Stage) streetField.getScene().getWindow();
         stage.close();
     }
-
-    public void setAddress(Address address) {
-        this.addressToEdit = address;
-
-        if (address != null) {
-            // Pre-fill form fields with existing address data
-            streetField.setText(address.getStreet());
-            barangayField.setText(address.getBarangay());
-            cityField.setText(address.getCity());
-            postalCodeField.setText(address.getPostalCode());
-            provinceComboBox.setValue(address.getProvince());
-            regionComboBox.setValue(address.getRegion());
-            if ("Work".equalsIgnoreCase(address.getType())) {
-                workRBTN.setSelected(true);
-            } else {
-                homeRBTN.setSelected(true);
-            }
-        } else {
-            // Clear form fields for a new address
-            streetField.clear();
-            barangayField.clear();
-            cityField.clear();
-            postalCodeField.clear();
-            provinceComboBox.setValue(null);
-            regionComboBox.setValue(null);
-            workRBTN.setSelected(false);
-            homeRBTN.setSelected(false);
-        }
-    }
-
-    public Address getUpdatedAddress() {
-        // Validate fields before returning the address
-        if (streetField.getText().isEmpty() || cityField.getText().isEmpty() ||
-                provinceComboBox.getValue() == null || regionComboBox.getValue() == null) {
-            System.err.println("[ERROR] All required fields must be filled.");
-            return null; // Return null if validation fails
-        }
-
-        Address updatedAddress = new Address();
-        updatedAddress.setStreet(streetField.getText());
-        updatedAddress.setBarangay(barangayField.getText());
-        updatedAddress.setCity(cityField.getText());
-        updatedAddress.setPostalCode(postalCodeField.getText());
-        updatedAddress.setProvince(provinceComboBox.getValue());
-        updatedAddress.setRegion(regionComboBox.getValue());
-        updatedAddress.setType(workRBTN.isSelected() ? "Work" : "Home");
-        updatedAddress.setUserId(UserSession.getInstance().getUserId()); // Ensure the user ID is set correctly
-
-        return updatedAddress;
-    }
-
 }

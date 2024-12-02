@@ -23,7 +23,7 @@ import java.util.List;
 public class ManageAddressesController {
 
     @FXML
-    private GridPane addressGrid; // The grid where address rows will be displayed
+    private GridPane addressGridPane; // The grid where address rows will be displayed
 
     private final AddressDAO addressDAO = new AddressDAOImpl();
     private final ObservableList<Address> addressList = FXCollections.observableArrayList();
@@ -56,7 +56,7 @@ public class ManageAddressesController {
      * Refreshes the address grid to reflect the ObservableList changes.
      */
     private void refreshGrid() {
-        addressGrid.getChildren().clear(); // Clear the grid
+        addressGridPane.getChildren().clear(); // Clear the grid
 
         for (int i = 0; i < addressList.size(); i++) {
             try {
@@ -67,7 +67,7 @@ public class ManageAddressesController {
                 ManageAddressRowController controller = loader.getController();
                 controller.setAddress(addressList.get(i)); // Pass address to the controller
 
-                addressGrid.addRow(i, row); // Add the row to the grid
+                addressGridPane.addRow(i, row); // Add the row to the grid
             } catch (IOException e) {
                 e.printStackTrace();
                 System.err.println("[ERROR] Failed to load ManageAddressRow.fxml: " + e.getMessage());
@@ -81,10 +81,10 @@ public class ManageAddressesController {
     @FXML
     public void addAddressButton(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLProfilePage/AddEditAddressForm.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLProfilePage/AddAddressForm.fxml"));
             AnchorPane popupContent = loader.load();
 
-            AddEditAddressController controller = loader.getController();
+            AddAddressFormController controller = loader.getController();
             controller.setAddress(null); // Indicate we're adding a new address
 
             // Create a popup for adding a new address
@@ -97,7 +97,7 @@ public class ManageAddressesController {
             loadAddresses(); // Reload addresses to reflect changes
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("[ERROR] Failed to load AddEditAddressForm.fxml: " + e.getMessage());
+            System.err.println("[ERROR] Failed to load AddAddressForm.fxml: " + e.getMessage());
         }
     }
 }

@@ -10,6 +10,7 @@ module project.demo {
     requires com.almasb.fxgl.all;
     requires java.sql;
     requires java.desktop;
+    requires annotations;
 
     // Exporting and opening all necessary packages
     exports project.demo.models;
