@@ -75,7 +75,7 @@
             </VBox>
 
             <!-- Services Grid -->
-            <ScrollPane prefHeight="479.0" prefWidth="803.0" style="-fx-background-color: transparent;">
+            <ScrollPane hbarPolicy="NEVER" prefHeight="479.0" prefWidth="803.0" vbarPolicy="NEVER">
                <content>
                   <GridPane fx:id="serviceGrid" hgap="10" vgap="10" />
                </content>

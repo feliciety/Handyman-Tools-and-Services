@@ -1,16 +1,28 @@
 package project.demo.models;
 
 public class Address {
+    private int id;
+    private int userId;
+    private String type; // e.g., Home, Work
+    private String street;
+    private String barangay;
+    private String city;
+    private String province;
+    private String postalCode;
+    private String region;
 
-    private int id; // Address ID
-    private int userId; // User ID associated with this address
-    private String type; // Address type (e.g., "Work" or "Home")
-    private String street; // Street information
-    private String barangay; // Barangay information
-    private String city; // City information
-    private String province; // Province information
-    private String region; // Region information
-    private String postalCode; // Postal code
+    // Constructor
+    public Address() {}
+
+    public Address(int id, String type, String street, String city, String postalCode, String province, String region) {
+        this.id = id;
+        this.type = type;
+        this.street = street;
+        this.city = city;
+        this.postalCode = postalCode;
+        this.province = province;
+        this.region = region;
+    }
 
     // Getters and Setters
     public int getId() {
@@ -69,14 +81,6 @@ public class Address {
         this.province = province;
     }
 
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
     public String getPostalCode() {
         return postalCode;
     }
@@ -85,21 +89,11 @@ public class Address {
         this.postalCode = postalCode;
     }
 
-    /**
-     * Concatenates the street, barangay, and city fields to create a compact address for display.
-     *
-     * @return A formatted string representing the compact address.
-     */
-    public String getCompactAddress() {
-        return String.format("%s, %s, %s", street, barangay, city);
+    public String getRegion() {
+        return region;
     }
 
-    /**
-     * Concatenates the province and region fields to create a regional address for display.
-     *
-     * @return A formatted string representing the regional address.
-     */
-    public String getRegionalAddress() {
-        return String.format("%s, %s", province, region);
+    public void setRegion(String region) {
+        this.region = region;
     }
 }

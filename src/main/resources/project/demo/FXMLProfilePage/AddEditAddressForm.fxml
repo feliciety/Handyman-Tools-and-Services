@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="562.0" prefWidth="385.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Profile.AddEditAddressController">
    <children>
-      <VBox layoutX="19.0" layoutY="55.0" prefHeight="451.0" prefWidth="348.0" spacing="20.0" AnchorPane.topAnchor="55.0">
+      <VBox layoutX="19.0" layoutY="24.0" prefHeight="513.0" prefWidth="348.0" spacing="20.0" AnchorPane.topAnchor="24.0">
          <children>
             <Label alignment="CENTER" prefHeight="18.0" prefWidth="354.0" text="Address Form" textAlignment="CENTER">
                <font>
@@ -40,8 +40,9 @@
              <TextField fx:id="streetField" prefHeight="40.0" promptText="Street" styleClass="text-field" />
              <TextField fx:id="barangayField" prefHeight="40.0" promptText="Barangay" styleClass="text-field" />
              <TextField fx:id="cityField" prefHeight="40.0" promptText="City" styleClass="text-field" />
-             <ComboBox fx:id="provinceComboBox" prefHeight="40.0" prefWidth="356.0" promptText="Province" />
-             <ComboBox fx:id="regionComboBox" prefHeight="40.0" prefWidth="349.0" promptText="Region" />
+            <TextField fx:id="postalCodeField" prefHeight="40.0" promptText="Postal Code" styleClass="text-field" />
+             <ComboBox fx:id="provinceComboBox" editable="true" prefHeight="40.0" prefWidth="356.0" promptText="Province" />
+             <ComboBox fx:id="regionComboBox" editable="true" prefHeight="40.0" prefWidth="349.0" promptText="Region" />
              <HBox prefHeight="41.0" prefWidth="348.0" spacing="30.0">
                  <Button onAction="#onCancel" prefHeight="30.0" prefWidth="200.0" text="Cancel" />
                  <Button fx:id="saveButton" onAction="#onSave" prefHeight="30.0" prefWidth="200.0" text="Save" />

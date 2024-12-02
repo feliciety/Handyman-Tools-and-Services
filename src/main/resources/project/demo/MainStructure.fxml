@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane prefHeight="780.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Main.MainStructureController">
+<AnchorPane prefHeight="780.0" prefWidth="1240.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Main.MainStructureController">
    <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="1220.0" spacing="20" style="-fx-background-color: #222222; -fx-padding: 10;">
+      <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="1240.0" spacing="20" style="-fx-background-color: #222222; -fx-padding: 10;">
          <children>
             <HBox alignment="CENTER" prefHeight="29.0" prefWidth="1199.0">
                <children>
@@ -39,11 +39,11 @@
             <Image url="@imagelogo/logo3.png" />
          </image>
       </ImageView>
-      <VBox alignment="CENTER" layoutY="738.0" prefHeight="42.0" prefWidth="1220.0" style="-fx-background-color: #222222; -fx-padding: 10;">
+      <VBox alignment="CENTER" layoutY="738.0" prefHeight="42.0" prefWidth="1240.0" style="-fx-background-color: #222222; -fx-padding: 10;">
          <children>
             <HBox spacing="10" />
          </children>
       </VBox>
-      <AnchorPane fx:id="contentContainer" layoutX="-1.0" layoutY="56.0" onMouseClicked="#handleProfileClick" prefHeight="682.0" prefWidth="1220.0" />
+      <AnchorPane fx:id="contentContainer" layoutX="-1.0" layoutY="56.0" prefHeight="682.0" prefWidth="1239.0" />
    </children>
 </AnchorPane>

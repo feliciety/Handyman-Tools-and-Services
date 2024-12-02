@@ -1,14 +1,18 @@
 package project.demo.models;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 
 public class UserSession {
     private static UserSession instance;
 
-    private int userId;
-    private String username;
-    private String email;
-    private String contactNumber;
+    private final IntegerProperty userId = new SimpleIntegerProperty();
+    private final StringProperty username = new SimpleStringProperty();
+    private final StringProperty email = new SimpleStringProperty();
+    private final StringProperty contactNumber = new SimpleStringProperty();
     private String userImagePath; // Stores the file path for the profile picture
 
     private UserSession() {
@@ -25,38 +29,60 @@ public class UserSession {
         instance = null;
     }
 
-    public int getUserId() {
+    // Real-time properties
+    public IntegerProperty userIdProperty() {
         return userId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getUsername() {
+    public StringProperty usernameProperty() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
+    public StringProperty emailProperty() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getContactNumber() {
+    public StringProperty contactNumberProperty() {
         return contactNumber;
     }
 
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
+    // Getters and setters for userId
+    public int getUserId() {
+        return userId.get();
     }
 
+    public void setUserId(int userId) {
+        this.userId.set(userId);
+    }
+
+    // Getters and setters for username
+    public String getUsername() {
+        return username.get();
+    }
+
+    public void setUsername(String username) {
+        this.username.set(username);
+    }
+
+    // Getters and setters for email
+    public String getEmail() {
+        return email.get();
+    }
+
+    public void setEmail(String email) {
+        this.email.set(email);
+    }
+
+    // Getters and setters for contactNumber
+    public String getContactNumber() {
+        return contactNumber.get();
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber.set(contactNumber);
+    }
+
+    // Getters and setters for userImagePath
     public String getUserImagePath() {
         return userImagePath;
     }
@@ -65,6 +91,7 @@ public class UserSession {
         this.userImagePath = userImagePath;
     }
 
+    // Method to get the user's profile image
     public Image getUserImage() {
         try {
             if (userImagePath != null && !userImagePath.isEmpty()) {

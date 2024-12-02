@@ -24,10 +24,10 @@ public class ProfilePageController {
     private Circle profileImageCircle;
 
     @FXML
-    private Label usernameLabel;
+    private Label nameLabel;
 
     @FXML
-    private Label useremailLabel;
+    private Label emailLabel;
 
     @FXML
     private AnchorPane contentPane;
@@ -39,6 +39,9 @@ public class ProfilePageController {
      */
     @FXML
     public void initialize() {
+
+        loadView("/project/demo/FXMLProfilePage/EditProfile.fxml");
+        setProfileImageFromDatabase();
         updateUserDetails();
     }
 
@@ -46,76 +49,99 @@ public class ProfilePageController {
      * Fetch user details from the database and update the UI.
      */
     private void updateUserDetails() {
+        try (Connection connection = db.getConnection()) {
+            String query = "SELECT profile_picture FROM users WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, UserSession.getInstance().getUserId());
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                String imagePath = resultSet.getString("profile_picture");
+                if (imagePath != null && !imagePath.isEmpty()) {
+                    profileImageCircle.setFill(new ImagePattern(new javafx.scene.image.Image(imagePath)));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    /**
+     * Sets the profile image in the circle from the database.
+     */
+    private void setProfileImageFromDatabase() {
         UserSession session = UserSession.getInstance();
 
         try (Connection connection = db.getConnection()) {
-            String query = "SELECT username, email, profile_image_path FROM users WHERE id = ?";
+            String query = "SELECT profile_picture FROM users WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, session.getUserId());
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                String username = resultSet.getString("username");
-                String email = resultSet.getString("email");
-                String profileImagePath = resultSet.getString("profile_image_path");
+                String imagePath = resultSet.getString("profile_picture");
 
-                // Update labels
-                usernameLabel.setText(username);
-                useremailLabel.setText(email);
-
-                // Update profile image
-                if (profileImagePath != null && !profileImagePath.isEmpty()) {
-                    File file = new File(profileImagePath);
-                    if (file.exists()) {
-                        profileImageCircle.setFill(new ImagePattern(new Image(file.toURI().toString())));
-                    } else {
-                        // Default image if the file path is invalid
-                        profileImageCircle.setFill(new ImagePattern(new Image("default_profile_picture.png")));
-                    }
+                if (imagePath != null && !imagePath.isEmpty()) {
+                    profileImageCircle.setFill(new ImagePattern(new javafx.scene.image.Image(imagePath)));
                 } else {
-                    profileImageCircle.setFill(new ImagePattern(new Image("default_profile_picture.png")));
+                    // Set a default profile image if no image is found
+                    profileImageCircle.setFill(new ImagePattern(new javafx.scene.image.Image(
+                            getClass().getResource("/project/demo/imagelogo/default.png").toString())));
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println("[ERROR] Failed to fetch user details: " + e.getMessage());
+            System.err.println("[ERROR] Failed to load profile image: " + e.getMessage());
         }
     }
 
     /**
-     * Handle changing the profile image.
+     * Handles changing the profile image.
      */
     @FXML
-    public void handleImageChange(ActionEvent event) {
+    public void handleImageChange() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select Profile Image");
+        fileChooser.setTitle("Choose Profile Image");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
         );
 
-        File selectedFile = fileChooser.showOpenDialog(contentPane.getScene().getWindow());
+        File selectedFile = fileChooser.showOpenDialog(profileImageCircle.getScene().getWindow());
         if (selectedFile != null) {
-            String imagePath = selectedFile.getAbsolutePath();
+            String newImagePath = selectedFile.toURI().toString(); // Convert to URI for JavaFX Image compatibility
 
-            // Update the database with the new image path
-            UserSession session = UserSession.getInstance();
-            try (Connection connection = db.getConnection()) {
-                String query = "UPDATE users SET profile_image_path = ? WHERE id = ?";
-                PreparedStatement statement = connection.prepareStatement(query);
-                statement.setString(1, imagePath);
-                statement.setInt(2, session.getUserId());
-                statement.executeUpdate();
+            // Update the Circle's fill in real time
+            profileImageCircle.setFill(new ImagePattern(new javafx.scene.image.Image(newImagePath)));
 
-                // Update the profile image in the UI
-                profileImageCircle.setFill(new ImagePattern(new Image(selectedFile.toURI().toString())));
-
-                System.out.println("[INFO] Profile image updated: " + imagePath);
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.err.println("[ERROR] Failed to update profile image: " + e.getMessage());
-            }
+            // Save the new profile image path to the database
+            updateProfileImageInDatabase(newImagePath);
         }
     }
+
+    /**
+     * Updates the profile image path in the database.
+     *
+     * @param imagePath The new image path.
+     */
+    private void updateProfileImageInDatabase(String imagePath) {
+        UserSession session = UserSession.getInstance();
+
+        try (Connection connection = db.getConnection()) {
+            String query = "UPDATE users SET profile_picture = ? WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, imagePath);
+            statement.setInt(2, session.getUserId());
+            statement.executeUpdate();
+
+            System.out.println("[INFO] Profile picture updated in the database.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("[ERROR] Failed to update profile picture: " + e.getMessage());
+        }
+    }
+
 
     /**
      * Generic method to load views into the content pane.

@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Profile.EditProfileController">
+<AnchorPane prefHeight="400.0" prefWidth="793.6" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Profile.EditProfileController">
    <children>
-      <VBox alignment="CENTER_LEFT" layoutX="66.0" layoutY="106.0" prefHeight="258.0" prefWidth="513.0" spacing="15.0">
+      <VBox alignment="CENTER_LEFT" layoutX="140.0" layoutY="115.0" prefHeight="258.0" prefWidth="513.0" spacing="15.0">
          <children>
             <Label fx:id="nameWarningLabel" alignment="CENTER" prefHeight="18.0" prefWidth="340.0" style="-fx-text-fill: red; -fx-font-size: 12px;" text="Name is required." visible="false">
                <VBox.margin>
@@ -48,17 +48,19 @@
                   <TextField fx:id="contactNumberField" prefHeight="40.0" prefWidth="585.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" />
                </children>
             </HBox>
-            <Button alignment="CENTER" onAction="#handleSaveChanges" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #333333; -fx-text-fill: white; -fx-background-radius: 10;" text="Save Changes">
-               <Label fx:id="loadingSpinner" styleClass="loading-spinner" visible="false" />
-               <Label fx:id="successIcon" styleClass="success-icon" visible="false" />
-               <Label fx:id="errorIcon" styleClass="error-icon" visible="false" />  
+            <Label fx:id="saveSuccessLabel" alignment="TOP_RIGHT" prefHeight="18.0" prefWidth="490.0" style="-fx-text-fill: green; -fx-font-size: 12px;" text="Saved Successfully!" visible="false">
                <VBox.margin>
-                  <Insets left="360.0" top="10.0" />
+                  <Insets bottom="-15.0" />
+               </VBox.margin>
+            </Label>
+            <Button alignment="CENTER" onAction="#handleSaveChanges" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #333333; -fx-text-fill: white; -fx-background-radius: 10;" text="Save Changes">
+               <VBox.margin>
+                  <Insets left="360.0" />
                </VBox.margin>
             </Button>
          </children>
       </VBox>
-      <Label layoutX="32.0" layoutY="18.0" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Profile Information" />
-      <Label layoutX="32.0" layoutY="61.0" style="-fx-text-fill: #666666; -fx-font-size: 14px;" text="Update your account details here." />
+      <Label layoutX="103.0" layoutY="19.0" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Profile Information" />
+      <Label layoutX="103.0" layoutY="62.0" style="-fx-text-fill: #666666; -fx-font-size: 14px;" text="Update your account details here." />
    </children>
 </AnchorPane>

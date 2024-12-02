@@ -4,23 +4,26 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import project.demo.models.ShippingDetails;
+import javafx.scene.layout.GridPane;
+import project.demo.DataBase.DatabaseConfig;
+import project.demo.models.Address;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class DetailsController {
 
     private CartPageController mainController; // Reference to the main controller
 
     @FXML
-    private AnchorPane detailsPane; // Reference to the root pane of Details.fxml
-
-    @FXML
-    private TextField contactField; // Contact input field
+    private GridPane addressGridPane;
 
     @FXML
     private TextField addressField; // Address input field
@@ -32,53 +35,13 @@ public class DetailsController {
     private TextField postalCodeField; // Postal Code input field
 
     @FXML
-    private ComboBox<String> provinceComboBox; // Province dropdown
+    private TextField provinceField; // Province input field
 
     @FXML
-    private ComboBox<String> regionComboBox; // Region dropdown
+    private TextField regionField; // Region input field
 
-    // List of provinces in the Philippines
-    private final List<String> provinces = List.of(
-            "Abra", "Agusan del Norte", "Agusan del Sur", "Aklan", "Albay", "Antique",
-            "Apayao", "Aurora", "Basilan", "Bataan", "Batanes", "Batangas",
-            "Benguet", "Biliran", "Bohol", "Bukidnon", "Bulacan", "Cagayan",
-            "Camarines Norte", "Camarines Sur", "Camiguin", "Capiz", "Catanduanes",
-            "Cavite", "Cebu", "Cotabato", "Davao de Oro", "Davao del Norte",
-            "Davao del Sur", "Davao Occidental", "Davao Oriental", "Dinagat Islands",
-            "Eastern Samar", "Guimaras", "Ifugao", "Ilocos Norte", "Ilocos Sur",
-            "Iloilo", "Isabela", "Kalinga", "La Union", "Laguna", "Lanao del Norte",
-            "Lanao del Sur", "Leyte", "Maguindanao del Norte", "Maguindanao del Sur",
-            "Marinduque", "Masbate", "Metro Manila", "Misamis Occidental",
-            "Misamis Oriental", "Mountain Province", "Negros Occidental",
-            "Negros Oriental", "Northern Samar", "Nueva Ecija", "Nueva Vizcaya",
-            "Occidental Mindoro", "Oriental Mindoro", "Palawan", "Pampanga",
-            "Pangasinan", "Quezon", "Quirino", "Rizal", "Romblon", "Samar",
-            "Sarangani", "Siquijor", "Sorsogon", "South Cotabato",
-            "Southern Leyte", "Sultan Kudarat", "Sulu", "Surigao del Norte",
-            "Surigao del Sur", "Tarlac", "Tawi-Tawi", "Zambales",
-            "Zamboanga del Norte", "Zamboanga del Sur", "Zamboanga Sibugay"
-    );
 
-    // List of regions in the Philippines
-    private final List<String> regions = List.of(
-            "Region I - Ilocos Region",
-            "Region II - Cagayan Valley",
-            "Region III - Central Luzon",
-            "Region IV-A - CALABARZON",
-            "Region IV-B - MIMAROPA",
-            "Region V - Bicol Region",
-            "Region VI - Western Visayas",
-            "Region VII - Central Visayas",
-            "Region VIII - Eastern Visayas",
-            "Region IX - Zamboanga Peninsula",
-            "Region X - Northern Mindanao",
-            "Region XI - Davao Region",
-            "Region XII - SOCCSKSARGEN",
-            "Region XIII - Caraga",
-            "BARMM - Bangsamoro Autonomous Region in Muslim Mindanao",
-            "NCR - National Capital Region",
-            "CAR - Cordillera Administrative Region"
-    );
+    private final DatabaseConfig db = new DatabaseConfig();
 
     public void setMainController(CartPageController mainController) {
         this.mainController = mainController;
@@ -86,37 +49,58 @@ public class DetailsController {
 
     @FXML
     public void initialize() {
-        // Initialize ComboBox with provinces
-        provinceComboBox.setItems(FXCollections.observableArrayList(provinces));
-        provinceComboBox.setEditable(true); // Make the ComboBox editable
-
-        // Add listener for filtering provinces
-        provinceComboBox.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-            filterComboBox(provinceComboBox, provinces, newValue);
-        });
-
-        // Initialize ComboBox with regions
-        regionComboBox.setItems(FXCollections.observableArrayList(regions));
-        regionComboBox.setEditable(true); // Make the ComboBox editable
-
-        // Add listener for filtering regions
-        regionComboBox.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-            filterComboBox(regionComboBox, regions, newValue);
-        });
+        loadAddresses(); // Load addresses into the grid
     }
 
-    private void filterComboBox(ComboBox<String> comboBox, List<String> items, String filter) {
-        ObservableList<String> filteredItems = FXCollections.observableArrayList(
-                items.stream()
-                        .filter(item -> item.toLowerCase().contains(filter.toLowerCase()))
-                        .collect(Collectors.toList())
-        );
+    private void loadAddresses() {
+        List<Address> addresses = fetchAddressesFromDatabase();
 
-        comboBox.setItems(filteredItems);
-        comboBox.getEditor().setText(filter);
+        addressGridPane.getChildren().clear();
+        for (int i = 0; i < addresses.size(); i++) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLCart/CartAddressRow.fxml"));
+                AnchorPane row = loader.load();
 
-        // Keep the dropdown open
-        comboBox.show();
+                CartAddressRowController controller = loader.getController();
+                controller.setAddress(addresses.get(i));
+
+                // Pass TextFields directly for address population
+                controller.setFields(addressField, cityField, postalCodeField, provinceField, regionField);
+
+                addressGridPane.add(row, 0, i);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private List<Address> fetchAddressesFromDatabase() {
+        List<Address> addresses = new ArrayList<>();
+        String query = "SELECT * FROM addresses WHERE user_id = ?";
+
+        try (Connection connection = db.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, 1); // Replace with user session ID
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Address address = new Address(
+                        resultSet.getInt("id"),
+                        resultSet.getString("address_type"),
+                        resultSet.getString("street"),
+                        resultSet.getString("city"),
+                        resultSet.getString("postal_code"),
+                        resultSet.getString("province"),
+                        resultSet.getString("region")
+                );
+                addresses.add(address);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return addresses;
     }
 
     @FXML
@@ -137,28 +121,5 @@ public class DetailsController {
         } else {
             System.err.println("Main controller is not set!");
         }
-    }
-
-    private void saveDetails() {
-        // Get the input details
-        String contact = contactField.getText();
-        String address = addressField.getText();
-        String city = cityField.getText();
-        String postalCode = postalCodeField.getText();
-        String province = provinceComboBox.getValue();
-        String region = regionComboBox.getValue();
-
-        // Combine details into a formatted address
-        String fullAddress = String.join(", ",
-                address,
-                city,
-                postalCode,
-                province,
-                region
-        );
-
-        // Save to the shared model
-        ShippingDetails.getInstance().setContact(contact);
-        ShippingDetails.getInstance().setAddress(fullAddress);
     }
 }
