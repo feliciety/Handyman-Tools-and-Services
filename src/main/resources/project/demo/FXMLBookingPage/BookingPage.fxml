@@ -1,47 +1,147 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="682.0" prefWidth="1218.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Booking.BookingPageController">
+<AnchorPane prefHeight="651.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Booking.BookingPageController">
     <children>
-        <!-- Employee Table -->
-        <TableView fx:id="employeeTableView" layoutX="41.0" layoutY="50.0" prefHeight="600.0" prefWidth="550.0">
-            <columns>
-                <TableColumn fx:id="imageColumn" prefWidth="100.0" text="Photo" />
-                <TableColumn fx:id="nameColumn" prefWidth="150.0" text="Name" />
-                <TableColumn fx:id="serviceColumn" prefWidth="150.0" text="Service" />
-                <TableColumn fx:id="statusColumn" prefWidth="150.0" text="Status" />
-            </columns>
-        </TableView>
-
-        <!-- Selected HomeService Card -->
-        <VBox layoutX="718.0" layoutY="53.0" prefHeight="577.0" prefWidth="336.0" spacing="20.0">
+        <!-- Dynamic Content Pane (Cart Table) -->
+        <AnchorPane fx:id="contentPane" layoutX="37.0" layoutY="64.0" prefHeight="522.0" prefWidth="762.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #dcdcdc; -fx-background-color: #f5f5f5;" AnchorPane.leftAnchor="37.0" AnchorPane.topAnchor="64.0" />
+        <AnchorPane layoutX="825.0" layoutY="84.0" prefHeight="482.0" prefWidth="342.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #dcdcdc; -fx-background-color: #f5f5f5;">
             <children>
-                <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Selected Service:" />
-                <!-- Placeholder for dynamically loaded EmployeeCard -->
-                <AnchorPane fx:id="employeeCardContainer" prefHeight="200.0" prefWidth="300.0" />
-                <TextField fx:id="nameField" prefWidth="300.0" promptText="Name:" />
-                <TextField fx:id="addressField" prefWidth="300.0" promptText="Address:" />
-                <DatePicker fx:id="datePicker" prefWidth="300.0" promptText="Date:" />
-                <ComboBox fx:id="timeComboBox" prefWidth="300.0" promptText="Select Time" />
-                <Label text="Severity:" />
-                <HBox spacing="10.0">
-                    <RadioButton fx:id="lowSeverity" text="Low" />
-                    <RadioButton fx:id="mediumSeverity" text="Medium" />
-                    <RadioButton fx:id="highSeverity" text="High" />
-                </HBox>
-                <Button fx:id="bookServiceButton" prefWidth="150.0" style="-fx-background-color: #FFC527; -fx-text-fill: #222222;" text="Book Service" />
+
+                <!-- Static Order Summary -->
+                <VBox layoutX="21.0" layoutY="39.0" prefHeight="403.0" prefWidth="300.0" spacing="5.0">
+                    <children>
+                        <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="34.0" prefWidth="300.0" style="-fx-font-size: 25; -fx-font-weight: bold;" text="Booking Summary">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                        </Label>
+                        <GridPane fx:id="numberofproductgridwithprice">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                        </GridPane>
+
+                        <!-- Subtotal Section -->
+                        <HBox prefHeight="26.0" prefWidth="300.0" spacing="10" style="-fx-padding: 5;">
+                            <Label prefHeight="27.0" prefWidth="156.0" text="Material Cost">
+                                <HBox.margin>
+                                    <Insets right="10.0" />
+                                </HBox.margin>
+                                <font>
+                                    <Font size="15.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="subtotalLabel" alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="130.0" text="\$0.00">
+                                <font>
+                                    <Font size="15.0" />
+                                </font>
+                            </Label>
+                            <VBox.margin>
+                                <Insets top="20.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <HBox spacing="10" style="-fx-padding: 5;">
+                            <children>
+                                <Label prefHeight="27.0" prefWidth="155.0" text="Discount: ">
+                                    <HBox.margin>
+                                        <Insets right="10.0" />
+                                    </HBox.margin>
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="couponDiscountLabel" alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="130.0" text="\$0.00">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+
+                        <!-- Shipping Section -->
+                        <HBox spacing="10" style="-fx-padding: 5;">
+                            <Label prefHeight="27.0" prefWidth="155.0" text="Service Fee">
+                                <HBox.margin>
+                                    <Insets right="8.0" />
+                                </HBox.margin>
+                                <font>
+                                    <Font size="15.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="shippingLabel" alignment="CENTER_RIGHT" prefWidth="130.0" text="\$0.00">
+                                <font>
+                                    <Font size="15.0" />
+                                </font>
+                            </Label>
+                        </HBox>
+                        <Label prefHeight="18.0" prefWidth="300.0" text="-----------------------------------------------------" textFill="#b4b1b1">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets top="5.0" />
+                            </VBox.margin>
+                        </Label>
+                        <HBox alignment="CENTER" spacing="10.0">
+                            <children>
+                                <TextField fx:id="promoCodeField" prefHeight="36.0" prefWidth="185.0" promptText="Enter Promo Code" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #dcdcdc; -fx-background-color: white;" />
+                                <Button onAction="#applyPromoCode" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: #4EEB00; -fx-background-radius: 5; -fx-border-radius: 5;" text="✓" />
+                                <Button fx:id="removeCouponButton" onAction="#removeCoupon" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: red;" text="X" visible="false" />
+                            </children>
+                            <VBox.margin>
+                                <Insets top="20.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <Label fx:id="appliedCouponLabel" alignment="CENTER" prefHeight="20.0" prefWidth="302.0" style="-fx-font-size: 10px; -fx-text-fill: green;" text="No coupon applied">
+                            <font>
+                                <Font size="10.0" />
+                            </font>
+                        </Label>
+                        <Label prefHeight="18.0" prefWidth="300.0" text="-----------------------------------------------------" textFill="#b4b1b1">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+
+                        <!-- Total Section -->
+                        <HBox prefHeight="27.0" prefWidth="285.0" spacing="10">
+                            <Label prefHeight="27.0" prefWidth="134.0" text="Total: ">
+                                <HBox.margin>
+                                    <Insets right="25.0" />
+                                </HBox.margin>
+                                <font>
+                                    <Font name="System Bold" size="20.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="totalLabel" alignment="CENTER_RIGHT" prefWidth="130.0" text="0.00">
+                                <font>
+                                    <Font name="System Bold" size="20.0" />
+                                </font>
+                            </Label>
+                            <VBox.margin>
+                                <Insets right="5.0" top="20.0" />
+                            </VBox.margin>
+                        </HBox>
+
+                        <!-- Promo Code Section -->
+                        <VBox spacing="10" style="-fx-padding: 10;" />
+                    </children>
+                </VBox>
             </children>
-        </VBox>
+        </AnchorPane>
     </children>
 </AnchorPane>

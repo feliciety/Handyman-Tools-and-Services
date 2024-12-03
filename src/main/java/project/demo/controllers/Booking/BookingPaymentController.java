@@ -1,4 +1,4 @@
-package project.demo.controllers.Cart;
+package project.demo.controllers.Booking;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -6,9 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
-public class    PaymentController {
+public class BookingPaymentController {
 
-    private CartPageController mainController; // Reference to the main controller
+    private BookingPageController mainController; // Reference to the BookingPageController
 
     @FXML
     private Label totalItemsLabel;
@@ -59,7 +59,7 @@ public class    PaymentController {
     /**
      * Sets the main controller for interaction.
      */
-    public void setMainController(CartPageController mainController) {
+    public void setMainController(BookingPageController mainController) {
         this.mainController = mainController;
     }
 
