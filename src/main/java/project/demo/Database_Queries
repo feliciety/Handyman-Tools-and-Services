@@ -1,0 +1,441 @@
+mysql -h localhost -u root
+
+create database handy_man;
+
+use handy_man;
+
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP );
+
+CREATE TABLE addresses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    address_type VARCHAR(255),
+    street VARCHAR(255),
+    barangay VARCHAR(255),
+    city VARCHAR(255),
+    province VARCHAR(255),
+    postal_code VARCHAR(20),
+    country VARCHAR(255) DEFAULT 'Philippines',
+    region VARCHAR(255)
+);
+
+CREATE TABLE productcategories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+
+INSERT INTO productcategories (name) VALUES
+('Safety Gear'), -- Category ID: 1
+('Measuring and Marking Tools'), -- Category ID: 2
+('Cutting Tools'), -- Category ID: 3
+('Shaping and Smoothing Tools'), -- Category ID: 4
+('Drilling and Fastening Tools'), -- Category ID: 5
+('Joining Tools and Supplies'), -- Category ID: 6
+('Support Tools'), -- Category ID: 7
+('Storage and Organization'), -- Category ID: 8
+('Wood and Materials'), -- Category ID: 9
+('Cleanup Supplies'); -- Category ID: 10
+
+
+
+CREATE TABLE products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    image_path VARCHAR(255) NOT NULL,
+    category_id INT NOT NULL,
+    FOREIGN KEY (category_id) REFERENCES productcategories(id)
+) ENGINE=InnoDB;
+
+
+INSERT INTO products (name, price, image_path, category_id) VALUES
+-- Safety Gear (Category ID: 1)
+('Dust Mask', 8.00, '/project/demo/imageproducts/dust_masks1.png', 1),
+('Filter Mask', 9.00, '/project/demo/imageproducts/dust_masks2.png', 1),
+('Foam Plugs', 10.00, '/project/demo/imageproducts/ear_protection1.png', 1),
+('Ear Muffs', 12.00, '/project/demo/imageproducts/ear_protection2.png', 1),
+('Reusable Plugs', 11.00, '/project/demo/imageproducts/ear_protection3.png', 1),
+('Noise Muffs', 15.00, '/project/demo/imageproducts/ear_protection4.png', 1),
+('Work Gloves', 7.00, '/project/demo/imageproducts/gloves1.png', 1),
+('Heat Gloves', 8.00, '/project/demo/imageproducts/gloves2.png', 1),
+('Cut Gloves', 9.00, '/project/demo/imageproducts/gloves3.png', 1),
+('Safety Goggles', 12.00, '/project/demo/imageproducts/safety_goggles1.png', 1),
+('UV Goggles', 13.00, '/project/demo/imageproducts/safety_goggles2.png', 1),
+('Waterproof Boots', 55.00, '/project/demo/imageproducts/steel_toed_boots1.png', 1),
+('Insulated Boots', 60.00, '/project/demo/imageproducts/steel_toed_boots2.png', 1),
+
+-- Measuring and Marking Tools (Category ID: 2)
+('Carpenter''s Square', 12.00, '/project/demo/imageproducts/Carpentersquare1.png', 2),
+('Framing Square', 15.00, '/project/demo/imageproducts/Carpentersquare2.png', 2),
+('Blue Chalk Line', 8.00, '/project/demo/imageproducts/chalkline1.png', 2),
+('Heavy-Duty Chalk Line', 10.00, '/project/demo/imageproducts/chalkline2.png', 2),
+('Combination Square', 14.00, '/project/demo/imageproducts/Combinationsquare1.png', 2),
+('Adjustable Combination Square', 18.00, '/project/demo/imageproducts/Combinationsquare2.png', 2),
+('Steel Measuring Tape', 6.00, '/project/demo/imageproducts/measuringtape1.png', 2),
+('Retractable Measuring Tape', 7.00, '/project/demo/imageproducts/measuringtape2.png', 2),
+('Double-Sided Measuring Tape', 9.00, '/project/demo/imageproducts/measuringtape3.png', 2),
+('Spirit Level', 11.00, '/project/demo/imageproducts/Spiritlevel1.png', 2),
+('Bubble Spirit Level', 12.00, '/project/demo/imageproducts/Spiritlevel2.png', 2),
+('Magnetic Spirit Level', 14.00, '/project/demo/imageproducts/Spiritlevel3.png', 2),
+
+-- Cutting Tools (Category ID: 3)
+('Hacksaw', 12.00, '/project/demo/imageproducts/Hacksaw.png', 3),
+('Carpet Knife', 8.00, '/project/demo/imageproducts/CarpetKnife.png', 3),
+('CrossCut Handsaw', 14.00, '/project/demo/imageproducts/CrossCutHandSaw.png', 3),
+('Circular Saw', 55.00, '/project/demo/imageproducts/CircularSaw.png', 3),
+('Bandsaw', 75.00, '/project/demo/imageproducts/Bandsaw.png', 3),
+('Foldable Utility Knife', 7.00, '/project/demo/imageproducts/FoldableUtilityKnife.png', 3),
+('Back Saw', 20.00, '/project/demo/imageproducts/BackSaw.png', 3),
+('Cordless Circular Saw', 120.00, '/project/demo/imageproducts/CordlessCircularSaw.png', 3),
+
+-- Shaping and Smoothing Tools (Category ID: 4)
+('Palm Sanding', 10.00, '/project/demo/imageproducts/PalmSanding.png', 4),
+('Nikken Sandpaper', 6.00, '/project/demo/imageproducts/NikkenSandPaper.png', 4),
+('Flat Wood File', 9.00, '/project/demo/imageproducts/FlatWoodFile.png', 4),
+('Belt Sander', 65.00, '/project/demo/imageproducts/BeltSander.png', 4),
+('Nut Slotting File', 15.00, '/project/demo/imageproducts/NutSlottingFile.png', 4),
+('Bench Chisel', 12.00, '/project/demo/imageproducts/BenchChisel.png', 4),
+
+-- Drilling and Fastening Tools (Category ID: 5)
+('Impact Drill', 50.00, '/project/demo/imageproducts/ImpactDrill.png', 5),
+('Electric Drill', 45.00, '/project/demo/imageproducts/ElectrilDrill.png', 5),
+('Flathead Screwdriver', 4.00, '/project/demo/imageproducts/FlatheadScrewdriver.png', 5),
+('Phillip Screwdriver', 4.00, '/project/demo/imageproducts/PhillipScrewdriver.png', 5),
+
+-- Joining Tools and Supplies (Category ID: 6)
+('Cordless Biscuit Joiner', 90.00, '/project/demo/imageproducts/CordlessBiscuitJoiner.png', 6),
+('Makita Biscuit Joiner', 110.00, '/project/demo/imageproducts/MakitaBiscuitJoiner.png', 6),
+('White Wood Glue', 5.00, '/project/demo/imageproducts/WhiteWoodGlue.png', 6),
+('Resin Wood Adhesive', 6.00, '/project/demo/imageproducts/ResinWoodAdhesive.png', 6),
+('Hex Bolts & Nuts', 8.00, '/project/demo/imageproducts/HexBolts&Nuts.png', 6),
+('G Clamp', 10.00, '/project/demo/imageproducts/GClamp.png', 6),
+('Quick Clamp', 12.00, '/project/demo/imageproducts/QuickClamp.png', 6),
+('Black Screw', 3.00, '/project/demo/imageproducts/BlackScrew.png', 6),
+('Steel Screw', 3.50, '/project/demo/imageproducts/SteelScrew.png', 6),
+('Text Screw', 3.00, '/project/demo/imageproducts/TextScrew.png', 6),
+
+-- Support Tools (Category ID: 7)
+('Adjustable Workbench', 80.00, '/project/demo/imageproducts/AdjustableWorkbench.png', 7),
+('Heavy Duty Hinge', 12.00, '/project/demo/imageproducts/HeavyDutyHinge.png', 7),
+('Adjustable Hacksaw', 14.00, '/project/demo/imageproducts/AdjustableHacksaw.png', 7),
+('Folding Sawhorse', 28.00, '/project/demo/imageproducts/FoldingSawhorse.png', 7),
+('Multipurpose Workbench', 95.00, '/project/demo/imageproducts/MultipurposeWorkbench.png', 7),
+
+-- Storage and Organization (Category ID: 8)
+('Plastic Toolbox', 25.00, '/project/demo/imageproducts/PlasticToolBox.png', 8),
+
+-- Wood and Materials (Category ID: 9)
+('Wood Sawhorse', 30.00, '/project/demo/imageproducts/WoodSawhorse.png', 9),
+('Dowel Rods', 5.00, '/project/demo/imageproducts/DowelRods.png', 9),
+('Concrete Nail', 4.00, '/project/demo/imageproducts/ConcreteNail.png', 9),
+('Flat Washers (1 Pack)', 3.50, '/project/demo/imageproducts/FlatWashers(1Pack).png', 9),
+('Galvanized Nail', 3.50, '/project/demo/imageproducts/GalvanizeNail.png', 9),
+('Dowel', 4.00, '/project/demo/imageproducts/Dowel.png', 9),
+
+-- Cleanup Supplies (Category ID: 10)
+('Sia Sandpaper', 2.50, '/project/demo/imageproducts/SiaSandPaper.png', 10);
+
+
+CREATE TABLE servicecategory (
+    category_id INT AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR(255) NOT NULL
+) ENGINE=InnoDB;
+
+INSERT INTO servicecategory (category_name) VALUES
+('Carpentry Service'),
+('Cleaning Service'),
+('Electrical Service'),
+('Flooring Service'),
+('Masonry Service'),
+('Painting Service'),
+('Plumbing Service'),
+('Roofing Service');
+
+
+CREATE TABLE subcategory (
+    subcategory_id INT AUTO_INCREMENT PRIMARY KEY,
+    subcategory_name VARCHAR(255) NOT NULL,
+    category_id INT NOT NULL,
+    FOREIGN KEY (category_id) REFERENCES servicecategory(category_id) ON DELETE CASCADE
+);
+INSERT INTO subcategory (subcategory_name, category_id) VALUES
+('Made-to-Order Furniture', 1),
+('Furniture Repairs', 1),
+('Carpentry Installation', 1),
+('Custom Woodwork', 1),
+('Outdoor Carpentry', 1),
+('Plumbing Installation', 5),
+('Plumbing Repairs', 5),
+('Plumbing Maintenance', 5),
+('Emergency Plumbing', 5),
+('Advanced Plumbing', 5),
+('Residential Painting', 2),
+('Commercial Painting', 2),
+('Custom Painting', 2),
+('Spray Painting', 2),
+('Painting Restoration', 2),
+('Residential Power Solutions', 4),
+('Commercial Energy Systems', 4),
+('Repair & Circuit Maintenance', 4),
+('Smart Home Wiring', 4),
+('Specialized Energy Services', 4),
+('Residential Cleaning', 6),
+('Commercial Cleaning', 6),
+('Deep Cleaning', 6),
+('Outdoor Cleaning', 6),
+('Specialized Cleaning', 6),
+('Home Flooring', 8),
+('Commercial Flooring', 8),
+('Floor Repair', 8),
+('Outdoor Flooring', 8),
+('Special Flooring', 8),
+('Home Masonry', 7),
+('Commercial Masonry', 7),
+('Masonry Repair', 7),
+('Outdoor Masonry', 7),
+('Special Masonry', 7),
+('Home Roofing', 3),
+('Commercial Roofing', 3),
+('Roof Repair', 3),
+('Outdoor Roofing', 3),
+('Special Roofing', 3);
+
+
+CREATE TABLE service (
+    service_id INT AUTO_INCREMENT PRIMARY KEY,
+    service_name VARCHAR(255) NOT NULL,
+    service_description TEXT,
+    service_price VARCHAR(255),
+    service_image_path VARCHAR(255),
+    subcategory_id INT NOT NULL,
+    FOREIGN KEY (subcategory_id) REFERENCES subcategory(subcategory_id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+INSERT INTO service (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
+(1, 'Custom Dining Table Set', 'Tailor-made dining tables and chairs', '$450.00 - $1,600.00', '/project/demo/imagesservices/CustomDiningTableSet.png', 1),
+(2, 'Custom Office Desk', 'Personalized office desks with ergonomic design', '$300.00 - $1,200.00', '/project/demo/imagesservices/CustomOfficeDesk.png', 1),
+(3, 'Custom Bed Frames', 'Wooden bed frames in various sizes and designs', '$400.00 - $1,500.00', '/project/demo/imagesservices/CustomBedFrames.png', 1),
+(4, 'Custom Bookshelves', 'Tailored bookshelves to fit any space', '$200.00 - $800.00', '/project/demo/imagesservices/CustomBookshelves.png', 1),
+(5, 'Custom Kitchen Cabinets', 'Space-efficient and modern cabinet designs', '$600.00 - $2,000.00', '/project/demo/imagesservices/CustomKitchenCabinets.png', 1),
+(6, 'Table & Chair Repair', 'Fix scratches, loose joints, or broken parts', '$50.00 - $200.00', '/project/demo/imagesservices/TableAndChairRepair.png', 2),
+(7, 'Wood Refinishing', 'Restore shine and color to wooden furniture', '$100.00 - $300.00', '/project/demo/imagesservices/WoodRefinishing.png', 2),
+(8, 'Cabinet Door Repairs', 'Repair hinges, knobs, or structural issues', '$40.00 - $100.00', '/project/demo/imagesservices/CabinetDoorRepairs.png', 2),
+(9, 'Upholstered Furniture Repair', 'Repair frames or replace fabric for chairs', '$150.00 - $500.00', '/project/demo/imagesservices/UpholsteredFurnitureRepair.png', 2),
+(10, 'Antique Furniture Restoration', 'Preserve or restore vintage pieces', '$300.00 - $1,200.00', '/project/demo/imagesservices/AntiqueFurnitureRestoration.png', 2),
+(11, 'Partition Wall Installation', 'Seamless partitioning for homes and offices', '$150.00 - $500.00', '/project/demo/imagesservices/PartitionWallInstallation.png', 3),
+(12, 'Pergola Installation', 'Custom pergola designs for outdoor spaces', '$150.00 - $500.00', '/project/demo/imagesservices/PergolaInstallation.png', 3),
+(13, 'Gazebo Construction', 'Create a stylish outdoor gazebo', '$150.00 - $500.00', '/project/demo/imagesservices/GazeboConstruction.png', 3),
+(14, 'Wooden Ceiling Beams', 'Decorative wooden beams for ceilings', '$150.00 - $500.00', '/project/demo/imagesservices/WoodenCeilingBeams.png', 3),
+(15, 'Wooden Flooring Installation', 'Premium wooden floors installed seamlessly', '$150.00 - $500.00', '/project/demo/imagesservices/WoodenFlooringInstallation.png', 3),
+(16, 'Fence Installation or Repair', 'Secure and stylish fencing solutions', '$300.00 - $1,200.00', '/project/demo/imagesservices/FenceInstallationOrRepair.png', 4),
+(17, 'Deck Construction and Repair', 'Build or restore outdoor wooden decks', '$300.00 - $1,200.00', '/project/demo/imagesservices/DeckConstructionAndRepair.png', 4),
+(18, 'Custom Outdoor Furniture', 'Bespoke wooden furniture for outdoor use', '$300.00 - $1,200.00', '/project/demo/imagesservices/CustomOutdoorFurniture.png', 4),
+(19, 'Wooden Outdoor Storage', 'Durable storage units for outdoor needs', '$300.00 - $1,200.00', '/project/demo/imagesservices/WoodenOutdoorStorage.png', 4),
+(20, 'Decorative Wood Carvings', 'Intricate wood carving for decorative use', '$300.00 - $1,200.00', '/project/demo/imagesservices/DecorativeWoodCarvings.png', 4),
+(21, 'Custom Wall Paneling', 'Add elegance to walls with custom panels', '$400.00 - $1,500.00', '/project/demo/imagesservices/CustomWallPaneling.png', 5),
+(22, 'Door and Window Frame Installation', 'Precise framing for doors and windows', '$400.00 - $1,500.00', '/project/demo/imagesservices/DoorAndWindowFrameInstallation.png', 5),
+(23, 'Cabinet and Shelf Setup', 'Efficient and stylish storage solutions', '$400.00 - $1,500.00', '/project/demo/imagesservices/CabinetAndShelfSetup.png', 5),
+(24, 'Staircase Installation', 'Custom staircase design and installation', '$400.00 - $1,500.00', '/project/demo/imagesservices/StaircaseInstallation.png', 5),
+(25, 'Fence Installation or Repair', 'Secure and stylish fencing solutions', '$400.00 - $1,500.00', '/project/demo/imagesservices/FenceInstallationOrRepair.png', 5);
+
+
+INSERT INTO service (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
+(26, 'Water Pipe Installation', 'Install water supply lines for new properties', '$100.00 - $400.00', '/project/demo/imagesservices/WaterPipeInstallation.png', 6),
+(27, 'Faucet and Sink Installation', 'Setup of kitchen or bathroom faucets and sinks', '$120.00 - $450.00', '/project/demo/imagesservices/FaucetAndSinkInstallation.png', 6),
+(28, 'Toilet Installation', 'Install toilets with water-saving systems', '$150.00 - $500.00', '/project/demo/imagesservices/ToiletInstallation.png', 6),
+(29, 'Shower System Installation', 'Rain showers or standard shower setups', '$300.00 - $1,200.00', '/project/demo/imagesservices/ShowerSystemInstallation.png', 6),
+(30, 'Water Heater Installation', 'Energy-efficient water heater systems', '$400.00 - $1,500.00', '/project/demo/imagesservices/WaterHeaterInstallation.png', 6),
+(31, 'Pipe Leak Repairs', 'Quick fixes for leaky pipes', '$50.00 - $200.00', '/project/demo/imagesservices/PipeLeakRepairs.png', 7),
+(32, 'Clogged Drain Clearing', 'Unclog kitchen, bathroom, or outdoor drains', '$80.00 - $250.00', '/project/demo/imagesservices/CloggedDrainClearing.png', 7),
+(33, 'Toilet Repair Services', 'Fix flushing issues, leaks, or blockages', '$120.00 - $400.00', '/project/demo/imagesservices/ToiletRepairServices.png', 7),
+(34, 'Water Heater Repairs', 'Resolve heating problems or leaks', '$100.00 - $300.00', '/project/demo/imagesservices/WaterHeaterRepairs.png', 7),
+(35, 'Faucet Repairs', 'Stop drips, fix handles, or replace parts', '$50.00 - $150.00', '/project/demo/imagesservices/FaucetRepairs.png', 7),
+(36, 'Drain Cleaning Services', 'Prevent clogs and buildup with regular cleaning', '$80.00 - $250.00', '/project/demo/imagesservices/DrainCleaningServices.png', 8),
+(37, 'Septic Tank Maintenance', 'Routine pumping and cleaning of septic tanks', '$150.00 - $400.00', '/project/demo/imagesservices/SepticTankMaintenance.png', 8),
+(38, 'Water Heater Maintenance', 'Flush sediment and check system efficiency', '$200.00 - $500.00', '/project/demo/imagesservices/WaterHeaterMaintenance.png', 8),
+(39, 'Gutter Cleaning Service', 'Remove debris from gutters and downspouts', '$50.00 - $150.00', '/project/demo/imagesservices/GutterCleaningService.png', 8),
+(40, 'Pipe Inspection Service', 'Use cameras to inspect pipes for damage', '$100.00 - $300.00', '/project/demo/imagesservices/PipeInspectionService.png', 8),
+(41, 'Emergency Pipe Burst Repair', 'Quick fixes for broken or leaking pipes', '$200.00 - $700.00', '/project/demo/imagesservices/EmergencyPipeBurstRepair.png', 9),
+(42, 'Flooding Resolution Services', 'Remove water and repair causes of flooding', '$300.00 - $900.00', '/project/demo/imagesservices/FloodingResolutionServices.png', 9),
+(43, 'Emergency Clogged Drain Clearing', 'Unblock severe drain clogs on short notice', '$100.00 - $500.00', '/project/demo/imagesservices/EmergencyCloggedDrainClearing.png', 9),
+(44, 'Sewer Backup Emergency Fix', 'Address sewer overflows to prevent damage', '$250.00 - $750.00', '/project/demo/imagesservices/SewerBackupEmergencyFix.png', 9),
+(45, 'Toilet Overflow Repair', 'Resolve overflowing or blocked toilets', '$150.00 - $450.00', '/project/demo/imagesservices/ToiletOverflowRepair.png', 9),
+(46, 'Rainwater Harvesting System Install', 'Collect and store rainwater for reuse', '$500.00 - $2,000.00', '/project/demo/imagesservices/RainwaterHarvestingSystemInstall.png', 10),
+(47, 'Greywater Recycling System Setup', 'Recycle water for non-drinking purposes', '$800.00 - $3,000.00', '/project/demo/imagesservices/GreywaterRecyclingSystemSetup.png', 10),
+(48, 'Hydro-Jetting Services', 'High-pressure water cleaning for stubborn clogs', '$200.00 - $600.00', '/project/demo/imagesservices/HydroJettingServices.png', 10),
+(49, 'Trenchless Pipe Replacement', 'Replace underground pipes without digging', '$1,000.00 - $4,000.00', '/project/demo/imagesservices/TrenchlessPipeReplacement.png', 10),
+(50, 'Water Filtration System Install', 'Purify water for residential or commercial use', '$1,500.00 - $5,000.00', '/project/demo/imagesservices/WaterFiltrationSystemInstall.png', 10);
+
+
+INSERT INTO service (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
+(51, 'Interior Wall Painting', 'High-quality painting for living spaces', '$54.00 - $180.00', '/project/demo/imagesservices/InteriorWallPainting.png', 11),
+(52, 'Ceiling Painting', 'Freshen up ceilings with smooth paint finishes', '$36.00 - $90.00', '/project/demo/imagesservices/CeilingPainting.png', 11),
+(53, 'Exterior Wall Painting', 'Durable paint for outdoor walls', '$25.70 - $53.40', '/project/demo/imagesservices/ExteriorWallPainting.png', 11),
+(54, 'Fence and Gate Painting', 'Protect and enhance fences or gates', '$54.00 - $144.00', '/project/demo/imagesservices/FenceAndGatePainting.png', 11),
+(55, 'Accent Wall Painting', 'Create feature walls with unique colors', '$45.00 - $126.00', '/project/demo/imagesservices/AccentWallPainting.png', 11),
+(56, 'Office Interior Painting', 'Paint offices to create a productive workspace', '$90.00 - $360.00', '/project/demo/imagesservices/OfficeInteriorPainting.png', 12),
+(57, 'Warehouse Wall Painting', 'Durable coatings for industrial spaces', '$2.70 - $7.20', '/project/demo/imagesservices/WarehouseWallPainting.png', 12),
+(58, 'Floor Epoxy Coating', 'Protective and decorative floor finishes', '$9.00 - $21.60', '/project/demo/imagesservices/FloorEpoxyCoating.png', 12),
+(59, 'Building Exterior Painting', 'Weatherproof and aesthetic exterior finishes', '$3.60 - $9.00', '/project/demo/imagesservices/BuildingExteriorPainting.png', 12),
+(60, 'Restaurant or Cafe Painting', 'Stylish and inviting designs for dining spaces', '$180.00 - $540.00', '/project/demo/imagesservices/RestaurantOrCafePainting.png', 12),
+(61, 'Custom Mural Painting', 'Artistic wall designs for homes or businesses', '$180.00 - $900.00', '/project/demo/imagesservices/CustomMuralPainting.png', 13),
+(62, 'Wall Stenciling', 'Add patterns or designs using stencils', '$90.00 - $270.00', '/project/demo/imagesservices/WallStenciling.png', 13),
+(63, 'Textured Wall Painting', 'Create textured finishes for modern interiors', '$144.00 - $360.00', '/project/demo/imagesservices/TexturedWallPainting.png', 13),
+(64, 'Faux Finish Painting', 'Simulate stone, wood, or marble finishes', '$180.00 - $540.00', '/project/demo/imagesservices/FauxFinishPainting.png', 13),
+(65, 'Chalkboard Wall Painting', 'Paint walls with chalkboard surfaces', '$90.00 - $216.00', '/project/demo/imagesservices/ChalkboardWallPainting.png', 13),
+(66, 'Wall Spray Painting', 'Smooth finishes for interior or exterior walls', '$180.00 - $540.00', '/project/demo/imagesservices/WallSprayPainting.png', 14),
+(67, 'Furniture Spray Painting', 'Quick and even finish for wood or metal items', '$90.00 - $270.00', '/project/demo/imagesservices/FurnitureSprayPainting.png', 14),
+(68, 'Vehicle Spray Painting', 'Repaint or touch up cars or motorcycles', '$270.00 - $900.00', '/project/demo/imagesservices/VehicleSprayPainting.png', 14),
+(69, 'Metal Surface Spray Painting', 'Protect fences, gates, or machinery', '$90.00 - $360.00', '/project/demo/imagesservices/MetalSurfaceSprayPainting.png', 14),
+(70, 'Cabinet Spray Finishing', 'Professional spray-painted cabinet finishes', '$126.00 - $360.00', '/project/demo/imagesservices/CabinetSprayFinishing.png', 14),
+(71, 'Old Paint Removal', 'Strip old paint from walls or surfaces', '$54.00 - $180.00', '/project/demo/imagesservices/OldPaintRemoval.png', 15),
+(72, 'Wooden Surface Refinishing', 'Recoat or refinish wooden furniture or panels', '$90.00 - $270.00', '/project/demo/imagesservices/WoodenSurfaceRefinishing.png', 15),
+(73, 'Metal Surface Rustproofing', 'Remove rust and recoat metal surfaces', '$90.00 - $360.00', '/project/demo/imagesservices/MetalSurfaceRustproofing.png', 15),
+(74, 'Graffiti Removal Services', 'Remove unwanted graffiti from walls or surfaces', '$90.00 - $270.00', '/project/demo/imagesservices/GraffitiRemovalServices.png', 15),
+(75, 'Repainting Services', 'Refresh faded or damaged painted surfaces', '$90.00 - $360.00', '/project/demo/imagesservices/RepaintingServices.png', 15);
+
+INSERT INTO service (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
+(76, 'Outlet and Switch Installation', 'Install or replace power outlets and switches', '$54.00 - $144.00', '/project/demo/imagesservices/OutletSwitchInstallation.png', 16),
+(77, 'Lighting Installation', 'Installation of indoor or outdoor lighting', '$36.00 - $90.00', '/project/demo/imagesservices/LightingInstallation.png', 16),
+(78, 'Ceiling Fan Installation', 'Set up or replace ceiling fans', '$45.00 - $126.00', '/project/demo/imagesservices/CeilingFanInstallation.png', 16),
+(79, 'Electrical Panel Upgrade', 'Modernize or upgrade outdated panels', '$2.70 - $5.40', '/project/demo/imagesservices/ElectricalPanelUpgrade.png', 16),
+(80, 'Wiring Installation', 'Full home wiring for new or renovated spaces', '$54.00 - $180.00', '/project/demo/imagesservices/WiringInstallation.png', 16),
+(81, 'High Voltage Systems', 'Maintenance or installation of high-voltage systems', '$3.60 - $9.00', '/project/demo/imagesservices/HighVoltageSystems.png', 17),
+(82, 'Emergency Lighting Installation', 'Install safety and emergency lighting systems', '$180.00 - $540.00', '/project/demo/imagesservices/EmergencyLightingInstallation.png', 17),
+(83, 'Industrial Equipment Wiring', 'Power connections for machinery and equipment', '$9.00 - $21.60', '/project/demo/imagesservices/IndustrialEquipmentWiring.png', 17),
+(84, 'Generator Installation', 'Install backup power systems', '$2.70 - $7.20', '/project/demo/imagesservices/GeneratorInstallation.png', 17),
+(85, 'Commercial Wiring', 'Electrical wiring for offices or retail spaces', '$90.00 - $360.00', '/project/demo/imagesservices/CommercialWiring.png', 17),
+(86, 'Electrical Troubleshooting', 'Diagnose and repair electrical issues', '$180.00 - $900.00', '/project/demo/imagesservices/ElectricalTroubleshooting.png', 18),
+(87, 'Circuit Breaker Replacement', 'Replace faulty or old circuit breakers', '$90.00 - $270.00', '/project/demo/imagesservices/CircuitBreakerReplacement.png', 18),
+(88, 'Surge Protection Installation', 'Install protection for appliances against power surges', '$144.00 - $360.00', '/project/demo/imagesservices/SurgeProtectionInstallation.png', 18),
+(89, 'Wiring Inspection and Repair', 'Inspect and fix damaged or unsafe wiring', '$180.00 - $540.00', '/project/demo/imagesservices/WiringInspectionRepair.png', 18),
+(90, 'Lighting Maintenance', 'Replace or repair faulty light fixtures', '$90.00 - $216.00', '/project/demo/imagesservices/LightingMaintenance.png', 18),
+(91, 'Smart Lighting Installation', 'Install automated and app-controlled lighting', '$180.00 - $540.00', '/project/demo/imagesservices/SmartLightingInstallation.png', 19),
+(92, 'Security System Wiring', 'Set up electrical wiring for CCTV and alarms', '$90.00 - $270.00', '/project/demo/imagesservices/SecuritySystemWiring.png', 19),
+(93, 'Home Automation Setup', 'Integrate smart devices for a connected home', '$270.00 - $900.00', '/project/demo/imagesservices/HomeAutomationSetup.png', 19),
+(94, 'Thermostat Installation', 'Install smart thermostats for energy efficiency', '$90.00 - $360.00', '/project/demo/imagesservices/ThermostatInstallation.png', 19),
+(95, 'Audio/Visual System Wiring', 'Set up wiring for entertainment systems', '$126.00 - $360.00', '/project/demo/imagesservices/AudioVisualSystemWiring.png', 19),
+(96, 'Solar Panel Installation', 'Install solar panels for energy efficiency', '$54.00 - $180.00', '/project/demo/imagesservices/SolarPanelInstallation.png', 20),
+(97, 'EV Charger Installation', 'Install electric vehicle charging stations', '$90.00 - $270.00', '/project/demo/imagesservices/EVChargerInstallation.png', 20),
+(98, 'Backup Power Systems', 'Set up and maintain UPS or battery backups', '$90.00 - $360.00', '/project/demo/imagesservices/BackupPowerSystems.png', 20),
+(99, 'Lighting Design Services', 'Plan and install customized lighting solutions', '$90.00 - $270.00', '/project/demo/imagesservices/LightingDesignServices.png', 20),
+(100, 'Data and Network Cabling', 'Set up structured cabling for networks', '$90.00 - $360.00', '/project/demo/imagesservices/DataNetworkCabling.png', 20);
+
+
+INSERT INTO service (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
+(101, 'General Home Cleaning', 'Thorough cleaning of living spaces, including dusting, vacuuming, and mopping', '$36.00 - $90.00', '/project/demo/imagesservices/GeneralHomeCleaning.png', 21),
+(102, 'Kitchen Deep Cleaning', 'Specialized cleaning for kitchen appliances, countertops, and cabinets', '$45.00 - $108.00', '/project/demo/imagesservices/KitchenDeepCleaning.png', 21),
+(103, 'Bathroom Cleaning', 'Scrubbing and sanitizing bathroom tiles, sinks, and toilets', '$27.00 - $54.00', '/project/demo/imagesservices/BathroomCleaning.png', 21),
+(104, 'Carpet and Rug Cleaning', 'Steam or deep cleaning for carpets and rugs', '$18.00 - $63.00', '/project/demo/imagesservices/CarpetAndRugCleaning.png', 21),
+(105, 'Window Cleaning', 'Interior and exterior window cleaning', '$18.00 - $72.00', '/project/demo/imagesservices/WindowCleaning.png', 21),
+(106, 'Office Cleaning', 'Daily or periodic cleaning for offices and workspaces', '$54.00 - $180.00', '/project/demo/imagesservices/OfficeCleaning.png', 22),
+(107, 'Warehouse Cleaning', 'Cleaning industrial warehouses, including dust removal and floor polishing', '$180.00 - $900.00', '/project/demo/imagesservices/WarehouseCleaning.png', 22),
+(108, 'Post-Construction Cleaning', 'Removal of debris, dust, and paint residues after construction', '$270.00 - $900.00', '/project/demo/imagesservices/PostConstructionCleaning.png', 22),
+(109, 'Restaurant Cleaning', 'Sanitizing kitchens, dining areas, and equipment', '$90.00 - $360.00', '/project/demo/imagesservices/RestaurantCleaning.png', 22),
+(110, 'Medical Facility Cleaning', 'Disinfection and cleaning of clinics or hospitals', '$180.00 - $540.00', '/project/demo/imagesservices/MedicalFacilityCleaning.png', 22),
+(111, 'Move-In/Move-Out Cleaning', 'Comprehensive cleaning before or after moving in/out', '$90.00 - $270.00', '/project/demo/imagesservices/MoveInMoveOutCleaning.png', 23),
+(112, 'Upholstery Cleaning', 'Cleaning and sanitizing sofas, chairs, and other upholstery', '$36.00 - $126.00', '/project/demo/imagesservices/UpholsteryCleaning.png', 23),
+(113, 'Mold and Mildew Removal', 'Specialized cleaning to remove mold and mildew', '$90.00 - $360.00', '/project/demo/imagesservices/MoldAndMildewRemoval.png', 23),
+(114, 'Air Duct Cleaning', 'Cleaning and sanitizing air ducts and HVAC systems', '$54.00 - $180.00', '/project/demo/imagesservices/AirDuctCleaning.png', 23),
+(115, 'Floor Polishing and Waxing', 'Restore shine to hardwood or tiled floors', '$54.00 - $144.00', '/project/demo/imagesservices/FloorPolishingAndWaxing.png', 23),
+(116, 'Pressure Washing', 'High-pressure cleaning for driveways, walls, and patios', '$54.00 - $180.00', '/project/demo/imagesservices/PressureWashing.png', 24),
+(117, 'Gutter Cleaning', 'Clearing debris and ensuring proper water flow', '$36.00 - $90.00', '/project/demo/imagesservices/GutterCleaning.png', 24),
+(118, 'Roof Cleaning', 'Removal of moss, dirt, and stains from rooftops', '$90.00 - $270.00', '/project/demo/imagesservices/RoofCleaning.png', 24),
+(119, 'Fence and Deck Cleaning', 'Restoring fences and decks to their original condition', '$54.00 - $144.00', '/project/demo/imagesservices/FenceAndDeckCleaning.png', 24),
+(120, 'Garden Cleanup', 'Clearing leaves, debris, and overgrowth', '$45.00 - $126.00', '/project/demo/imagesservices/GardenCleanup.png', 24),
+(121, 'COVID-19 Disinfection', 'Professional sanitization for homes and businesses', '$90.00 - $270.00', '/project/demo/imagesservices/COVID19Disinfection.png', 25),
+(122, 'Pest Control Cleaning', 'Clean and disinfect after pest extermination', '$90.00 - $360.00', '/project/demo/imagesservices/PestControlCleaning.png', 25),
+(123, 'Allergy Reduction Cleaning', 'Remove allergens such as dust, pet dander, and pollen', '$54.00 - $144.00', '/project/demo/imagesservices/AllergyReductionCleaning.png', 25),
+(124, 'Odor Removal Cleaning', 'Eliminate unpleasant odors with deep cleaning solutions', '$72.00 - $180.00', '/project/demo/imagesservices/OdorRemovalCleaning.png', 25),
+(125, 'Hazardous Material Cleanup', 'Cleaning and disposal of hazardous substances', '$270.00 - $900.00', '/project/demo/imagesservices/HazardousMaterialCleanup.png', 25);
+
+INSERT INTO service (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
+(126, 'Hardwood Floor Installation', 'Durable and elegant hardwood floor installation', '$540.00 - $1,800.00', '/project/demo/imagesservices/HardwoodFloorInstallation.png', 26),
+(127, 'Laminate Flooring Installation', 'Affordable and quick laminate floor setups', '$360.00 - $900.00', '/project/demo/imagesservices/LaminateFlooringInstallation.png', 26),
+(128, 'Tile Flooring Installation', 'Ceramic or porcelain tiles for any room', '$450.00 - $1,200.00', '/project/demo/imagesservices/TileFlooringInstallation.png', 26),
+(129, 'Vinyl Flooring Installation', 'Water-resistant and low-maintenance vinyl floors', '$360.00 - $900.00', '/project/demo/imagesservices/VinylFlooringInstallation.png', 26),
+(130, 'Floor Refinishing', 'Restore the beauty and shine of worn hardwood floors', '$450.00 - $1,200.00', '/project/demo/imagesservices/FloorRefinishing.png', 26),
+(131, 'Commercial Tile Installation', 'Durable tile solutions for high-traffic areas', '$900.00 - $3,600.00', '/project/demo/imagesservices/CommercialTileInstallation.png', 27),
+(132, 'Epoxy Floor Coating', 'Protective and decorative epoxy coatings for floors', '$450.00 - $1,800.00', '/project/demo/imagesservices/EpoxyFloorCoating.png', 27),
+(133, 'Concrete Floor Polishing', 'High-gloss finish for industrial concrete floors', '$540.00 - $1,800.00', '/project/demo/imagesservices/ConcreteFloorPolishing.png', 27),
+(134, 'Rubber Flooring Installation', 'Safe and durable rubber floors for gyms or offices', '$900.00 - $2,700.00', '/project/demo/imagesservices/RubberFlooringInstallation.png', 27),
+(135, 'Vinyl Plank Flooring', 'Modern vinyl planks for large commercial spaces', '$720.00 - $2,400.00', '/project/demo/imagesservices/VinylPlankFlooring.png', 27),
+(136, 'Floorboard Replacement', 'Replace damaged or warped wooden floorboards', '$180.00 - $540.00', '/project/demo/imagesservices/FloorboardReplacement.png', 28),
+(137, 'Tile Grout Repair', 'Fix and reseal damaged or discolored tile grout', '$90.00 - $270.00', '/project/demo/imagesservices/TileGroutRepair.png', 28),
+(138, 'Scratch Removal for Hardwood Floors', 'Buff out scratches and restore shine to hardwood', '$180.00 - $450.00', '/project/demo/imagesservices/ScratchRemoval.png', 28),
+(139, 'Carpet Stretching', 'Eliminate wrinkles and bulges in carpet flooring', '$90.00 - $360.00', '/project/demo/imagesservices/CarpetStretching.png', 28),
+(140, 'Water Damage Repair', 'Repair and restore floors damaged by water', '$360.00 - $1,200.00', '/project/demo/imagesservices/WaterDamageRepair.png', 28),
+(141, 'Deck Installation', 'Custom wooden or composite deck flooring', '$900.00 - $3,600.00', '/project/demo/imagesservices/DeckInstallation.png', 29),
+(142, 'Patio Paver Installation', 'Install durable and decorative patio flooring', '$540.00 - $1,800.00', '/project/demo/imagesservices/PatioPaverInstallation.png', 29),
+(143, 'Stamped Concrete Flooring', 'Design-rich concrete finishes for outdoor areas', '$900.00 - $2,700.00', '/project/demo/imagesservices/StampedConcreteFlooring.png', 29),
+(144, 'Outdoor Tile Installation', 'Weather-resistant tile solutions for patios', '$540.00 - $1,500.00', '/project/demo/imagesservices/OutdoorTileInstallation.png', 29),
+(145, 'Driveway Resurfacing', 'Restore and protect your driveway with durable coatings', '$720.00 - $2,400.00', '/project/demo/imagesservices/DrivewayResurfacing.png', 29),
+(146, 'Heated Flooring Installation', 'Install radiant heating systems under flooring', '$1,800.00 - $5,400.00', '/project/demo/imagesservices/HeatedFlooringInstallation.png', 30),
+(147, 'Soundproof Flooring Installation', 'Reduce noise with specialized soundproof flooring', '$900.00 - $2,700.00', '/project/demo/imagesservices/SoundproofFlooringInstallation.png', 30),
+(148, 'Anti-Slip Flooring Treatment', 'Add anti-slip coatings for safety on floors', '$450.00 - $1,200.00', '/project/demo/imagesservices/AntiSlipFlooringTreatment.png', 30),
+(149, 'Custom Floor Designs', 'Artistic and custom designs for unique flooring', '$1,500.00 - $4,500.00', '/project/demo/imagesservices/CustomFloorDesigns.png', 30),
+(150, 'Sustainable Flooring Installation', 'Eco-friendly flooring materials for green buildings', '$1,200.00 - $3,600.00', '/project/demo/imagesservices/SustainableFlooringInstallation.png', 30);
+INSERT INTO service (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
+(151, 'Brick Wall Construction', 'Build durable and aesthetically pleasing brick walls', '$540.00 - $1,800.00', '/project/demo/imagesservices/BrickWallConstruction.png', 31),
+(152, 'Stone Veneer Installation', 'Install stone veneers for exterior or interior walls', '$720.00 - $2,400.00', '/project/demo/imagesservices/StoneVeneerInstallation.png', 31),
+(153, 'Fireplace Construction', 'Custom-built fireplaces using brick or stone', '$1,200.00 - $4,500.00', '/project/demo/imagesservices/FireplaceConstruction.png', 31),
+(154, 'Patio Construction', 'Build patios with brick, concrete, or stone', '$900.00 - $3,600.00', '/project/demo/imagesservices/PatioConstruction.png', 31),
+(155, 'Retaining Wall Construction', 'Build sturdy retaining walls for landscaping', '$1,800.00 - $5,400.00', '/project/demo/imagesservices/RetainingWallConstruction.png', 31),
+(156, 'Concrete Block Construction', 'Install concrete blocks for structural walls', '$1,800.00 - $9,000.00', '/project/demo/imagesservices/ConcreteBlockConstruction.png', 32),
+(157, 'Warehouse Masonry', 'Masonry work for industrial warehouse walls', '$2,700.00 - $9,000.00', '/project/demo/imagesservices/WarehouseMasonry.png', 32),
+(158, 'Brick Paving Installation', 'Durable brick paving for commercial spaces', '$900.00 - $3,600.00', '/project/demo/imagesservices/BrickPavingInstallation.png', 32),
+(159, 'Large-Scale Retaining Walls', 'Build retaining walls for commercial landscaping', '$3,600.00 - $10,800.00', '/project/demo/imagesservices/LargeScaleRetainingWalls.png', 32),
+(160, 'Structural Masonry Repairs', 'Repair and restore damaged masonry on commercial buildings', '$1,200.00 - $4,500.00', '/project/demo/imagesservices/StructuralMasonryRepairs.png', 32),
+(161, 'Brick Repair', 'Fix cracks, chips, and loose bricks', '$180.00 - $540.00', '/project/demo/imagesservices/BrickRepair.png', 33),
+(162, 'Stone Wall Restoration', 'Restore damaged or weathered stone walls', '$360.00 - $1,200.00', '/project/demo/imagesservices/StoneWallRestoration.png', 33),
+(163, 'Chimney Repairs', 'Repair cracks or leaks in brick chimneys', '$450.00 - $1,500.00', '/project/demo/imagesservices/ChimneyRepairs.png', 33),
+(164, 'Foundation Crack Repair', 'Seal and repair cracks in concrete foundations', '$540.00 - $1,800.00', '/project/demo/imagesservices/FoundationCrackRepair.png', 33),
+(165, 'Concrete Surface Restoration', 'Restore or resurface damaged concrete areas', '$360.00 - $1,200.00', '/project/demo/imagesservices/ConcreteSurfaceRestoration.png', 33),
+(166, 'Walkway Construction', 'Build custom walkways using brick or stone', '$540.00 - $1,800.00', '/project/demo/imagesservices/WalkwayConstruction.png', 34),
+(167, 'Driveway Paver Installation', 'Durable and decorative driveway pavers', '$720.00 - $2,400.00', '/project/demo/imagesservices/DrivewayPaverInstallation.png', 34),
+(168, 'Outdoor Fireplace Installation', 'Build custom stone or brick outdoor fireplaces', '$1,200.00 - $4,500.00', '/project/demo/imagesservices/OutdoorFireplaceInstallation.png', 34),
+(169, 'Garden Wall Construction', 'Build low stone or brick walls for gardens', '$450.00 - $1,500.00', '/project/demo/imagesservices/GardenWallConstruction.png', 34),
+(170, 'Outdoor Kitchen Masonry', 'Custom masonry for outdoor kitchens', '$1,800.00 - $5,400.00', '/project/demo/imagesservices/OutdoorKitchenMasonry.png', 34),
+(171, 'Custom Stone Carving', 'Artistic stone carving for decorative purposes', '$900.00 - $3,600.00', '/project/demo/imagesservices/CustomStoneCarving.png', 35),
+(172, 'Historic Masonry Restoration', 'Preserve and restore historic masonry structures', '$2,700.00 - $9,000.00', '/project/demo/imagesservices/HistoricMasonryRestoration.png', 35),
+(173, 'Masonry Waterproofing', 'Add waterproof coatings to masonry surfaces', '$450.00 - $1,200.00', '/project/demo/imagesservices/MasonryWaterproofing.png', 35),
+(174, 'Stone Pillar Construction', 'Build decorative or functional stone pillars', '$1,200.00 - $3,600.00', '/project/demo/imagesservices/StonePillarConstruction.png', 35),
+(175, 'Tuckpointing Services', 'Repair and replace mortar joints in brickwork', '$360.00 - $1,500.00', '/project/demo/imagesservices/TuckpointingServices.png', 35);
+
+
+
+INSERT INTO service (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
+(176, 'Roof Installation', 'Install new roofs using durable materials', '$1,800.00 - $5,400.00', '/project/demo/imagesservices/RoofInstallation.png', 36),
+(177, 'Roof Replacement', 'Replace old or damaged roofs', '$2,700.00 - $7,200.00', '/project/demo/imagesservices/RoofReplacement.png', 36),
+(178, 'Shingle Roof Installation', 'Asphalt or composite shingle installation', '$1,500.00 - $4,500.00', '/project/demo/imagesservices/ShingleRoofInstallation.png', 36),
+(179, 'Metal Roof Installation', 'Durable and energy-efficient metal roofing', '$3,600.00 - $10,800.00', '/project/demo/imagesservices/MetalRoofInstallation.png', 36),
+(180, 'Flat Roof Installation', 'Install flat roofing systems for modern homes', '$2,700.00 - $7,200.00', '/project/demo/imagesservices/FlatRoofInstallation.png', 36),
+(181, 'Commercial Roof Installation', 'Install high-durability roofs for commercial buildings', '$7,200.00 - $18,000.00', '/project/demo/imagesservices/CommercialRoofInstallation.png', 37),
+(182, 'Warehouse Roofing', 'Install or replace large-scale industrial roofs', '$10,800.00 - $36,000.00', '/project/demo/imagesservices/WarehouseRoofing.png', 37),
+(183, 'Green Roof Installation', 'Eco-friendly roofing systems for commercial spaces', '$5,400.00 - $18,000.00', '/project/demo/imagesservices/GreenRoofInstallation.png', 37),
+(184, 'Industrial Metal Roofing', 'Install metal roofs for warehouses or factories', '$7,200.00 - $21,600.00', '/project/demo/imagesservices/IndustrialMetalRoofing.png', 37),
+(185, 'Commercial Roof Repairs', 'Fix leaks, cracks, or damage on commercial roofs', '$1,800.00 - $5,400.00', '/project/demo/imagesservices/CommercialRoofRepairs.png', 37),
+(186, 'Leak Repair', 'Fix leaks to prevent water damage', '$360.00 - $1,200.00', '/project/demo/imagesservices/LeakRepair.png', 38),
+(187, 'Gutter Repair', 'Repair or replace damaged gutters', '$180.00 - $540.00', '/project/demo/imagesservices/GutterRepair.png', 38),
+(188, 'Roof Cleaning', 'Remove debris, moss, and dirt from roofs', '$180.00 - $720.00', '/project/demo/imagesservices/RoofCleaning.png', 38),
+(189, 'Shingle Replacement', 'Replace damaged or missing shingles', '$360.00 - $900.00', '/project/demo/imagesservices/ShingleReplacement.png', 38),
+(190, 'Flashing Repair', 'Fix or replace flashing to prevent water entry', '$540.00 - $1,800.00', '/project/demo/imagesservices/FlashingRepair.png', 38),
+(191, 'Patio Roof Installation', 'Build durable and stylish roofs for patios', '$900.00 - $3,600.00', '/project/demo/imagesservices/PatioRoofInstallation.png', 39),
+(192, 'Carport Roofing', 'Install or replace carport roofs', '$1,500.00 - $4,500.00', '/project/demo/imagesservices/CarportRoofing.png', 39),
+(193, 'Gazebo Roof Installation', 'Install decorative and weather-resistant roofs for gazebos', '$1,800.00 - $5,400.00', '/project/demo/imagesservices/GazeboRoofInstallation.png', 39),
+(194, 'Pergola Roof Installation', 'Build roofs for pergolas to provide shade', '$1,200.00 - $3,600.00', '/project/demo/imagesservices/PergolaRoofInstallation.png', 39),
+(195, 'Outdoor Shed Roofing', 'Install or repair roofing for outdoor sheds', '$540.00 - $1,800.00', '/project/demo/imagesservices/OutdoorShedRoofing.png', 39),
+(196, 'Skylight Installation', 'Add skylights for natural light and ventilation', '$1,800.00 - $5,400.00', '/project/demo/imagesservices/SkylightInstallation.png', 40),
+(197, 'Solar Panel Roofing', 'Integrate solar panels into roofing systems', '$10,800.00 - $36,000.00', '/project/demo/imagesservices/SolarPanelRoofing.png', 40),
+(198, 'Roof Insulation Installation', 'Install insulation to improve energy efficiency', '$2,700.00 - $7,200.00', '/project/demo/imagesservices/RoofInsulationInstallation.png', 40),
+(199, 'Custom Roof Designs', 'Unique roofing designs tailored to client needs', '$7,200.00 - $21,600.00', '/project/demo/imagesservices/CustomRoofDesigns.png', 40),
+(200, 'Chimney Repair and Maintenance', 'Fix and maintain chimneys for safety and performance', '$900.00 - $3,600.00', '/project/demo/imagesservices/ChimneyRepairMaintenance.png', 40);
+
+

@@ -1,32 +1,22 @@
 package project.demo.models;
 
 public abstract class PaymentMethod {
-    private int id;
-    private int userId;
-    private String paymentMethodType;
+    private int paymentMethodId;   // A unique identifier for the payment method
+    private String paymentMethodType;   // E.g., "Credit Card", "PayPal", etc.
 
     // Constructor
-    public PaymentMethod(int id, int userId, String paymentMethodType) {
-        this.id = id;
-        this.userId = userId;
+    public PaymentMethod(int paymentMethodId, String paymentMethodType) {
+        this.paymentMethodId = paymentMethodId;
         this.paymentMethodType = paymentMethodType;
     }
 
-    // Getters and Setters
-    public int getId() {
-        return id;
+    // Getters and setters
+    public int getPaymentMethodId() {
+        return paymentMethodId;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setPaymentMethodId(int paymentMethodId) {
+        this.paymentMethodId = paymentMethodId;
     }
 
     public String getPaymentMethodType() {
@@ -37,5 +27,10 @@ public abstract class PaymentMethod {
         this.paymentMethodType = paymentMethodType;
     }
 
+    // Abstract method to be implemented by subclasses to return details
     public abstract String getDetails();
+
+    public int getId() {
+        return getPaymentMethodId();  // This calls the getPaymentMethodId from the current class
+    }
 }

@@ -154,4 +154,17 @@ public class PaymentMethodDAO {
         }
     }
 
+    public boolean updatePayPalInfo(PayPal payPal) {
+        String sql = "UPDATE paypal_details SET email = ?, alternate_email = ? WHERE payment_method_id = ?";
+
+        try (Connection conn = dbConfig.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, payPal.getEmail());
+            pstmt.setString(2, payPal.getAlternateEmail());
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;  // Returns true if the update was successful
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;  // Returns false if an error occurs
+        }
+    }
 }
