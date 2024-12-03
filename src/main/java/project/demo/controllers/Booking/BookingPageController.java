@@ -1,205 +1,176 @@
 package project.demo.controllers.Booking;
 
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.TableCell;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.control.Alert.AlertType;
-import project.demo.models.Employee;
+import project.demo.models.CartItem;
+import project.demo.models.CartManager;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class BookingPageController {
 
     @FXML
-    private TableView<Employee> employeeTableView;
-    @FXML
-    private TableColumn<Employee, String> nameColumn;
-    @FXML
-    private TableColumn<Employee, String> serviceColumn;
-    @FXML
-    private TableColumn<Employee, String> statusColumn;
-    @FXML
-    private TableColumn<Employee, String> imageColumn;
+    private AnchorPane contentPane; // Dynamic content pane
 
     @FXML
-    private ComboBox<String> timeComboBox;
+    private Label subtotalLabel;
 
     @FXML
-    private DatePicker datePicker;
+    private Label shippingLabel;
 
     @FXML
-    private TextField nameField;
+    private Label totalLabel;
 
     @FXML
-    private TextField addressField;
+    private Label couponDiscountLabel;
 
     @FXML
-    private RadioButton lowSeverity;
+    private Label appliedCouponLabel;
 
     @FXML
-    private RadioButton mediumSeverity;
+    private Button removeCouponButton;
 
     @FXML
-    private RadioButton highSeverity;
+    private TextField promoCodeField;
 
-    @FXML
-    private Button bookServiceButton;
+    private final ObservableList<CartItem> cartItems = CartManager.getInstance().getCartItems();
+    private final SimpleDoubleProperty subtotal = new SimpleDoubleProperty(0.0);
+    private final SimpleDoubleProperty shippingFee = new SimpleDoubleProperty(0.0); // Example fixed fee
+    private final SimpleDoubleProperty couponDiscount = new SimpleDoubleProperty(0.0);
 
-    @FXML
-    private AnchorPane employeeCardContainer;
+    private final Map<String, Double> promoCodes = Map.of(
+            "SAVE10", 10.0,         // Flat $10 discount
+            "FREESHIP", 0.0,        // Free shipping
+            "DISCOUNT20", 20.0,     // Flat $20 discount
+            "SAVE5", 5.0,           // Flat $5 discount
+            "BLACKFRIDAY", 15.0,    // Flat $15 discount for Black Friday
+            "CYBERMONDAY", 20.0,    // Flat $20 discount for Cyber Monday
+            "WELCOME", 10.0,        // Discount for new users
+            "WINTER30", 0.3,        // 30% off
+            "WINTER40", 0.4,        // 40% off
+            "WINTER50", 0.5         // 50% off
+    );
 
+    private String appliedCoupon = null;
 
     @FXML
     public void initialize() {
-        // Initialize TableView columns
-        initializeTableColumns();
+        // Bind labels to their respective properties
+        subtotalLabel.textProperty().bind(subtotal.asString("$%.2f"));
+        couponDiscountLabel.textProperty().bind(couponDiscount.asString("-$%.2f"));
+        totalLabel.textProperty().bind(
+                subtotal.subtract(couponDiscount).add(shippingFee).asString("$%.2f")
+        );
+        shippingLabel.textProperty().bind(shippingFee.asString("$%.2f"));
 
-        // Populate time slots in ComboBox
-        populateTimeSlots();
-
-        // Load data into the TableView
-        loadEmployeeData();
-
-        // Add a listener to show EmployeeCard when an employee is selected
-        employeeTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                showEmployeeCard(newValue);
-            }
-        });
-
-        // Add a listener for the "Book HomeService" button
-        bookServiceButton.setOnAction(event -> handleBookService());
-    }
-
-    private void initializeTableColumns() {
-        nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        serviceColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSpecialization()));
-        statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
-        imageColumn.setCellValueFactory(new PropertyValueFactory<>("image"));
-
-        // Set cell factory for image column to display images
-        imageColumn.setCellFactory(column -> new TableCell<>() {
-            private final ImageView imageView = new ImageView();
-
-            @Override
-            protected void updateItem(String imagePath, boolean empty) {
-                super.updateItem(imagePath, empty);
-                if (empty || imagePath == null) {
-                    setGraphic(null);
-                } else {
-                    imageView.setImage(new Image(getClass().getResourceAsStream(imagePath)));
-                    imageView.setFitWidth(50);
-                    imageView.setFitHeight(50);
-                    setGraphic(imageView);
+        // Add listener to cart items for real-time updates
+        cartItems.addListener((ListChangeListener<CartItem>) change -> {
+            while (change.next()) {
+                if (change.wasAdded()) {
+                    change.getAddedSubList().forEach(item -> {
+                        item.quantityProperty().addListener((observable, oldValue, newValue) -> recalculateSubtotal());
+                    });
                 }
+                recalculateSubtotal();
             }
         });
+
+        // Load initial view (e.g., Booking Details)
+        loadView("/project/demo/FXMLBookingPage/BookingDetails.fxml");
+
+        // Recalculate subtotal for any pre-existing items
+        cartItems.forEach(item -> {
+            item.quantityProperty().addListener((observable, oldValue, newValue) -> recalculateSubtotal());
+        });
+        recalculateSubtotal();
     }
 
-    private void populateTimeSlots() {
-        for (int hour = 8; hour <= 17; hour++) {
-            String period = hour < 12 ? "AM" : "PM";
-            int displayHour = hour <= 12 ? hour : hour - 12;
-            timeComboBox.getItems().add(String.format("%d:00 %s", displayHour, period));
-            if (hour != 17) {
-                timeComboBox.getItems().add(String.format("%d:30 %s", displayHour, period));
+    public void recalculateSubtotal() {
+        double total = cartItems.stream()
+                .mapToDouble(item -> Double.parseDouble(item.getTotalPrice().replace("$", "")))
+                .sum();
+        subtotal.set(total);
+
+        // Dynamically recalculate the coupon discount
+        if (appliedCoupon != null && promoCodes.containsKey(appliedCoupon)) {
+            double discount = promoCodes.get(appliedCoupon);
+
+            // Check if the discount is a percentage or flat
+            if (discount < 1.0) {
+                couponDiscount.set(subtotal.get() * discount); // Percentage discount
+            } else {
+                couponDiscount.set(Math.min(discount, subtotal.get())); // Flat discount (capped at subtotal)
             }
+        } else {
+            couponDiscount.set(0.0); // No discount
         }
     }
 
-    private void loadEmployeeData() {
-        employeeTableView.getItems().addAll(
-                new Employee("Emily Anderson", "Appliance Repairer", "Available", "/project/demo/imagesemployee/ApplianceRepairer1.png"),
-                new Employee("James Carter", "Appliance Repairer", "Available", "/project/demo/imagesemployee/ApplianceRepairer2.png"),
-                new Employee("Michael Bennett", "Carpenter", "Available", "/project/demo/imagesemployee/Carpenter1.png"),
-                new Employee("Daniel Johnson", "Carpenter", "Available", "/project/demo/imagesemployee/Carpenter2.png"),
-                new Employee("Sarah Thompson", "Cleaner", "Available", "/project/demo/imagesemployee/Cleaner1.png"),
-                new Employee("Emily Roberts", "Cleaner", "Available", "/project/demo/imagesemployee/Cleaner2.png"),
-                new Employee("Ethan Wilson", "Electrician", "Available", "/project/demo/imagesemployee/Electrician1.png"),
-                new Employee("Liam Cooper", "Electrician", "Available", "/project/demo/imagesemployee/Electrician2.png"),
-                new Employee("Olivia Stewart", "Electrician", "Available", "/project/demo/imagesemployee/Electrician3.png"),
-                new Employee("Ava Mitchell", "Flooring Specialist", "Available", "/project/demo/imagesemployee/Flooringspecialist1.png"),
-                new Employee("Emma Scott", "Flooring Specialist", "Available", "/project/demo/imagesemployee/Flooringspecialist2.png"),
-                new Employee("Benjamin Adams", "Mason", "Available", "/project/demo/imagesemployee/Mason1.png"),
-                new Employee("Lucas Bailey", "Mason", "Available", "/project/demo/imagesemployee/Mason2.png"),
-                new Employee("Sophia Morgan", "Mason", "Available", "/project/demo/imagesemployee/Mason3.png"),
-                new Employee("Abigail Perez", "Painter", "Available", "/project/demo/imagesemployee/Painter1.png"),
-                new Employee("Noah Wright", "Painter", "Available", "/project/demo/imagesemployee/Painter2.png"),
-                new Employee("Charlotte Rivera", "Plumber", "Available", "/project/demo/imagesemployee/Plumber1.png"),
-                new Employee("Henry Edwards", "Plumber", "Available", "/project/demo/imagesemployee/Plumber2.png"),
-                new Employee("Oliver Phillips", "Plumber", "Available", "/project/demo/imagesemployee/Plumber3.png"),
-                new Employee("Jacob Harris", "Plumber", "Available", "/project/demo/imagesemployee/Plumber4.png"),
-                new Employee("Jack Davis", "Roofer", "Available", "/project/demo/imagesemployee/Roofer1.png"),
-                new Employee("Andrew Clark", "Roofer", "Available", "/project/demo/imagesemployee/Roofer2.png"),
-                new Employee("Amelia Lewis", "Roofing Specialist", "Available", "/project/demo/imagesemployee/RoofingSpecialist1.png"),
-                new Employee("Grace Walker", "Roofing Specialist", "Available", "/project/demo/imagesemployee/RoofingSpecialist2.png")
-        );
+    @FXML
+    public void applyPromoCode() {
+        String promoCode = promoCodeField.getText().toUpperCase();
+        if (promoCodes.containsKey(promoCode)) {
+            appliedCoupon = promoCode;
+
+            // Dynamically update the discount based on the current subtotal
+            recalculateSubtotal();
+
+            appliedCouponLabel.setText("Applied: " + promoCode);
+            removeCouponButton.setVisible(true);
+
+            System.out.println("Promo code applied: " + promoCode);
+        } else {
+            System.err.println("[ERROR] Invalid promo code: " + promoCode);
+        }
     }
 
-    private void showEmployeeCard(Employee employee) {
+    @FXML
+    public void removeCoupon() {
+        appliedCoupon = null;
+        couponDiscount.set(0.0);
+        appliedCouponLabel.setText("No coupon applied");
+        removeCouponButton.setVisible(false);
+        System.out.println("Coupon removed.");
+    }
+
+    @FXML
+    public void loadView(String fxmlPath) {
         try {
-            // Load the EmployeeCard FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLBookingPage/EmployeeCard.fxml"));
-            VBox employeeCard = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            AnchorPane newView = loader.load();
 
-            // Get the controller for the FXML and pass the employee data
-            EmployeeCardController controller = loader.getController();
-            controller.setEmployee(employee);
+            // Set reference to the main controller in subcontrollers
+            Object controller = loader.getController();
+            if (controller instanceof BookingDetailsController) {
+                ((BookingDetailsController) controller).setMainController(this);
+            } else if (controller instanceof ScheduleBookingController) {
+                ((ScheduleBookingController) controller).setMainController(this);
+            } else if (controller instanceof BookingPaymentController) {
+                ((BookingPaymentController) controller).setMainController(this);
+            }
 
-            // Clear the container and add the employee card
-            employeeCardContainer.getChildren().clear();
-            employeeCardContainer.getChildren().add(employeeCard);
+            contentPane.getChildren().clear();
+            contentPane.getChildren().add(newView);
+
+            AnchorPane.setTopAnchor(newView, 0.0);
+            AnchorPane.setBottomAnchor(newView, 0.0);
+            AnchorPane.setLeftAnchor(newView, 0.0);
+            AnchorPane.setRightAnchor(newView, 0.0);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
-
-
-
-    private void handleBookService() {
-        // Validate required fields
-        if (nameField.getText().isEmpty() || addressField.getText().isEmpty() || datePicker.getValue() == null || timeComboBox.getValue() == null) {
-            showAlert("Missing Information", "Please fill out all the required fields before booking.");
-            return;
-        }
-
-        // Get the selected severity
-        String severity = lowSeverity.isSelected() ? "Low" :
-                mediumSeverity.isSelected() ? "Medium" :
-                        highSeverity.isSelected() ? "High" : "Not Specified";
-
-        // Gather booking information
-        String employeeName = employeeTableView.getSelectionModel().getSelectedItem().getName();
-        String service = employeeTableView.getSelectionModel().getSelectedItem().getSpecialization();
-        String name = nameField.getText();
-        String address = addressField.getText();
-        String date = datePicker.getValue().toString();
-        String time = timeComboBox.getValue();
-
-        // Display confirmation message
-        String message = String.format(
-                "Thank you for choosing Handyman Repair HomeService!\n\nBooking Details:\n" +
-                        "HomeService: %s\nEmployee: %s\nName: %s\nAddress: %s\nDate & Time: %s %s\nSeverity: %s",
-                service, employeeName, name, address, date, time, severity
-        );
-        showAlert("Booking Successful", message);
+    public void setShippingFee(double shippingFee) {
+        this.shippingFee.set(shippingFee);
     }
-
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
 }
