@@ -16,7 +16,7 @@ import project.demo.models.CartItem;
 import project.demo.models.CartManager;
 import project.demo.models.Product;
 
-public class CartTableController {
+public class  CartTableController {
 
     @FXML
     private TableView<CartItem> cartTable;

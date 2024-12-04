@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="793.6" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Profile.PaymentMethodsController">
+    <children>
+        <!-- Header -->
+        <VBox layoutX="101.0" layoutY="20.0" prefHeight="62.0" prefWidth="592.0" spacing="10.0">
+            <children>
+                <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Payment Methods" />
+                <Label style="-fx-text-fill: #666666; -fx-font-size: 14px;" text="Manage your payment methods." />
+            </children>
+        </VBox>
+
+        <!-- Payment Method List -->
+        <VBox layoutX="101.0" layoutY="94.0" prefHeight="285.0" prefWidth="592.0" spacing="20.0">
+            <children>
+                <!-- Payment Method Block 1 -->
+                <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="640.0" spacing="15.0" style="-fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0; -fx-padding: 15;">
+                    <children>
+                        <VBox alignment="CENTER_LEFT" prefWidth="500.0" spacing="5.0">
+                            <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="PayPal"/>
+                            <Label fx:id="paypalEmailLabel" style="-fx-font-size: 14px; -fx-text-fill: #666666;"
+                                   text="Enter Details"/>
+                        </VBox>
+                  <Button fx:id="editPayPalButton" mnemonicParsing="false" onAction="#editPayPalEditPopup" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: F4F4F5;">
+                     <graphic>
+                         <ImageView fitHeight="33.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                             <Image url="@../../imagelogo/pen.png"/>
+                         </ImageView>
+                     </graphic>
+                  </Button>
+                    </children>
+                </HBox>
+
+                <!-- Payment Method Block 2 -->
+                <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="640.0" spacing="15.0"
+                      style="-fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0; -fx-padding: 15;">
+                    <VBox alignment="CENTER_LEFT" prefWidth="500.0" spacing="5.0">
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Credit Card"/>
+                        <Label fx:id="creditCardNumLabel" style="-fx-font-size: 14px; -fx-text-fill: #666666;"
+                               text="Enter Details"/>
+                    </VBox>
+                    <Button fx:id="editCreditCardButton" mnemonicParsing="false" onAction="#editCreditCardEditPopup"
+                            prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: F4F4F5;">
+                        <graphic>
+                            <ImageView fitHeight="33.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                                <Image url="@../../imagelogo/pen.png"/>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                </HBox>
+
+                <!-- Payment Method Block 3 -->
+                <HBox alignment="CENTER_LEFT" prefHeight="82.0" prefWidth="479.0" spacing="15.0" style="-fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0; -fx-padding: 15;">
+                    <children>
+                        <VBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="481.0" spacing="5.0">
+                            <children>
+                                <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="GCash" />
+                                <Label fx:id="gcashNumberLabel" style="-fx-font-size: 14px; -fx-text-fill: #666666;" text="Enter Details" />
+                            </children>
+                        </VBox>
+                        <HBox spacing="10.0" />
+                  <Button fx:id="editGCashButton" mnemonicParsing="false" onAction="#editGCashEditPopup" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: F4F4F5;">
+                     <graphic>
+                        <ImageView fitHeight="33.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../imagelogo/pen.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+
+        <!-- Add New Payment Method Button -->
+        <HBox alignment="CENTER" layoutX="30.0" layoutY="400.0" prefWidth="640.0" />
+    </children>
+   <padding>
+      <Insets right="-25.0" />
+   </padding>
+</AnchorPane>

@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import project.demo.models.Service;
+import project.demo.models.ServiceCardModel;
 
 public class ServiceCardController {
     @FXML
@@ -20,13 +20,13 @@ public class ServiceCardController {
     @FXML
     private Button bookNowButton;
 
-    public void setServiceDetails(Service homeService) {
-        serviceName.setText(homeService.getName());
-        serviceDescription.setText(homeService.getDescription());
-        servicePrice.setText(homeService.getPrice());
+    public void setServiceDetails(ServiceCardModel homeServiceCardModel) {
+        serviceName.setText(homeServiceCardModel.getName());
+        serviceDescription.setText(homeServiceCardModel.getDescription());
+        servicePrice.setText(homeServiceCardModel.getPrice());
 
         try {
-            String imagePath = homeService.getImagePath();
+            String imagePath = homeServiceCardModel.getImagePath();
             System.out.println("[DEBUG] Loading image from path: " + imagePath);
 
             if (getClass().getResource(imagePath) != null) {
@@ -38,6 +38,6 @@ public class ServiceCardController {
             System.err.println("[ERROR] Invalid image path: " + e.getMessage());
         }
 
-        bookNowButton.setOnAction(event -> System.out.println("Booking homeService: " + homeService.getName()));
+        bookNowButton.setOnAction(event -> System.out.println("Booking homeServiceCardModel: " + homeServiceCardModel.getName()));
     }
 }

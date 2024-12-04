@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -181,6 +180,6 @@ public class ProfilePageController {
 
     @FXML
     public void clickPaymentMethods(ActionEvent actionEvent) {
-        loadView("/project/demo/FXMLProfilePage/PaymentFXML/EditPaymentMethods.fxml");
+        loadView("/project/demo/FXMLProfilePage/PaymentFXML/PaymentMethods.fxml");
     }
 }

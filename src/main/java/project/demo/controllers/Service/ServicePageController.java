@@ -13,7 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import project.demo.DataBase.DatabaseConfig;
-import project.demo.models.Service;
+import project.demo.models.ServiceCardModel;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -100,28 +100,28 @@ public class ServicePageController {
 
     private void populateAllServices() {
         serviceGrid.getChildren().clear();
-        List<Service> services = fetchAllServicesFromDatabase();
+        List<ServiceCardModel> serviceCardModels = fetchAllServicesFromDatabase();
 
-        if (services != null) {
-            populateServiceGrid(services);
+        if (serviceCardModels != null) {
+            populateServiceGrid(serviceCardModels);
         }
     }
 
     private void populateCategoryServices(String category) {
         serviceGrid.getChildren().clear();
-        List<Service> services = fetchServicesByCategoryFromDatabase(category);
+        List<ServiceCardModel> serviceCardModels = fetchServicesByCategoryFromDatabase(category);
 
-        if (services != null) {
-            populateServiceGrid(services);
+        if (serviceCardModels != null) {
+            populateServiceGrid(serviceCardModels);
         }
     }
 
     private void populateServices(String subcategory) {
         serviceGrid.getChildren().clear();
-        List<Service> services = fetchServicesFromDatabase(subcategory);
+        List<ServiceCardModel> serviceCardModels = fetchServicesFromDatabase(subcategory);
 
-        if (services != null) {
-            populateServiceGrid(services);
+        if (serviceCardModels != null) {
+            populateServiceGrid(serviceCardModels);
         }
     }
 
@@ -129,17 +129,17 @@ public class ServicePageController {
         serviceGrid.getChildren().clear();
 
         int maxPrice = (int) servicePriceSlider.getValue();
-        List<Service> filteredServices = filterServicesByQueryAndPrice(query, maxPrice);
+        List<ServiceCardModel> filteredServiceCardModels = filterServicesByQueryAndPrice(query, maxPrice);
 
-        if (filteredServices != null) {
-            populateServiceGrid(filteredServices);
+        if (filteredServiceCardModels != null) {
+            populateServiceGrid(filteredServiceCardModels);
         }
     }
 
-    private void populateServiceGrid(List<Service> services) {
-        for (int i = 0; i < services.size(); i++) {
-            Service service = services.get(i);
-            Node serviceCard = createServiceCard(service);
+    private void populateServiceGrid(List<ServiceCardModel> serviceCardModels) {
+        for (int i = 0; i < serviceCardModels.size(); i++) {
+            ServiceCardModel serviceCardModel = serviceCardModels.get(i);
+            Node serviceCard = createServiceCard(serviceCardModel);
             if (serviceCard != null) {
                 serviceGrid.add(serviceCard, i % 3, i / 3); // Arrange in 3 columns
             }
@@ -184,8 +184,8 @@ public class ServicePageController {
         return subcategories;
     }
 
-    private List<Service> fetchAllServicesFromDatabase() {
-        List<Service> services = new ArrayList<>();
+    private List<ServiceCardModel> fetchAllServicesFromDatabase() {
+        List<ServiceCardModel> serviceCardModels = new ArrayList<>();
         String query = "SELECT service_name, service_description, service_price, service_image_path FROM Service";
 
         try (Connection connection = new DatabaseConfig().getConnection();
@@ -193,17 +193,17 @@ public class ServicePageController {
              ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
-                services.add(extractServiceFromResultSet(resultSet));
+                serviceCardModels.add(extractServiceFromResultSet(resultSet));
             }
         } catch (Exception e) {
-            System.err.println("[ERROR] Failed to fetch all services: " + e.getMessage());
+            System.err.println("[ERROR] Failed to fetch all serviceCardModels: " + e.getMessage());
             e.printStackTrace();
         }
-        return services;
+        return serviceCardModels;
     }
 
-    private List<Service> fetchServicesByCategoryFromDatabase(String category) {
-        List<Service> services = new ArrayList<>();
+    private List<ServiceCardModel> fetchServicesByCategoryFromDatabase(String category) {
+        List<ServiceCardModel> serviceCardModels = new ArrayList<>();
         String query = "SELECT service_name, service_description, service_price, service_image_path FROM Service WHERE subcategory_id IN (SELECT subcategory_id FROM Subcategory WHERE category_id = (SELECT category_id FROM ServiceCategory WHERE category_name = ?))";
 
         try (Connection connection = new DatabaseConfig().getConnection();
@@ -213,17 +213,17 @@ public class ServicePageController {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                services.add(extractServiceFromResultSet(resultSet));
+                serviceCardModels.add(extractServiceFromResultSet(resultSet));
             }
         } catch (Exception e) {
-            System.err.println("[ERROR] Failed to fetch services by category: " + e.getMessage());
+            System.err.println("[ERROR] Failed to fetch serviceCardModels by category: " + e.getMessage());
             e.printStackTrace();
         }
-        return services;
+        return serviceCardModels;
     }
 
-    private List<Service> fetchServicesFromDatabase(String subcategory) {
-        List<Service> services = new ArrayList<>();
+    private List<ServiceCardModel> fetchServicesFromDatabase(String subcategory) {
+        List<ServiceCardModel> serviceCardModels = new ArrayList<>();
         String query = "SELECT service_name, service_description, service_price, service_image_path FROM Service WHERE subcategory_id = (SELECT subcategory_id FROM Subcategory WHERE subcategory_name = ?)";
 
         try (Connection connection = new DatabaseConfig().getConnection();
@@ -233,17 +233,17 @@ public class ServicePageController {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                services.add(extractServiceFromResultSet(resultSet));
+                serviceCardModels.add(extractServiceFromResultSet(resultSet));
             }
         } catch (Exception e) {
-            System.err.println("[ERROR] Failed to fetch services: " + e.getMessage());
+            System.err.println("[ERROR] Failed to fetch serviceCardModels: " + e.getMessage());
             e.printStackTrace();
         }
-        return services;
+        return serviceCardModels;
     }
 
-    private List<Service> filterServicesByQueryAndPrice(String query, int maxPrice) {
-        List<Service> services = new ArrayList<>();
+    private List<ServiceCardModel> filterServicesByQueryAndPrice(String query, int maxPrice) {
+        List<ServiceCardModel> serviceCardModels = new ArrayList<>();
         String sqlQuery = "SELECT service_name, service_description, service_price, service_image_path FROM Service WHERE (service_name LIKE ? OR service_description LIKE ?) AND CAST(service_price AS UNSIGNED) <= ?";
 
         try (Connection connection = new DatabaseConfig().getConnection();
@@ -256,32 +256,32 @@ public class ServicePageController {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                services.add(extractServiceFromResultSet(resultSet));
+                serviceCardModels.add(extractServiceFromResultSet(resultSet));
             }
         } catch (Exception e) {
-            System.err.println("[ERROR] Failed to filter services: " + e.getMessage());
+            System.err.println("[ERROR] Failed to filter serviceCardModels: " + e.getMessage());
             e.printStackTrace();
         }
-        return services;
+        return serviceCardModels;
     }
 
-    private Service extractServiceFromResultSet(ResultSet resultSet) throws Exception {
+    private ServiceCardModel extractServiceFromResultSet(ResultSet resultSet) throws Exception {
         String name = resultSet.getString("service_name");
         String description = resultSet.getString("service_description");
         String price = resultSet.getString("service_price");
         String imagePath = resultSet.getString("service_image_path");
 
-        return new Service(name, description, price, imagePath);
+        return new ServiceCardModel(name, description, price, imagePath);
     }
 
-    private Node createServiceCard(Service service) {
+    private Node createServiceCard(ServiceCardModel serviceCardModel) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLServicePage/ServiceCard.fxml"));
             VBox card = loader.load();
 
             ServiceCardController controller = loader.getController();
             if (controller != null) {
-                controller.setServiceDetails(service);
+                controller.setServiceDetails(serviceCardModel);
             }
 
             return card;

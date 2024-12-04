@@ -12,7 +12,6 @@ module project.demo {
     requires java.sql;
     requires java.desktop;
     requires annotations;
-    requires mysql.connector.j;
 
     // Exporting and opening all necessary packages
     exports project.demo.models;

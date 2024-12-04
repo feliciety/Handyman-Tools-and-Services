@@ -9,7 +9,7 @@ public class HandyMan extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/project/demo/FXMLLoginSignup/LogInPage.fxml"));
-        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/project/demo/MainStructure.fxml"));
+        // FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/project/demo/MainStructure.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         primaryStage.setTitle("HandyMan");
         primaryStage.setScene(scene);
