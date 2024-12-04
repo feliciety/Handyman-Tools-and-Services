@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="595.0" prefWidth="841.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.CartTableController">
+<AnchorPane prefHeight="595.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Booking.BookingCartTableController">
    <children>
-       <TableView fx:id="cartTable" layoutX="24.0" layoutY="32.0" prefHeight="472.0" prefWidth="790.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #dcdcdc; -fx-background-color: #f5f5f5;" stylesheets="@../application.css">
+       <TableView fx:id="cartTable" layoutX="38.0" layoutY="41.0" prefHeight="456.0" prefWidth="674.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #dcdcdc; -fx-background-color: #f5f5f5;" stylesheets="@../application.css">
            <columns>
                <TableColumn fx:id="serviceImageCol" minWidth="20.0" prefWidth="111.20005339384079" text="Service" />
                <TableColumn fx:id="serviceNameCol" minWidth="20.0" prefWidth="178.4000701904297" text="Service Name" />
@@ -22,12 +22,12 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
        </TableView>
-      <HBox layoutX="24.0" layoutY="530.0" prefHeight="50.0" prefWidth="790.0" spacing="10.0">
+      <HBox layoutX="38.0" layoutY="522.0" prefHeight="50.0" prefWidth="674.0" spacing="10.0">
          <children>
             <Button mnemonicParsing="false" onAction="#goToServices" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #F4F4F5; -fx-border-color: #dcdcdc; -fx-text-fill: black;" text="Back to Services" />
-            <Button mnemonicParsing="false" onAction="#gotoaddressBookingDetails" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #ffdb00; -fx-text-fill: #222222;" text="Set up Address">
+            <Button mnemonicParsing="false" onAction="#goToAddressBookingDetails" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #ffdb00; -fx-text-fill: #222222;" text="Set up Address">
                <HBox.margin>
-                  <Insets left="500.0" />
+                  <Insets left="368.0" />
                </HBox.margin>
             </Button>
          </children>

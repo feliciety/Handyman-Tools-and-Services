@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="651.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Service.ServicePageController">
+<AnchorPane prefHeight="651.0" prefWidth="1200.0" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Service.ServicePageController">
    <VBox prefHeight="661.0" prefWidth="1218.0" spacing="10">
 
          <!-- Banner -->
@@ -27,6 +27,9 @@
                   <padding>
                      <Insets right="20.0" />
                   </padding>
+                  <HBox.margin>
+                     <Insets top="15.0" />
+                  </HBox.margin>
                </Label>
             </children>
          </HBox>
@@ -35,13 +38,13 @@
          </padding>
       </VBox>
 
-      <VBox prefHeight="561.0" prefWidth="1218.0">
+      <VBox prefHeight="538.0" prefWidth="1218.0">
          <HBox fx:id="subcategoriesBox" alignment="CENTER" prefHeight="88.0" prefWidth="1218.0" spacing="10.0" />
 
          <HBox alignment="TOP_LEFT" prefHeight="546.0" prefWidth="1218.0" spacing="5.0">
             <!-- Sidebar -->
             <VBox alignment="CENTER_LEFT" prefHeight="501.0" prefWidth="249.0" spacing="10.0">
-               <TextField fx:id="searchField" prefHeight="40.0" prefWidth="340.0" promptText="Search Service" style="-fx-border-radius: 15; -fx-background-radius: 15;" />
+               <TextField fx:id="searchField" prefHeight="40.0" prefWidth="340.0" promptText="Search Service" stylesheets="@../styles.css" />
                <Pane prefHeight="364.0" prefWidth="212.0" style="-fx-background-color: #E4EAEA; -fx-background-radius: 10;">
                   <children>
                      <Label layoutX="10.0" layoutY="7.0" text="Categories">
@@ -75,7 +78,7 @@
             </VBox>
 
             <!-- Services Grid -->
-            <ScrollPane hbarPolicy="NEVER" prefHeight="479.0" prefWidth="803.0" vbarPolicy="NEVER">
+            <ScrollPane hbarPolicy="NEVER" prefHeight="479.0" prefWidth="803.0" style="-fx-padding: 10;" styleClass="my-style" stylesheets="@../styles.css" vbarPolicy="NEVER">
                <content>
                   <GridPane fx:id="serviceGrid" hgap="10" vgap="10" />
                </content>
@@ -84,7 +87,7 @@
                </HBox.margin>
             </ScrollPane>
             <VBox.margin>
-               <Insets top="10.0" />
+               <Insets top="-30.0" />
             </VBox.margin>
          </HBox>
          <VBox.margin>
