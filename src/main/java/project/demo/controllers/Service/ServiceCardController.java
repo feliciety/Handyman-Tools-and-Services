@@ -23,7 +23,7 @@ public class ServiceCardController {
     public void setServiceDetails(ServiceCardModel homeServiceCardModel) {
         serviceName.setText(homeServiceCardModel.getName());
         serviceDescription.setText(homeServiceCardModel.getDescription());
-        servicePrice.setText(homeServiceCardModel.getPrice());
+        servicePrice.setText(homeServiceCardModel.getFormattedPrice());
 
         try {
             String imagePath = homeServiceCardModel.getImagePath();

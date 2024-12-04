@@ -28,4 +28,9 @@ public class ServiceCardModel {
     public String getImagePath() {
         return imagePath;
     }
+
+    public String getFormattedPrice() {
+        return String.format("$%s", price); // Format for display
+    }
+
 }

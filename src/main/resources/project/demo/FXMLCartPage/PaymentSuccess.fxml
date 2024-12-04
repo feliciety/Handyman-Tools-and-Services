@@ -7,8 +7,8 @@
 
 <AnchorPane prefHeight="595.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.PaymentSuccessController">
    <children>
-       <Circle fx:id="loadingCircle" fill="transparent" layoutX="382.0" layoutY="298.0" radius="85.0" stroke="#a9d9a3" strokeWidth="15.0" />
-      <Label layoutX="130.0" layoutY="416.0" text="Payment Successful!" textFill="#a9d9a3">
+       <Circle fx:id="loadingCircle" fill="transparent" layoutX="381.0" layoutY="217.0" radius="85.0" stroke="#a9d9a3" strokeWidth="15.0" />
+      <Label layoutX="129.0" layoutY="348.0" text="Payment Successful!" textFill="#a9d9a3">
          <font>
             <Font name="Inter Extra Bold" size="48.0" />
          </font>

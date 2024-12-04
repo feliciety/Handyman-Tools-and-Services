@@ -25,7 +25,7 @@
                   <Font size="16.0" />
               </font>
           </Label>
-          <Label fx:id="serviceDescription" alignment="CENTER" prefHeight="79.0" prefWidth="182.0" style="-fx-font-size: 10; -fx-text-fill: gray;" text="Short description of the homeServiceCardModel" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+          <Label fx:id="serviceDescription" alignment="CENTER" prefHeight="79.0" prefWidth="182.0" style="-fx-font-size: 10; -fx-text-fill: gray;" text="Short description of the homeService" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
               <font>
                   <Font size="10.0" />
               </font>
