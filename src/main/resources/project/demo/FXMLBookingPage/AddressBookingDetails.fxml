@@ -49,8 +49,8 @@
              <TextField fx:id="shippingNoteField" prefHeight="67.0" prefWidth="646.0" promptText="Shipping note (optional)" />
             <HBox prefHeight="54.0" prefWidth="646.0" spacing="10.0">
                <children>
-                   <Button fx:id="backToCartButton" onAction="#goToCart" prefHeight="40.0" prefWidth="150.0" styleClass="my-buttonstyle" stylesheets="@../styles.css" text="Back to Booking Cart" />
-                   <Button fx:id="toShippingButton" alignment="CENTER" onAction="#goToShipping" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #ffdb00; -fx-text-fill: #222222;" text="Proceed to Payment">
+                   <Button fx:id="backToCartButton" onAction="#goToBookingCartTable" prefHeight="40.0" prefWidth="150.0" styleClass="my-buttonstyle" stylesheets="@../styles.css" text="Back to Booking Cart" />
+                   <Button fx:id="toPaymentButton" alignment="CENTER" onAction="#goToPayment" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #ffdb00; -fx-text-fill: #222222;" text="Proceed to Payment">
                      <HBox.margin>
                         <Insets left="335.0" />
                      </HBox.margin>
