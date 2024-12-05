@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import project.demo.models.ServiceCardModel;
+import project.demo.models.Service;
 
 import java.io.IOException;
 
@@ -26,13 +26,13 @@ public class ServiceCardController {
     @FXML
     private Button bookNowButton;
 
-    public void setServiceDetails(ServiceCardModel homeServiceCardModel) {
-        serviceName.setText(homeServiceCardModel.getName());
-        serviceDescription.setText(homeServiceCardModel.getDescription());
-        servicePrice.setText(homeServiceCardModel.getFormattedPrice());
+    public void setServiceDetails(Service homeService) {
+        serviceName.setText(homeService.getName());
+        serviceDescription.setText(homeService.getDescription());
+        servicePrice.setText(homeService.getFormattedPrice());
 
         try {
-            String imagePath = homeServiceCardModel.getImagePath();
+            String imagePath = homeService.getImagePath();
             System.out.println("[DEBUG] Loading image from path: " + imagePath);
 
             if (getClass().getResource(imagePath) != null) {
@@ -46,7 +46,7 @@ public class ServiceCardController {
 
         // Set the action for the "Book Now" button
         bookNowButton.setOnAction(event -> {
-            System.out.println("Booking service: " + homeServiceCardModel.getName());
+            System.out.println("Booking service: " + homeService.getName());
             openBookSchedule();
         });
     }

@@ -4,7 +4,6 @@ create database handy_man;
 
 use handy_man;
 
-
 CREATE TABLE users (
     id INT(11) NOT NULL AUTO_INCREMENT,
     username VARCHAR(255) NOT NULL,
@@ -15,7 +14,6 @@ CREATE TABLE users (
     profile_picture VARCHAR(255) NULL,
     PRIMARY KEY (id)
 );
-
 
 CREATE TABLE addresses (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -35,7 +33,6 @@ CREATE TABLE productcategories (
     name VARCHAR(255) NOT NULL
 );
 
-
 INSERT INTO productcategories (name) VALUES
 ('Safety Gear'), -- Category ID: 1
 ('Measuring and Marking Tools'), -- Category ID: 2
@@ -48,8 +45,6 @@ INSERT INTO productcategories (name) VALUES
 ('Wood and Materials'), -- Category ID: 9
 ('Cleanup Supplies'); -- Category ID: 10
 
-
-
 CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -58,7 +53,6 @@ CREATE TABLE products (
     category_id INT NOT NULL,
     FOREIGN KEY (category_id) REFERENCES productcategories(id)
 ) ENGINE=InnoDB;
-
 
 INSERT INTO products (name, price, image_path, category_id) VALUES
 -- Safety Gear (Category ID: 1)
@@ -147,7 +141,6 @@ INSERT INTO products (name, price, image_path, category_id) VALUES
 -- Cleanup Supplies (Category ID: 10)
 ('Sia Sandpaper', 2.50, '/project/demo/imageproducts/SiaSandPaper.png', 10);
 
-
 CREATE TABLE servicecategory (
     category_id INT AUTO_INCREMENT PRIMARY KEY,
     category_name VARCHAR(255) NOT NULL
@@ -163,13 +156,12 @@ INSERT INTO servicecategory (category_name) VALUES
 ('Plumbing Service'),
 ('Roofing Service');
 
-
 CREATE TABLE subcategory (
     subcategory_id INT AUTO_INCREMENT PRIMARY KEY,
     subcategory_name VARCHAR(255) NOT NULL,
     category_id INT NOT NULL,
-    FOREIGN KEY (category_id) REFERENCES servicecategory(category_id) ON DELETE CASCADE
-);
+    FOREIGN KEY (category_id) REFERENCES servicecategory(category_id) ON DELETE CASCADE);
+
 INSERT INTO subcategory (subcategory_name, category_id) VALUES
 ('Made-to-Order Furniture', 1),
 ('Furniture Repairs', 1),
@@ -212,8 +204,7 @@ INSERT INTO subcategory (subcategory_name, category_id) VALUES
 ('Outdoor Roofing', 3),
 ('Special Roofing', 3);
 
-
-CREATE TABLE serviceCardModel (
+CREATE TABLE service (
     service_id INT AUTO_INCREMENT PRIMARY KEY,
     service_name VARCHAR(255) NOT NULL,
     service_description TEXT,
@@ -223,7 +214,7 @@ CREATE TABLE serviceCardModel (
     FOREIGN KEY (subcategory_id) REFERENCES subcategory(subcategory_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
-INSERT INTO serviceCardModel (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
+INSERT INTO service (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
 (1, 'Custom Dining Table Set', 'Tailor-made dining tables and chairs', '$450.00 - $1,600.00', '/project/demo/imagesservices/CustomDiningTableSet.png', 1),
 (2, 'Custom Office Desk', 'Personalized office desks with ergonomic design', '$300.00 - $1,200.00', '/project/demo/imagesservices/CustomOfficeDesk.png', 1),
 (3, 'Custom Bed Frames', 'Wooden bed frames in various sizes and designs', '$400.00 - $1,500.00', '/project/demo/imagesservices/CustomBedFrames.png', 1),
@@ -250,8 +241,7 @@ INSERT INTO serviceCardModel (service_id, service_name, service_description, ser
 (24, 'Staircase Installation', 'Custom staircase design and installation', '$400.00 - $1,500.00', '/project/demo/imagesservices/StaircaseInstallation.png', 5),
 (25, 'Fence Installation or Repair', 'Secure and stylish fencing solutions', '$400.00 - $1,500.00', '/project/demo/imagesservices/FenceInstallationOrRepair.png', 5);
 
-
-INSERT INTO serviceCardModel (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
+INSERT INTO service (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
 (26, 'Water Pipe Installation', 'Install water supply lines for new properties', '$100.00 - $400.00', '/project/demo/imagesservices/WaterPipeInstallation.png', 6),
 (27, 'Faucet and Sink Installation', 'Setup of kitchen or bathroom faucets and sinks', '$120.00 - $450.00', '/project/demo/imagesservices/FaucetAndSinkInstallation.png', 6),
 (28, 'Toilet Installation', 'Install toilets with water-saving systems', '$150.00 - $500.00', '/project/demo/imagesservices/ToiletInstallation.png', 6),
@@ -278,8 +268,7 @@ INSERT INTO serviceCardModel (service_id, service_name, service_description, ser
 (49, 'Trenchless Pipe Replacement', 'Replace underground pipes without digging', '$1,000.00 - $4,000.00', '/project/demo/imagesservices/TrenchlessPipeReplacement.png', 10),
 (50, 'Water Filtration System Install', 'Purify water for residential or commercial use', '$1,500.00 - $5,000.00', '/project/demo/imagesservices/WaterFiltrationSystemInstall.png', 10);
 
-
-INSERT INTO serviceCardModel (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
+INSERT INTO service (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
 (51, 'Interior Wall Painting', 'High-quality painting for living spaces', '$54.00 - $180.00', '/project/demo/imagesservices/InteriorWallPainting.png', 11),
 (52, 'Ceiling Painting', 'Freshen up ceilings with smooth paint finishes', '$36.00 - $90.00', '/project/demo/imagesservices/CeilingPainting.png', 11),
 (53, 'Exterior Wall Painting', 'Durable paint for outdoor walls', '$25.70 - $53.40', '/project/demo/imagesservices/ExteriorWallPainting.png', 11),
@@ -306,7 +295,7 @@ INSERT INTO serviceCardModel (service_id, service_name, service_description, ser
 (74, 'Graffiti Removal Services', 'Remove unwanted graffiti from walls or surfaces', '$90.00 - $270.00', '/project/demo/imagesservices/GraffitiRemovalServices.png', 15),
 (75, 'Repainting Services', 'Refresh faded or damaged painted surfaces', '$90.00 - $360.00', '/project/demo/imagesservices/RepaintingServices.png', 15);
 
-INSERT INTO serviceCardModel (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
+INSERT INTO service (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
 (76, 'Outlet and Switch Installation', 'Install or replace power outlets and switches', '$54.00 - $144.00', '/project/demo/imagesservices/OutletSwitchInstallation.png', 16),
 (77, 'Lighting Installation', 'Installation of indoor or outdoor lighting', '$36.00 - $90.00', '/project/demo/imagesservices/LightingInstallation.png', 16),
 (78, 'Ceiling Fan Installation', 'Set up or replace ceiling fans', '$45.00 - $126.00', '/project/demo/imagesservices/CeilingFanInstallation.png', 16),
@@ -333,8 +322,7 @@ INSERT INTO serviceCardModel (service_id, service_name, service_description, ser
 (99, 'Lighting Design Services', 'Plan and install customized lighting solutions', '$90.00 - $270.00', '/project/demo/imagesservices/LightingDesignServices.png', 20),
 (100, 'Data and Network Cabling', 'Set up structured cabling for networks', '$90.00 - $360.00', '/project/demo/imagesservices/DataNetworkCabling.png', 20);
 
-
-INSERT INTO serviceCardModel (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
+INSERT INTO service (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
 (101, 'General Home Cleaning', 'Thorough cleaning of living spaces, including dusting, vacuuming, and mopping', '$36.00 - $90.00', '/project/demo/imagesservices/GeneralHomeCleaning.png', 21),
 (102, 'Kitchen Deep Cleaning', 'Specialized cleaning for kitchen appliances, countertops, and cabinets', '$45.00 - $108.00', '/project/demo/imagesservices/KitchenDeepCleaning.png', 21),
 (103, 'Bathroom Cleaning', 'Scrubbing and sanitizing bathroom tiles, sinks, and toilets', '$27.00 - $54.00', '/project/demo/imagesservices/BathroomCleaning.png', 21),
@@ -361,7 +349,7 @@ INSERT INTO serviceCardModel (service_id, service_name, service_description, ser
 (124, 'Odor Removal Cleaning', 'Eliminate unpleasant odors with deep cleaning solutions', '$72.00 - $180.00', '/project/demo/imagesservices/OdorRemovalCleaning.png', 25),
 (125, 'Hazardous Material Cleanup', 'Cleaning and disposal of hazardous substances', '$270.00 - $900.00', '/project/demo/imagesservices/HazardousMaterialCleanup.png', 25);
 
-INSERT INTO serviceCardModel (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
+INSERT INTO service (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
 (126, 'Hardwood Floor Installation', 'Durable and elegant hardwood floor installation', '$540.00 - $1,800.00', '/project/demo/imagesservices/HardwoodFloorInstallation.png', 26),
 (127, 'Laminate Flooring Installation', 'Affordable and quick laminate floor setups', '$360.00 - $900.00', '/project/demo/imagesservices/LaminateFlooringInstallation.png', 26),
 (128, 'Tile Flooring Installation', 'Ceramic or porcelain tiles for any room', '$450.00 - $1,200.00', '/project/demo/imagesservices/TileFlooringInstallation.png', 26),
@@ -387,7 +375,7 @@ INSERT INTO serviceCardModel (service_id, service_name, service_description, ser
 (148, 'Anti-Slip Flooring Treatment', 'Add anti-slip coatings for safety on floors', '$450.00 - $1,200.00', '/project/demo/imagesservices/AntiSlipFlooringTreatment.png', 30),
 (149, 'Custom Floor Designs', 'Artistic and custom designs for unique flooring', '$1,500.00 - $4,500.00', '/project/demo/imagesservices/CustomFloorDesigns.png', 30),
 (150, 'Sustainable Flooring Installation', 'Eco-friendly flooring materials for green buildings', '$1,200.00 - $3,600.00', '/project/demo/imagesservices/SustainableFlooringInstallation.png', 30);
-INSERT INTO serviceCardModel (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
+INSERT INTO service (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
 (151, 'Brick Wall Construction', 'Build durable and aesthetically pleasing brick walls', '$540.00 - $1,800.00', '/project/demo/imagesservices/BrickWallConstruction.png', 31),
 (152, 'Stone Veneer Installation', 'Install stone veneers for exterior or interior walls', '$720.00 - $2,400.00', '/project/demo/imagesservices/StoneVeneerInstallation.png', 31),
 (153, 'Fireplace Construction', 'Custom-built fireplaces using brick or stone', '$1,200.00 - $4,500.00', '/project/demo/imagesservices/FireplaceConstruction.png', 31),
@@ -414,9 +402,7 @@ INSERT INTO serviceCardModel (service_id, service_name, service_description, ser
 (174, 'Stone Pillar Construction', 'Build decorative or functional stone pillars', '$1,200.00 - $3,600.00', '/project/demo/imagesservices/StonePillarConstruction.png', 35),
 (175, 'Tuckpointing Services', 'Repair and replace mortar joints in brickwork', '$360.00 - $1,500.00', '/project/demo/imagesservices/TuckpointingServices.png', 35);
 
-
-
-INSERT INTO serviceCardModel (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
+INSERT INTO service (service_id, service_name, service_description, service_price, service_image_path, subcategory_id) VALUES
 (176, 'Roof Installation', 'Install new roofs using durable materials', '$1,800.00 - $5,400.00', '/project/demo/imagesservices/RoofInstallation.png', 36),
 (177, 'Roof Replacement', 'Replace old or damaged roofs', '$2,700.00 - $7,200.00', '/project/demo/imagesservices/RoofReplacement.png', 36),
 (178, 'Shingle Roof Installation', 'Asphalt or composite shingle installation', '$1,500.00 - $4,500.00', '/project/demo/imagesservices/ShingleRoofInstallation.png', 36),
@@ -443,7 +429,218 @@ INSERT INTO serviceCardModel (service_id, service_name, service_description, ser
 (199, 'Custom Roof Designs', 'Unique roofing designs tailored to client needs', '$7,200.00 - $21,600.00', '/project/demo/imagesservices/CustomRoofDesigns.png', 40),
 (200, 'Chimney Repair and Maintenance', 'Fix and maintain chimneys for safety and performance', '$900.00 - $3,600.00', '/project/demo/imagesservices/ChimneyRepairMaintenance.png', 40);
 
-
-UPDATE serviceCardModel
+UPDATE service
 SET service_price = REPLACE(service_price, '$', '')
 WHERE service_price LIKE '$%';
+
+
+CREATE TABLE employees (
+    employee_id INT AUTO_INCREMENT PRIMARY KEY,
+    employee_image VARCHAR(255) NOT NULL,
+    employee_name VARCHAR(255) NOT NULL,
+    service_id INT NOT NULL,
+    availability VARCHAR(50) DEFAULT 'Available',
+    CONSTRAINT fk_service FOREIGN KEY (service_id) REFERENCES service(service_id) ON DELETE CASCADE ON UPDATE CASCADE);
+
+INSERT INTO employees (employee_image, employee_name, service_id, availability) VALUES
+('/project/demo/imagesemployee/AlexTaylor.png', 'Alex Taylor', 1, 'Available'),
+('/project/demo/imagesemployee/JordanMorgan.png', 'Jordan Morgan', 2, 'Available'),
+('/project/demo/imagesemployee/CaseyLee.png', 'Casey Lee', 3, 'Available'),
+('/project/demo/imagesemployee/RileyCarter.png', 'Riley Carter', 4, 'Available'),
+('/project/demo/imagesemployee/JamieBrooks.png', 'Jamie Brooks', 5, 'Available'),
+('/project/demo/imagesemployee/MorganKelly.png', 'Morgan Kelly', 6, 'Available'),
+('/project/demo/imagesemployee/TaylorJordan.png', 'Taylor Jordan', 7, 'Available'),
+('/project/demo/imagesemployee/AveryParker.png', 'Avery Parker', 8, 'Available'),
+('/project/demo/imagesemployee/LoganQuinn.png', 'Logan Quinn', 9, 'Available'),
+('/project/demo/imagesemployee/QuinnHarper.png', 'Quinn Harper', 10, 'Available'),
+('/project/demo/imagesemployee/SkylerHayes.png', 'Skyler Hayes', 21, 'Available'),
+('/project/demo/imagesemployee/RowanElliott.png', 'Rowan Elliott', 22, 'Available'),
+('/project/demo/imagesemployee/EmersonGray.png', 'Emerson Gray', 15, 'Available'),
+('/project/demo/imagesemployee/DakotaMiller.png', 'Dakota Miller', 11, 'Available'),
+('/project/demo/imagesemployee/SawyerBlake.png', 'Sawyer Blake', 24, 'Available'),
+('/project/demo/imagesemployee/PaytonBennett.png', 'Payton Bennett', 20, 'Available'),
+('/project/demo/imagesemployee/HarperLogan.png', 'Harper Logan', 14, 'Available'),
+('/project/demo/imagesemployee/CameronReese.png', 'Cameron Reese', 13, 'Available'),
+('/project/demo/imagesemployee/DrewSutton.png', 'Drew Sutton', 18, 'Available'),
+('/project/demo/imagesemployee/FinleyRoss.png', 'Finley Ross', 19, 'Available'),
+('/project/demo/imagesemployee/LaneAvery.png', 'Lane Avery', 17, 'Available'),
+('/project/demo/imagesemployee/ShawnEllis.png', 'Shawn Ellis', 12, 'Available'),
+('/project/demo/imagesemployee/TannerLane.png', 'Tanner Lane', 25, 'Available'),
+('/project/demo/imagesemployee/ReeseMonroe.png', 'Reese Monroe', 13, 'Available'),
+('/project/demo/imagesemployee/ParkerChase.png', 'Parker Chase', 19, 'Available');
+
+INSERT INTO employees (employee_name, employee_image, service_id)
+VALUES
+('Nathaniel Pierce', '/project/demo/imagesemployee/NathanielPierce.png', 26),
+('Isabella Ramirez', '/project/demo/imagesemployee/IsabellaRamirez.png', 27),
+('Dominic Sullivan', '/project/demo/imagesemployee/DominicSullivan.png', 28),
+('Evelyn Barrett', '/project/demo/imagesemployee/EvelynBarrett.png', 29),
+('Gabriel Chandler', '/project/demo/imagesemployee/GabrielChandler.png', 30),
+('Sophia Thornton', '/project/demo/imagesemployee/SophiaThornton.png', 31),
+('Elijah Whitaker', '/project/demo/imagesemployee/ElijahWhitaker.png', 32),
+('Amelia Donovan', '/project/demo/imagesemployee/AmeliaDonovan.png', 33),
+('Sebastian Cross', '/project/demo/imagesemployee/SebastianCross.png', 34),
+('Victoria Delaney', '/project/demo/imagesemployee/VictoriaDelaney.png', 35),
+('Benjamin Archer', '/project/demo/imagesemployee/BenjaminArcher.png', 36),
+('Charlotte Manning', '/project/demo/imagesemployee/CharlotteManning.png', 37),
+('Caleb Huxley', '/project/demo/imagesemployee/CalebHuxley.png', 38),
+('Abigail Sinclair', '/project/demo/imagesemployee/AbigailSinclair.png', 39),
+('Alexander Rivers', '/project/demo/imagesemployee/AlexanderRivers.png', 40),
+('Penelope Foster', '/project/demo/imagesemployee/PenelopeFoster.png', 41),
+('Jonathan Merrick', '/project/demo/imagesemployee/JonathanMerrick.png', 42),
+('Olivia Caldwell', '/project/demo/imagesemployee/OliviaCaldwell.png', 43),
+('Christopher Hale', '/project/demo/imagesemployee/ChristopherHale.png', 44),
+('Lillian Monroe', '/project/demo/imagesemployee/LillianMonroe.png', 45),
+('Nicholas Mercer', '/project/demo/imagesemployee/NicholasMercer.png', 46),
+('Gabriella Vaughn', '/project/demo/imagesemployee/GabriellaVaughn.png', 47),
+('Julian Prescott', '/project/demo/imagesemployee/JulianPrescott.png', 48),
+('Madeline Ellison', '/project/demo/imagesemployee/MadelineEllison.png', 49),
+('Theodore Ashton', '/project/demo/imagesemployee/TheodoreAshton.png', 50);
+
+INSERT INTO employees (employee_image, employee_name, service_id, availability) VALUES
+    -> ('/project/demo/imagesemployee/HarrisonBlack.png', 'Harrison Black', 51, 'Available'),
+    -> ('/project/demo/imagesemployee/EleanorWoodruff.png', 'Eleanor Woodruff', 52, 'Available'),
+    -> ('/project/demo/imagesemployee/PatrickWhitman.png', 'Patrick Whitman', 53, 'Available'),
+    -> ('/project/demo/imagesemployee/MargaretHawthorne.png', 'Margaret Hawthorne', 54, 'Available'),
+    -> ('/project/demo/imagesemployee/DanielCarrington.png', 'Daniel Carrington', 55, 'Available'),
+    -> ('/project/demo/imagesemployee/VivianLangston.png', 'Vivian Langston', 56, 'Available'),
+    -> ('/project/demo/imagesemployee/SamuelWinslow.png', 'Samuel Winslow', 57, 'Available'),
+    -> ('/project/demo/imagesemployee/ClaraHuntington.png', 'Clara Huntington', 58, 'Available'),
+    -> ('/project/demo/imagesemployee/OliverGreystone.png', 'Oliver Greystone', 59, 'Available'),
+    -> ('/project/demo/imagesemployee/AnnabelleWindsor.png', 'Annabelle Windsor', 60, 'Available'),
+    -> ('/project/demo/imagesemployee/MatthewSterling.png', 'Matthew Sterling', 61, 'Available'),
+    -> ('/project/demo/imagesemployee/HelenaFairchild.png', 'Helena Fairchild', 62, 'Available'),
+    -> ('/project/demo/imagesemployee/ArthurKensington.png', 'Arthur Kensington', 63, 'Available'),
+    -> ('/project/demo/imagesemployee/BeatriceLangley.png', 'Beatrice Langley', 64, 'Available'),
+    -> ('/project/demo/imagesemployee/JacobWadsworth.png', 'Jacob Wadsworth', 65, 'Available'),
+    -> ('/project/demo/imagesemployee/RosalindAshford.png', 'Rosalind Ashford', 66, 'Available'),
+    -> ('/project/demo/imagesemployee/LucasRedmond.png', 'Lucas Redmond', 67, 'Available'),
+    -> ('/project/demo/imagesemployee/CharlotteBeaumont.png', 'Charlotte Beaumont', 68, 'Available'),
+    -> ('/project/demo/imagesemployee/EdmundHawke.png', 'Edmund Hawke', 69, 'Available'),
+    -> ('/project/demo/imagesemployee/JulietteHastings.png', 'Juliette Hastings', 70, 'Available'),
+    -> ('/project/demo/imagesemployee/HenryWeatherby.png', 'Henry Weatherby', 71, 'Available'),
+    -> ('/project/demo/imagesemployee/FlorenceKingsley.png', 'Florence Kingsley', 72, 'Available'),
+    -> ('/project/demo/imagesemployee/LawrencePembroke.png', 'Lawrence Pembroke', 73, 'Available'),
+    -> ('/project/demo/imagesemployee/CoraHighmore.png', 'Cora Highmore', 74, 'Available'),
+    -> ('/project/demo/imagesemployee/WilliamGranville.png', 'William Granville', 75, 'Available');
+
+INSERT INTO employees (employee_image, employee_name, service_id, availability) VALUES
+('/project/demo/imagesemployee/EverettLangley.png', 'Everett Langley', 79, 'available'),
+('/project/demo/imagesemployee/OpheliaAshcroft.png', 'Ophelia Ashcroft', 77, 'available'),
+('/project/demo/imagesemployee/CedricBlackwell.png', 'Cedric Blackwell', 79, 'available'),
+('/project/demo/imagesemployee/AdelaideMarch.png', 'Adelaide March', 76, 'available'),
+('/project/demo/imagesemployee/FranklinWestwood.png', 'Franklin Westwood', 78, 'available'),
+
+('/project/demo/imagesemployee/SeraphinaBlake.png', 'Seraphina Blake', 85, 'available'),
+('/project/demo/imagesemployee/ThaddeusVaughn.png', 'Thaddeus Vaughn', 84, 'available'),
+('/project/demo/imagesemployee/ArabellaHawke.png', 'Arabella Hawke', 83, 'available'),
+('/project/demo/imagesemployee/RupertKingsmill.png', 'Rupert Kingsmill', 81, 'available'),
+('/project/demo/imagesemployee/DaphneLockwood.png', 'Daphne Lockwood', 82, 'available'),
+
+('/project/demo/imagesemployee/CorneliusHartley.png', 'Cornelius Hartley', 86, 'available'),
+('/project/demo/imagesemployee/GenevieveWinslow.png', 'Genevieve Winslow', 87, 'available'),
+('/project/demo/imagesemployee/PercivalThorn.png', 'Percival Thorn', 88, 'available'),
+('/project/demo/imagesemployee/CelesteFairmont.png', 'Celeste Fairmont', 89, 'available'),
+('/project/demo/imagesemployee/BarnabyRedgrave.png', 'Barnaby Redgrave', 90, 'available'),
+
+('/project/demo/imagesemployee/VivienneCheswick.png', 'Vivienne Cheswick', 91, 'available'),
+('/project/demo/imagesemployee/TobiasPendleton.png', 'Tobias Pendleton', 92, 'available'),
+('/project/demo/imagesemployee/LilaWakefield.png', 'Lila Wakefield', 93, 'available'),
+('/project/demo/imagesemployee/AmbroseTempleton.png', 'Ambrose Templeton', 94, 'available'),
+('/project/demo/imagesemployee/EsmeHargrove.png', 'Esme Hargrove', 95, 'available'),
+
+('/project/demo/imagesemployee/LeopoldCarruthers.png', 'Leopold Carruthers', 96, 'available'),
+('/project/demo/imagesemployee/EloiseChamberlain.png', 'Eloise Chamberlain', 97, 'available'),
+('/project/demo/imagesemployee/FletcherSomerset.png', 'Fletcher Somerset', 98, 'available'),
+('/project/demo/imagesemployee/MargotHollings.png', 'Margot Hollings', 99, 'available'),
+('/project/demo/imagesemployee/AlaricWentworth.png', 'Alaric Wentworth', 100, 'available');
+
+
+INSERT INTO employees (employee_image, employee_name, service_id, availability) VALUES
+('/project/demo/imagesemployee/BenedictHawthorne.png', 'Benedict Hawthorne', 126, 'available'),
+('/project/demo/imagesemployee/JulianaWestbury.png', 'Juliana Westbury', 127, 'available'),
+('/project/demo/imagesemployee/GideonFairchild.png', 'Gideon Fairchild', 128, 'available'),
+('/project/demo/imagesemployee/ElizaWaverly.png', 'Eliza Waverly', 129, 'available'),
+('/project/demo/imagesemployee/MalcolmSterling.png', 'Malcolm Sterling', 130, 'available'),
+('/project/demo/imagesemployee/AdelaideFenwick.png', 'Adelaide Fenwick', 131, 'available'),
+('/project/demo/imagesemployee/HugoPembroke.png', 'Hugo Pembroke', 132, 'available'),
+('/project/demo/imagesemployee/LaviniaCarrington.png', 'Lavinia Carrington', 133, 'available'),
+('/project/demo/imagesemployee/EliasThornton.png', 'Elias Thornton', 134, 'available'),
+('/project/demo/imagesemployee/ArabellaRavenshaw.png', 'Arabella Ravenshaw', 135, 'available'),
+('/project/demo/imagesemployee/CorneliusBlackmoore.png', 'Cornelius Blackmoore', 136, 'available'),
+('/project/demo/imagesemployee/CeliaAshcroft.png', 'Celia Ashcroft', 137, 'available'),
+('/project/demo/imagesemployee/DorianWhitaker.png', 'Dorian Whitaker', 138, 'available'),
+('/project/demo/imagesemployee/FelicityBelmont.png', 'Felicity Belmont', 139, 'available'),
+('/project/demo/imagesemployee/IgnatiusGreyson.png', 'Ignatius Greyson', 140, 'available'),
+('/project/demo/imagesemployee/GenevieveLockhart.png', 'Genevieve Lockhart', 141, 'available'),
+('/project/demo/imagesemployee/LionelBrightmoor.png', 'Lionel Brightmoor', 142, 'available'),
+('/project/demo/imagesemployee/TabithaKingswell.png', 'Tabitha Kingswell', 143, 'available'),
+('/project/demo/imagesemployee/SilasRadcliffe.png', 'Silas Radcliffe', 144, 'available'),
+('/project/demo/imagesemployee/PrudenceEllington.png', 'Prudence Ellington', 145, 'available'),
+('/project/demo/imagesemployee/BartholomewDrake.png', 'Bartholomew Drake', 146, 'available'),
+('/project/demo/imagesemployee/LouisaGreythorn.png', 'Louisa Greythorn', 147, 'available'),
+('/project/demo/imagesemployee/AugustusCrowell.png', 'Augustus Crowell', 148, 'available'),
+('/project/demo/imagesemployee/CassandraBellamy.png', 'Cassandra Bellamy', 149, 'available'),
+('/project/demo/imagesemployee/TheodoreWinterbourne.png', 'Theodore Winterbourne', 150, 'available');
+
+INSERT INTO employees (employee_image, employee_name, service_id, availability) VALUES
+('/project/demo/imagesemployee/RandolphWhitaker.png', 'Randolph Whitaker', 151, 'Available'),
+('/project/demo/imagesemployee/EvelinaMarchwood.png', 'Evelina Marchwood', 152, 'Available'),
+('/project/demo/imagesemployee/CedricHalstead.png', 'Cedric Halstead', 153, 'Available'),
+('/project/demo/imagesemployee/IsadoraBlackstone.png', 'Isadora Blackstone', 154, 'Available'),
+('/project/demo/imagesemployee/VictorRavenwood.png', 'Victor Ravenwood', 155, 'Available'),
+('/project/demo/imagesemployee/FlorenceWyndam.png', 'Florence Wyndam', 156, 'Available'),
+('/project/demo/imagesemployee/AmbroseKingsley.png', 'Ambrose Kingsley', 157, 'Available'),
+('/project/demo/imagesemployee/CordeliaLancaster.png', 'Cordelia Lancaster', 158, 'Available'),
+('/project/demo/imagesemployee/HoracePendleton.png', 'Horace Pendleton', 159, 'Available'),
+('/project/demo/imagesemployee/LydiaAshworth.png', 'Lydia Ashworth', 160, 'Available'),
+('/project/demo/imagesemployee/ReginaldFairfax.png', 'Reginald Fairfax', 161, 'Available'),
+('/project/demo/imagesemployee/HarrietMiddlebrook.png', 'Harriet Middlebrook', 162, 'Available'),
+('/project/demo/imagesemployee/ThaddeusWentworth.png', 'Thaddeus Wentworth', 163, 'Available'),
+('/project/demo/imagesemployee/OpheliaBellhaven.png', 'Ophelia Bellhaven', 164, 'Available'),
+('/project/demo/imagesemployee/MontgomerySinclair.png', 'Montgomery Sinclair', 165, 'Available'),
+('/project/demo/imagesemployee/HelenaWinthrop.png', 'Helena Winthrop', 166, 'Available'),
+('/project/demo/imagesemployee/EverettHargrove.png', 'Everett Hargrove', 167, 'Available'),
+('/project/demo/imagesemployee/EugeniaCranford.png', 'Eugenia Cranford', 168, 'Available'),
+('/project/demo/imagesemployee/RupertAshbourne.png', 'Rupert Ashbourne', 169, 'Available'),
+('/project/demo/imagesemployee/BeatriceMerriweather.png', 'Beatrice Merriweather', 170, 'Available'),
+('/project/demo/imagesemployee/JasperFenbrook.png', 'Jasper Fenbrook', 171, 'Available'),
+('/project/demo/imagesemployee/MatildaGreystone.png', 'Matilda Greystone', 172, 'Available'),
+('/project/demo/imagesemployee/AlaricBlackmoor.png', 'Alaric Blackmoor', 173, 'Available'),
+('/project/demo/imagesemployee/VeronicaEdgewood.png', 'Veronica Edgewood', 174, 'Available'),
+('/project/demo/imagesemployee/SebastianLangley.png', 'Sebastian Langley', 175, 'Available');
+
+
+
+
+
+    INSERT INTO employees (employee_image, employee_name, service_id, availability) VALUES
+('/project/demo/imagesemployee/LeopoldWestcliff.png', 'Leopold Westcliff', 176, 'Available'),
+('/project/demo/imagesemployee/ArabellaWindmere.png', 'Arabella Windmere', 177, 'Available'),
+('/project/demo/imagesemployee/FletcherRedmond.png', 'Fletcher Redmond', 178, 'Available'),
+('/project/demo/imagesemployee/ElinorBrightwell.png', 'Elinor Brightwell', 179, 'Available'),
+('/project/demo/imagesemployee/PercivalHalesworth.png', 'Percival Halesworth', 180, 'Available'),
+
+('/project/demo/imagesemployee/AdelaideKingsbury.png', 'Adelaide Kingsbury', 181, 'Available'),
+('/project/demo/imagesemployee/NathanielAshcroft.png', 'Nathaniel Ashcroft', 182, 'Available'),
+('/project/demo/imagesemployee/VivianLanghorne.png', 'Vivian Langhorne', 183, 'Available'),
+('/project/demo/imagesemployee/TobiasWhitmore.png', 'Tobias Whitmore', 184, 'Available'),
+('/project/demo/imagesemployee/JulietteHargrove.png', 'Juliette Hargrove', 185, 'Available'),
+
+('/project/demo/imagesemployee/AugustusBelford.png', 'Augustus Belford', 186, 'Available'),
+('/project/demo/imagesemployee/CelesteWainwright.png', 'Celeste Wainwright', 187, 'Available'),
+('/project/demo/imagesemployee/PhineasRosewood.png', 'Phineas Rosewood', 188, 'Available'),
+('/project/demo/imagesemployee/LaviniaBlackthorn.png', 'Lavinia Blackthorn', 189, 'Available'),
+('/project/demo/imagesemployee/CedricHolloway.png', 'Cedric Holloway', 190, 'Available'),
+
+('/project/demo/imagesemployee/FelicityRavenshire.png', 'Felicity Ravenshire', 196, 'Available'),
+('/project/demo/imagesemployee/AlistairDraycott.png', 'Alistair Draycott', 197, 'Available'),
+('/project/demo/imagesemployee/PrudenceLockhart.png', 'Prudence Lockhart', 198, 'Available'),
+('/project/demo/imagesemployee/CorneliusFennidge.png', 'Cornelius Fennidge', 199, 'Available'),
+('/project/demo/imagesemployee/ImogenWeatherall.png', 'Imogen Weatherall', 200, 'Available'),
+
+('/project/demo/imagesemployee/HarrisonMoorcroft.png', 'Harrison Moorcroft', 191, 'Available'),
+('/project/demo/imagesemployee/ClaraEdgewood.png', 'Clara Edgewood', 192, 'Available'),
+('/project/demo/imagesemployee/SilasWinterbourne.png', 'Silas Winterbourne', 193, 'Available'),
+('/project/demo/imagesemployee/EleanorFairbourne.png', 'Eleanor Fairbourne', 194, 'Available'),
+('/project/demo/imagesemployee/AmbroseGreenfield.png', 'Ambrose Greenfield', 195, 'Available');

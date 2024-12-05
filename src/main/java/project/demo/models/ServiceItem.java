@@ -1,85 +1,112 @@
 package project.demo.models;
 
-import javafx.beans.property.*;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.concurrent.Service;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 
 public class ServiceItem {
 
-    private final IntegerProperty serviceId;
-    private final StringProperty serviceName;
+    private final Service service;
     private final StringProperty jobComplexity;
-    private final DoubleProperty selectedPrice;
-    private final StringProperty imageFilePath;
+    private final DoubleProperty serviceFee;
 
-    public ServiceItem(int serviceId, String serviceName, String jobComplexity, double selectedPrice, String imageFilePath) {
-        this.serviceId = new SimpleIntegerProperty(serviceId);
-        this.serviceName = new SimpleStringProperty(serviceName);
-        this.jobComplexity = new SimpleStringProperty(jobComplexity);
-        this.selectedPrice = new SimpleDoubleProperty(selectedPrice);
-        this.imageFilePath = new SimpleStringProperty(imageFilePath);
+
+    private final Button decreaseButton;
+    private final Button increaseButton;
+    private final Label serviceFeeLabel;
+    private final HBox complexityControl;
+
+    public ServiceItem(Service service) {
+        this.service = service;
+
+        // Initialize job complexity to "Low" and service fee to min price
+        this.jobComplexity = new SimpleStringProperty("Low");
+        this.serviceFee = new SimpleDoubleProperty(service.getMinPrice());
+
+
+        // Create the complexity control (buttons for Low, Medium, High)
+        this.decreaseButton = new Button("-");
+        this.increaseButton = new Button("+");
+        this.serviceFeeLabel = new Label(formatPrice(serviceFee.get()));
+
+        // HBox for buttons and label
+        this.complexityControl = new HBox(decreaseButton, serviceFeeLabel, increaseButton);
+        this.complexityControl.setSpacing(5);
+
+        // Button logic to decrease complexity
+        decreaseButton.setOnAction(event -> {
+            decreaseComplexity();
+        });
+
+        // Button logic to increase complexity
+        increaseButton.setOnAction(event -> {
+            increaseComplexity();
+        });
     }
 
-    // Getters and setters for serviceId
-    public int getServiceId() {
-        return serviceId.get();
-    }
-
-    public void setServiceId(int serviceId) {
-        this.serviceId.set(serviceId);
-    }
-
-    public IntegerProperty serviceIdProperty() {
-        return serviceId;
-    }
-
-    // Getters and setters for serviceName
-    public String getServiceName() {
-        return serviceName.get();
-    }
-
-    public void setServiceName(String serviceName) {
-        this.serviceName.set(serviceName);
-    }
-
-    public StringProperty serviceNameProperty() {
-        return serviceName;
-    }
-
-    // Getters and setters for jobComplexity
+    // Public Getters
     public String getJobComplexity() {
         return jobComplexity.get();
     }
 
-    public void setJobComplexity(String jobComplexity) {
-        this.jobComplexity.set(jobComplexity);
+    public Double getServiceFee() {
+        return serviceFee.get();
     }
 
-    public StringProperty jobComplexityProperty() {
-        return jobComplexity;
+    public ImageView getServiceImage() {
+        return serviceImage;
     }
 
-    // Getters and setters for selectedPrice
-    public double getSelectedPrice() {
-        return selectedPrice.get();
+    public HBox getComplexityControl() {
+        return complexityControl;
     }
 
-    public void setSelectedPrice(double selectedPrice) {
-        this.selectedPrice.set(selectedPrice);
+    // Public Methods
+    public void increaseComplexity() {
+        switch (jobComplexity.get()) {
+            case "Low":
+                jobComplexity.set("Medium");
+                serviceFee.set(service.getMidPrice());
+                break;
+            case "Medium":
+                jobComplexity.set("High");
+                serviceFee.set(service.getMaxPrice());
+                break;
+            case "High":
+                return; // Maximum complexity, do nothing
+        }
+        updateServiceFee();
     }
 
-    public DoubleProperty selectedPriceProperty() {
-        return selectedPrice;
+    public void decreaseComplexity() {
+        switch (jobComplexity.get()) {
+            case "High":
+                jobComplexity.set("Medium");
+                serviceFee.set(service.getMidPrice());
+                break;
+            case "Medium":
+                jobComplexity.set("Low");
+                serviceFee.set(service.getMinPrice());
+                break;
+            case "Low":
+                return; // Minimum complexity, do nothing
+        }
+        updateServiceFee();
     }
 
-    // Getters and setters for imageFilePath
-    public String getImageFilePath() {
-        return imageFilePath.get();
+    // Private helper method to update service fee label
+    private void updateServiceFee() {
+        serviceFeeLabel.setText(formatPrice(serviceFee.get()));
     }
 
-    public void setImageFilePath(String imageFilePath) {
-        this.imageFilePath.set(imageFilePath);
-    }
-
-    public StringProperty imageFilePathProperty() {
-        return imageFilePath;
+    private String formatPrice(double price) {
+        return String.format("$%.2f", price);
     }
 }

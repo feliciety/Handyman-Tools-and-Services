@@ -1,12 +1,12 @@
 package project.demo.models;
 
-public class ServiceCardModel {
+public class Service {
     private String name;
     private String description;
     private String price;
     private String imagePath;
 
-    public ServiceCardModel(String name, String description, String price, String imagePath) {
+    public Service(String name, String description, String price, String imagePath) {
         this.name = name;
         this.description = description;
         this.price = price;
