@@ -12,7 +12,6 @@ import project.demo.models.BookServiceItem;
 import project.demo.models.BookServiceManager;
 import javafx.event.ActionEvent;
 
-
 public class BookingCartTableController {
 
     @FXML
@@ -42,9 +41,7 @@ public class BookingCartTableController {
 
     @FXML
     public void initialize() {
-        System.out.println("[DEBUG] Initializing BookingCartTableController.");
-
-        // Set up table columns with centered alignment
+        // Set up table columns
         serviceImageCol.setCellValueFactory(new PropertyValueFactory<>("serviceImageView"));
         serviceNameCol.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
         jobComplexityCol.setCellValueFactory(new PropertyValueFactory<>("jobComplexityControl"));
@@ -63,12 +60,11 @@ public class BookingCartTableController {
         // Bind the bookedItems from BookServiceManager to the table
         bookingTable.setItems(bookedItems);
 
-        System.out.println("[DEBUG] BookingCartTableController initialized.");
+        // Listen for changes in bookedItems (e.g., when an item is removed)
+        bookedItems.addListener((observable, oldValue, newValue) -> bookingTable.refresh());
     }
 
-    /**
-     * Centers the content of a TableColumn with generic content.
-     */
+    // Centers the content of a TableColumn with generic content
     private <T> void centerColumnContent(TableColumn<BookServiceItem, T> column) {
         column.setCellFactory(tc -> new TableCell<>() {
             @Override
@@ -84,14 +80,12 @@ public class BookingCartTableController {
                     setText(item.toString());
                     setGraphic(null);
                 }
-                setAlignment(Pos.CENTER); // Center align content
+                setAlignment(Pos.CENTER);
             }
         });
     }
 
-    /**
-     * Centers the content of a TableColumn with HBox content.
-     */
+    // Centers the content of a TableColumn with HBox content
     private void centerHBoxContent(TableColumn<BookServiceItem, HBox> column) {
         column.setCellFactory(tc -> new TableCell<>() {
             @Override
@@ -101,18 +95,16 @@ public class BookingCartTableController {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    hbox.setAlignment(Pos.CENTER); // Center align the HBox itself
+                    hbox.setAlignment(Pos.CENTER);
                     setGraphic(hbox);
                     setText(null);
                 }
-                setAlignment(Pos.CENTER); // Center align the cell
+                setAlignment(Pos.CENTER);
             }
         });
     }
 
-    /**
-     * Centers the content of a TableColumn with Button content.
-     */
+    // Centers the content of a TableColumn with Button content
     private void centerButtonContent(TableColumn<BookServiceItem, Button> column) {
         column.setCellFactory(tc -> new TableCell<>() {
             @Override
@@ -123,69 +115,83 @@ public class BookingCartTableController {
                     setGraphic(null);
                 } else {
                     setGraphic(button);
-                    button.setAlignment(Pos.CENTER); // Center align the button
+                    button.setAlignment(Pos.CENTER);
                     setText(null);
                 }
-                setAlignment(Pos.CENTER); // Center align the cell
+                setAlignment(Pos.CENTER);
             }
         });
     }
 
-    /**
-     * Removes a booked service item from the table.
-     */
+    // Parses price range from the service price string
+    private void parsePriceRange(BookServiceItem item, String priceRange) {
+        double minPrice = 0.0;
+        double maxPrice = 0.0;
+        double midPrice = 0.0;
+
+        if (priceRange.contains(" - ")) {
+            String[] prices = priceRange.split(" - ");
+            try {
+                minPrice = Double.parseDouble(prices[0].trim());
+                maxPrice = Double.parseDouble(prices[1].trim());
+                midPrice = (minPrice + maxPrice) / 2;
+            } catch (NumberFormatException e) {
+                System.err.println("[ERROR] Failed to parse price range: " + priceRange);
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                minPrice = Double.parseDouble(priceRange.trim());
+                maxPrice = minPrice;
+                midPrice = minPrice;
+            } catch (NumberFormatException e) {
+                System.err.println("[ERROR] Failed to parse single price: " + priceRange);
+                e.printStackTrace();
+            }
+        }
+
+        // Set the parsed prices and mid price to the item
+        item.setMinPrice(minPrice);
+        item.setMaxPrice(maxPrice);
+        item.setMidPrice(midPrice);
+    }
+
+    // Removes a booked service item from the table
     public void removeBookedService(BookServiceItem serviceItem) {
-        System.out.println("[DEBUG] Removing service: " + serviceItem.getServiceName());
         bookedItems.remove(serviceItem);
         updateTable();
     }
 
-    /**
-     * Refreshes the table to reflect updates.
-     */
+    // Refresh the table to reflect updates
     public void updateTable() {
-        System.out.println("[DEBUG] Refreshing Booking Table.");
         bookingTable.refresh();
     }
 
-    /**
-     * Adds a service to the booking table.
-     */
+    // Adds a service to the booking table
     public void addService(BookServiceItem serviceItem) {
-        System.out.println("[DEBUG] Adding service to table: " + serviceItem.getServiceName());
+        // Parse the price range before adding to the cart
+        parsePriceRange(serviceItem, serviceItem.getPriceRange());
+
         BookServiceManager.getInstance().addService(serviceItem);
         updateTable();
     }
 
-    /**
-     * Sets the reference to the main controller.
-     */
+    // Set reference to the main controller
     public void setMainController(BookingPageController mainController) {
         this.mainController = mainController;
     }
 
-    /**
-     * Navigates to the Services page.
-     */
+    // Navigates to the Services page
     public void goToServices(ActionEvent actionEvent) {
         if (mainController != null) {
-            System.out.println("[DEBUG] Navigating to Services page.");
             mainController.loadView("/project/demo/FXMLBookingPage/BookingCartTable.fxml");
-        } else {
-            System.err.println("[ERROR] Main controller is not set!");
         }
     }
 
-    /**
-     * Navigates to the Address Booking Details page.
-     */
+    // Navigates to the Address Booking Details page
     public void goToAddressBookingDetails(ActionEvent actionEvent) {
         if (mainController != null) {
-            System.out.println("[DEBUG] Navigating to Address Booking Details page.");
             mainController.loadView("/project/demo/FXMLBookingPage/AddressBookingDetails.fxml");
-        } else {
-            System.err.println("[ERROR] Main controller is not set!");
         }
     }
-
 }

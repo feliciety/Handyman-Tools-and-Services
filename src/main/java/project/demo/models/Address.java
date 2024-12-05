@@ -10,6 +10,7 @@ public class Address {
     private String province;
     private String postalCode;
     private String region;
+    private String country;
 
     // Constructor
     public Address() {}

@@ -67,13 +67,55 @@ public class ServicePageController {
         // Add listener for category selection
         categoriesList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
+                System.out.println("[DEBUG] Selected category: " + newValue);
+
                 if (newValue.equals("All Services")) {
-                    populateAllServices();
+                    populateAllServices(); // Show all services
                 } else {
+                    // Populate services under the selected category
+                    populateServicesByCategory(newValue);
+
+                    // Load its subcategories for further filtering
                     loadSubcategories(newValue);
                 }
             }
         });
+    }
+
+    private void populateServicesByCategory(String category) {
+        serviceGrid.getChildren().clear();
+        System.out.println("[DEBUG] Populating services for category: " + category);
+
+        List<Service> services = fetchServicesByCategoryFromDatabase(category);
+
+        if (services != null) {
+            populateServiceGrid(services);
+        }
+    }
+
+    private List<Service> fetchServicesByCategoryFromDatabase(String category) {
+        List<Service> services = new ArrayList<>();
+        String query = "SELECT service_name, service_description, service_price, service_image_path " +
+                "FROM Service WHERE category_id = (SELECT category_id FROM ServiceCategory WHERE category_name = ?)";
+
+        try (Connection connection = new DatabaseConfig().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, category);
+            System.out.println("[DEBUG] Executing query for category: " + category);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                services.add(extractServiceFromResultSet(resultSet));
+            }
+
+            System.out.println("[DEBUG] Services fetched for category: " + category + ", Count: " + services.size());
+        } catch (Exception e) {
+            System.err.println("[ERROR] Failed to fetch services for category: " + category);
+            e.printStackTrace();
+        }
+        return services;
     }
 
     private void loadSubcategories(String category) {
@@ -83,11 +125,16 @@ public class ServicePageController {
 
         for (String subcategory : subcategories) {
             Button subcategoryButton = new Button(subcategory);
-            subcategoryButton.setOnAction(event -> populateServices(subcategory));
+            subcategoryButton.setOnAction(event -> {
+                System.out.println("[DEBUG] Subcategory button clicked: " + subcategory);
+                populateServices(subcategory); // Populate services for the selected subcategory
+            });
+            subcategoryButton.setPrefWidth(200);
             subcategoryButton.setStyle("-fx-background-color: #3E4546; -fx-text-fill: white; -fx-font-weight: bold;");
             subcategoriesBox.getChildren().add(subcategoryButton);
         }
     }
+
 
     private void populateAllServices() {
         serviceGrid.getChildren().clear();
@@ -100,12 +147,15 @@ public class ServicePageController {
 
     private void populateServices(String subcategory) {
         serviceGrid.getChildren().clear();
+        System.out.println("[DEBUG] Populating services for subcategory: " + subcategory);
+
         List<Service> services = fetchServicesFromDatabase(subcategory);
 
         if (services != null) {
             populateServiceGrid(services);
         }
     }
+
 
     private void filterServices(String query) {
         serviceGrid.getChildren().clear();
@@ -193,17 +243,22 @@ public class ServicePageController {
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, subcategory);
+            System.out.println("[DEBUG] Executing query for subcategory: " + subcategory);
+
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 services.add(extractServiceFromResultSet(resultSet));
             }
+
+            System.out.println("[DEBUG] Services fetched for subcategory: " + subcategory + ", Count: " + services.size());
         } catch (Exception e) {
-            System.err.println("[ERROR] Failed to fetch services: " + e.getMessage());
+            System.err.println("[ERROR] Failed to fetch services for subcategory: " + subcategory);
             e.printStackTrace();
         }
         return services;
     }
+
 
     private List<Service> filterServicesByQueryAndPrice(String query, int maxPrice) {
         List<Service> services = new ArrayList<>();
