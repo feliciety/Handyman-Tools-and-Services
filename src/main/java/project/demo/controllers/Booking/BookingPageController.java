@@ -9,8 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import project.demo.models.ServiceItem;
-import project.demo.models.ServiceManager;
+import project.demo.models.BookServiceItem;
+import project.demo.models.BookServiceManager;
 
 import java.io.IOException;
 import java.util.Map;
@@ -38,7 +38,7 @@ public class BookingPageController {
     @FXML
     private TextField promoCodeField;
 
-    private final ObservableList<ServiceItem> bookedItems = ServiceManager.getInstance().getServiceItems();
+    private final ObservableList<BookServiceItem> bookedItems = BookServiceManager.getInstance().getBookedServices();
     private final SimpleDoubleProperty totalServiceFee = new SimpleDoubleProperty(0.0);
     private final SimpleDoubleProperty couponDiscount = new SimpleDoubleProperty(0.0);
 
@@ -56,41 +56,40 @@ public class BookingPageController {
 
     @FXML
     public void initialize() {
-
         loadView("/project/demo/FXMLBookingPage/BookingCartTable.fxml");
 
-        bookedItems.addListener((ListChangeListener<ServiceItem>) change -> {
+        // Listen for changes in booked items
+        bookedItems.addListener((ListChangeListener<BookServiceItem>) change -> {
             while (change.next()) {
                 if (change.wasAdded()) {
                     change.getAddedSubList().forEach(item -> {
-                        // Replace complexityProperty() with the correct property
-                        item.jobComplexityProperty().addListener((observable, oldValue, newValue) -> recalculateTotal());
-                    });
+                                item.jobComplexityProperty().addListener((observable, oldValue, newValue) -> recalculateTotal());
+                            }
+                    );
                 }
-                recalculateTotal();
             }
+            recalculateTotal();
         });
 
-        // Recalculate total for any pre-existing items
-        bookedItems.forEach(item -> {
-            // Replace complexityProperty() with the correct property
-            item.jobComplexityProperty().addListener((observable, oldValue, newValue) -> recalculateTotal());
-        });
+        // Add listeners to existing items
+        bookedItems.forEach(item ->
+                item.jobComplexityProperty().addListener((observable, oldValue, newValue) -> recalculateTotal())
+        );
+
         recalculateTotal();
     }
 
+    /**
+     * Recalculates the total service fee and applies any active coupon discounts.
+     */
     public void recalculateTotal() {
-        // Sum the prices of all booked items
         double total = bookedItems.stream()
-                .mapToDouble(ServiceItem::getPrice) // Get the price based on job complexity
+                .mapToDouble(BookServiceItem::getServiceFee)
                 .sum();
+        totalServiceFee.set(total);
 
-
-        // Dynamically recalculate the coupon discount
         if (appliedCoupon != null && promoCodes.containsKey(appliedCoupon)) {
             double discount = promoCodes.get(appliedCoupon);
-
-            // Check if the discount is a percentage or flat
             if (discount < 1.0) {
                 couponDiscount.set(totalServiceFee.get() * discount); // Percentage discount
             } else {
@@ -99,28 +98,52 @@ public class BookingPageController {
         } else {
             couponDiscount.set(0.0); // No discount
         }
+
+        updateLabels();
     }
 
+    /**
+     * Updates the total labels in the UI.
+     */
+    private void updateLabels() {
+        totalServiceFeeLabel.setText(String.format("₱%.2f", totalServiceFee.get()));
+        couponDiscountLabel.setText(String.format("-₱%.2f", couponDiscount.get()));
+        totalLabel.setText(String.format("₱%.2f", totalServiceFee.get() - couponDiscount.get()));
+    }
 
+    /**
+     * Applies a promo code and recalculates totals.
+     */
     @FXML
     public void applyPromoCode() {
-        String promoCode = promoCodeField.getText().toUpperCase();
+        String promoCode = promoCodeField.getText().toUpperCase().trim();
         if (promoCodes.containsKey(promoCode)) {
             appliedCoupon = promoCode;
             recalculateTotal();
             appliedCouponLabel.setText("Applied: " + promoCode);
             removeCouponButton.setVisible(true);
+        } else {
+            appliedCouponLabel.setText("Invalid Coupon Code");
         }
     }
 
+    /**
+     * Removes the currently applied promo code.
+     */
     @FXML
     public void removeCoupon() {
         appliedCoupon = null;
         couponDiscount.set(0.0);
         appliedCouponLabel.setText("No coupon applied");
         removeCouponButton.setVisible(false);
+        recalculateTotal();
     }
 
+    /**
+     * Loads a new FXML view into the content pane.
+     *
+     * @param fxmlPath The path to the FXML file to load.
+     */
     @FXML
     public void loadView(String fxmlPath) {
         try {
@@ -147,6 +170,7 @@ public class BookingPageController {
             AnchorPane.setRightAnchor(newView, 0.0);
 
         } catch (IOException e) {
+            System.err.println("[ERROR] Failed to load FXML: " + fxmlPath);
             e.printStackTrace();
         }
     }

@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
+import project.demo.controllers.Cart.CartPageController;
 import project.demo.controllers.Profile.CreditCardEditController;
 import project.demo.controllers.Profile.GCashEditController;
 import project.demo.controllers.Profile.PayPalEditController;
@@ -20,15 +21,18 @@ public class BookingPaymentController {
     @FXML
     private AnchorPane paymentDetailsBox;
 
+    // DAO objects
     private final GCashDAO gcashDAO = new GCashDAOImpl();
     private final CreditCardDAO creditCardDAO = new CreditCardDAOImpl();
     private final PayPalDAO payPalDAO = new PayPalDAOImpl();
 
-    private BookingPageController mainController; // Reference to main controller
+    private BookingPageController mainController; // Reference to the main controller
 
     public void setMainController(BookingPageController mainController) {
         this.mainController = mainController;
     }
+
+
 
     @FXML
     public void showGcashFields(ActionEvent actionEvent) {
@@ -99,13 +103,22 @@ public class BookingPaymentController {
         }
     }
 
-    @FXML
-    public void confirmPayment(ActionEvent event) {
-        mainController.loadView("/project/demo/FXMLBookingPage/PaymentSuccess.fxml");
+    public void backToAddressBookingDetails(ActionEvent actionEvent) {
+        if (mainController != null) {
+            mainController.loadView("/project/demo/FXMLBookingPage/AddressBookingDetails.fxml");
+        } else {
+            System.err.println("Main controller is not set!");
+        }
     }
 
     @FXML
-    public void backToAddressBookingDetails(ActionEvent event) {
-        mainController.loadView("/project/demo/FXMLBookingPage/AddressBookingDetails.fxml");
+    public void confirmPayment(ActionEvent actionEvent) {
+        if (mainController != null) {
+            System.out.println("Navigating to Payment Success view...");
+            mainController.loadView("/project/demo/FXMLCartPage/PaymentSuccess.fxml");
+        } else {
+            System.err.println("Main controller is not set!");
+        }
     }
+
 }

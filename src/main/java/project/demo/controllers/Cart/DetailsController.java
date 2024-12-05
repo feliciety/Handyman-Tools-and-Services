@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import project.demo.DataBase.DatabaseConfig;
@@ -55,6 +56,10 @@ public class DetailsController {
         List<Address> addresses = fetchAddressesFromDatabase();
 
         addressGridPane.getChildren().clear();
+
+        // Create a shared ToggleGroup
+        ToggleGroup toggleGroup = new ToggleGroup();
+
         for (int i = 0; i < addresses.size(); i++) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLCartPage/CartAddressRow.fxml"));
@@ -63,19 +68,20 @@ public class DetailsController {
                 CartAddressRowController controller = loader.getController();
                 controller.setAddress(addresses.get(i));
 
-                // Set the correct row index for each address
-                GridPane.setRowIndex(row, i);
+                // Set the shared ToggleGroup for exclusive selection
+                controller.setToggleGroup(toggleGroup);
 
                 // Pass TextFields directly for address population
                 controller.setFields(addressField, cityField, postalCodeField, provinceField, regionField);
 
+                // Set the correct row index for each address
+                GridPane.setRowIndex(row, i);
                 addressGridPane.add(row, 0, i);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
-
 
     private List<Address> fetchAddressesFromDatabase() {
         List<Address> addresses = new ArrayList<>();
@@ -106,7 +112,6 @@ public class DetailsController {
         return addresses;
     }
 
-
     public void goToShipping(ActionEvent actionEvent) {
         if (mainController != null) {
             mainController.loadView("/project/demo/FXMLCartPage/Shipping.fxml");
@@ -122,5 +127,4 @@ public class DetailsController {
             System.err.println("Main controller is not set!");
         }
     }
-
 }
