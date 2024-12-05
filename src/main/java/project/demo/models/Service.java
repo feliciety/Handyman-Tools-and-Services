@@ -32,5 +32,4 @@ public class Service {
     public String getFormattedPrice() {
         return String.format("$%s", price); // Format for display
     }
-
 }

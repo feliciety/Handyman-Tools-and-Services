@@ -1,112 +1,108 @@
 package project.demo.models;
 
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.concurrent.Service;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 
 public class ServiceItem {
 
-    private final Service service;
-    private final StringProperty jobComplexity;
-    private final DoubleProperty serviceFee;
+    private final int serviceId;
+    private final Service service;  // Add a Service object
+    private final SimpleDoubleProperty price;
+    private final SimpleIntegerProperty quantity;
 
+    private final double minPrice;
+    private final double midPrice;
+    private final double maxPrice;
 
-    private final Button decreaseButton;
-    private final Button increaseButton;
-    private final Label serviceFeeLabel;
-    private final HBox complexityControl;
+    // Add a StringProperty to track job complexity
+    private final SimpleStringProperty jobComplexity;
 
-    public ServiceItem(Service service) {
-        this.service = service;
+    public ServiceItem(int serviceId, Service service, double minPrice, double midPrice, double maxPrice) {
+        this.serviceId = serviceId;
+        this.service = service;  // Initialize the service object
+        this.price = new SimpleDoubleProperty(minPrice); // Default to minPrice
+        this.quantity = new SimpleIntegerProperty(1);
+        this.minPrice = minPrice;
+        this.midPrice = midPrice;
+        this.maxPrice = maxPrice;
 
-        // Initialize job complexity to "Low" and service fee to min price
+        // Initialize job complexity (default to "Low")
         this.jobComplexity = new SimpleStringProperty("Low");
-        this.serviceFee = new SimpleDoubleProperty(service.getMinPrice());
 
-
-        // Create the complexity control (buttons for Low, Medium, High)
-        this.decreaseButton = new Button("-");
-        this.increaseButton = new Button("+");
-        this.serviceFeeLabel = new Label(formatPrice(serviceFee.get()));
-
-        // HBox for buttons and label
-        this.complexityControl = new HBox(decreaseButton, serviceFeeLabel, increaseButton);
-        this.complexityControl.setSpacing(5);
-
-        // Button logic to decrease complexity
-        decreaseButton.setOnAction(event -> {
-            decreaseComplexity();
-        });
-
-        // Button logic to increase complexity
-        increaseButton.setOnAction(event -> {
-            increaseComplexity();
-        });
+        // Add a listener to update price based on job complexity
+        this.jobComplexity.addListener((observable, oldValue, newValue) -> updatePriceForComplexity(newValue));
     }
 
-    // Public Getters
+    public int getServiceId() {
+        return serviceId;
+    }
+
+    public String getServiceName() {
+        return service.getName();  // Access service data via the Service object
+    }
+
+    public String getServicePrice() {
+        return service.getPrice();  // Access service data via the Service object
+    }
+
+    public String getServiceImagePath() {
+        return service.getImagePath();  // Access service data via the Service object
+    }
+
+    public double getPrice() {
+        return price.get();
+    }
+
+    public SimpleDoubleProperty priceProperty() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price.set(price);
+    }
+
+    public int getQuantity() {
+        return quantity.get();
+    }
+
+    public SimpleIntegerProperty quantityProperty() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity.set(quantity);
+    }
+
+    // Getter and setter for job complexity
     public String getJobComplexity() {
         return jobComplexity.get();
     }
 
-    public Double getServiceFee() {
-        return serviceFee.get();
+    public SimpleStringProperty jobComplexityProperty() {
+        return jobComplexity;
     }
 
-    public ImageView getServiceImage() {
-        return serviceImage;
+    public void setJobComplexity(String complexity) {
+        this.jobComplexity.set(complexity);
     }
 
-    public HBox getComplexityControl() {
-        return complexityControl;
-    }
-
-    // Public Methods
-    public void increaseComplexity() {
-        switch (jobComplexity.get()) {
+    // Updates the price based on the job complexity
+    public void updatePriceForComplexity(String complexity) {
+        switch (complexity) {
             case "Low":
-                jobComplexity.set("Medium");
-                serviceFee.set(service.getMidPrice());
+                setPrice(minPrice);
                 break;
             case "Medium":
-                jobComplexity.set("High");
-                serviceFee.set(service.getMaxPrice());
+                setPrice(midPrice);
                 break;
             case "High":
-                return; // Maximum complexity, do nothing
-        }
-        updateServiceFee();
-    }
-
-    public void decreaseComplexity() {
-        switch (jobComplexity.get()) {
-            case "High":
-                jobComplexity.set("Medium");
-                serviceFee.set(service.getMidPrice());
+                setPrice(maxPrice);
                 break;
-            case "Medium":
-                jobComplexity.set("Low");
-                serviceFee.set(service.getMinPrice());
-                break;
-            case "Low":
-                return; // Minimum complexity, do nothing
         }
-        updateServiceFee();
     }
 
-    // Private helper method to update service fee label
-    private void updateServiceFee() {
-        serviceFeeLabel.setText(formatPrice(serviceFee.get()));
-    }
-
-    private String formatPrice(double price) {
-        return String.format("$%.2f", price);
+    public String getTotalPrice() {
+        return String.format("%.2f", getPrice() * getQuantity());
     }
 }

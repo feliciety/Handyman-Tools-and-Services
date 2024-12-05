@@ -80,10 +80,11 @@ public class BookingPageController {
     }
 
     public void recalculateTotal() {
+        // Sum the prices of all booked items
         double total = bookedItems.stream()
-                .mapToDouble(ServiceItem::getSelectedPrice) // Get price based on job complexity
+                .mapToDouble(ServiceItem::getPrice) // Get the price based on job complexity
                 .sum();
-        totalServiceFee.set(total);
+
 
         // Dynamically recalculate the coupon discount
         if (appliedCoupon != null && promoCodes.containsKey(appliedCoupon)) {
