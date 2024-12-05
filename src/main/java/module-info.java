@@ -2,7 +2,6 @@ module project.demo {
     requires javafx.controls;
     requires javafx.fxml;
 
-
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires net.synedra.validatorfx;
@@ -32,15 +31,15 @@ module project.demo {
     exports project.demo.controllers.Service;
     opens project.demo.controllers.Service to javafx.fxml;
 
-    exports project.demo.controllers.Booking;
-    opens project.demo.controllers.Booking to javafx.fxml;
-
     exports project.demo.controllers.Main;
     opens project.demo.controllers.Main to javafx.fxml;
 
     exports project.demo.controllers.Profile;
     opens project.demo.controllers.Profile to javafx.fxml;
 
-    exports project.demo.dao;
+    // Add missing Booking package
+    exports project.demo.controllers.Booking;
+    opens project.demo.controllers.Booking to javafx.fxml;
 
+    exports project.demo.dao;
 }

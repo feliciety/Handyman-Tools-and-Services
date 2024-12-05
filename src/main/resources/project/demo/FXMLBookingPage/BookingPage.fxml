@@ -72,7 +72,7 @@
                            <Font size="15.0" />
                         </font>
                      </Label>
-                          <Label fx:id="totalservicefeeLabel" alignment="CENTER_RIGHT" prefWidth="130.0" text="0.00">
+                          <Label fx:id="totalServiceFeeLabel" alignment="CENTER_RIGHT" prefWidth="130.0" text="0.00">
                         <font>
                            <Font size="15.0" />
                         </font>

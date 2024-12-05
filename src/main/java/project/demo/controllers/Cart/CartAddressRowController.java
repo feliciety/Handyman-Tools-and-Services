@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import project.demo.models.Address;
 
 public class CartAddressRowController {
@@ -21,7 +22,7 @@ public class CartAddressRowController {
     private Label ProvinceRegionLabel;
 
     private Address address;
-    private TextField addressField, cityField, postalCodeField, shippingNoteField;
+    private TextField addressField, cityField, postalCodeField;
     private TextField provinceField, regionField;
 
     // Set the address and display its details
@@ -30,9 +31,11 @@ public class CartAddressRowController {
         AddressTyepeLabel.setText(address.getType());
         StreetCityPostalCodeLabel.setText(address.getStreet() + ", " + address.getCity() + ", " + address.getPostalCode());
         ProvinceRegionLabel.setText(address.getProvince() + ", " + address.getRegion());
+    }
 
-        // Initialize the radio button group for exclusive selection
-        selectAddressRadioButton.setToggleGroup(new javafx.scene.control.ToggleGroup());
+    // Set the shared ToggleGroup for the RadioButton
+    public void setToggleGroup(ToggleGroup toggleGroup) {
+        selectAddressRadioButton.setToggleGroup(toggleGroup);
     }
 
     // Set fields for address population
