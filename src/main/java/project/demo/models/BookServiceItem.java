@@ -12,6 +12,7 @@ import javafx.scene.text.Text;
 
 public class BookServiceItem {
 
+    private Service service;
     private final StringProperty serviceName = new SimpleStringProperty();
     private final StringProperty jobComplexity = new SimpleStringProperty(); // "high", "medium", "low"
     private final DoubleProperty serviceFee = new SimpleDoubleProperty(); // Service fee bound to the table
@@ -22,23 +23,29 @@ public class BookServiceItem {
     private double maxPrice;
     private double midPrice;
 
+
+
     private final HBox jobComplexityControl; // Control for selecting complexity
     private final Button removeButton; // Remove button for the item
 
     // Constructor to initialize the service item
-    public BookServiceItem(String serviceName, String jobComplexity, String priceRange, String bookingDate, String serviceImagePath) {
-        this.serviceName.set(serviceName);
+    public BookServiceItem(Service service, String jobComplexity, String bookingDate) {
+        this.service = service;
+        this.serviceName.set(service.getName());
         this.jobComplexity.set(jobComplexity);
         this.bookingDate.set(bookingDate);
-        this.serviceImage = serviceImagePath;
+        this.serviceImage = service.getImagePath();
 
-        // Set the initial price values and service fee, it will be updated when the price range is parsed in the controller
-        this.minPrice = 0.0;
-        this.maxPrice = 0.0;
-        this.midPrice = 0.0;
+        // Set the initial price values and service fee based on the Service object
+        this.minPrice = service.getMinPrice(); // Assuming the service price is the minimum price
+        this.maxPrice = service.getMaxPrice(); // Assuming no range, adjust if necessary
+        this.midPrice = (minPrice + maxPrice) / 2;
+
+        // Calculate the service fee based on job complexity
+        this.serviceFee.set(calculateServiceFee());
 
         // Load service image
-        this.serviceImageView = createServiceImageView(serviceImagePath);
+        this.serviceImageView = createServiceImageView(service.getImagePath());
 
         // Create the job complexity control
         this.jobComplexityControl = createJobComplexityControl();
@@ -46,6 +53,7 @@ public class BookServiceItem {
         // Create the remove button
         this.removeButton = createRemoveButton();
     }
+
 
     // Calculate the service fee based on job complexity
     private double calculateServiceFee() {
@@ -133,6 +141,15 @@ public class BookServiceItem {
     // Getters and setters for properties
     public String getServiceName() {
         return serviceName.get();
+    }
+
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
     }
 
     public void setServiceName(String serviceName) {
