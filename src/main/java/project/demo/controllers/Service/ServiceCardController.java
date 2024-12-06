@@ -60,13 +60,11 @@ public class ServiceCardController {
 
         System.out.println("[DEBUG] Book Now clicked for service: " + service.getName());
 
-        // Add the service to the cart
+        // Add the service to the cart using the updated BookServiceItem constructor
         BookServiceItem item = new BookServiceItem(
-                service.getName(),
-                "medium", // Default complexity
-                String.valueOf(service.getPriceForComplexity("medium")), // Default price for medium complexity
-                "N/A", // Default booking date
-                service.getImagePath()
+                service,              // The service object
+                "low",             // Default complexity
+                "N/A"                 // Default booking date
         );
 
         BookServiceManager.getInstance().addService(item);

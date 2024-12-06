@@ -7,7 +7,9 @@ public class Service {
     private String price; // Can be a single price or a range (e.g., "300" or "300 - 700")
     private String imagePath;
     private double minPrice; // Parsed minimum price
-    private double maxPrice; // Parsed maximum price
+    private double maxPrice; // Parsed maximum price    private Service service;
+
+
 
     public Service(String name, String description, String price, String imagePath) {
         this.name = name;
@@ -42,6 +44,7 @@ public class Service {
     public String getPrice() {
         return price;
     }
+
 
     public String getImagePath() {
         return imagePath;
