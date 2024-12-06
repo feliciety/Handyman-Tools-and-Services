@@ -60,12 +60,12 @@ public class Service {
         if (price.contains("-")) {
             // Handle range by formatting each side
             String[] prices = price.split("-");
-            String formattedStart = "₱" + prices[0].trim();
-            String formattedEnd = "₱" + prices[1].trim();
+            String formattedStart = "$" + prices[0].trim();
+            String formattedEnd = "$" + prices[1].trim();
             return formattedStart + " - " + formattedEnd;
         } else {
             // Handle single price
-            return "₱" + price;
+            return "$" + price;
         }
     }
 
