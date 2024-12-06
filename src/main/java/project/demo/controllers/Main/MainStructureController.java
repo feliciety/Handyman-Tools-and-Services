@@ -79,22 +79,26 @@ public class MainStructureController {
         loadPage("/project/demo/FXMLProfilePage/ProfilePage.fxml");
     }
     public void handleAboutUsClick(ActionEvent actionEvent) {
+        System.out.println("[DEBUG] About Us button clicked.");
+        loadPage("/project/demo/FXMLAboutUsPage/AboutUsPage.fxml");
     }
     public void handleHomeClick(ActionEvent actionEvent) {
+
         loadPage("/project/demo/FXMLHomePage/HomePage.fxml");
     }
 
     public void handleShopClick(ActionEvent actionEvent) {
+
         loadPage("/project/demo/FXMLShopPage/ShopPage.fxml");
     }
 
     public void handleCartClick(ActionEvent actionEvent) {
+
         loadPage("/project/demo/FXMLCartPage/CartPage.fxml");
     }
 
     public void handleServiceClick(ActionEvent actionEvent) {
         loadPage("/project/demo/FXMLServicePage/ServicePage.fxml");
-
     }
 
     public void handleBookingClick(ActionEvent actionEvent) {

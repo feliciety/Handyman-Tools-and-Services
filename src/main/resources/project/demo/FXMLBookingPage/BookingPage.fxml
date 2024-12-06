@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="651.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Booking.BookingPageController">
+<AnchorPane prefHeight="651.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Booking.BookingPageController">
     <children>
         <!-- Dynamic Content Pane (Cart Table) -->
         <AnchorPane fx:id="contentPane" layoutX="37.0" layoutY="64.0" prefHeight="522.0" prefWidth="762.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #dcdcdc; -fx-background-color: #f5f5f5;" AnchorPane.leftAnchor="37.0" AnchorPane.topAnchor="64.0" />

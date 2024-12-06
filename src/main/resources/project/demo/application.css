@@ -85,10 +85,8 @@
     -fx-font-style: italic;
 }
 
-.table-view .scroll-bar:vertical,
-.table-view .scroll-bar:horizontal {
-    -fx-opacity: 0;        /* Makes the scrollbar invisible */
-    -fx-pref-width: 0;     /* Removes the width of the scrollbar */
-    -fx-pref-height: 0;    /* Removes the height of the scrollbar */
+.table-view.scroll-bar {
+    -fx-opacity: 0;
 }
+
 

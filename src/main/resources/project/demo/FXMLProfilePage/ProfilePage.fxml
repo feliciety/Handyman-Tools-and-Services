@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="661.0" prefWidth="1218.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Profile.ProfilePageController">
+<AnchorPane prefHeight="661.0" prefWidth="1218.0" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Profile.ProfilePageController">
    <children>
       <VBox layoutX="225.0" layoutY="36.0" prefHeight="606.0" prefWidth="793.0">
          <children>

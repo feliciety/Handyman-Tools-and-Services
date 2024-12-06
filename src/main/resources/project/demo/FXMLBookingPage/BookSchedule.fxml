@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="595.0" prefWidth="841.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Booking.BookScheduleController">
+<AnchorPane prefHeight="595.0" prefWidth="841.0" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Booking.BookScheduleController">
    <children>
       <TableView fx:id="cartTable" layoutX="24.0" layoutY="32.0" prefHeight="472.0" prefWidth="508.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #dcdcdc; -fx-background-color: #f5f5f5;" stylesheets="@../application.css">
          <columns>

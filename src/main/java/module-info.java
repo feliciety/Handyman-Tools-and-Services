@@ -37,9 +37,12 @@ module project.demo {
     exports project.demo.controllers.Profile;
     opens project.demo.controllers.Profile to javafx.fxml;
 
-    // Add missing Booking package
     exports project.demo.controllers.Booking;
     opens project.demo.controllers.Booking to javafx.fxml;
+
+    // Add the AboutUs package
+    exports project.demo.controllers.AboutUs;
+    opens project.demo.controllers.AboutUs to javafx.fxml;
 
     exports project.demo.dao;
 }

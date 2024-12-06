@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="332.0" prefWidth="646.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Profile.GCashEditController">
+<AnchorPane prefHeight="332.0" prefWidth="646.0" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Profile.GCashEditController">
     <!-- Credit/Debit Card Fields -->
     <VBox layoutX="84.0" layoutY="88.0" prefHeight="227.0" prefWidth="478.0" spacing="10.0">
         <TextField fx:id="gcashAccountField" prefHeight="40.0" prefWidth="326.0" promptText="GCash Account Name" />

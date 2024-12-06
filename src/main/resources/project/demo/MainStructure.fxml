@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane prefHeight="780.0" prefWidth="1240.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Main.MainStructureController">
+<AnchorPane prefHeight="780.0" prefWidth="1240.0" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Main.MainStructureController">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="1240.0" spacing="20" style="-fx-background-color: #222222; -fx-padding: 10;">
          <children>
