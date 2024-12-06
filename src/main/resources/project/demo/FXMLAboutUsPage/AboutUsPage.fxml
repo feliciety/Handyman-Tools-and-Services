@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.AboutUs.AboutUsPageController">
+   <children>
+      <ScrollPane hbarPolicy="NEVER" vbarPolicy="NEVER">
+         <content>
+            <AnchorPane prefHeight="3217.0" prefWidth="1240.0">
+               <children>
+                  <ImageView fitHeight="672.0" fitWidth="1238.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imageAboutUs/AboutUs.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="651.0" fitWidth="1236.0" layoutY="658.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imageAboutUs/AboutUsMission.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="661.0" fitWidth="1236.0" layoutX="2.0" layoutY="1311.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imageAboutUs/AboutUsTools.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="656.0" fitWidth="1252.0" layoutX="-5.0" layoutY="1963.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imageAboutUs/AboutUsTeam.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="688.0" fitWidth="1243.0" layoutX="-3.0" layoutY="2617.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imageAboutUs/AboutUsFounders.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

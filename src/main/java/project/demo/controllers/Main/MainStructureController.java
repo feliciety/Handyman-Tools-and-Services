@@ -94,6 +94,7 @@ public class MainStructureController {
 
     public void handleServiceClick(ActionEvent actionEvent) {
         loadPage("/project/demo/FXMLServicePage/ServicePage.fxml");
+
     }
 
     public void handleBookingClick(ActionEvent actionEvent) {
