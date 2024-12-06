@@ -5,7 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.AboutUs.AboutUsPageController">
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.AboutUs.AboutUsPageController">
    <children>
       <ScrollPane hbarPolicy="NEVER" prefHeight="654.0" prefWidth="1242.0" vbarPolicy="NEVER">
          <content>

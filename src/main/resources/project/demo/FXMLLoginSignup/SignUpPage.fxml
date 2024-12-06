@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="1200.0" style="-fx-background-color: #3E66FF;" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.LoginSignup.SignUpPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="1200.0" style="-fx-background-color: #3E66FF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.LoginSignup.SignUpPageController">
 
           <ImageView fitHeight="651.0" fitWidth="1228.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 50;">
         <image>
@@ -67,7 +67,7 @@
                      <Insets top="20.0" />
                   </VBox.margin>
                </Label>
-                    <TextField fx:id="usernameField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #67608f;">
+                    <TextField fx:id="usernameField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #67608f;">
                         <VBox.margin>
                             <Insets bottom="10.0" top="5.0" />
                         </VBox.margin>
@@ -77,7 +77,7 @@
                      <Font name="System Bold" size="14.0" />
                   </font>
                </Label>
-                    <TextField fx:id="emailField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #67608f;">
+                    <TextField fx:id="emailField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #67608f;">
                         <VBox.margin>
                             <Insets bottom="10.0" top="5.0" />
                         </VBox.margin>
@@ -88,7 +88,7 @@
                   </font>
                </Label>
                     <!-- Replacing TextField with PasswordField -->
-                    <PasswordField fx:id="passwordField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #67608f;">
+                    <PasswordField fx:id="passwordField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #67608f;">
                   <VBox.margin>
                      <Insets bottom="10.0" top="5.0" />
                   </VBox.margin></PasswordField>
@@ -97,7 +97,7 @@
                      <Font name="System Bold" size="14.0" />
                   </font>
                </Label>
-               <PasswordField fx:id="confirmPasswordField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #67608f;" />
+               <PasswordField fx:id="confirmPasswordField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #67608f;" />
                     <Label fx:id="warningLabel" prefHeight="9.0" prefWidth="350.0" style="-fx-text-fill: red;" text="Warning" textFill="RED" visible="false">
                   <VBox.margin>
                      <Insets bottom="10.0" top="5.0" />

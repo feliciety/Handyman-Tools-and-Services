@@ -2,7 +2,6 @@ package project.demo.controllers.Profile;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
@@ -13,8 +12,6 @@ import project.demo.dao.AddressDAO;
 import project.demo.dao.AddressDAOImpl;
 import project.demo.models.Address;
 import project.demo.models.UserSession;
-
-import java.util.stream.Collectors;
 
 public class EditAddressFormController {
 

@@ -12,7 +12,6 @@ module project.demo {
     requires java.desktop;
     requires annotations;
 
-    // Exporting and opening all necessary packages
     exports project.demo.models;
     opens project.demo.models to javafx.fxml;
 
@@ -37,12 +36,11 @@ module project.demo {
     exports project.demo.controllers.Profile;
     opens project.demo.controllers.Profile to javafx.fxml;
 
+    // Add missing Booking package
     exports project.demo.controllers.Booking;
     opens project.demo.controllers.Booking to javafx.fxml;
 
-    // Add the AboutUs package
-    exports project.demo.controllers.AboutUs;
-    opens project.demo.controllers.AboutUs to javafx.fxml;
-
     exports project.demo.dao;
+    exports project.demo.DataBase;
+    opens project.demo.DataBase to javafx.fxml;
 }

@@ -65,22 +65,27 @@
                            <Font name="System Bold" size="16.0" />
                         </font>
                      </Label>
-                          <TextField fx:id="emailOrUsernameField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #67608f;" />
+                          <TextField fx:id="emailOrUsernameField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #67608f;" />
                      <Label text="Password">
                         <font>
                            <Font name="System Bold" size="16.0" />
                         </font>
                      </Label>
                           <!-- Replacing TextField with PasswordField -->
-                          <PasswordField fx:id="passwordField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #67608f;" />
+                          <PasswordField fx:id="passwordField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #67608f;" />
                   </children>
                   <VBox.margin>
                      <Insets top="20.0" />
                   </VBox.margin>
                </VBox>
+               <Label fx:id="warningLabel" alignment="CENTER" prefHeight="18.0" prefWidth="431.0" textFill="RED" visible="false">
+                  <VBox.margin>
+                     <Insets />
+                  </VBox.margin>
+               </Label>
                     <Button mnemonicParsing="false" onAction="#LogInButtonClicked" prefHeight="51.0" prefWidth="430.0" stylesheets="@../application.css" text="Log In">
                         <VBox.margin>
-                            <Insets top="20.0" />
+                            <Insets />
                         </VBox.margin>
                         <font>
                             <Font name="Inter Extra Bold" size="12.0" />
@@ -98,6 +103,22 @@
             </VBox>
         </children>
     </Pane>
-    <StackPane layoutX="1108.8" layoutY="447.4" prefHeight="38.0" prefWidth="38.0" AnchorPane.rightAnchor="204.79999999999995" AnchorPane.topAnchor="447.4" />
-    <StackPane layoutX="1108.8" layoutY="345.4" prefHeight="38.0" prefWidth="38.0" AnchorPane.rightAnchor="204.79999999999995" AnchorPane.topAnchor="345.4" />
+   <StackPane fx:id="passwordWarningImage" layoutX="1021.0" layoutY="386.0" prefHeight="38.0" prefWidth="38.0" visible="false">
+      <children>
+         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../imagelogo/warning.png" />
+            </image>
+         </ImageView>
+      </children>
+   </StackPane>
+   <StackPane fx:id="emailWarningImage" layoutX="1021.0" layoutY="298.0" prefHeight="38.0" prefWidth="38.0" visible="false">
+      <children>
+         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../imagelogo/warning.png" />
+            </image>
+         </ImageView>
+      </children>
+   </StackPane>
 </AnchorPane>

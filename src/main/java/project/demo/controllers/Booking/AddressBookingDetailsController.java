@@ -9,7 +9,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import project.demo.DataBase.DatabaseConfig;
 import project.demo.controllers.Cart.CartAddressRowController;
-import project.demo.controllers.Cart.CartPageController;
 import project.demo.models.Address;
 
 import java.io.IOException;
