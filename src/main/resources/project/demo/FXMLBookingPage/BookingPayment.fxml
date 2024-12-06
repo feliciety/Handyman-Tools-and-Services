@@ -7,29 +7,29 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="595.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Booking.BookingPaymentController">
+<AnchorPane prefHeight="522.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Booking.BookingPaymentController">
 
     <!-- Main Container -->
-    <VBox layoutX="60.2" layoutY="16.8" prefHeight="572.0" prefWidth="646.0" AnchorPane.leftAnchor="60.2" AnchorPane.topAnchor="16.8">
+    <VBox layoutX="60.0" layoutY="16.8" prefHeight="497.0" prefWidth="648.0" spacing="5.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="17.0">
         <!-- Header -->
         <Label prefHeight="71.0" prefWidth="241.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Complete Your Order" />
 
         <!-- Payment Methods -->
-        <VBox prefHeight="100.0" prefWidth="650.0" spacing="15.0">
+        <VBox prefHeight="80.0" prefWidth="648.0" spacing="15.0">
             <Label style="-fx-font-size: 14px;" text="Choose your payment method and enter your details." />
             <!-- Payment Method Selection -->
             <HBox prefHeight="50.0" prefWidth="650.0" spacing="15.0">
-                <Button onAction="#showCardFields" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: #3E4546; -fx-text-fill: white;" text="Credit/Debit Card" />
-                <Button onAction="#showPayPalFields" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: #3E4546; -fx-text-fill: white;" text="PayPal" />
-                <Button onAction="#showGcashFields" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: #3E4546; -fx-text-fill: white;" text="Bank Transfer" />
-                <Button onAction="#showCODFields" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #3E4546; -fx-text-fill: white;" text="Cash on Delivery (COD)" />
+                <Button onAction="#showCardFields" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #3E4546; -fx-text-fill: white;" text="Credit/Debit Card" />
+                <Button onAction="#showPayPalFields" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #3E4546; -fx-text-fill: white;" text="PayPal" />
+                <Button onAction="#showGcashFields" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #3E4546; -fx-text-fill: white;" text="Bank Transfer" />
+                <Button onAction="#showCODFields" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #3E4546; -fx-text-fill: white;" text="Cash on Delivery (COD)" />
             </HBox>
         </VBox>
-      <AnchorPane fx:id="paymentDetailsBox">
+      <AnchorPane fx:id="paymentDetailsBox" prefHeight="308.0" prefWidth="648.0" styleClass="my-style" stylesheets="@../styles.css">
          <children>
       
               <!-- Payment Details Form -->
-              <VBox prefHeight="332.0" prefWidth="646.0" spacing="15.0" style="-fx-padding: 10; -fx-border-color: lightgray; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #f9f9f9;" />
+              <VBox layoutY="5.0" prefHeight="327.0" prefWidth="646.0" spacing="15.0" />
          </children>
       </AnchorPane>
 

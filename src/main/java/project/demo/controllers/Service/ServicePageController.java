@@ -69,10 +69,8 @@ public class ServicePageController {
             if (newValue != null) {
                 if (newValue.equals("All Services")) {
                     populateAllServices();
-                    subcategoriesBox.getChildren().clear(); // Clear subcategories when "All Services" is selected
                 } else {
-                    loadSubcategories(newValue); // Load subcategories and services for the selected category
-                    populateCategoryServices(newValue); // Display services for the selected category
+                    loadSubcategories(newValue);
                 }
             }
         });
@@ -85,15 +83,8 @@ public class ServicePageController {
 
         for (String subcategory : subcategories) {
             Button subcategoryButton = new Button(subcategory);
-            subcategoryButton.setOnAction(event -> populateServices(subcategory)); // Display services for the selected subcategory
-            subcategoryButton.setStyle(
-                    "-fx-background-color: #3E4546; " +
-                            "-fx-text-fill: white; " +
-                            "-fx-font-size: 14px; " +  // Increase font size
-                            "-fx-padding: 10 20 10 20; " +  // Add padding (top-right-bottom-left)
-                            "-fx-pref-width: 200px; " +  // Set a preferred width
-                            "-fx-pref-height: 40px;"     // Set a preferred height
-            );
+            subcategoryButton.setOnAction(event -> populateServices(subcategory));
+            subcategoryButton.setStyle("-fx-background-color: #3E4546; -fx-text-fill: white; -fx-font-weight: bold;");
             subcategoriesBox.getChildren().add(subcategoryButton);
         }
     }
@@ -101,15 +92,6 @@ public class ServicePageController {
     private void populateAllServices() {
         serviceGrid.getChildren().clear();
         List<Service> services = fetchAllServicesFromDatabase();
-
-        if (services != null) {
-            populateServiceGrid(services);
-        }
-    }
-
-    private void populateCategoryServices(String category) {
-        serviceGrid.getChildren().clear();
-        List<Service> services = fetchServicesByCategoryFromDatabase(category);
 
         if (services != null) {
             populateServiceGrid(services);
@@ -202,29 +184,10 @@ public class ServicePageController {
         return services;
     }
 
-    private List<Service> fetchServicesByCategoryFromDatabase(String category) {
-        List<Service> services = new ArrayList<>();
-        String query = "SELECT service_name, service_description, service_price, service_image_path FROM Service WHERE subcategory_id IN (SELECT subcategory_id FROM Subcategory WHERE category_id = (SELECT category_id FROM ServiceCategory WHERE category_name = ?))";
-
-        try (Connection connection = new DatabaseConfig().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setString(1, category);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                services.add(extractServiceFromResultSet(resultSet));
-            }
-        } catch (Exception e) {
-            System.err.println("[ERROR] Failed to fetch services by category: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return services;
-    }
-
     private List<Service> fetchServicesFromDatabase(String subcategory) {
         List<Service> services = new ArrayList<>();
-        String query = "SELECT service_name, service_description, service_price, service_image_path FROM Service WHERE subcategory_id = (SELECT subcategory_id FROM Subcategory WHERE subcategory_name = ?)";
+        String query = "SELECT service_name, service_description, service_price, service_image_path " +
+                "FROM Service WHERE subcategory_id = (SELECT subcategory_id FROM Subcategory WHERE subcategory_name = ?)";
 
         try (Connection connection = new DatabaseConfig().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -244,7 +207,9 @@ public class ServicePageController {
 
     private List<Service> filterServicesByQueryAndPrice(String query, int maxPrice) {
         List<Service> services = new ArrayList<>();
-        String sqlQuery = "SELECT service_name, service_description, service_price, service_image_path FROM Service WHERE (service_name LIKE ? OR service_description LIKE ?) AND CAST(service_price AS UNSIGNED) <= ?";
+        String sqlQuery = "SELECT service_name, service_description, service_price, service_image_path " +
+                "FROM Service WHERE (service_name LIKE ? OR service_description LIKE ?) " +
+                "AND CAST(service_price AS UNSIGNED) <= ?";
 
         try (Connection connection = new DatabaseConfig().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {

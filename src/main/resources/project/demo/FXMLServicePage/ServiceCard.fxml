@@ -32,7 +32,7 @@
           </Label>
       </children>
    </VBox>
-    <Button fx:id="bookNowButton" prefHeight="30.0" prefWidth="146.0" styleClass="button_addtocart" stylesheets="@../application.css" text="Book Now">
+    <Button fx:id="bookNowButton" onAction="#onBookNowClicked" prefHeight="30.0" prefWidth="146.0" styleClass="button_addtocart" stylesheets="@../application.css" text="Book Now">
         <font>
             <Font name="Inter Light BETA" size="14.0" />
         </font>

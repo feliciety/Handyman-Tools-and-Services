@@ -1,75 +1,75 @@
 package project.demo.controllers.Service;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import project.demo.models.Service;
-
-import java.io.IOException;
+import project.demo.models.BookServiceManager;
+import project.demo.models.BookServiceItem;
 
 public class ServiceCardController {
-    @FXML
-    private Label serviceName; // Corresponds to service_name
-    @FXML
-    private Label serviceDescription; // Corresponds to service_description
-    @FXML
-    private Label servicePrice; // Corresponds to service_price
-    @FXML
-    private ImageView serviceImage; // Corresponds to service_image_path
 
     @FXML
-    private Button bookNowButton;
+    private Label serviceName;
 
-    public void setServiceDetails(Service homeService) {
-        serviceName.setText(homeService.getName());
-        serviceDescription.setText(homeService.getDescription());
-        servicePrice.setText(homeService.getFormattedPrice());
+    @FXML
+    private Label serviceDescription;
 
+    @FXML
+    private Label servicePrice;
+
+    @FXML
+    private ImageView serviceImage;
+
+    private Service service;
+
+    /**
+     * Set the service details on the card.
+     * @param service the service object
+     */
+    public void setServiceDetails(Service service) {
+        this.service = service; // Store the current service
+        serviceName.setText(service.getName());
+        serviceDescription.setText(service.getDescription());
+        servicePrice.setText(service.getFormattedPrice());
+
+        // Load service image
         try {
-            String imagePath = homeService.getImagePath();
-            System.out.println("[DEBUG] Loading image from path: " + imagePath);
-
+            String imagePath = service.getImagePath();
             if (getClass().getResource(imagePath) != null) {
                 serviceImage.setImage(new Image(getClass().getResource(imagePath).toExternalForm()));
             } else {
-                System.err.println("[ERROR] Image not found at path: " + imagePath);
+                System.err.println("[ERROR] Image not found: " + imagePath);
             }
         } catch (IllegalArgumentException e) {
             System.err.println("[ERROR] Invalid image path: " + e.getMessage());
         }
-
-        // Set the action for the "Book Now" button
-        bookNowButton.setOnAction(event -> {
-            System.out.println("Booking service: " + homeService.getName());
-            openBookSchedule();
-        });
     }
 
     /**
-     * Opens the BookSchedule.fxml file in a new pop-up window.
+     * Handles the "Book Now" button click.
      */
-    private void openBookSchedule() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLBookingPage/BookSchedule.fxml"));
-            Scene scene = new Scene(loader.load());
-
-            // Create a new Stage for the pop-up
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("Schedule Booking");
-            stage.initModality(Modality.APPLICATION_MODAL); // Makes the pop-up modal
-            stage.setResizable(false); // Prevent resizing of the pop-up
-            stage.showAndWait(); // Wait for the user to close the pop-up before returning to the main window
-
-        } catch (IOException e) {
-            System.err.println("[ERROR] Failed to load BookSchedule.fxml: " + e.getMessage());
-            e.printStackTrace();
+    @FXML
+    private void onBookNowClicked() {
+        if (service == null) {
+            System.err.println("[ERROR] Service is null when clicking Book Now.");
+            return;
         }
+
+        System.out.println("[DEBUG] Book Now clicked for service: " + service.getName());
+
+        // Add the service to the cart
+        BookServiceItem item = new BookServiceItem(
+                service.getName(),
+                "medium", // Default complexity
+                String.valueOf(service.getPriceForComplexity("medium")), // Default price for medium complexity
+                "N/A", // Default booking date
+                service.getImagePath()
+        );
+
+        BookServiceManager.getInstance().addService(item);
+        System.out.println("[DEBUG] Service added to cart: " + item.getServiceName());
     }
 }
