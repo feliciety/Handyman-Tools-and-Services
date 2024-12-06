@@ -1,19 +1,257 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="643.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane layoutX="2.0" layoutY="-2.0" prefHeight="672.0" prefWidth="1218.0" style="-fx-background-color: White;">
-         <children>
-            <ImageView fitHeight="618.0" fitWidth="1218.0" layoutX="17.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../imageHomePage/HomePage.png" />
-               </image>
-            </ImageView>
-         </children></Pane>
+      <ScrollPane hbarPolicy="NEVER" vbarPolicy="NEVER">
+         <content>
+            <AnchorPane prefHeight="643.0" prefWidth="1220.0">
+               <children>
+                  <Pane layoutY="-2.0" prefHeight="1023.0" prefWidth="1218.0" style="-fx-background-color: White;">
+                     <children>
+                        <ImageView fitHeight="673.0" fitWidth="1222.0" layoutX="-2.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imageHomePage/HomePageBG.png" />
+                           </image>
+                        </ImageView>
+                        <Pane layoutX="76.0" layoutY="306.0" prefHeight="338.0" prefWidth="510.0" style="-fx-background-color: #D8A339;" />
+                        <Pane layoutX="76.0" layoutY="284.0" prefHeight="49.0" prefWidth="236.0" style="-fx-background-color: #000000;" />
+                        <ImageView fitHeight="607.0" fitWidth="1093.0" layoutX="28.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imageHomePage/HomePagePerson.png" />
+                           </image>
+                        </ImageView>
+                        <Pane layoutX="600.0" layoutY="118.0" prefHeight="285.0" prefWidth="596.0" style="-fx-background-color: black; -fx-opacity: 0.5; -fx-background-radius: 30;" />
+                        <VBox layoutX="608.0" layoutY="119.0" prefHeight="312.0" prefWidth="606.0">
+                           <children>
+                              <Label contentDisplay="TOP" prefHeight="38.0" prefWidth="580.0" text="Your Go-To " textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="96.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="-20.0" left="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label prefHeight="107.0" prefWidth="394.0" text="Providers" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="84.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <VBox prefHeight="36.0" prefWidth="606.0">
+                                 <children>
+                                    <Label prefHeight="17.0" prefWidth="576.0" text="Reliable handyman services. Skilled professionals for every" textFill="WHITE">
+                                       <font>
+                                          <Font size="19.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets left="15.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label text="home repair, installation, and maintenance need!" textFill="WHITE">
+                                       <font>
+                                          <Font size="19.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets left="15.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <ImageView fitHeight="93.0" fitWidth="88.0" layoutX="520.0" layoutY="465.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imageHomePage/Arrow.png" />
+                           </image>
+                        </ImageView>
+                        <VBox layoutX="617.0" layoutY="454.0" prefHeight="165.0" prefWidth="307.0">
+                           <children>
+                              <Label text="&quot;Fast, reliable, and affordable. The best">
+                                 <font>
+                                    <Font name="Times New Roman" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label text="handyman service I've ever used!&quot;">
+                                 <font>
+                                    <Font name="Times New Roman" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label text="— Modesto Tarrazona">
+                                 <font>
+                                    <Font name="Times New Roman" size="18.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="15.0" />
+                                 </padding>
+                              </Label>
+                              <ImageView fitHeight="95.0" fitWidth="305.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../imageHomePage/Stars.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </VBox>
+                        <AnchorPane layoutX="-8.0" layoutY="642.0" prefHeight="365.0" prefWidth="1228.0" style="-fx-background-color: #F2C468;">
+                           <children>
+                              <VBox layoutY="6.0">
+                                 <children>
+                                    <HBox alignment="TOP_CENTER" prefHeight="94.0" prefWidth="1225.0">
+                                       <children>
+                                          <Label text="We Offer HandyMan Services Since 2020" textFill="WHITE">
+                                             <font>
+                                                <Font name="Arial Bold" size="45.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets top="40.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="141.0" prefWidth="1225.0" spacing="50.0">
+                                       <children>
+                                          <Pane prefHeight="183.0" prefWidth="353.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15; -fx-effect: shadow;">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                             <children>
+                                                <HBox alignment="TOP_CENTER" prefHeight="142.0" prefWidth="356.0">
+                                                   <children>
+                                                      <VBox alignment="TOP_CENTER" prefHeight="142.0" prefWidth="140.0">
+                                                         <children>
+                                                            <ImageView fitHeight="62.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../imageHomePage/deal.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </children>
+                                                         <opaqueInsets>
+                                                            <Insets />
+                                                         </opaqueInsets>
+                                                         <HBox.margin>
+                                                            <Insets top="20.0" />
+                                                         </HBox.margin>
+                                                      </VBox>
+                                                      <VBox prefHeight="142.0" prefWidth="216.0">
+                                                         <children>
+                                                            <Label text="Licensed Workers">
+                                                               <font>
+                                                                  <Font name="System Bold" size="20.0" />
+                                                               </font>
+                                                               <padding>
+                                                                  <Insets bottom="10.0" top="18.0" />
+                                                               </padding>
+                                                            </Label>
+                                                            <Label text="Our certified experts ensure top" />
+                                                            <Label text="quality service. Trust us for reliable" />
+                                                            <Label text="solutions." />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </Pane>
+                                          <Pane prefHeight="200.0" prefWidth="353.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15;">
+                                             <children>
+                                                <HBox prefHeight="143.0" prefWidth="357.0">
+                                                   <children>
+                                                      <VBox alignment="TOP_CENTER" prefHeight="142.0" prefWidth="140.0">
+                                                         <children>
+                                                            <ImageView fitHeight="62.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../imageHomePage/thumbsUp.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </children>
+                                                         <HBox.margin>
+                                                            <Insets top="20.0" />
+                                                         </HBox.margin>
+                                                      </VBox>
+                                                      <VBox prefHeight="142.0" prefWidth="216.0">
+                                                         <children>
+                                                            <Label text="Top-Rated Service">
+                                                               <font>
+                                                                  <Font name="System Bold" size="20.0" />
+                                                               </font>
+                                                               <padding>
+                                                                  <Insets bottom="10.0" top="18.0" />
+                                                               </padding>
+                                                            </Label>
+                                                            <Label text="Loved by customers for exceptional" />
+                                                            <Label text="results. Your satisfaction is our priority." />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </Pane>
+                                          <Pane prefHeight="200.0" prefWidth="353.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15;">
+                                             <children>
+                                                <HBox prefHeight="141.0" prefWidth="355.0">
+                                                   <children>
+                                                      <VBox alignment="TOP_CENTER" prefHeight="142.0" prefWidth="140.0">
+                                                         <children>
+                                                            <ImageView fitHeight="62.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../imageHomePage/onTime.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </children>
+                                                         <HBox.margin>
+                                                            <Insets top="20.0" />
+                                                         </HBox.margin>
+                                                      </VBox>
+                                                      <VBox prefHeight="142.0" prefWidth="216.0">
+                                                         <children>
+                                                            <Label text="Timely Services">
+                                                               <font>
+                                                                  <Font name="System Bold" size="20.0" />
+                                                               </font>
+                                                               <padding>
+                                                                  <Insets bottom="10.0" top="18.0" />
+                                                               </padding>
+                                                            </Label>
+                                                            <Label text="We deliver on time without" />
+                                                            <Label text="compromising quality. Efficiency you." />
+                                                            <Label text="count on." />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </Pane>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="30.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                        <ImageView fitHeight="93.0" fitWidth="1262.0" layoutX="1.0" layoutY="920.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imageHomePage/Vector.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
