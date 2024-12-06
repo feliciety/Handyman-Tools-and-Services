@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="793.6" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Profile.PaymentMethodsController">
+<AnchorPane prefHeight="400.0" prefWidth="793.6" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Profile.PaymentMethodsController">
     <children>
         <!-- Header -->
         <VBox layoutX="101.0" layoutY="20.0" prefHeight="62.0" prefWidth="592.0" spacing="10.0">
@@ -25,15 +25,19 @@
                 <!-- Payment Method Block 1 -->
                 <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="640.0" spacing="15.0" style="-fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0; -fx-padding: 15;">
                     <children>
+                  <ImageView fitHeight="45.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../imagelogo/paypal.png" />
+                     </image>
+                  </ImageView>
                         <VBox alignment="CENTER_LEFT" prefWidth="500.0" spacing="5.0">
-                            <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="PayPal"/>
-                            <Label fx:id="paypalEmailLabel" style="-fx-font-size: 14px; -fx-text-fill: #666666;"
-                                   text="Enter Details"/>
+                            <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="PayPal" />
+                            <Label fx:id="paypalEmailLabel" style="-fx-font-size: 14px; -fx-text-fill: #666666;" text="Enter Details" />
                         </VBox>
                   <Button fx:id="editPayPalButton" mnemonicParsing="false" onAction="#editPayPalEditPopup" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: F4F4F5;">
                      <graphic>
                          <ImageView fitHeight="33.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
-                             <Image url="@../../imagelogo/pen.png"/>
+                             <Image url="@../../imagelogo/pen.png" />
                          </ImageView>
                      </graphic>
                   </Button>
@@ -41,18 +45,20 @@
                 </HBox>
 
                 <!-- Payment Method Block 2 -->
-                <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="640.0" spacing="15.0"
-                      style="-fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0; -fx-padding: 15;">
+                <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="640.0" spacing="15.0" style="-fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0; -fx-padding: 15;">
+               <ImageView fitHeight="32.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../../imagelogo/Visa.png" />
+                  </image>
+               </ImageView>
                     <VBox alignment="CENTER_LEFT" prefWidth="500.0" spacing="5.0">
-                        <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Credit Card"/>
-                        <Label fx:id="creditCardNumLabel" style="-fx-font-size: 14px; -fx-text-fill: #666666;"
-                               text="Enter Details"/>
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Credit Card" />
+                        <Label fx:id="creditCardNumLabel" style="-fx-font-size: 14px; -fx-text-fill: #666666;" text="Enter Details" />
                     </VBox>
-                    <Button fx:id="editCreditCardButton" mnemonicParsing="false" onAction="#editCreditCardEditPopup"
-                            prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: F4F4F5;">
+                    <Button fx:id="editCreditCardButton" mnemonicParsing="false" onAction="#editCreditCardEditPopup" prefHeight="32.0" prefWidth="23.0" style="-fx-background-color: F4F4F5;">
                         <graphic>
                             <ImageView fitHeight="33.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
-                                <Image url="@../../imagelogo/pen.png"/>
+                                <Image url="@../../imagelogo/pen.png" />
                             </ImageView>
                         </graphic>
                     </Button>
@@ -61,6 +67,11 @@
                 <!-- Payment Method Block 3 -->
                 <HBox alignment="CENTER_LEFT" prefHeight="82.0" prefWidth="479.0" spacing="15.0" style="-fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0; -fx-padding: 15;">
                     <children>
+                  <ImageView fitHeight="43.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../imagelogo/gcash.png" />
+                     </image>
+                  </ImageView>
                         <VBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="481.0" spacing="5.0">
                             <children>
                                 <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="GCash" />
