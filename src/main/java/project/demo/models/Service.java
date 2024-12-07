@@ -2,10 +2,10 @@ package project.demo.models;
 
 public class Service {
 
-    private String name;
-    private String description;
-    private String price; // Can be a single price or a range (e.g., "300" or "300 - 700")
-    private String imagePath;
+    private final String name;
+    private final String description;
+    private final String price; // Can be a single price or a range (e.g., "300" or "300 - 700")
+    private final String imagePath;
     private double minPrice; // Parsed minimum price
     private double maxPrice; // Parsed maximum price    private Service service;
 
@@ -74,16 +74,12 @@ public class Service {
 
     // Get price based on job complexity
     public double getPriceForComplexity(String jobComplexity) {
-        switch (jobComplexity.toLowerCase()) {
-            case "high":
-                return maxPrice; // Use max price for high complexity
-            case "medium":
-                return (minPrice + maxPrice) / 2; // Average price for medium complexity
-            case "low":
-                return minPrice; // Use min price for low complexity
-            default:
-                throw new IllegalArgumentException("Invalid job complexity: " + jobComplexity);
-        }
+        return switch (jobComplexity.toLowerCase()) {
+            case "high" -> maxPrice; // Use max price for high complexity
+            case "medium" -> (minPrice + maxPrice) / 2; // Average price for medium complexity
+            case "low" -> minPrice; // Use min price for low complexity
+            default -> throw new IllegalArgumentException("Invalid job complexity: " + jobComplexity);
+        };
     }
 
     @Override

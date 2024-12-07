@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import project.demo.DataBase.DatabaseConfig;
 import project.demo.models.Employee;
 
@@ -16,6 +17,8 @@ import java.sql.ResultSet;
 
 public class EmployeesPageController {
 
+    public VBox employeeDetailsCard;
+    public Button searchButton;
     @FXML private TableView<Employee> employeeTable;
     @FXML private TableColumn<Employee, String> profileColumn;
     @FXML private TableColumn<Employee, String> nameColumn;
@@ -31,10 +34,10 @@ public class EmployeesPageController {
     @FXML private TextField searchField;
     @FXML private Label filterStatusLabel;
 
-    private ObservableList<Employee> employeeList = FXCollections.observableArrayList();
+    private final ObservableList<Employee> employeeList = FXCollections.observableArrayList();
 
     // Database config
-    private DatabaseConfig databaseConfig = new DatabaseConfig();
+    private final DatabaseConfig databaseConfig = new DatabaseConfig();
 
     public void initialize() {
         setupTableColumns();

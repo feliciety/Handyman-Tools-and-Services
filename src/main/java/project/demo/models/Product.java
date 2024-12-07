@@ -3,6 +3,8 @@ package project.demo.models;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.Objects;
+
 public class Product {
     private final String name;
     private final double price; // Store price as a double
@@ -39,7 +41,7 @@ public class Product {
     // ImageView getter for UI
     public ImageView getImageView() {
         try {
-            Image image = new Image(getClass().getResourceAsStream(imagePath));
+            Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
             ImageView imageView = new ImageView(image);
             imageView.setFitWidth(50);
             imageView.setFitHeight(50);

@@ -1,18 +1,18 @@
 package project.demo.models;
 
 public class Employee {
-    private int employeeId;
-    private String name;
-    private String role;
-    private String status;
-    private String description;
-    private String profilePicture;
+    private final int employeeId;
+    private final String name;
+    private final String role;
+    private final String status;
+    private final String description;
+    private final String profilePicture;
 
     public Employee(int employeeId, String name, String role, String status, String description, String profilePicture) {
         this.employeeId = employeeId;
         this.name = name;
         this.role = role;
-        this.statusdfeddcve = status;
+        this.status = status;
         this.description = description;
         this.profilePicture = profilePicture;
     }
