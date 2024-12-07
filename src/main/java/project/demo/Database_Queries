@@ -4,6 +4,32 @@ create database handy_man;
 
 use handy_man;
 
+-- Create the Role Table
+CREATE TABLE Role (
+    role_id INT AUTO_INCREMENT PRIMARY KEY,
+    role_name VARCHAR(50) UNIQUE NOT NULL
+);
+
+-- Insert predefined roles into the Role table
+INSERT INTO Role (role_name) VALUES
+('Plumber'),
+('Electrician'),
+('Cleaner'),
+('Roofer'),
+('Mason'),
+('Flooring Specialist'),
+('Painter'),
+('Carpenter');
+
+CREATE TABLE Employee (
+    employee_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    role VARCHAR(50) NOT NULL,
+    status ENUM('Available', 'Unavailable') NOT NULL,
+    profile_picture VARCHAR(255) NULL,
+    FOREIGN KEY (role) REFERENCES Role(role_name)
+);
+
 CREATE TABLE users (
     id INT(11) NOT NULL AUTO_INCREMENT,
     username VARCHAR(255) NOT NULL,

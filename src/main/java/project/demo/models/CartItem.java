@@ -119,6 +119,6 @@ public class CartItem {
     }
 
     private String formatPrice() {
-        return String.format("$%.2f", product.getPrice() * quantity.get());
+        return String.format("₱%.2f", product.getPrice() * quantity.get());
     }
 }

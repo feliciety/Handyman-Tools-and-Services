@@ -25,7 +25,7 @@ public class Product {
     }
 
     public String getFormattedPrice() {
-        return String.format("$%.2f", price); // Format for display
+        return String.format("₱%.2f", price); // Format for display
     }
 
     public String getImagePath() {

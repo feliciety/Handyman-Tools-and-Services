@@ -1,11 +1,11 @@
 package project.demo.controllers.LoginSignup;
 
 import javafx.animation.FadeTransition;
-import javafx.animation.PauseTransition;
-import javafx.animation.SequentialTransition;
+import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -21,6 +21,8 @@ import project.demo.models.UserSession;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Arrays;
+import java.util.List;
 
 public class LogInPageController {
 
@@ -48,26 +50,29 @@ public class LogInPageController {
 
         // Check if both fields are empty
         if (emailOrUsername.isEmpty() && password.isEmpty()) {
-            showSpecificWarning(emailOrUsernameField, emailWarningImage, "Please fill in email.");
-            showSpecificWarning(passwordField, passwordWarningImage, "Please fill in password.");
+            handleMultipleWarnings(
+                    Arrays.asList(emailOrUsernameField, passwordField),
+                    Arrays.asList(emailWarningImage, passwordWarningImage),
+                    "Please fill in both fields."
+            );
             return;
         }
 
         // Check if only email field is empty
         if (emailOrUsername.isEmpty()) {
-            showSpecificWarning(emailOrUsernameField, emailWarningImage, "Please fill in email.");
+            handleSingleWarning(emailOrUsernameField, emailWarningImage, "Please fill in email.");
             return;
         }
 
         // Check if only password field is empty
         if (password.isEmpty()) {
-            showSpecificWarning(passwordField, passwordWarningImage, "Please fill in password.");
+            handleSingleWarning(passwordField, passwordWarningImage, "Please fill in password.");
             return;
         }
 
         // Validate email format
         if (!isValidEmail(emailOrUsername)) {
-            showSpecificWarning(emailOrUsernameField, emailWarningImage, "Invalid email format.");
+            handleSingleWarning(emailOrUsernameField, emailWarningImage, "Invalid email format.");
             return;
         }
 
@@ -97,52 +102,90 @@ public class LogInPageController {
                 // Navigate to the main application
                 navigateToPage("/project/demo/MainStructure.fxml", "Main Application");
             } else {
-                // Invalid email or password
-                showSpecificWarning(emailOrUsernameField, emailWarningImage, "Incorrect email or username.");
-                showSpecificWarning(passwordField, passwordWarningImage, "Incorrect password.");
+                handleIncorrectInputs(emailOrUsernameField, emailWarningImage, passwordField, passwordWarningImage);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            showSpecificWarning(emailOrUsernameField, emailWarningImage, "Database connection failed.");
+            handleSingleWarning(emailOrUsernameField, emailWarningImage, "Database connection failed.");
         }
     }
 
-    private void showSpecificWarning(TextField field, StackPane warningImage, String message) {
-        // Highlight the specific field in red
-        field.setStyle("-fx-border-color: red; -fx-border-width: 2;");
+    private void handleSingleWarning(TextField field, StackPane warningImage, String message) {
+        handleMultipleWarnings(
+                List.of(field),
+                List.of(warningImage),
+                message
+        );
+    }
 
-        // Show the warning image
-        warningImage.setVisible(true);
-
-        // Display the error message in the warning label
+    private void handleMultipleWarnings(List<TextField> fields, List<StackPane> warningImages, String message) {
+        // Set the warning message
         warningLabel.setText(message);
         warningLabel.setTextFill(Color.RED);
+        warningLabel.setVisible(true);
 
-        // Add fade-in and fade-out effect for the warning label
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3), warningLabel);
-        fadeTransition.setFromValue(0.0);
-        fadeTransition.setToValue(1.0);
-        fadeTransition.setCycleCount(2);
-        fadeTransition.setAutoReverse(true);
+        // Apply red borders to all fields and make warning images visible
+        fields.forEach(field -> field.setStyle("-fx-border-color: red; -fx-border-width: 2;"));
+        warningImages.forEach(warningImage -> warningImage.setVisible(true));
 
-        // Add shake animation to the field
-        TranslateTransition shake = new TranslateTransition(Duration.millis(100), field);
-        shake.setByX(10);
-        shake.setCycleCount(10); // Shake 10 times
-        shake.setAutoReverse(true);
+        // Create animations for all fields and warning images
+        ParallelTransition parallelTransition = new ParallelTransition();
 
-        // Combine shake and fade transitions
-        SequentialTransition sequentialTransition = new SequentialTransition(shake, fadeTransition);
-        sequentialTransition.play();
+        for (TextField field : fields) {
+            parallelTransition.getChildren().add(createShakeAnimation(field));
+            parallelTransition.getChildren().add(createBorderFadeAnimation(field));
+        }
 
-        // Reset styles and hide warning image after transitions
-        PauseTransition pause = new PauseTransition(Duration.seconds(3));
-        pause.setOnFinished(event -> {
-            field.setStyle("-fx-border-color: #67608f; -fx-border-radius: 5;");
-            warningImage.setVisible(false);
+        for (StackPane warningImage : warningImages) {
+            parallelTransition.getChildren().add(createShakeAnimation(warningImage));
+            parallelTransition.getChildren().add(createFadeOutAnimation(warningImage));
+        }
+
+        // Add fade-out animation for the warning label
+        parallelTransition.getChildren().add(createFadeOutAnimation(warningLabel));
+
+        // Reset styles and visibility after animations
+        parallelTransition.setOnFinished(event -> {
+            fields.forEach(field -> field.setStyle("-fx-border-color: #67608f; -fx-border-radius: 5;"));
+            warningImages.forEach(warningImage -> warningImage.setVisible(false));
+            warningLabel.setVisible(false);
             warningLabel.setText("");
         });
-        pause.play();
+
+        // Play animations
+        parallelTransition.play();
+    }
+
+    private void handleIncorrectInputs(TextField emailField, StackPane emailWarning, TextField passwordField, StackPane passwordWarning) {
+        String message = "Incorrect email or password.";
+        handleMultipleWarnings(
+                Arrays.asList(emailField, passwordField),
+                Arrays.asList(emailWarning, passwordWarning),
+                message
+        );
+    }
+
+    private TranslateTransition createShakeAnimation(Object node) {
+        TranslateTransition shake = new TranslateTransition(Duration.millis(100), (Node) node);
+        shake.setByX(10);
+        shake.setCycleCount(6);
+        shake.setAutoReverse(true);
+        return shake;
+    }
+
+    private FadeTransition createFadeOutAnimation(Object node) {
+        FadeTransition fade = new FadeTransition(Duration.seconds(2), (Node) node);
+        fade.setFromValue(1.0);
+        fade.setToValue(0.0);
+        return fade;
+    }
+
+    private FadeTransition createBorderFadeAnimation(TextField field) {
+        FadeTransition fade = new FadeTransition(Duration.seconds(2), field);
+        fade.setFromValue(1.0);
+        fade.setToValue(1.0); // Keep field visible, but transition the border color
+        fade.setOnFinished(event -> field.setStyle("-fx-border-color: #67608f; -fx-border-radius: 5;"));
+        return fade;
     }
 
     @FXML
@@ -172,20 +215,5 @@ public class LogInPageController {
     private boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         return email.matches(emailRegex);
-    }
-
-    private void loginUser(int userId, String username, String email, String contactNumber, String profilePicturePath) {
-        UserSession session = UserSession.getInstance();
-        session.setUserId(userId);
-        session.setUsername(username);
-        session.setEmail(email);
-        session.setContactNumber(contactNumber);
-
-        System.out.println("[INFO] User session initialized:");
-        System.out.println("User ID: " + userId);
-        System.out.println("Username: " + username);
-        System.out.println("Email: " + email);
-        System.out.println("Contact Number: " + contactNumber);
-        System.out.println("Profile Picture Path: " + profilePicturePath);
     }
 }
