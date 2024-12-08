@@ -15,6 +15,8 @@ import project.demo.models.BookServiceManager;
 import project.demo.models.Service;
 import javafx.event.ActionEvent;
 
+import java.time.LocalDate;
+
 public class BookingCartTableController {
 
     @FXML
@@ -33,7 +35,7 @@ public class BookingCartTableController {
     private TableColumn<BookServiceItem, Double> serviceFeeCol;
 
     @FXML
-    private TableColumn<BookServiceItem, String> bookingDateCol;
+    private TableColumn<BookServiceItem, LocalDate> bookingDateCol;
 
     @FXML
     private TableColumn<BookServiceItem, Button> deleteButtonCol;
@@ -49,15 +51,40 @@ public class BookingCartTableController {
         serviceNameCol.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
         jobComplexityCol.setCellValueFactory(new PropertyValueFactory<>("jobComplexityControl"));
         serviceFeeCol.setCellValueFactory(new PropertyValueFactory<>("serviceFee"));
-        bookingDateCol.setCellValueFactory(new PropertyValueFactory<>("bookingDate"));
         deleteButtonCol.setCellValueFactory(new PropertyValueFactory<>("removeButton"));
 
-        // Center align all columns
+        // Custom bookingDate column to use DatePicker
+        bookingDateCol.setCellFactory(column -> new TableCell<>() {
+            private final DatePicker datePicker = new DatePicker();
+
+            @Override
+            protected void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+
+                if (empty || getIndex() < 0 || getIndex() >= bookedItems.size()) {
+                    setGraphic(null);
+                } else {
+                    BookServiceItem serviceItem = getTableView().getItems().get(getIndex());
+
+                    // Set the value and listen for updates
+                    datePicker.setValue(serviceItem.bookingDateProperty().get());
+                    datePicker.setOnAction(event -> {
+                        serviceItem.setBookingDate(datePicker.getValue().toString());
+                        System.out.println("Updated booking date: " + datePicker.getValue());
+                        getTableView().refresh(); // Refresh table view after update
+                    });
+
+                    setGraphic(datePicker);
+                    setAlignment(Pos.CENTER);
+                }
+            }
+        });
+
+        // Center align all other columns
         centerColumnContent(serviceImageCol);
         centerColumnContent(serviceNameCol);
         centerHBoxContent(jobComplexityCol);
         centerColumnContent(serviceFeeCol);
-        centerColumnContent(bookingDateCol);
         centerButtonContent(deleteButtonCol);
 
         // Bind the bookedItems from BookServiceManager to the table

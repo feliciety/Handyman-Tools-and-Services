@@ -9,7 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import project.demo.DataBase.DatabaseConfig;
-import project.demo.controllers.Main.MainStructureController;
 import project.demo.models.Employee;
 
 import java.sql.Connection;
@@ -39,17 +38,11 @@ public class EmployeesPageController {
 
     // Database config
     private final DatabaseConfig databaseConfig = new DatabaseConfig();
-    private MainStructureController mainController;
 
     public void initialize() {
         setupTableColumns();
         loadAllEmployees();
         setupFilters();
-    }
-
-    public void setMainStructureController(MainStructureController mainController) {
-        this.mainController = mainController;
-        System.out.println("[INFO] MainStructureController injected into HomepageController.");
     }
 
     private void setupTableColumns() {

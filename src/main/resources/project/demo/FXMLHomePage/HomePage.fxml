@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="669.0" prefWidth="1240.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane hbarPolicy="NEVER" layoutX="-8.0" layoutY="-2.0" vbarPolicy="NEVER">
+      <ScrollPane hbarPolicy="NEVER" layoutY="-1.0" prefHeight="663.0" prefWidth="1240.0" vbarPolicy="NEVER">
          <content>
             <AnchorPane prefHeight="672.0" prefWidth="1239.0">
                <children>

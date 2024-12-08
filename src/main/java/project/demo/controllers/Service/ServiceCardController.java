@@ -64,7 +64,7 @@ public class ServiceCardController {
         BookServiceItem item = new BookServiceItem(
                 service,              // The service object
                 "low",             // Default complexity
-                "N/A"                 // Default booking date
+                ""                 // Default booking date
         );
 
         BookServiceManager.getInstance().addService(item);

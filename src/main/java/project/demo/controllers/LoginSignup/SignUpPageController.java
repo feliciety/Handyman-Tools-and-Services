@@ -8,7 +8,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -17,6 +19,7 @@ import project.demo.DataBase.DatabaseConfig;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.Arrays;
 import java.util.List;
 
 public class SignUpPageController {
@@ -25,8 +28,6 @@ public class SignUpPageController {
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
     @FXML private PasswordField confirmPasswordField;
-
-    @FXML private CheckBox termsNConditionCheckbox;
 
     @FXML private Label warningLabel;
 
@@ -47,6 +48,11 @@ public class SignUpPageController {
         String confirmPassword = confirmPasswordField.getText();
 
         boolean valid = true;
+
+        if (username.isEmpty() && email.isEmpty() && password.isEmpty() && confirmPassword.isEmpty()) {
+            handleAllFieldsEmptyWarning("All fields are required.");
+            return;
+        }
 
         // Validate Fields
         if (username.isEmpty()) {
@@ -75,14 +81,6 @@ public class SignUpPageController {
             valid = false;
         }
 
-        // Validate Terms and Conditions checkbox
-        if (!termsNConditionCheckbox.isSelected()) {
-            showTermsWarning("You must agree to the Terms and Conditions.");
-            valid = false;
-        } else {
-            clearTermsCheckboxWarning();
-        }
-
         if (!valid) return;
 
         // Insert Data into Database
@@ -102,46 +100,124 @@ public class SignUpPageController {
             handleSingleWarning(emailField, emailWarningImage, "Database connection failed.");
         }
     }
+    private void handleAllFieldsEmptyWarning(String message) {
+        // Set the warning message
+        warningLabel.setText(message);
+        warningLabel.setTextFill(Color.RED);
+        warningLabel.setVisible(true);
+
+        // Apply red borders to all text fields
+        usernameField.setStyle("-fx-border-color: red; -fx-border-width: 2;");
+        emailField.setStyle("-fx-border-color: red; -fx-border-width: 2;");
+        passwordField.setStyle("-fx-border-color: red; -fx-border-width: 2;");
+        confirmPasswordField.setStyle("-fx-border-color: red; -fx-border-width: 2;");
+
+        // Make all warning images visible
+        fullNameWarningImage.setVisible(true);
+        emailWarningImage.setVisible(true);
+        passwordWarningImage.setVisible(true);
+        confirmWarningImage.setVisible(true);
+
+        // Create a parallel transition for simultaneous animations
+        ParallelTransition parallelTransition = new ParallelTransition();
+
+        // Add shake animations for text fields and warning images
+        parallelTransition.getChildren().addAll(
+                createShakeAnimation(usernameField), createShakeAnimation(fullNameWarningImage),
+                createShakeAnimation(emailField), createShakeAnimation(emailWarningImage),
+                createShakeAnimation(passwordField), createShakeAnimation(passwordWarningImage),
+                createShakeAnimation(confirmPasswordField), createShakeAnimation(confirmWarningImage)
+        );
+
+        // Add fade-out animations for warning images
+        parallelTransition.getChildren().addAll(
+                createFadeOutAnimation(fullNameWarningImage),
+                createFadeOutAnimation(emailWarningImage),
+                createFadeOutAnimation(passwordWarningImage),
+                createFadeOutAnimation(confirmWarningImage)
+        );
+
+        // Add fade-out animation for the warning label
+        parallelTransition.getChildren().add(createFadeOutAnimation(warningLabel));
+
+        // Reset the warning elements and text fields after the animation
+        parallelTransition.setOnFinished(event -> {
+            usernameField.setStyle("-fx-border-color: #67608f;");
+            emailField.setStyle("-fx-border-color: #67608f;");
+            passwordField.setStyle("-fx-border-color: #67608f;");
+            confirmPasswordField.setStyle("-fx-border-color: #67608f;");
+
+            fullNameWarningImage.setVisible(false);
+            emailWarningImage.setVisible(false);
+            passwordWarningImage.setVisible(false);
+            confirmWarningImage.setVisible(false);
+
+            warningLabel.setVisible(false);
+        });
+
+        // Play the animations
+        parallelTransition.play();
+    }
+
 
     private void handleSingleWarning(TextField field, StackPane warningImage, String message) {
-        warningLabel.setText(message);
-        warningLabel.setTextFill(Color.RED);
-        warningLabel.setVisible(true);
-
-        field.setStyle("-fx-border-color: red; -fx-border-width: 2;");
-        warningImage.setVisible(true);
+        handleMultipleWarnings(
+                List.of(field),
+                List.of(warningImage),
+                message
+        );
     }
 
-    private void showTermsWarning(String message) {
+    private void handleMultipleWarnings(List<TextField> fields, List<StackPane> warningImages, String message) {
+        // Set the warning message
         warningLabel.setText(message);
         warningLabel.setTextFill(Color.RED);
         warningLabel.setVisible(true);
 
-        // Fade out the warning label
-        FadeTransition fade = new FadeTransition(Duration.seconds(2), warningLabel);
+        // Apply red borders and make warning images visible
+        fields.forEach(field -> field.setStyle("-fx-border-color: red; -fx-border-width: 2;"));
+        warningImages.forEach(warningImage -> warningImage.setVisible(true));
+
+        ParallelTransition parallelTransition = new ParallelTransition();
+
+        for (int i = 0; i < fields.size(); i++) {
+            parallelTransition.getChildren().addAll(
+                    createShakeAnimation(fields.get(i)),
+                    createShakeAnimation(warningImages.get(i))
+            );
+        }
+
+        parallelTransition.getChildren().add(createFadeOutAnimation(warningLabel));
+
+        parallelTransition.setOnFinished(event -> clearWarnings());
+        parallelTransition.play();
+    }
+
+    private TranslateTransition createShakeAnimation(Node node) {
+        TranslateTransition shake = new TranslateTransition(Duration.millis(100), node);
+        shake.setByX(10);
+        shake.setCycleCount(6);
+        shake.setAutoReverse(true);
+        return shake;
+    }
+
+    private FadeTransition createFadeOutAnimation(Node node) {
+        FadeTransition fade = new FadeTransition(Duration.seconds(2), node);
         fade.setFromValue(1.0);
         fade.setToValue(0.0);
-        fade.setOnFinished(event -> warningLabel.setVisible(false));
-        fade.play();
-    }
-
-    private void clearTermsCheckboxWarning() {
-        termsNConditionCheckbox.setStyle("-fx-border-color: transparent;");
+        return fade;
     }
 
     private void clearWarnings() {
         warningLabel.setVisible(false);
-        warningLabel.setText("");
         fullNameWarningImage.setVisible(false);
         emailWarningImage.setVisible(false);
         passwordWarningImage.setVisible(false);
         confirmWarningImage.setVisible(false);
-
         usernameField.setStyle("-fx-border-color: #67608f;");
         emailField.setStyle("-fx-border-color: #67608f;");
         passwordField.setStyle("-fx-border-color: #67608f;");
         confirmPasswordField.setStyle("-fx-border-color: #67608f;");
-        clearTermsCheckboxWarning();
     }
 
     private void showSuccess(String message) {

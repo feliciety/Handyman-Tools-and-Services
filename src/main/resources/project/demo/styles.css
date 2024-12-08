@@ -9,3 +9,12 @@
     -fx-border-color: #dcdcdc;
     -fx-background-color: #f5f5f5;
 }
+
+.box{
+    -fx-opacity: 0.0;
+    -fx-transition: opacity 0.3s ease-in-out;
+}
+
+.box:hover {
+    -fx-opacity: 1.0;
+}

@@ -89,11 +89,6 @@
                 </VBox.margin>
             </Text>
         </VBox>
-      <ImageView fitHeight="120.0" fitWidth="126.0" layoutX="32.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../imagelogo/logo5.png" />
-         </image>
-      </ImageView>
     </Pane>
     <StackPane fx:id="passwordWarningImage" layoutX="1021.0" layoutY="386.0" prefHeight="38.0" prefWidth="38.0" visible="false">
         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">

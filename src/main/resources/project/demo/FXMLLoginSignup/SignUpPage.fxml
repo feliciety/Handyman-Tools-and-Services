@@ -133,22 +133,22 @@
          </image>
       </ImageView>
     </Pane>
-    <StackPane fx:id="confirmWarningImage" layoutX="479.0" layoutY="449.0" prefHeight="28.0" prefWidth="22.0">
-        <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <StackPane fx:id="confirmWarningImage" layoutX="475.0" layoutY="442.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="28.0" prefWidth="22.0" visible="false">
+        <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../imagelogo/warning.png" />
         </ImageView>
     </StackPane>
-    <StackPane fx:id="passwordWarningImage" layoutX="479.0" layoutY="376.0" prefHeight="28.0" prefWidth="22.0">
-        <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <StackPane fx:id="passwordWarningImage" layoutX="476.0" layoutY="361.0" prefHeight="28.0" prefWidth="22.0" visible="false">
+        <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../imagelogo/warning.png" />
         </ImageView>
     </StackPane>
-    <StackPane fx:id="emailWarningImage" layoutX="479.0" layoutY="298.0" prefHeight="28.0" prefWidth="22.0">
-        <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true" visible="false">
+    <StackPane fx:id="emailWarningImage" layoutX="475.0" layoutY="274.0" prefHeight="28.0" prefWidth="22.0" visible="false">
+        <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../imagelogo/warning.png" />
         </ImageView>
     </StackPane>
-    <StackPane fx:id="fullNameWarningImage" layoutX="479.0" layoutY="219.0" prefHeight="28.0" prefWidth="22.0" visible="false">
+    <StackPane fx:id="fullNameWarningImage" layoutX="476.0" layoutY="187.0" prefHeight="28.0" prefWidth="22.0" visible="false">
         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../imagelogo/warning.png" />
         </ImageView>

@@ -10,12 +10,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane prefHeight="780.0" prefWidth="1160.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Main.MainStructureController">
+<AnchorPane prefHeight="792.0" prefWidth="1240.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Main.MainStructureController">
    <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="64.0" prefWidth="1254.0" spacing="20" style="-fx-background-color: #222222; -fx-padding: 10;">
+      <HBox alignment="CENTER_LEFT" prefHeight="56.0" prefWidth="1240.0" spacing="20" style="-fx-background-color: #222222; -fx-padding: 10;">
          <children>
             <HBox alignment="CENTER" prefHeight="43.0" prefWidth="1009.0">
                <children>
+                  <ImageView fitHeight="55.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@imagelogo/logo3.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="-150.0" right="-50.0" />
+                     </HBox.margin>
+                  </ImageView>
                   <Button onAction="#handleHomeClick" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Home">
                      <HBox.margin>
                         <Insets left="250.0" />
@@ -23,7 +31,6 @@
                   <Button onAction="#handleAboutUsClick" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="About Us" />
                   <Button onAction="#handleShopClick" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Shop" />
                   <Button onAction="#handleServiceClick" prefWidth="100.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Services" />
-                  <Button onAction="#handleEmployeeClick" prefWidth="100.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Employees" />
                </children>
                <HBox.margin>
                   <Insets right="-20.0" />
@@ -55,16 +62,11 @@
             <Label onMouseClicked="#handleProfileClick" prefHeight="35.0" prefWidth="46.0" />
          </children>
       </HBox>
-      <ImageView fitHeight="80.0" fitWidth="234.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="1020.2197875976562">
-         <image>
-            <Image url="@imagelogo/logo3.png" />
-         </image>
-      </ImageView>
-      <VBox alignment="CENTER" layoutY="738.0" prefHeight="42.0" prefWidth="1254.0" style="-fx-background-color: #222222; -fx-padding: 10;">
+      <VBox alignment="CENTER" layoutY="750.0" prefHeight="42.0" prefWidth="1240.0" style="-fx-background-color: #222222; -fx-padding: 10;">
          <children>
             <HBox spacing="10" />
          </children>
       </VBox>
-      <AnchorPane fx:id="contentContainer" layoutX="-1.0" layoutY="66.0" prefHeight="672.0" prefWidth="1254.0" />
+      <AnchorPane fx:id="contentContainer" layoutX="-1.0" layoutY="81.0" prefHeight="669.0" prefWidth="1240.0" />
    </children>
 </AnchorPane>
