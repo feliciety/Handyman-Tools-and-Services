@@ -2,6 +2,8 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/src/main/java/project/demo/controllers/Employee/EmployeesPageController.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/project/demo/controllers/LoginSignup/LogInPageController.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/project/demo/controllers/LoginSignup/SignUpPageController.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/project/demo/controllers/Service/ServicePageController.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/project/demo/dao/GCashDAOImpl.java" dialect="GenericSQL" />
   </component>
