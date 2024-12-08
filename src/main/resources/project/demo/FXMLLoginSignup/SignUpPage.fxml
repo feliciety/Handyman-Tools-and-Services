@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -18,138 +19,150 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="1200.0" style="-fx-background-color: #3E66FF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.LoginSignup.SignUpPageController">
 
     <ImageView fitHeight="651.0" fitWidth="1228.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 50;">
-        <Image url="@../imageloginsignup/loginsignupBG.png"/>
+        <Image url="@../imageloginsignup/loginsignupBG.png" />
     </ImageView>
    <Pane layoutX="103.0" layoutY="34.0" prefHeight="595.0" prefWidth="1014.0" style="-fx-background-color: white; -fx-opacity: 80%; -fx-background-radius: 35;" />
 
-    <Pane layoutX="93.6" layoutY="45.4" prefHeight="565.0" prefWidth="1010.0"
-          style="-fx-background-color: transparent; -fx-background-radius: 35;" AnchorPane.leftAnchor="93.6"
-          AnchorPane.topAnchor="45.4">
-        <VBox layoutX="74.0" layoutY="21.0" prefHeight="529.0" prefWidth="350.0">
+    <Pane layoutX="94.4" layoutY="46.4" prefHeight="576.0" prefWidth="1010.0" style="-fx-background-color: transparent; -fx-background-radius: 35;" AnchorPane.leftAnchor="94.0" AnchorPane.topAnchor="46.0">
+        <VBox layoutX="69.0" prefHeight="575.0" prefWidth="350.0">
             <VBox spacing="1.0">
                 <Text fill="#67608f" text="REGISTER NOW">
                     <font>
-                        <Font name="System Bold" size="14.0"/>
+                        <Font name="System Bold" size="14.0" />
                     </font>
                 </Text>
                 <Label text="Sign Up For Free." textFill="#1f1567">
                     <font>
-                        <Font name="System Bold" size="33.5"/>
+                        <Font name="System Bold" size="33.5" />
                     </font>
                 </Label>
                 <HBox alignment="CENTER_LEFT">
-                    <Label prefHeight="13.0" prefWidth="180.0" text="Already have an account?"
-                           textFill="#67608f">
+                    <Label prefHeight="13.0" prefWidth="180.0" text="Already have an account?" textFill="#67608f">
                         <font>
-                            <Font size="16.0"/>
+                            <Font size="16.0" />
                         </font>
                         <HBox.margin>
-                            <Insets top="1.0"/>
+                            <Insets top="1.0" />
                         </HBox.margin>
                     </Label>
-                    <Button mnemonicParsing="false" onAction="#LogInSwap" prefHeight="6.0" prefWidth="76.0"
-                            style="-fx-background-color: transparent;" text="Log In." textFill="#3e66ff">
+                    <Button mnemonicParsing="false" onAction="#LogInSwap" prefHeight="6.0" prefWidth="76.0" style="-fx-background-color: transparent;" text="Log In." textFill="#3e66ff">
                         <font>
-                            <Font name="Inter Light BETA" size="15.5"/>
+                            <Font name="Inter Light BETA" size="15.5" />
                         </font>
                     </Button>
                 </HBox>
             </VBox>
             <Label text="Full Name" textFill="#67608f">
                 <font>
-                    <Font name="System Bold" size="14.0"/>
+                    <Font name="System Bold" size="14.0" />
                 </font>
                 <VBox.margin>
-                    <Insets top="20.0"/>
+                    <Insets top="5.0" />
                 </VBox.margin>
             </Label>
-            <TextField fx:id="usernameField" prefHeight="51.0" prefWidth="341.0"
-                       style="-fx-background-color: white; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #67608f;">
+            <TextField fx:id="usernameField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #67608f;">
                 <VBox.margin>
-                    <Insets bottom="10.0" top="5.0"/>
+                    <Insets bottom="10.0" top="5.0" />
                 </VBox.margin>
             </TextField>
             <Label text="E-mail" textFill="#67608f">
                 <font>
-                    <Font name="System Bold" size="14.0"/>
+                    <Font name="System Bold" size="14.0" />
                 </font>
             </Label>
-            <TextField fx:id="emailField" prefHeight="51.0" prefWidth="341.0"
-                       style="-fx-background-color: white; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #67608f;">
+            <TextField fx:id="emailField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #67608f;">
                 <VBox.margin>
-                    <Insets bottom="10.0" top="5.0"/>
+                    <Insets bottom="10.0" top="5.0" />
                 </VBox.margin>
             </TextField>
             <Label text="Password" textFill="#67608f">
                 <font>
-                    <Font name="System Bold" size="14.0"/>
+                    <Font name="System Bold" size="14.0" />
                 </font>
             </Label>
             <!-- Replacing TextField with PasswordField -->
-            <PasswordField fx:id="passwordField" prefHeight="51.0" prefWidth="341.0"
-                           style="-fx-background-color: white; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #67608f;">
+            <PasswordField fx:id="passwordField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #67608f;">
                 <VBox.margin>
-                    <Insets bottom="10.0" top="5.0"/>
+                    <Insets bottom="10.0" top="5.0" />
                 </VBox.margin>
             </PasswordField>
             <Label text="Confirm Password" textFill="#67608f">
                 <font>
-                    <Font name="System Bold" size="14.0"/>
+                    <Font name="System Bold" size="14.0" />
                 </font>
             </Label>
-            <PasswordField fx:id="confirmPasswordField" prefHeight="51.0" prefWidth="341.0"
-                           style="-fx-background-color: white; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #67608f;"/>
-            <Label fx:id="warningLabel" alignment="CENTER" prefHeight="9.0" prefWidth="350.0"
-                   style="-fx-text-fill: red;" text="Warning" textFill="RED" visible="false">
+            <PasswordField fx:id="confirmPasswordField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #67608f;" />
+         <HBox prefWidth="350.0">
+            <children>
+               <CheckBox fx:id="termsNConditionCheckbox" ellipsisString="" mnemonicParsing="false" prefHeight="27.0" prefWidth="34.0" textOverrun="LEADING_ELLIPSIS" />
+               <Text fill="#868686" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="I confirm that I have read, understood, and agree to the Terms and Conditions " textAlignment="JUSTIFY" wrappingWidth="305.8421322107315">
+                  <font>
+                     <Font name="System Bold" size="10.0" />
+                  </font>
+               </Text>
+            </children>
+            <VBox.margin>
+               <Insets bottom="20.0" top="15.0" />
+            </VBox.margin>
+         </HBox>
+            <Label fx:id="warningLabel" alignment="CENTER" prefHeight="9.0" prefWidth="350.0" style="-fx-text-fill: red;" text="Warning" textFill="RED" visible="false">
                 <VBox.margin>
-                    <Insets bottom="10.0" top="5.0"/>
+                    <Insets />
                 </VBox.margin>
                 <font>
-                    <Font size="10.0"/>
+                    <Font size="10.0" />
                 </font>
             </Label>
 
-            <!-- Sign Up Button -->
-            <Button fx:id="signUpButton" mnemonicParsing="false" onAction="#signUpButtonClicked" prefHeight="52.0"
-                    prefWidth="350.0" stylesheets="@../application.css" text="Sign Up">
+                  <!-- Sign Up Button -->
+            <Button fx:id="signUpButton" mnemonicParsing="false" onAction="#signUpButtonClicked" prefHeight="52.0" prefWidth="350.0" stylesheets="@../application.css" text="Sign Up">
                 <VBox.margin>
-                    <Insets/>
+                    <Insets top="5.0" />
                 </VBox.margin>
             </Button>
-
-            <Text fill="#67608f"
-                  text="By clicking the Sign in Button, you therefore agree to the Privacy Policy. For more information, read about our privacy here."
-                  wrappingWidth="349.17999267578125">
-                <font>
-                    <Font name="Inter Extra Light BETA" size="10.5"/>
-                </font>
-                <VBox.margin>
-                    <Insets top="10.0"/>
-                </VBox.margin>
-            </Text>
         </VBox>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="670.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="575.0" fitWidth="606.0" layoutX="522.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../imageHomePage/HomePagePerson.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="120.0" fitWidth="126.0" layoutX="890.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../imagelogo/logo5.png" />
+         </image>
+      </ImageView>
     </Pane>
     <StackPane fx:id="confirmWarningImage" layoutX="479.0" layoutY="449.0" prefHeight="28.0" prefWidth="22.0">
         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true" visible="false">
-            <Image url="@../imagelogo/warning.png"/>
+            <Image url="@../imagelogo/warning.png" />
         </ImageView>
     </StackPane>
     <StackPane fx:id="passwordWarningImage" layoutX="479.0" layoutY="376.0" prefHeight="28.0" prefWidth="22.0">
         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true" visible="false">
-            <Image url="@../imagelogo/warning.png"/>
+            <Image url="@../imagelogo/warning.png" />
         </ImageView>
     </StackPane>
     <StackPane fx:id="emailWarningImage" layoutX="479.0" layoutY="298.0" prefHeight="28.0" prefWidth="22.0">
         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true" visible="false">
-            <Image url="@../imagelogo/warning.png"/>
+            <Image url="@../imagelogo/warning.png" />
         </ImageView>
     </StackPane>
-    <StackPane fx:id="fullNameWarningImage" layoutX="479.0" layoutY="219.0" prefHeight="28.0" prefWidth="22.0"
-               visible="false">
+    <StackPane fx:id="fullNameWarningImage" layoutX="479.0" layoutY="219.0" prefHeight="28.0" prefWidth="22.0" visible="false">
         <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-            <Image url="@../imagelogo/warning.png"/>
+            <Image url="@../imagelogo/warning.png" />
         </ImageView>
     </StackPane>
+   <Text fill="#868686" layoutX="273.0" layoutY="521.0" strokeType="OUTSIDE" strokeWidth="0.0" text="of HandyMan Tools N' Services, including the Privacy ">
+      <font>
+         <Font size="10.0" />
+      </font>
+   </Text>
+   <Text fill="#868686" layoutX="199.0" layoutY="536.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Policy.">
+      <font>
+         <Font size="10.0" />
+      </font>
+   </Text>
 
     <style>
         .animated-button {

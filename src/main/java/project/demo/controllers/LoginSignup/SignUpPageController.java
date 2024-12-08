@@ -8,10 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -20,7 +17,6 @@ import project.demo.DataBase.DatabaseConfig;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.util.Arrays;
 import java.util.List;
 
 public class SignUpPageController {
@@ -29,6 +25,8 @@ public class SignUpPageController {
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
     @FXML private PasswordField confirmPasswordField;
+
+    @FXML private CheckBox termsNConditionCheckbox;
 
     @FXML private Label warningLabel;
 
@@ -77,6 +75,14 @@ public class SignUpPageController {
             valid = false;
         }
 
+        // Validate Terms and Conditions checkbox
+        if (!termsNConditionCheckbox.isSelected()) {
+            showTermsWarning("You must agree to the Terms and Conditions.");
+            valid = false;
+        } else {
+            clearTermsCheckboxWarning();
+        }
+
         if (!valid) return;
 
         // Insert Data into Database
@@ -98,63 +104,44 @@ public class SignUpPageController {
     }
 
     private void handleSingleWarning(TextField field, StackPane warningImage, String message) {
-        handleMultipleWarnings(
-                List.of(field),
-                List.of(warningImage),
-                message
-        );
-    }
-
-    private void handleMultipleWarnings(List<TextField> fields, List<StackPane> warningImages, String message) {
-        // Set the warning message
         warningLabel.setText(message);
         warningLabel.setTextFill(Color.RED);
         warningLabel.setVisible(true);
 
-        fields.forEach(field -> field.setStyle("-fx-border-color: red; -fx-border-width: 2;"));
-        warningImages.forEach(warningImage -> warningImage.setVisible(true));
-
-        ParallelTransition parallelTransition = new ParallelTransition();
-
-        for (TextField field : fields) {
-            parallelTransition.getChildren().add(createShakeAnimation(field));
-        }
-
-        for (StackPane warningImage : warningImages) {
-            parallelTransition.getChildren().add(createFadeOutAnimation(warningImage));
-        }
-
-        parallelTransition.getChildren().add(createFadeOutAnimation(warningLabel));
-
-        parallelTransition.setOnFinished(event -> clearWarnings());
-        parallelTransition.play();
+        field.setStyle("-fx-border-color: red; -fx-border-width: 2;");
+        warningImage.setVisible(true);
     }
 
-    private TranslateTransition createShakeAnimation(Object node) {
-        TranslateTransition shake = new TranslateTransition(Duration.millis(100), (Node) node);
-        shake.setByX(10);
-        shake.setCycleCount(6);
-        shake.setAutoReverse(true);
-        return shake;
-    }
+    private void showTermsWarning(String message) {
+        warningLabel.setText(message);
+        warningLabel.setTextFill(Color.RED);
+        warningLabel.setVisible(true);
 
-    private FadeTransition createFadeOutAnimation(Object node) {
-        FadeTransition fade = new FadeTransition(Duration.seconds(2), (Node) node);
+        // Fade out the warning label
+        FadeTransition fade = new FadeTransition(Duration.seconds(2), warningLabel);
         fade.setFromValue(1.0);
         fade.setToValue(0.0);
-        return fade;
+        fade.setOnFinished(event -> warningLabel.setVisible(false));
+        fade.play();
+    }
+
+    private void clearTermsCheckboxWarning() {
+        termsNConditionCheckbox.setStyle("-fx-border-color: transparent;");
     }
 
     private void clearWarnings() {
         warningLabel.setVisible(false);
+        warningLabel.setText("");
         fullNameWarningImage.setVisible(false);
         emailWarningImage.setVisible(false);
         passwordWarningImage.setVisible(false);
         confirmWarningImage.setVisible(false);
+
         usernameField.setStyle("-fx-border-color: #67608f;");
         emailField.setStyle("-fx-border-color: #67608f;");
         passwordField.setStyle("-fx-border-color: #67608f;");
         confirmPasswordField.setStyle("-fx-border-color: #67608f;");
+        clearTermsCheckboxWarning();
     }
 
     private void showSuccess(String message) {

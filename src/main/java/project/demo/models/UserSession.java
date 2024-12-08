@@ -6,6 +6,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 
+import java.io.File;
+
 public class UserSession {
     private static UserSession instance;
 
@@ -98,7 +100,12 @@ public class UserSession {
     public Image getUserImage() {
         try {
             if (userImagePath != null && !userImagePath.isEmpty()) {
-                return new Image(userImagePath); // Load user image from path
+                File profileImageFile = new File(userImagePath);
+                if (profileImageFile.exists()) {
+                    return new Image(profileImageFile.toURI().toString());
+                } else {
+                    System.err.println("[WARNING] Profile image path invalid. Using default image.");
+                }
             }
         } catch (Exception e) {
             System.err.println("[ERROR] Failed to load user image: " + e.getMessage());
@@ -107,7 +114,35 @@ public class UserSession {
         return new Image(getClass().getResource("/project/demo/imagelogo/user.png").toString());
     }
 
-    // New logic: Integration with database actions
+    // New Logic: Method to validate user session
+    public boolean isSessionValid() {
+        return getUserId() > 0 && getUsername() != null && !getUsername().isEmpty();
+    }
+
+    // New Logic: Update profile picture path and refresh the session
+    public boolean updateProfileImagePath(String newPath) {
+        try {
+            File imageFile = new File(newPath);
+            if (imageFile.exists()) {
+                setUserImagePath(newPath);
+                System.out.println("[INFO] Profile image updated successfully.");
+                return true;
+            } else {
+                System.err.println("[ERROR] Profile image path does not exist: " + newPath);
+            }
+        } catch (Exception e) {
+            System.err.println("[ERROR] Failed to update profile image: " + e.getMessage());
+        }
+        return false;
+    }
+
+    // New Logic: Integration to validate session before performing an action
+    public void ensureValidSession() {
+        if (!isSessionValid()) {
+            throw new IllegalStateException("[ERROR] User session is not initialized or invalid.");
+        }
+    }
+
     /**
      * Retrieve the user ID for database queries.
      * Ensures that the user is logged in before proceeding.
@@ -115,9 +150,7 @@ public class UserSession {
      * @return User ID or throws IllegalStateException if the session is not set.
      */
     public int retrieveUserIdForDatabase() {
-        if (instance == null || getUserId() == 0) {
-            throw new IllegalStateException("[ERROR] User session is not initialized.");
-        }
+        ensureValidSession();
         return getUserId();
     }
 
@@ -128,11 +161,16 @@ public class UserSession {
      * @param username The user's name.
      * @param email The user's email address.
      * @param contactNumber The user's contact number.
+     * @param userImagePath The user's profile picture path.
      */
-    public void populateSession(int userId, String username, String email, String contactNumber) {
+    public void populateSession(int userId, String username, String email, String contactNumber, String userImagePath) {
         setUserId(userId);
         setUsername(username);
         setEmail(email);
         setContactNumber(contactNumber);
+        setUserImagePath(userImagePath);
+    }
+
+    public void setUserImage(Image image) {
     }
 }
