@@ -85,8 +85,11 @@
     -fx-font-style: italic;
 }
 
-.table-view.scroll-bar {
-    -fx-opacity: 0;
+/* Hide vertical and horizontal scrollbars */
+.tableview .scroll-bar:vertical,
+.tableview .scroll-bar:horizontal {
+    -fx-opacity: 0; /* Make the scrollbars invisible */
+    -fx-background-color: transparent;
 }
 
 

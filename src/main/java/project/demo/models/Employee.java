@@ -7,15 +7,17 @@ public class Employee {
     private String status;
     private String description;
     private String profilePicture;
+    private String phoneNumber; // New field for phone number
 
     // Constructor
-    public Employee(int id, String name, String role, String status, String description, String profilePicture) {
+    public Employee(int id, String name, String role, String status, String description, String profilePicture, String phoneNumber) {
         this.id = id;
         this.name = name;
         this.role = role;
         this.status = status;
         this.description = description;
         this.profilePicture = profilePicture;
+        this.phoneNumber = phoneNumber; // Initialize phone number
     }
 
     // Getters and Setters
@@ -36,4 +38,7 @@ public class Employee {
 
     public String getProfilePicture() { return profilePicture; }
     public void setProfilePicture(String profilePicture) { this.profilePicture = profilePicture; }
+
+    public String getPhoneNumber() { return phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 }
