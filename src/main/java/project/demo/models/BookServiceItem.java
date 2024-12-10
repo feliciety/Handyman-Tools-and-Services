@@ -1,6 +1,5 @@
 package project.demo.models;
 
-import javafx.beans.Observable;
 import javafx.beans.property.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -27,6 +26,8 @@ public class BookServiceItem {
     private final HBox jobComplexityControl; // Control for selecting complexity
     private final Button removeButton; // Remove button for the item
     private final DatePicker bookingDatePicker; // DatePicker for selecting booking date
+
+    private Runnable onRemoveAction; // Callback for row deletion
 
     // Constructor to initialize the service item
     public BookServiceItem(Service service, String jobComplexity, String bookingDate) {
@@ -57,6 +58,11 @@ public class BookServiceItem {
         this.removeButton = createRemoveButton();
     }
 
+    // Set the callback for row removal
+    public void setOnRemoveAction(Runnable onRemoveAction) {
+        this.onRemoveAction = onRemoveAction;
+    }
+
     // Create a DatePicker control for the booking date
     private DatePicker createDatePicker() {
         DatePicker datePicker = new DatePicker(bookingDate.get());
@@ -69,12 +75,11 @@ public class BookServiceItem {
 
     // Calculate the service fee based on job complexity
     private double calculateServiceFee() {
-        double fee = switch (jobComplexity.get().toLowerCase()) {
+        return switch (jobComplexity.get().toLowerCase()) {
             case "high" -> maxPrice;
             case "medium" -> Math.round((minPrice + maxPrice) / 2 * 100.0) / 100.0;
             default -> minPrice;
         };
-        return fee;
     }
 
     // Create service image view
@@ -117,42 +122,69 @@ public class BookServiceItem {
     private Button createRemoveButton() {
         Button button = new Button("X");
         button.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-        button.setOnAction(event -> System.out.println("[DEBUG] Remove button clicked for: " + getServiceName()));
+        button.setOnAction(event -> {
+            if (onRemoveAction != null) {
+                System.out.println("[DEBUG] Remove button clicked for: " + getServiceName());
+                onRemoveAction.run(); // Call the removal action
+            }
+        });
         return button;
     }
 
     // Getters for table properties
-    public String getServiceName() { return serviceName.get(); }
-    public ImageView getServiceImageView() { return serviceImageView; }
-    public HBox getJobComplexityControl() { return jobComplexityControl; }
-    public double getServiceFee() { return serviceFee.get(); }
-    public Button getRemoveButton() { return removeButton; }
-    public DatePicker getBookingDatePicker() { return bookingDatePicker; } // Expose DatePicker for TableView
+    public String getServiceName() {
+        return serviceName.get();
+    }
+
+    public ImageView getServiceImageView() {
+        return serviceImageView;
+    }
+
+    public HBox getJobComplexityControl() {
+        return jobComplexityControl;
+    }
+
+    public double getServiceFee() {
+        return serviceFee.get();
+    }
+
+    public Button getRemoveButton() {
+        return removeButton;
+    }
+
+    public DatePicker getBookingDatePicker() {
+        return bookingDatePicker;
+    }
 
     // Property methods for TableView binding
-    public StringProperty serviceNameProperty() { return serviceName; }
-    public DoubleProperty serviceFeeProperty() { return serviceFee; }
-    public ObjectProperty<LocalDate> bookingDateProperty() { return bookingDate; }
+    public StringProperty serviceNameProperty() {
+        return serviceName;
+    }
+
+    public DoubleProperty serviceFeeProperty() {
+        return serviceFee;
+    }
+
+    public ObjectProperty<LocalDate> bookingDateProperty() {
+        return bookingDate;
+    }
 
     public void setJobComplexity(String complexity) {
         this.jobComplexity.set(complexity);
         this.serviceFee.set(calculateServiceFee());
     }
 
-
-
+    public void setBookingDate(String bookingDate) {
+        if (bookingDate != null && !bookingDate.isEmpty()) {
+            this.bookingDate.set(LocalDate.parse(bookingDate));
+        } else {
+            this.bookingDate.set(LocalDate.now());
+        }
+    }
     // Restored jobComplexityProperty
     public StringProperty jobComplexityProperty() {
         return jobComplexity; // Return the job complexity property
     }
 
-    // Restored setBookingDate logic
-    public void setBookingDate(String bookingDate) {
-        if (bookingDate != null && !bookingDate.isEmpty()) {
-            this.bookingDate.set(LocalDate.parse(bookingDate)); // Update the booking date property
-        } else {
-            this.bookingDate.set(LocalDate.parse(LocalDate.now().toString())); // Default to the current date
-        }
-    }
 
 }

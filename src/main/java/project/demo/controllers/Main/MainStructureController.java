@@ -104,4 +104,8 @@ public class MainStructureController {
     public void handleBookingClick(ActionEvent actionEvent) {
         loadPage("/project/demo/FXMLBookingPage/BookingPage.fxml");
     }
+
+    public void handleEmployeeClick(ActionEvent actionEvent) {
+        loadPage("/project/demo/FXMLEmployeesPage/EmployeesPage.fxml");
+    }
 }

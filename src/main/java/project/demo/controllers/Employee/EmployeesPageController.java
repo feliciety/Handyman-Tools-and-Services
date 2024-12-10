@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -20,7 +21,6 @@ public class EmployeesPageController {
     public VBox employeeDetailsCard;
     public Button searchButton;
     @FXML private TableView<Employee> employeeTable;
-    @FXML private TableColumn<Employee, String> profileColumn;
     @FXML private TableColumn<Employee, String> nameColumn;
     @FXML private TableColumn<Employee, String> serviceColumn;
     @FXML private TableColumn<Employee, String> statusColumn;
@@ -32,7 +32,6 @@ public class EmployeesPageController {
 
     @FXML private ComboBox<String> availabilityFilter, serviceCategoryFilter;
     @FXML private TextField searchField;
-    @FXML private Label filterStatusLabel;
 
     private final ObservableList<Employee> employeeList = FXCollections.observableArrayList();
 
@@ -46,15 +45,17 @@ public class EmployeesPageController {
     }
 
     private void setupTableColumns() {
-        profileColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty("Image"));
         nameColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getName()));
         serviceColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getRole()));
         statusColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getStatus()));
 
+        // Listener for row selection
         employeeTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) displayEmployeeDetails(newSelection);
         });
     }
+
+
 
     private void loadAllEmployees() {
         employeeList.clear();
@@ -74,7 +75,6 @@ public class EmployeesPageController {
                 ));
             }
             employeeTable.setItems(employeeList);
-            filterStatusLabel.setText("All Employees");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -108,7 +108,6 @@ public class EmployeesPageController {
                 ));
             }
             employeeTable.setItems(employeeList);
-            filterStatusLabel.setText("Search Results: " + searchText);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -138,7 +137,6 @@ public class EmployeesPageController {
                 ));
             }
             employeeTable.setItems(employeeList);
-            filterStatusLabel.setText("Filtered Results");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -149,7 +147,8 @@ public class EmployeesPageController {
         serviceName.setText("Role: " + employee.getRole());
         statusBadge.setText("Status: " + employee.getStatus());
         employeeDescription.setText(employee.getDescription());
-        profilePicture.setImage(new Image("file:" + employee.getProfilePicture()));
+        System.out.println(employee.getProfilePicture());
+        profilePicture.setImage(new Image(getClass().getResource("/"+employee.getProfilePicture()).toExternalForm()));
 
         bookNowButton.setDisable(!"Available".equals(employee.getStatus()));
     }

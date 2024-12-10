@@ -2,7 +2,6 @@ package project.demo.models;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import project.demo.models.BookServiceItem;
 
 public class BookServiceManager {
 
@@ -20,11 +19,21 @@ public class BookServiceManager {
         return bookedServices;
     }
 
-    public void addService(BookServiceItem service) {
-        bookedServices.add(service);
+    public void addService(BookServiceItem newService) {
+        // Check for duplicates based on service name
+        boolean exists = bookedServices.stream()
+                .anyMatch(service -> service.getServiceName().equals(newService.getServiceName()));
+
+        if (!exists) {
+            bookedServices.add(newService);
+            System.out.println("[DEBUG] Added new service: " + newService.getServiceName());
+        } else {
+            System.out.println("[INFO] Service already exists: " + newService.getServiceName());
+        }
     }
 
     public void removeService(BookServiceItem service) {
         bookedServices.remove(service);
+        System.out.println("[DEBUG] Removed service: " + service.getServiceName());
     }
 }

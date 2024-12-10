@@ -98,7 +98,7 @@ public class CartPageController {
      */
     public void recalculateSubtotal() {
         double total = cartItems.stream()
-                .mapToDouble(item -> Double.parseDouble(item.getTotalPrice().replace("$", "")))
+                .mapToDouble(item -> Double.parseDouble(item.getTotalPrice().replace("₱", "")))
                 .sum();
         subtotal.set(total);
 

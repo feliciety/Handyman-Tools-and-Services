@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="346.0" prefWidth="253.0" style="-fx-border-width: 1; -fx-padding: 15; -fx-background-color: #E4EAEA; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Service.ServiceCardController">
+<VBox alignment="CENTER" prefHeight="370.0" prefWidth="253.0" style="-fx-border-width: 1; -fx-padding: 15; -fx-background-color: #E4EAEA; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Service.ServiceCardController">
     <ImageView fx:id="serviceImage" fitHeight="175.0" fitWidth="176.0" preserveRatio="true" styleClass="rounded-image">
         <VBox.margin>
             <Insets />
@@ -32,7 +32,7 @@
           </Label>
       </children>
    </VBox>
-    <Button fx:id="bookNowButton" onAction="#onBookNowClicked" prefHeight="30.0" prefWidth="146.0" styleClass="button_addtocart" stylesheets="@../application.css" text="Book Now">
+    <Button fx:id="bookNowButton" onAction="#onBookNowClicked" prefHeight="36.0" prefWidth="146.0" styleClass="button_addtocart" stylesheets="@../application.css" text="Book Now">
         <font>
             <Font name="Inter Light BETA" size="14.0" />
         </font>

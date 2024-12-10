@@ -80,17 +80,47 @@ public class BookingCartTableController {
             }
         });
 
-        // Center align all other columns
-        centerColumnContent(serviceImageCol);
-        centerColumnContent(serviceNameCol);
-        centerHBoxContent(jobComplexityCol);
-        centerColumnContent(serviceFeeCol);
-        centerButtonContent(deleteButtonCol);
+        // Format serviceFee column with Peso sign
+        serviceFeeCol.setCellFactory(column -> new TableCell<BookServiceItem, Double>() {
+            @Override
+            protected void updateItem(Double fee, boolean empty) {
+                super.updateItem(fee, empty);
+                if (empty || fee == null) {
+                    setText(null);
+                } else {
+                    setText(String.format("₱%.2f", fee)); // Format with Peso sign and 2 decimal places
+                }
+                setAlignment(Pos.CENTER);
+            }
+        });
 
-        // Bind the bookedItems from BookServiceManager to the table
+        deleteButtonCol.setCellFactory(tc -> new TableCell<>() {
+            private final Button removeButton = new Button("X");
+
+            {
+                removeButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+                removeButton.setOnAction(event -> {
+                    BookServiceItem item = getTableView().getItems().get(getIndex());
+                    removeBookedService(item);
+                });
+            }
+
+            @Override
+            protected void updateItem(Button button, boolean empty) {
+                super.updateItem(button, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(removeButton);
+                    setAlignment(Pos.CENTER);
+                }
+            }
+        });
+
+        // Set table data
         bookingTable.setItems(bookedItems);
 
-        // Listen for changes in bookedItems (e.g., when an item is removed)
+        // Listen for changes in bookedItems
         bookedItems.addListener((ListChangeListener<? super BookServiceItem>) change -> {
             while (change.next()) {
                 if (change.wasAdded() || change.wasRemoved()) {
@@ -98,6 +128,13 @@ public class BookingCartTableController {
                 }
             }
         });
+
+        // Center align all other columns
+        centerColumnContent(serviceImageCol);
+        centerColumnContent(serviceNameCol);
+        centerHBoxContent(jobComplexityCol);
+        centerColumnContent(serviceFeeCol);
+        centerButtonContent(deleteButtonCol);
     }
 
     private <T> void centerColumnContent(TableColumn<BookServiceItem, T> column) {
@@ -156,20 +193,25 @@ public class BookingCartTableController {
         });
     }
 
-    public void addService(Service service, String jobComplexity, String bookingDate) {
-        // Create a new BookServiceItem
-        BookServiceItem serviceItem = new BookServiceItem(service, jobComplexity, bookingDate);
-
-        // Add the service item to the booking manager
-        BookServiceManager.getInstance().addService(serviceItem);
-
-        // Refresh the table to reflect the updated items
-        updateTable();
+    public void removeBookedService(BookServiceItem serviceItem) {
+        System.out.println("[DEBUG] Removing: " + serviceItem.getServiceName());
+        bookedItems.remove(serviceItem); // Remove from the ObservableList
+        bookingTable.refresh();
     }
 
-    public void removeBookedService(BookServiceItem serviceItem) {
-        bookedItems.remove(serviceItem);
-        updateTable();
+    public void addService(Service service, String jobComplexity, String bookingDate) {
+        // Check for duplicates
+        boolean exists = bookedItems.stream()
+                .anyMatch(item -> item.getServiceName().equals(service.getName()));
+
+        if (!exists) {
+            BookServiceItem serviceItem = new BookServiceItem(service, jobComplexity, bookingDate);
+            bookedItems.add(serviceItem);
+            serviceItem.setOnRemoveAction(() -> removeBookedService(serviceItem));
+            updateTable();
+        } else {
+            System.out.println("[INFO] Service already exists: " + service.getName());
+        }
     }
 
     public void updateTable() {
