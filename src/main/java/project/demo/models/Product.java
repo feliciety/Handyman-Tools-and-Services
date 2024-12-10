@@ -43,8 +43,8 @@ public class Product {
         try {
             Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
             ImageView imageView = new ImageView(image);
-            imageView.setFitWidth(50);
-            imageView.setFitHeight(50);
+            imageView.setFitWidth(75);
+            imageView.setFitHeight(75);
             imageView.setPreserveRatio(true);
             return imageView;
         } catch (Exception e) {

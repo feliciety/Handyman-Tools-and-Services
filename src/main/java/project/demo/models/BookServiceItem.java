@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.beans.binding.StringBinding;
 
 import java.time.LocalDate;
 
@@ -74,22 +75,44 @@ public class BookServiceItem {
     }
 
     // Calculate the service fee based on job complexity
+    // Calculate the service fee based on job complexity
     private double calculateServiceFee() {
         return switch (jobComplexity.get().toLowerCase()) {
-            case "high" -> maxPrice;
-            case "medium" -> Math.round((minPrice + maxPrice) / 2 * 100.0) / 100.0;
-            default -> minPrice;
+            case "high" -> Math.round(maxPrice * 100.0) / 100.0; // Round to 2 decimal places
+            case "medium" -> Math.round(((minPrice + maxPrice) / 2) * 100.0) / 100.0; // Midpoint
+            case "low" -> Math.round(minPrice * 100.0) / 100.0;
+            default -> 0.0;
         };
     }
 
+    // New method to return formatted service fee as String
+    public StringBinding formattedServiceFeeProperty() {
+        // Dynamically bind the formatted service fee with peso sign
+        return new StringBinding() {
+            {
+                bind(serviceFee); // Bind to the DoubleProperty serviceFee
+            }
+
+            @Override
+            protected String computeValue() {
+                return String.format("₱%.2f", serviceFee.get());
+            }
+        };
+    }
+
+
+    public void setJobComplexity(String complexity) {
+        this.jobComplexity.set(complexity);
+        this.serviceFee.set(calculateServiceFee()); // Recalculate service fee
+    }
     // Create service image view
     private ImageView createServiceImageView(String serviceImagePath) {
         ImageView imageView = new ImageView();
         try {
             Image image = new Image(getClass().getResource(serviceImagePath).toExternalForm());
             imageView.setImage(image);
-            imageView.setFitWidth(50);
-            imageView.setFitHeight(50);
+            imageView.setFitWidth(75);
+            imageView.setFitHeight(75);
             imageView.setPreserveRatio(true);
         } catch (Exception e) {
             System.err.println("[ERROR] Unable to load image: " + serviceImagePath);
@@ -103,20 +126,30 @@ public class BookServiceItem {
         Button upButton = new Button("+");
         Button downButton = new Button("-");
 
+        // Increase job complexity
         upButton.setOnAction(event -> {
             if (jobComplexity.get().equals("low")) setJobComplexity("medium");
             else if (jobComplexity.get().equals("medium")) setJobComplexity("high");
             complexityLabel.setText(jobComplexity.get());
+            updateServiceFee(); // Update the service fee in real time
         });
 
+        // Decrease job complexity
         downButton.setOnAction(event -> {
             if (jobComplexity.get().equals("high")) setJobComplexity("medium");
             else if (jobComplexity.get().equals("medium")) setJobComplexity("low");
             complexityLabel.setText(jobComplexity.get());
+            updateServiceFee(); // Update the service fee in real time
         });
 
-        return new HBox(10, downButton, complexityLabel, upButton);
+        return new HBox(5, downButton, complexityLabel, upButton);
     }
+
+    // Update service fee when job complexity changes
+    private void updateServiceFee() {
+        this.serviceFee.set(calculateServiceFee());
+    }
+
 
     // Create remove button
     private Button createRemoveButton() {
@@ -144,6 +177,7 @@ public class BookServiceItem {
         return jobComplexityControl;
     }
 
+
     public double getServiceFee() {
         return serviceFee.get();
     }
@@ -169,10 +203,6 @@ public class BookServiceItem {
         return bookingDate;
     }
 
-    public void setJobComplexity(String complexity) {
-        this.jobComplexity.set(complexity);
-        this.serviceFee.set(calculateServiceFee());
-    }
 
     public void setBookingDate(String bookingDate) {
         if (bookingDate != null && !bookingDate.isEmpty()) {
@@ -185,6 +215,13 @@ public class BookServiceItem {
     public StringProperty jobComplexityProperty() {
         return jobComplexity; // Return the job complexity property
     }
+
+
+    // Getter for service fee with peso sign for display purposes
+    public String getFormattedServiceFee() {
+        return String.format("₱%.2f", serviceFee.get());
+    }
+
 
 
 }

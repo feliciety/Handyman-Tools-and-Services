@@ -59,11 +59,19 @@ public class EmployeesPageController {
 
 
     private void setupTableColumns() {
+        // Set CellValueFactory for each column
         nameColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getName()));
         serviceColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getRole()));
         statusColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getStatus()));
         phoneColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getPhoneNumber()));
 
+        // Center-align all columns
+        centerAlignColumn(nameColumn);
+        centerAlignColumn(serviceColumn);
+        centerAlignColumn(statusColumn);
+        centerAlignColumn(phoneColumn);
+
+        // Custom styling for the status column
         statusColumn.setCellFactory(col -> new TableCell<Employee, String>() {
             private final Label statusLabel = new Label();
 
@@ -74,58 +82,51 @@ public class EmployeesPageController {
                 if (empty || status == null) {
                     setGraphic(null);
                 } else {
-                    // Configure the label styling
                     statusLabel.setText(status);
                     statusLabel.setStyle(getStatusStyle(status));
-                    statusLabel.setMinWidth(100);
-                    statusLabel.setPrefHeight(30);
                     statusLabel.setAlignment(javafx.geometry.Pos.CENTER); // Center the label content
                     setStyle("-fx-alignment: CENTER;"); // Center the cell itself
-
                     setGraphic(statusLabel);
                 }
             }
 
-            // Dynamic styling based on status
             private String getStatusStyle(String status) {
                 if ("Available".equalsIgnoreCase(status)) {
-                    return "-fx-background-color: #E0F8E0; " + // Light green background
-                            "-fx-border-color: #90EE90; " +    // Light green border
+                    return "-fx-background-color: #E0F8E0; " +
+                            "-fx-border-color: #90EE90; " +
                             "-fx-border-width: 2px; " +
                             "-fx-border-radius: 15; " +
                             "-fx-background-radius: 15; " +
-                            "-fx-text-fill: #2E8B57; " +       // SeaGreen text
-                            "-fx-font-weight: normal; " +      // Regular font
-                            "-fx-font-size: 10px; " +          // Font size 10
+                            "-fx-text-fill: #2E8B57; " +
+                            "-fx-font-size: 10px; " +
                             "-fx-padding: 5;";
                 } else if ("Unavailable".equalsIgnoreCase(status)) {
-                    return "-fx-background-color: #FDEDEC; " + // Light red background
-                            "-fx-border-color: #F08080; " +    // Light coral border
+                    return "-fx-background-color: #FDEDEC; " +
+                            "-fx-border-color: #F08080; " +
                             "-fx-border-width: 2px; " +
                             "-fx-border-radius: 15; " +
                             "-fx-background-radius: 15; " +
-                            "-fx-text-fill: #CD5C5C; " +       // IndianRed text
-                            "-fx-font-weight: normal; " +      // Regular font
-                            "-fx-font-size: 10px; " +          // Font size 10
+                            "-fx-text-fill: #CD5C5C; " +
+                            "-fx-font-size: 10px; " +
                             "-fx-padding: 5;";
                 }
-                return "-fx-background-color: #F0F0F0; " +    // Light gray background
-                        "-fx-border-color: #C0C0C0; " +        // Gray border
+                return "-fx-background-color: #F0F0F0; " +
+                        "-fx-border-color: #C0C0C0; " +
                         "-fx-border-width: 2px; " +
                         "-fx-border-radius: 15; " +
                         "-fx-background-radius: 15; " +
-                        "-fx-text-fill: #808080; " +           // Dark gray text
-                        "-fx-font-weight: normal; " +          // Regular font
-                        "-fx-font-size: 10px; " +              // Font size 10
+                        "-fx-text-fill: #808080; " +
+                        "-fx-font-size: 10px; " +
                         "-fx-padding: 5;";
             }
-            });
+        });
 
         // Listener for row selection
         employeeTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) displayEmployeeDetails(newSelection);
         });
     }
+
 
     private <T> void centerAlignColumn(TableColumn<Employee, T> column) {
         column.setCellFactory(tc -> new TableCell<Employee, T>() {
@@ -139,10 +140,9 @@ public class EmployeesPageController {
                     setText(item.toString());
                     setStyle("-fx-alignment: CENTER;"); // Center alignment
                 }
-            }
+                }
         });
     }
-
 
     private void loadAllEmployees() {
         employeeList.clear();
@@ -233,9 +233,9 @@ public class EmployeesPageController {
     }
 
     private void displayEmployeeDetails(Employee employee) {
-        employeeName.setText("Name: " + employee.getName());
-        serviceName.setText("Role: " + employee.getRole());
-        statusBadge.setText("Status: " + employee.getStatus());
+        employeeName.setText( employee.getName());
+        serviceName.setText( employee.getRole());
+        statusBadge.setText(employee.getStatus());
         employeeDescription.setText(employee.getDescription());
         System.out.println(employee.getProfilePicture());
         profilePicture.setImage(new Image(getClass().getResource("/"+employee.getProfilePicture()).toExternalForm()));

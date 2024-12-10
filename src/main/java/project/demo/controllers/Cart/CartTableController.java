@@ -5,10 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -42,6 +39,17 @@ public class  CartTableController {
 
     @FXML
     public void initialize() {
+
+        cartTable.setRowFactory(tv -> {
+            TableRow<CartItem> row = new TableRow<>() {
+                @Override
+                protected void updateItem(CartItem item, boolean empty) {
+                    super.updateItem(item, empty);
+                    setPrefHeight(75); // Set desired row height here
+                }
+            };
+            return row;
+        });
         // Set up table columns with centered alignment
         productImageCol.setCellValueFactory(new PropertyValueFactory<>("productImage"));
         productNameCol.setCellValueFactory(new PropertyValueFactory<>("productName"));

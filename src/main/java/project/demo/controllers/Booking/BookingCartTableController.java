@@ -32,7 +32,7 @@ public class BookingCartTableController {
     private TableColumn<BookServiceItem, HBox> jobComplexityCol;
 
     @FXML
-    private TableColumn<BookServiceItem, Double> serviceFeeCol;
+    private TableColumn<BookServiceItem, String> serviceFeeCol;
 
     @FXML
     private TableColumn<BookServiceItem, LocalDate> bookingDateCol;
@@ -81,18 +81,9 @@ public class BookingCartTableController {
         });
 
         // Format serviceFee column with Peso sign
-        serviceFeeCol.setCellFactory(column -> new TableCell<BookServiceItem, Double>() {
-            @Override
-            protected void updateItem(Double fee, boolean empty) {
-                super.updateItem(fee, empty);
-                if (empty || fee == null) {
-                    setText(null);
-                } else {
-                    setText(String.format("₱%.2f", fee)); // Format with Peso sign and 2 decimal places
-                }
-                setAlignment(Pos.CENTER);
-            }
-        });
+        serviceFeeCol.setCellValueFactory(cellData ->
+                cellData.getValue().formattedServiceFeeProperty()
+        );
 
         deleteButtonCol.setCellFactory(tc -> new TableCell<>() {
             private final Button removeButton = new Button("X");

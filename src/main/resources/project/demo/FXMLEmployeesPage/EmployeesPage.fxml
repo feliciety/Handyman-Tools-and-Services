@@ -15,21 +15,28 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="651.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Employee.EmployeesPageController">
      <!-- Filters -->
      <HBox alignment="CENTER" layoutX="235.0" layoutY="26.0" spacing="10" />
-   <HBox layoutX="97.0" layoutY="45.0" prefHeight="578.0" prefWidth="1055.0" spacing="20.0">
+   <HBox layoutX="106.0" layoutY="37.0" prefHeight="578.0" prefWidth="1008.0" spacing="20.0">
       <children>
       
           <!-- Employee Details Card -->
-          <VBox fx:id="employeeDetailsCard" alignment="TOP_CENTER" prefHeight="546.0" prefWidth="340.0" spacing="10" styleClass="my-style" stylesheets="@../styles.css">
+          <VBox fx:id="employeeDetailsCard" alignment="CENTER" prefHeight="578.0" prefWidth="289.0" spacing="10" styleClass="my-style" stylesheets="@../styles.css">
               <ImageView fx:id="profilePicture" fitHeight="181.0" fitWidth="202.0" layoutX="75.0" layoutY="20.0" preserveRatio="true" />
-              <Label fx:id="employeeName" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Name: " />
-              <Label fx:id="serviceName" style="-fx-font-size: 14px;" text="Role: " />
-              <Label fx:id="statusBadge" style="-fx-font-size: 14px;" text="Status: " />
-              <TextArea fx:id="employeeDescription" editable="false" prefHeight="175.0" prefWidth="464.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" styleClass="my-style" stylesheets="@../styles.css" text="Description: " wrapText="true" />
-              <Button fx:id="bookNowButton" disable="true" onAction="#onBookNowClicked" prefWidth="100.0" text="Book Now" />
+              <Label fx:id="employeeName" text="Employee Name">
+               <font>
+                  <Font name="Inter Extra Bold" size="18.0" />
+               </font></Label>
+              <Label fx:id="serviceName" text="Role">
+               <font>
+                  <Font name="Inter Medium" size="14.0" />
+               </font></Label>
+              <Label fx:id="statusBadge" style="-fx-font-size: 14px;" text="Status" />
+              <TextArea fx:id="employeeDescription" editable="false" prefHeight="175.0" prefWidth="251.0" styleClass="my-style" stylesheets="@../styles.css" text="Description: " wrapText="true" />
+              <Button fx:id="bookNowButton" onAction="#onBookNowClicked" prefHeight="32.0" prefWidth="318.0" text="Book Now" />
             <padding>
                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
