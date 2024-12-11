@@ -15,6 +15,8 @@ import project.demo.models.Employee;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EmployeesPageController {
 
@@ -34,14 +36,37 @@ public class EmployeesPageController {
     @FXML private ComboBox<String> availabilityFilter, serviceCategoryFilter;
     @FXML private TextField searchField;
 
+    @FXML private ImageView roleLogo; // ImageView for displaying logos
+
+    // Map to associate role names with image paths
+    private final Map<String, String> serviceLogos = new HashMap<>();
     private final ObservableList<Employee> employeeList = FXCollections.observableArrayList();
 
     // Database config
     private final DatabaseConfig databaseConfig = new DatabaseConfig();
 
     public void initialize() {
+
+        serviceLogos.put("carpenter", "/project/demo/imagelogo/carpentrylogo.png");
+        serviceLogos.put("cleaner", "/project/demo/imagelogo/cleaninglogo.png");
+        serviceLogos.put("electrician", "/project/demo/imagelogo/electricallogo.png");
+        serviceLogos.put("flooring specialist", "/project/demo/imagelogo/flooringlogo.png");
+        serviceLogos.put("mason", "/project/demo/imagelogo/masonrylogo.png");
+        serviceLogos.put("painter", "/project/demo/imagelogo/paintinglogo.png");
+        serviceLogos.put("plumber", "/project/demo/imagelogo/plumbinglogo.png");
+        serviceLogos.put("roofer", "/project/demo/imagelogo/roofinglogo.png");
+
+        employeeTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> displayRoleLogo(newValue));
+
         setupTableColumns();
         loadAllEmployees();
+        loadRolesIntoComboBox(); // Load roles dynamically
+        serviceCategoryFilter.setOnAction(event -> filterEmployees());
+
+
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> filterEmployeeList(newValue));
+
         setupFilters();
 
         // Adjust row height
@@ -56,6 +81,44 @@ public class EmployeesPageController {
             return row;
         });
     }
+
+    private void displayRoleLogo(Employee employee) {
+        if (employee != null) {
+            // Convert the role_name to lowercase for matching
+            String serviceName = employee.getRole().toLowerCase();
+            String imagePath = serviceLogos.getOrDefault(serviceName, "/project/demo/imagelogo/default.png");
+
+            try {
+                // Load the image and set it to the ImageView
+                Image image = new Image(getClass().getResourceAsStream(imagePath));
+                roleLogo.setImage(image);
+            } catch (Exception e) {
+                System.out.println("Image not found for: " + serviceName);
+            }
+        }
+    }
+
+    private void loadRolesIntoComboBox() {
+        ObservableList<String> roleList = FXCollections.observableArrayList();
+        roleList.add("All Roles"); // Add "All Roles" option at the top
+
+        String query = "SELECT DISTINCT role_name FROM role"; // Fetch all unique roles
+        try (Connection conn = databaseConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                roleList.add(rs.getString("role_name"));
+            }
+            serviceCategoryFilter.setItems(roleList);
+            serviceCategoryFilter.setValue("Select Roles"); // Set default value
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
 
     private void setupTableColumns() {
@@ -205,34 +268,26 @@ public class EmployeesPageController {
     private void filterEmployees() {
         String availability = availabilityFilter.getValue();
         String role = serviceCategoryFilter.getValue();
+        String searchText = searchField.getText().trim().toLowerCase();
 
-        employeeList.clear();
-        StringBuilder query = new StringBuilder("SELECT * FROM employee INNER JOIN role ON employee.role_id = role.role_id WHERE 1=1");
-        if (availability != null) query.append(" AND status = '").append(availability).append("'");
-        if (role != null) query.append(" AND role_name = '").append(role).append("'");
+        ObservableList<Employee> filteredList = FXCollections.observableArrayList();
 
-        try (Connection conn = databaseConfig.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query.toString());
-             ResultSet rs = stmt.executeQuery()) {
+        for (Employee employee : employeeList) {
+            boolean matchesAvailability = (availability == null || availability.equals("All") || employee.getStatus().equalsIgnoreCase(availability));
+            boolean matchesRole = (role == null || role.equals("All Roles") || employee.getRole().equalsIgnoreCase(role));
+            boolean matchesSearch = (searchText.isEmpty() || employee.getName().toLowerCase().contains(searchText));
 
-            while (rs.next()) {
-                employeeList.add(new Employee(
-                        rs.getInt("employee_id"),
-                        rs.getString("name"),
-                        rs.getString("role_name"),
-                        rs.getString("status"),
-                        rs.getString("description"),
-                        rs.getString("profile_picture"),
-                        rs.getString("phone_number")
-                ));
+            // Add employee only if all filters match
+            if (matchesAvailability && matchesRole && matchesSearch) {
+                filteredList.add(employee);
             }
-            employeeTable.setItems(employeeList);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+
+        employeeTable.setItems(filteredList);
     }
 
-    private void displayEmployeeDetails(Employee employee) {
+
+    void displayEmployeeDetails(Employee employee) {
         employeeName.setText( employee.getName());
         serviceName.setText( employee.getRole());
         statusBadge.setText(employee.getStatus());
@@ -249,6 +304,28 @@ public class EmployeesPageController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Service booked successfully!", ButtonType.OK);
         alert.showAndWait();
     }
+
+    private void filterEmployeeList(String searchText) {
+        // If search text is empty, display all employees
+        if (searchText == null || searchText.trim().isEmpty()) {
+            employeeTable.setItems(employeeList);
+            return;
+        }
+
+        // Create a filtered list
+        ObservableList<Employee> filteredList = FXCollections.observableArrayList();
+
+        // Compare search text with employee names (case-insensitive)
+        for (Employee employee : employeeList) {
+            if (employee.getName().toLowerCase().contains(searchText.toLowerCase())) {
+                filteredList.add(employee);
+            }
+        }
+
+        // Set the filtered list to the TableView
+        employeeTable.setItems(filteredList);
+    }
+
 
 
 
