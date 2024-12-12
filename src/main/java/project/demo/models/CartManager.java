@@ -1,5 +1,6 @@
 package project.demo.models;
 
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -30,5 +31,11 @@ public class CartManager {
             }
         }
         cartItems.add(new CartItem(product, null));
+    }
+
+    public void addCartCounterListener(ChangeListener<Number> listener) {
+        cartItems.addListener((javafx.collections.ListChangeListener<CartItem>) change -> {
+            listener.changed(null, null, cartItems.size());
+        });
     }
 }

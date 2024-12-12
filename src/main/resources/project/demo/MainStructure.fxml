@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="801.0" prefWidth="1251.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Main.MainStructureController">
    <children>
@@ -50,10 +50,14 @@
                            <Insets right="-30.0" top="20.0" />
                         </StackPane.margin>
                      </Circle>
-                     <Text fx:id="cartCounter" style="-fx-font-size: 14px;" text="0">
+                     <Label fx:id="cartCounterLabel" text="0">
                         <StackPane.margin>
                            <Insets right="-30.0" top="20.0" />
-                        </StackPane.margin></Text>
+                        </StackPane.margin>
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Label>
                   </StackPane>
                </graphic>
             </Button>
@@ -110,6 +114,6 @@
          </HBox>
          <HBox spacing="10" />
       </VBox>
-      <AnchorPane fx:id="contentContainer" layoutX="7.0" layoutY="77.0" prefHeight="673.0" prefWidth="1240.0" />
+      <AnchorPane fx:id="contentContainer" layoutY="77.0" prefHeight="674.0" prefWidth="1254.0" />
    </children>
 </AnchorPane>

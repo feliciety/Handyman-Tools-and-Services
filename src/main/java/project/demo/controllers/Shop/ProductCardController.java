@@ -122,14 +122,14 @@ public class ProductCardController {
         cartIcon.setOpacity(0);
 
         // Step 1: Fade in animation
-        FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), cartIcon);
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), cartIcon);
         fadeIn.setToValue(1);
 
         // Step 2: Move the cart GIF from x = -30 to x = 30
         TranslateTransition moveCart = new TranslateTransition(Duration.seconds(2), cartIcon);
 
         // Step 3: Fade out animation
-        FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), cartIcon);
+        FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), cartIcon);
         fadeOut.setToValue(0);
         fadeOut.setDelay(Duration.seconds(0.5)); // Start fading out after 1.5 seconds
 
@@ -146,8 +146,7 @@ public class ProductCardController {
         System.out.println("[DEBUG] Showing 'Added to Cart' text.");
 
         // Step 1: Set "Added to Cart" text and make it fully visible
-        buttonText.setText("Added to Cart!");
-        buttonText.setFont(Font.font("System", FontWeight.SEMI_BOLD, 14)); // 14 is fon
+        buttonText.setText("Done!");
         buttonText.setOpacity(1); // Ensure it's visible
 
         // Step 2: Text down animation
@@ -161,11 +160,11 @@ public class ProductCardController {
         TranslateTransition settleDown = new TranslateTransition(Duration.seconds(0.2), buttonText);
         settleDown.setByY(5); // Settle back down
 
-        // Combine bounce animations sequentially
-        SequentialTransition bounceEffect = new SequentialTransition(bounceUp, settleDown);
-
         // Step 3: Add a 1-second pause after the bounce
-        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+
+        // Combine bounce animations sequentially
+        SequentialTransition bounceEffect = new SequentialTransition(bounceUp, settleDown, pause);
 
 
         // Step 4: Fade out animation AFTER text down and bounce

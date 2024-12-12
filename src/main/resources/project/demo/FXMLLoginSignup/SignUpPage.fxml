@@ -16,11 +16,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="1200.0" style="-fx-background-color: #3E66FF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.LoginSignup.SignUpPageController">
-
-    <ImageView fitHeight="651.0" fitWidth="1228.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 50;">
-        <Image url="@../imageloginsignup/loginsignupBG.png" />
-    </ImageView>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="1230.0" style="-fx-background-color: #3E66FF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.LoginSignup.SignUpPageController">
+   <ImageView fitHeight="690.0" fitWidth="1231.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../imageloginsignup/loginsignupBG.png" />
+      </image>
+   </ImageView>
    <Pane layoutX="103.0" layoutY="34.0" prefHeight="595.0" prefWidth="1014.0" style="-fx-background-color: white; -fx-opacity: 80%; -fx-background-radius: 35;" />
 
     <Pane layoutX="94.4" layoutY="46.4" prefHeight="576.0" prefWidth="1010.0" style="-fx-background-color: transparent; -fx-background-radius: 35;" AnchorPane.leftAnchor="94.0" AnchorPane.topAnchor="46.0">

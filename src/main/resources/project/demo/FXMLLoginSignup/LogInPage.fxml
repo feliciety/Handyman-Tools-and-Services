@@ -15,8 +15,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="1200.0" style="-fx-background-color: #3E66FF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.LoginSignup.LogInPageController">
-    <ImageView fitHeight="655.0" fitWidth="1245.0" layoutX="-23.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 50;">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="1231.0" style="-fx-background-color: #3E66FF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.LoginSignup.LogInPageController">
+    <ImageView fitHeight="655.0" fitWidth="1267.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 50;">
         <Image url="@../imageloginsignup/loginsignupBG.png" />
     </ImageView>
    <Pane layoutX="93.0" layoutY="53.0" prefHeight="566.0" prefWidth="1014.0" style="-fx-background-color: white; -fx-opacity: 80%; -fx-background-radius: 35;" />

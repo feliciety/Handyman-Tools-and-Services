@@ -125,12 +125,74 @@ public class ServicePageController {
 
         for (String subcategory : subcategories) {
             Button subcategoryButton = new Button(subcategory);
-            subcategoryButton.setOnAction(event -> {
-                System.out.println("[DEBUG] Subcategory button clicked: " + subcategory);
-                populateServices(subcategory); // Populate services for the selected subcategory
-            });
+
             subcategoryButton.setPrefWidth(200);
-            subcategoryButton.setStyle("-fx-background-color: #3E4546; -fx-text-fill: white; -fx-font-weight: bold;");
+            subcategoryButton.setStyle(
+                    "-fx-background-color: linear-gradient(to bottom, #555555, #444444);" + // Lighter gray gradient
+                            "-fx-text-fill: white;" +
+                            "-fx-font-weight: bold;" +
+                            "-fx-background-radius: 12px;" +
+                            "-fx-border-radius: 12px;" +
+                            "-fx-padding: 10px 20px;" +
+                            "-fx-cursor: hand;" +
+                            "-fx-effect: dropshadow(three-pass-box, #222222, 0, 1, 0, 3);"
+            );
+
+            // Hover Effect
+            subcategoryButton.setOnMouseEntered(event -> {
+                subcategoryButton.setStyle(
+                        "-fx-background-color: linear-gradient(to bottom, #666666, #555555);" + // Lighter on hover
+                                "-fx-text-fill: white;" +
+                                "-fx-font-weight: bold;" +
+                                "-fx-background-radius: 12px;" +
+                                "-fx-border-radius: 12px;" +
+                                "-fx-padding: 10px 20px;" +
+                                "-fx-cursor: hand;" +
+                                "-fx-effect: dropshadow(three-pass-box, #222222, 0, 1, 0, 3);"
+                );
+            });
+
+            // Reset to Default
+            subcategoryButton.setOnMouseExited(event -> {
+                subcategoryButton.setStyle(
+                        "-fx-background-color: linear-gradient(to bottom, #555555, #444444);" +
+                                "-fx-text-fill: white;" +
+                                "-fx-font-weight: bold;" +
+                                "-fx-background-radius: 12px;" +
+                                "-fx-border-radius: 12px;" +
+                                "-fx-padding: 10px 20px;" +
+                                "-fx-cursor: hand;" +
+                                "-fx-effect: dropshadow(three-pass-box, #222222, 0, 1, 0, 3);"
+                );
+            });
+
+            // Pressed Effect
+            subcategoryButton.setOnMousePressed(event -> {
+                subcategoryButton.setStyle(
+                        "-fx-background-color: #444444;" + // Solid lighter gray when pressed
+                                "-fx-text-fill: white;" +
+                                "-fx-font-weight: bold;" +
+                                "-fx-background-radius: 12px;" +
+                                "-fx-border-radius: 12px;" +
+                                "-fx-padding: 10px 20px;" +
+                                "-fx-translate-y: 3px;" + // Simulate button press
+                                "-fx-effect: none;"
+                );
+            });
+
+            subcategoryButton.setOnMouseReleased(event -> {
+                subcategoryButton.setStyle(
+                        "-fx-background-color: linear-gradient(to bottom, #666666, #555555);" + // Back to hover effect
+                                "-fx-text-fill: white;" +
+                                "-fx-font-weight: bold;" +
+                                "-fx-background-radius: 12px;" +
+                                "-fx-border-radius: 12px;" +
+                                "-fx-padding: 10px 20px;" +
+                                "-fx-cursor: hand;" +
+                                "-fx-effect: dropshadow(three-pass-box, #222222, 0, 1, 0, 3);"
+                );
+            });
+
             subcategoriesBox.getChildren().add(subcategoryButton);
         }
     }

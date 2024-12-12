@@ -41,6 +41,8 @@ public class LogInPageController {
     @FXML
     private StackPane passwordWarningImage;
 
+    private MainPaneController mainPaneController;
+
     private final DatabaseConfig db = new DatabaseConfig();
 
     @FXML
@@ -188,11 +190,16 @@ public class LogInPageController {
         return fade;
     }
 
-    @FXML
-    public void SignInSwap() {
-        navigateToPage("/project/demo/FXMLLoginSignup/SignUpPage.fxml", "Sign Up");
+    public void setMainPaneController(MainPaneController mainPaneController) {
+        this.mainPaneController = mainPaneController;
     }
 
+    @FXML
+    public void SignInSwap() {
+        if (mainPaneController != null) {
+            mainPaneController.loadSignUpPage();
+        }
+    }
     private void navigateToPage(String fxmlPath, String title) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));

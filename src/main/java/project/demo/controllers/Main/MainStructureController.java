@@ -1,17 +1,15 @@
 package project.demo.controllers.Main;
 
-import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
-import javafx.util.Duration;
+import project.demo.models.CartManager;
 import project.demo.models.UserSession;
 
 import java.io.IOException;
@@ -27,7 +25,12 @@ public class MainStructureController {
     private String currentPage = "";
 
     @FXML
+    private Label cartCounterLabel;
+
+    @FXML
     public void initialize() {
+
+        updateCartCounter();
         System.out.println("[DEBUG] MainStructureController initialized.");
 
         // Load the default home page
@@ -112,26 +115,11 @@ public class MainStructureController {
     public void handleEmployeeClick(ActionEvent actionEvent) {
         loadPage("/project/demo/FXMLEmployeesPage/EmployeesPage.fxml");
     }
-
-    @FXML
-    private StackPane cartPane;
-
-    @FXML
-    private Text cartCounter; // Text displaying the cart count
-
-    public void shakeCartPane() {
-        System.out.println("[INFO] Playing cart pane shake animation.");
-
-        // Shake animation: horizontal movement
-        TranslateTransition shake = new TranslateTransition(Duration.millis(100), cartPane);
-        shake.setByX(10); // Move 10px to the right
-        shake.setAutoReverse(true);
-        shake.setCycleCount(6); // Shake back and forth 3 times
-        shake.play();
+    private void updateCartCounter() {
+        CartManager.getInstance().addCartCounterListener((observable, oldValue, newValue) -> {
+            cartCounterLabel.setText(String.valueOf(newValue)); // Update label with the cart size
+        });
     }
 
-    public void updateCartCounter(int count) {
-        System.out.println("[INFO] Updating cart counter: " + count);
-        cartCounter.setText(String.valueOf(count)); // Update the counter text
-    }
+
 }
