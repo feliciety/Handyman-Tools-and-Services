@@ -19,3 +19,32 @@
     -fx-opacity: 1.0;
 }
 
+.button {
+    -fx-background-color: linear-gradient(to bottom, #ffdb00, #e6c200); /* Default yellow gradient */
+    -fx-text-fill: #000000; /* Black text */
+    -fx-font-size: 14px;
+    -fx-font-weight: normal; /* No bold */
+    -fx-background-radius: 12px; /* Rounded corners */
+    -fx-border-radius: 12px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+
+    /* Solid shadow with no blur */
+    -fx-effect: dropshadow(three-pass-box, #aa7e00, 0, 1, 0, 3); /* Solid vertical shadow */
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+/* Hover Effect: Make the yellow lighter */
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #ffe066, #f5d342); /* Lighter yellow gradient */
+    -fx-effect: dropshadow(three-pass-box, #aa7e00, 0, 1, 0, 3); /* Keep solid shadow */
+}
+
+/* Pressed State: Flat 2D appearance */
+.button:pressed {
+    -fx-background-color: #ffdb00; /* Solid yellow */
+    -fx-effect: none; /* Remove shadow for flat look */
+    -fx-translate-y: 3px; /* Simulate button press */
+    -fx-background-radius: 12px; /* Keep rounded corners */
+    -fx-border-color: transparent;
+}

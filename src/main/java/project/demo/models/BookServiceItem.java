@@ -158,11 +158,15 @@ public class BookServiceItem {
         button.setOnAction(event -> {
             if (onRemoveAction != null) {
                 System.out.println("[DEBUG] Remove button clicked for: " + getServiceName());
-                onRemoveAction.run(); // Call the removal action
+                onRemoveAction.run(); // Trigger removal callback
+            } else {
+                System.out.println("[ERROR] onRemoveAction is not set for: " + getServiceName());
             }
         });
         return button;
     }
+
+
 
     // Getters for table properties
     public String getServiceName() {

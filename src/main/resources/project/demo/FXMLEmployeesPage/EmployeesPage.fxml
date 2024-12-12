@@ -39,10 +39,16 @@
             </ImageView>
               <Label fx:id="serviceName" alignment="CENTER" prefHeight="18.0" prefWidth="202.0" text="Role" textFill="WHITE">
                <font>
-                  <Font name="Inter Medium" size="13.0" />
+                  <Font name="Inter Medium" size="14.0" />
                </font>
             </Label>
-              <Label fx:id="Specialty" style="-fx-font-size: 14px;" text="Specialty" textFill="WHITE" />
+              <Label fx:id="specialtyName" style="-fx-font-size: 12px; -fx-border-color: #ffdb00; -fx-border-radius: 15; -fx-label-padding: 4; -fx-background-color: lightyellow; -fx-background-radius: 15;" text="Specialty">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font size="10.0" />
+               </font></Label>
               <TextArea fx:id="employeeDescription" editable="false" prefHeight="175.0" prefWidth="229.0" styleClass="my-style" stylesheets="@../styles.css" text="Description: " wrapText="true" />
               <Button fx:id="bookNowButton" onAction="#onBookNowClicked" prefHeight="32.0" prefWidth="340.0" text="Book Now" />
             <padding>

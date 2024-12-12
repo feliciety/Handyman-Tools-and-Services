@@ -29,7 +29,7 @@ public class EmployeesPageController {
     @FXML private TableColumn<Employee, String> phoneColumn;
 
     @FXML private ImageView profilePicture;
-    @FXML private Label employeeName, serviceName, statusBadge;
+    @FXML private Label employeeName, serviceName;
     @FXML private TextArea employeeDescription;
     @FXML private Button bookNowButton;
 
@@ -133,6 +133,18 @@ public class EmployeesPageController {
         centerAlignColumn(serviceColumn);
         centerAlignColumn(statusColumn);
         centerAlignColumn(phoneColumn);
+        nameColumn.setCellFactory(column -> new TableCell<Employee, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item);
+                    setStyle("-fx-font-weight: bold; -fx-alignment: CENTER-LEFT;");
+                }
+            }
+        });
 
         // Custom styling for the status column
         statusColumn.setCellFactory(col -> new TableCell<Employee, String>() {
@@ -209,7 +221,11 @@ public class EmployeesPageController {
 
     private void loadAllEmployees() {
         employeeList.clear();
-        String query = "SELECT employee.*, role.role_name FROM employee INNER JOIN role ON employee.role_id = role.role_id";
+        String query = "SELECT employee.*, role.role_name, service.service_name " +
+                "FROM employee " +
+                "INNER JOIN role ON employee.role_id = role.role_id " +
+                "INNER JOIN service ON employee.service_id = service.service_id";
+
         try (Connection conn = databaseConfig.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
@@ -222,7 +238,8 @@ public class EmployeesPageController {
                         rs.getString("status"),
                         rs.getString("description"),
                         rs.getString("profile_picture"),
-                        rs.getString("phone_number")
+                        rs.getString("phone_number"),
+                        rs.getString("service_name") // Add service name to the model
                 ));
             }
             employeeTable.setItems(employeeList);
@@ -230,6 +247,7 @@ public class EmployeesPageController {
             e.printStackTrace();
         }
     }
+
 
     private void setupFilters() {
         availabilityFilter.setOnAction(event -> filterEmployees());
@@ -256,7 +274,8 @@ public class EmployeesPageController {
                         rs.getString("status"),
                         rs.getString("description"),
                         rs.getString("profile_picture"),
-                        rs.getString("phone_number")
+                        rs.getString("phone_number"),
+                        rs.getString("service_name")
                 ));
             }
             employeeTable.setItems(employeeList);
@@ -287,16 +306,31 @@ public class EmployeesPageController {
     }
 
 
-    void displayEmployeeDetails(Employee employee) {
-        employeeName.setText( employee.getName());
-        serviceName.setText( employee.getRole());
-        statusBadge.setText(employee.getStatus());
-        employeeDescription.setText(employee.getDescription());
-        System.out.println(employee.getProfilePicture());
-        profilePicture.setImage(new Image(getClass().getResource("/"+employee.getProfilePicture()).toExternalForm()));
+    @FXML private Label specialtyName;
 
-        bookNowButton.setDisable(!"Available".equals(employee.getStatus()));
+    void displayEmployeeDetails(Employee employee) {
+        if (employee != null) {
+            employeeName.setText(employee.getName());
+            serviceName.setText(employee.getRole()); // Service role
+            specialtyName.setText(employee.getServiceName()); // Set the service name to SpecialtyName label
+            employeeDescription.setText(employee.getDescription());
+
+            // Load profile picture
+            String imagePath = employee.getProfilePicture();
+            if (imagePath != null && !imagePath.isEmpty()) {
+                try {
+                    profilePicture.setImage(new Image(getClass().getResourceAsStream("/" + imagePath)));
+                } catch (Exception e) {
+                    profilePicture.setImage(new Image(getClass().getResourceAsStream("/images/default.png")));
+                }
+            } else {
+                profilePicture.setImage(new Image(getClass().getResourceAsStream("/images/default.png")));
+            }
+
+            bookNowButton.setDisable(!"Available".equalsIgnoreCase(employee.getStatus()));
+        }
     }
+
 
     @FXML
     private void onBookNowClicked(ActionEvent event) {

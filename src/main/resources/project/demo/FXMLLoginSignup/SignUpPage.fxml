@@ -94,7 +94,7 @@
             <PasswordField fx:id="confirmPasswordField" prefHeight="51.0" prefWidth="341.0" style="-fx-background-color: white; -fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #67608f;" />
          <HBox prefWidth="350.0">
             <children>
-               <CheckBox fx:id="termsNConditionCheckbox" ellipsisString="" mnemonicParsing="false" prefHeight="27.0" prefWidth="34.0" textOverrun="LEADING_ELLIPSIS" />
+               <CheckBox fx:id="termsCheckBox" ellipsisString="" mnemonicParsing="false" prefHeight="27.0" prefWidth="34.0" textOverrun="LEADING_ELLIPSIS" />
                <Text fill="#868686" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="I confirm that I have read, understood, and agree to the Terms and Conditions " textAlignment="JUSTIFY" wrappingWidth="305.8421322107315">
                   <font>
                      <Font name="System Bold" size="10.0" />

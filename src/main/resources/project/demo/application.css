@@ -45,7 +45,7 @@
     -fx-transition: all 0.25s ease-in-out;
 }
 .button_addtocart:hover {
-    -fx-background-color: #ffde91;
+    -fx-background-color: #fde39e;
     -fx-text-fill: #000000;
 }
 

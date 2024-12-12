@@ -1,6 +1,5 @@
 package project.demo.controllers.Booking;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,10 +9,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.event.ActionEvent;
 import project.demo.models.BookServiceItem;
 import project.demo.models.BookServiceManager;
 import project.demo.models.Service;
-import javafx.event.ActionEvent;
 
 import java.time.LocalDate;
 
@@ -41,7 +40,6 @@ public class BookingCartTableController {
     private TableColumn<BookServiceItem, Button> deleteButtonCol;
 
     private final ObservableList<BookServiceItem> bookedItems = BookServiceManager.getInstance().getBookedServices();
-
     private BookingPageController mainController;
 
     @FXML
@@ -50,10 +48,34 @@ public class BookingCartTableController {
         serviceImageCol.setCellValueFactory(new PropertyValueFactory<>("serviceImageView"));
         serviceNameCol.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
         jobComplexityCol.setCellValueFactory(new PropertyValueFactory<>("jobComplexityControl"));
-        serviceFeeCol.setCellValueFactory(new PropertyValueFactory<>("serviceFee"));
-        deleteButtonCol.setCellValueFactory(new PropertyValueFactory<>("removeButton"));
+        serviceFeeCol.setCellValueFactory(cellData -> cellData.getValue().formattedServiceFeeProperty());
+        deleteButtonCol.setCellFactory(tc -> new TableCell<>() {
+            private final Button removeButton = new Button("X");
 
-        // Custom bookingDate column to use DatePicker
+            {
+                removeButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+                removeButton.setOnAction(event -> {
+                    BookServiceItem item = getTableView().getItems().get(getIndex());
+                    if (item != null) {
+                        BookServiceManager.getInstance().removeService(item); // Remove from manager
+                        bookingTable.refresh();
+                    }
+                });
+            }
+
+            @Override
+            protected void updateItem(Button button, boolean empty) {
+                super.updateItem(button, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(removeButton);
+                    setAlignment(Pos.CENTER);
+                }
+            }
+        });
+
+        // Custom bookingDate column with DatePicker
         bookingDateCol.setCellFactory(column -> new TableCell<>() {
             private final DatePicker datePicker = new DatePicker();
 
@@ -66,43 +88,14 @@ public class BookingCartTableController {
                 } else {
                     BookServiceItem serviceItem = getTableView().getItems().get(getIndex());
 
-                    // Set the value and listen for updates
+                    // Set the DatePicker value
                     datePicker.setValue(serviceItem.bookingDateProperty().get());
                     datePicker.setOnAction(event -> {
                         serviceItem.setBookingDate(datePicker.getValue().toString());
-                        System.out.println("Updated booking date: " + datePicker.getValue());
-                        getTableView().refresh(); // Refresh table view after update
+                        bookingTable.refresh();
                     });
 
                     setGraphic(datePicker);
-                    setAlignment(Pos.CENTER);
-                }
-            }
-        });
-
-        // Format serviceFee column with Peso sign
-        serviceFeeCol.setCellValueFactory(cellData ->
-                cellData.getValue().formattedServiceFeeProperty()
-        );
-
-        deleteButtonCol.setCellFactory(tc -> new TableCell<>() {
-            private final Button removeButton = new Button("X");
-
-            {
-                removeButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-                removeButton.setOnAction(event -> {
-                    BookServiceItem item = getTableView().getItems().get(getIndex());
-                    removeBookedService(item);
-                });
-            }
-
-            @Override
-            protected void updateItem(Button button, boolean empty) {
-                super.updateItem(button, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(removeButton);
                     setAlignment(Pos.CENTER);
                 }
             }
@@ -120,12 +113,11 @@ public class BookingCartTableController {
             }
         });
 
-        // Center align all other columns
+        // Center column content
         centerColumnContent(serviceImageCol);
         centerColumnContent(serviceNameCol);
         centerHBoxContent(jobComplexityCol);
         centerColumnContent(serviceFeeCol);
-        centerButtonContent(deleteButtonCol);
     }
 
     private <T> void centerColumnContent(TableColumn<BookServiceItem, T> column) {
@@ -138,10 +130,8 @@ public class BookingCartTableController {
                     setGraphic(null);
                 } else if (item instanceof Node) {
                     setGraphic((Node) item);
-                    setText(null);
                 } else {
                     setText(item.toString());
-                    setGraphic(null);
                 }
                 setAlignment(Pos.CENTER);
             }
@@ -154,64 +144,16 @@ public class BookingCartTableController {
             protected void updateItem(HBox hbox, boolean empty) {
                 super.updateItem(hbox, empty);
                 if (empty || hbox == null) {
-                    setText(null);
                     setGraphic(null);
                 } else {
                     hbox.setAlignment(Pos.CENTER);
                     setGraphic(hbox);
-                    setText(null);
                 }
-                setAlignment(Pos.CENTER);
             }
         });
     }
 
-    private void centerButtonContent(TableColumn<BookServiceItem, Button> column) {
-        column.setCellFactory(tc -> new TableCell<>() {
-            @Override
-            protected void updateItem(Button button, boolean empty) {
-                super.updateItem(button, empty);
-                if (empty || button == null) {
-                    setText(null);
-                    setGraphic(null);
-                } else {
-                    setGraphic(button);
-                    button.setAlignment(Pos.CENTER);
-                    setText(null);
-                }
-                setAlignment(Pos.CENTER);
-            }
-        });
-    }
 
-    public void removeBookedService(BookServiceItem serviceItem) {
-        System.out.println("[DEBUG] Removing: " + serviceItem.getServiceName());
-        bookedItems.remove(serviceItem); // Remove from the ObservableList
-        bookingTable.refresh();
-    }
-
-    public void addService(Service service, String jobComplexity, String bookingDate) {
-        // Check for duplicates
-        boolean exists = bookedItems.stream()
-                .anyMatch(item -> item.getServiceName().equals(service.getName()));
-
-        if (!exists) {
-            BookServiceItem serviceItem = new BookServiceItem(service, jobComplexity, bookingDate);
-            bookedItems.add(serviceItem);
-            serviceItem.setOnRemoveAction(() -> removeBookedService(serviceItem));
-            updateTable();
-        } else {
-            System.out.println("[INFO] Service already exists: " + service.getName());
-        }
-    }
-
-    public void updateTable() {
-        bookingTable.refresh();
-    }
-
-    public void setMainController(BookingPageController mainController) {
-        this.mainController = mainController;
-    }
 
     public void goToServices(ActionEvent actionEvent) {
         if (mainController != null) {
@@ -223,5 +165,9 @@ public class BookingCartTableController {
         if (mainController != null) {
             mainController.loadView("/project/demo/FXMLBookingPage/AddressBookingDetails.fxml");
         }
+    }
+
+    public void setMainController(BookingPageController mainController) {
+        this.mainController = mainController;
     }
 }

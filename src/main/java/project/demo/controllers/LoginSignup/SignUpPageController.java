@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -28,7 +29,7 @@ public class SignUpPageController {
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
     @FXML private PasswordField confirmPasswordField;
-
+    @FXML private CheckBox termsCheckBox;
     @FXML private Label warningLabel;
 
     @FXML private StackPane fullNameWarningImage;
@@ -42,48 +43,63 @@ public class SignUpPageController {
     private void signUpButtonClicked() {
         clearWarnings();
 
+        // Collect Input
         String username = usernameField.getText();
         String email = emailField.getText();
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
 
+        // Validate Input
+        if (validateFields(username, email, password, confirmPassword)) {
+            insertUserData(username, email, password);
+        }
+    }
+
+    // Input validation logic
+    private boolean validateFields(String username, String email, String password, String confirmPassword) {
         boolean valid = true;
 
         if (username.isEmpty() && email.isEmpty() && password.isEmpty() && confirmPassword.isEmpty()) {
-            handleAllFieldsEmptyWarning("All fields are required.");
-            return;
+            showWarning("All fields are required.");
+            handleAllFieldsEmpty();
+            return false;
         }
 
-        // Validate Fields
         if (username.isEmpty()) {
-            handleSingleWarning(usernameField, fullNameWarningImage, "Full name is required.");
+            handleFieldWarning(usernameField, fullNameWarningImage, "Full name is required.");
             valid = false;
         }
 
         if (email.isEmpty()) {
-            handleSingleWarning(emailField, emailWarningImage, "Email is required.");
+            handleFieldWarning(emailField, emailWarningImage, "Email is required.");
             valid = false;
         } else if (!isValidEmail(email)) {
-            handleSingleWarning(emailField, emailWarningImage, "Invalid email format.");
+            handleFieldWarning(emailField, emailWarningImage, "Invalid email format.");
             valid = false;
         }
 
         if (password.isEmpty()) {
-            handleSingleWarning(passwordField, passwordWarningImage, "Password is required.");
+            handleFieldWarning(passwordField, passwordWarningImage, "Password is required.");
             valid = false;
         }
 
         if (confirmPassword.isEmpty()) {
-            handleSingleWarning(confirmPasswordField, confirmWarningImage, "Please confirm your password.");
+            handleFieldWarning(confirmPasswordField, confirmWarningImage, "Please confirm your password.");
             valid = false;
         } else if (!password.equals(confirmPassword)) {
-            handleSingleWarning(confirmPasswordField, confirmWarningImage, "Passwords do not match.");
+            handleFieldWarning(confirmPasswordField, confirmWarningImage, "Passwords do not match.");
             valid = false;
         }
 
-        if (!valid) return;
+        if (!termsCheckBox.isSelected()) {
+            showWarning("You must agree to the Terms and Conditions.");
+            valid = false;
+        }
 
-        // Insert Data into Database
+        return valid;
+    }
+
+    private void insertUserData(String username, String email, String password) {
         String query = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
         try (Connection connection = db.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -95,102 +111,50 @@ public class SignUpPageController {
             statement.executeUpdate();
             showSuccess("Account created successfully!");
             navigateToPage("/project/demo/FXMLLoginSignup/LogInPage.fxml", "Login");
+
         } catch (Exception e) {
             e.printStackTrace();
-            handleSingleWarning(emailField, emailWarningImage, "Database connection failed.");
+            showWarning("Database connection failed.");
         }
     }
-    private void handleAllFieldsEmptyWarning(String message) {
-        // Set the warning message
+
+    private void handleAllFieldsEmpty() {
+        Arrays.asList(usernameField, emailField, passwordField, confirmPasswordField)
+                .forEach(field -> field.setStyle("-fx-border-color: red; -fx-border-width: 2;"));
+
+        showFieldAnimations(Arrays.asList(fullNameWarningImage, emailWarningImage, passwordWarningImage, confirmWarningImage));
+    }
+
+    private void handleFieldWarning(Node field, StackPane warningImage, String message) {
+        showWarning(message);
+        if (field instanceof TextField) {
+            ((TextField) field).setStyle("-fx-border-color: red; -fx-border-width: 2;");
+        }
+        if (warningImage != null) {
+            warningImage.setVisible(true);
+            createShakeAnimation(warningImage).play();
+        }
+    }
+
+    private void showWarning(String message) {
         warningLabel.setText(message);
         warningLabel.setTextFill(Color.RED);
         warningLabel.setVisible(true);
+        createFadeOutAnimation(warningLabel).play();
+    }
 
-        // Apply red borders to all text fields
-        usernameField.setStyle("-fx-border-color: red; -fx-border-width: 2;");
-        emailField.setStyle("-fx-border-color: red; -fx-border-width: 2;");
-        passwordField.setStyle("-fx-border-color: red; -fx-border-width: 2;");
-        confirmPasswordField.setStyle("-fx-border-color: red; -fx-border-width: 2;");
+    private void showSuccess(String message) {
+        warningLabel.setText(message);
+        warningLabel.setTextFill(Color.GREEN);
+        warningLabel.setVisible(true);
+    }
 
-        // Make all warning images visible
-        fullNameWarningImage.setVisible(true);
-        emailWarningImage.setVisible(true);
-        passwordWarningImage.setVisible(true);
-        confirmWarningImage.setVisible(true);
-
-        // Create a parallel transition for simultaneous animations
-        ParallelTransition parallelTransition = new ParallelTransition();
-
-        // Add shake animations for text fields and warning images
-        parallelTransition.getChildren().addAll(
-                createShakeAnimation(usernameField), createShakeAnimation(fullNameWarningImage),
-                createShakeAnimation(emailField), createShakeAnimation(emailWarningImage),
-                createShakeAnimation(passwordField), createShakeAnimation(passwordWarningImage),
-                createShakeAnimation(confirmPasswordField), createShakeAnimation(confirmWarningImage)
-        );
-
-        // Add fade-out animations for warning images
-        parallelTransition.getChildren().addAll(
-                createFadeOutAnimation(fullNameWarningImage),
-                createFadeOutAnimation(emailWarningImage),
-                createFadeOutAnimation(passwordWarningImage),
-                createFadeOutAnimation(confirmWarningImage)
-        );
-
-        // Add fade-out animation for the warning label
-        parallelTransition.getChildren().add(createFadeOutAnimation(warningLabel));
-
-        // Reset the warning elements and text fields after the animation
-        parallelTransition.setOnFinished(event -> {
-            usernameField.setStyle("-fx-border-color: #67608f;");
-            emailField.setStyle("-fx-border-color: #67608f;");
-            passwordField.setStyle("-fx-border-color: #67608f;");
-            confirmPasswordField.setStyle("-fx-border-color: #67608f;");
-
-            fullNameWarningImage.setVisible(false);
-            emailWarningImage.setVisible(false);
-            passwordWarningImage.setVisible(false);
-            confirmWarningImage.setVisible(false);
-
-            warningLabel.setVisible(false);
+    private void showFieldAnimations(List<StackPane> warningImages) {
+        warningImages.forEach(image -> {
+            image.setVisible(true);
+            createShakeAnimation(image).play();
+            createFadeOutAnimation(image).play();
         });
-
-        // Play the animations
-        parallelTransition.play();
-    }
-
-
-    private void handleSingleWarning(TextField field, StackPane warningImage, String message) {
-        handleMultipleWarnings(
-                List.of(field),
-                List.of(warningImage),
-                message
-        );
-    }
-
-    private void handleMultipleWarnings(List<TextField> fields, List<StackPane> warningImages, String message) {
-        // Set the warning message
-        warningLabel.setText(message);
-        warningLabel.setTextFill(Color.RED);
-        warningLabel.setVisible(true);
-
-        // Apply red borders and make warning images visible
-        fields.forEach(field -> field.setStyle("-fx-border-color: red; -fx-border-width: 2;"));
-        warningImages.forEach(warningImage -> warningImage.setVisible(true));
-
-        ParallelTransition parallelTransition = new ParallelTransition();
-
-        for (int i = 0; i < fields.size(); i++) {
-            parallelTransition.getChildren().addAll(
-                    createShakeAnimation(fields.get(i)),
-                    createShakeAnimation(warningImages.get(i))
-            );
-        }
-
-        parallelTransition.getChildren().add(createFadeOutAnimation(warningLabel));
-
-        parallelTransition.setOnFinished(event -> clearWarnings());
-        parallelTransition.play();
     }
 
     private TranslateTransition createShakeAnimation(Node node) {
@@ -202,7 +166,7 @@ public class SignUpPageController {
     }
 
     private FadeTransition createFadeOutAnimation(Node node) {
-        FadeTransition fade = new FadeTransition(Duration.seconds(2), node);
+        FadeTransition fade = new FadeTransition(Duration.seconds(4), node);
         fade.setFromValue(1.0);
         fade.setToValue(0.0);
         return fade;
@@ -210,20 +174,11 @@ public class SignUpPageController {
 
     private void clearWarnings() {
         warningLabel.setVisible(false);
-        fullNameWarningImage.setVisible(false);
-        emailWarningImage.setVisible(false);
-        passwordWarningImage.setVisible(false);
-        confirmWarningImage.setVisible(false);
-        usernameField.setStyle("-fx-border-color: #67608f;");
-        emailField.setStyle("-fx-border-color: #67608f;");
-        passwordField.setStyle("-fx-border-color: #67608f;");
-        confirmPasswordField.setStyle("-fx-border-color: #67608f;");
-    }
+        Arrays.asList(fullNameWarningImage, emailWarningImage, passwordWarningImage, confirmWarningImage)
+                .forEach(image -> image.setVisible(false));
 
-    private void showSuccess(String message) {
-        warningLabel.setText(message);
-        warningLabel.setTextFill(Color.GREEN);
-        warningLabel.setVisible(true);
+        Arrays.asList(usernameField, emailField, passwordField, confirmPasswordField)
+                .forEach(field -> field.setStyle(""));
     }
 
     @FXML
@@ -233,9 +188,7 @@ public class SignUpPageController {
 
     private void navigateToPage(String fxmlPath, String title) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Parent root = loader.load();
-
+            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle(title);
@@ -245,7 +198,7 @@ public class SignUpPageController {
             currentStage.close();
         } catch (Exception e) {
             e.printStackTrace();
-            handleSingleWarning(usernameField, fullNameWarningImage, "Failed to load the page.");
+            showWarning("Failed to load the page.");
         }
     }
 

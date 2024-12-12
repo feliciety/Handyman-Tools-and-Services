@@ -1,6 +1,5 @@
 package project.demo.controllers.Profile;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -19,131 +18,133 @@ import java.sql.ResultSet;
 
 public class ProfilePageController {
 
-    @FXML
-    private Circle profileImageCircle;
-
-    @FXML
-    private Label nameLabel;
-
-    @FXML
-    private Label emailLabel;
-
-    @FXML
-    private AnchorPane contentPane;
+    @FXML private Circle profileImageCircle; // For displaying profile image
+    @FXML private Label nameLabel;           // User's name
+    @FXML private Label emailLabel;          // User's email
+    @FXML private AnchorPane contentPane;    // For loading different views
 
     private final DatabaseConfig db = new DatabaseConfig();
+    private final String DEFAULT_IMAGE_PATH = "/project/demo/imagelogo/default.png  ";
 
     /**
-     * Initialize the profile page, fetch data from the database, and update UI elements.
+     * Initializes the profile page.
      */
     @FXML
     public void initialize() {
-
-        loadView("/project/demo/FXMLProfilePage/EditProfile.fxml");
-        setProfileImageFromDatabase();
-        updateUserDetails();
+        loadView("/project/demo/FXMLProfilePage/EditProfile.fxml"); // Default sub-view
+        loadUserProfile(); // Load user details
     }
 
     /**
-     * Fetch user details from the database and update the UI.
+     * Fetches and displays user details (name, email, profile picture).
      */
-    private void updateUserDetails() {
-        try (Connection connection = db.getConnection()) {
-            String query = "SELECT profile_picture FROM users WHERE id = ?";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, UserSession.getInstance().getUserId());
-
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                String imagePath = resultSet.getString("profile_picture");
-                if (imagePath != null && !imagePath.isEmpty()) {
-                    profileImageCircle.setFill(new ImagePattern(new javafx.scene.image.Image(imagePath)));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-    /**
-     * Sets the profile image in the circle from the database.
-     */
-    private void setProfileImageFromDatabase() {
+    private void loadUserProfile() {
         UserSession session = UserSession.getInstance();
+        String query = "SELECT username, email, profile_picture FROM users WHERE id = ?";
 
-        try (Connection connection = db.getConnection()) {
-            String query = "SELECT profile_picture FROM users WHERE id = ?";
-            PreparedStatement statement = connection.prepareStatement(query);
+        try (Connection connection = db.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
             statement.setInt(1, session.getUserId());
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                String imagePath = resultSet.getString("profile_picture");
+                // Populate name and email labels
+                nameLabel.setText(resultSet.getString("username") != null ? resultSet.getString("username") : "N/A");
+                emailLabel.setText(resultSet.getString("email") != null ? resultSet.getString("email") : "N/A");
 
+                // Set profile picture
+                String imagePath = resultSet.getString("profile_picture");
                 if (imagePath != null && !imagePath.isEmpty()) {
                     profileImageCircle.setFill(new ImagePattern(new javafx.scene.image.Image(imagePath)));
                 } else {
-                    // Set a default profile image if no image is found
-                    profileImageCircle.setFill(new ImagePattern(new javafx.scene.image.Image(
-                            getClass().getResource("/project/demo/imagelogo/default.png").toString())));
+                    setDefaultProfileImage();
                 }
+            } else {
+                System.err.println("[ERROR] No user found for ID: " + session.getUserId());
+                setDefaultProfileImage();
             }
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println("[ERROR] Failed to load profile image: " + e.getMessage());
+            setDefaultProfileImage();
         }
     }
 
     /**
-     * Handles changing the profile image.
+     * Allows the user to select and change their profile picture.
      */
     @FXML
     public void handleImageChange() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose Profile Image");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
-        );
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
 
         File selectedFile = fileChooser.showOpenDialog(profileImageCircle.getScene().getWindow());
         if (selectedFile != null) {
-            String newImagePath = selectedFile.toURI().toString(); // Convert to URI for JavaFX Image compatibility
+            try {
+                // Define the target folder relative to source root
+                String uploadsDir = "src/main/resources/project/demo/pfp/";
+                File targetFolder = new File(uploadsDir);
+                if (!targetFolder.exists()) targetFolder.mkdirs(); // Create the folder if it doesn't exist
 
-            // Update the Circle's fill in real time
-            profileImageCircle.setFill(new ImagePattern(new javafx.scene.image.Image(newImagePath)));
+                // Generate a unique filename based on user ID and the original filename
+                String newFileName = "profile_" + UserSession.getInstance().getUserId() + "_" + selectedFile.getName();
+                File destination = new File(targetFolder, newFileName);
 
-            // Save the new profile image path to the database
-            updateProfileImageInDatabase(newImagePath);
+                // Copy the file to the uploads folder
+                java.nio.file.Files.copy(selectedFile.toPath(), destination.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+
+                // Save the relative path to the database
+                String relativePath = "/project/demo/pfp/" + newFileName; // Path relative to the source root
+                updateProfileImageInDatabase(relativePath);
+
+                // Update the Circle to show the new image
+                profileImageCircle.setFill(new ImagePattern(new javafx.scene.image.Image(
+                        getClass().getResource("/" + relativePath).toExternalForm())));
+
+                System.out.println("[INFO] Profile image updated: " + relativePath);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println("[ERROR] Failed to save profile image: " + e.getMessage());
+            }
         }
     }
+
 
     /**
      * Updates the profile image path in the database.
      *
-     * @param imagePath The new image path.
+     * @param imagePath Path to the new image file.
      */
     private void updateProfileImageInDatabase(String imagePath) {
         UserSession session = UserSession.getInstance();
+        String query = "UPDATE users SET profile_picture = ? WHERE id = ?";
 
-        try (Connection connection = db.getConnection()) {
-            String query = "UPDATE users SET profile_picture = ? WHERE id = ?";
-            PreparedStatement statement = connection.prepareStatement(query);
+        try (Connection connection = db.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
             statement.setString(1, imagePath);
             statement.setInt(2, session.getUserId());
             statement.executeUpdate();
+            System.out.println("[INFO] Profile picture updated successfully.");
 
-            System.out.println("[INFO] Profile picture updated in the database.");
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println("[ERROR] Failed to update profile picture: " + e.getMessage());
+            System.err.println("[ERROR] Failed to update profile image: " + e.getMessage());
         }
     }
 
+    /**
+     * Sets the default profile image.
+     */
+    private void setDefaultProfileImage() {
+        profileImageCircle.setFill(new ImagePattern(new javafx.scene.image.Image(
+                getClass().getResource(DEFAULT_IMAGE_PATH).toExternalForm())));
+    }
 
     /**
-     * Generic method to load views into the content pane.
+     * Loads a new subview into the content pane.
      *
      * @param fxmlFilePath Path to the FXML file.
      */
@@ -158,28 +159,31 @@ public class ProfilePageController {
         }
     }
 
+    /**
+     * Navigation Handlers.
+     */
     @FXML
-    public void clickEditProfile(ActionEvent actionEvent) {
+    public void clickEditProfile() {
         loadView("/project/demo/FXMLProfilePage/EditProfile.fxml");
     }
 
     @FXML
-    public void clickOrderHistory(ActionEvent actionEvent) {
+    public void clickOrderHistory() {
         loadView("/project/demo/FXMLProfilePage/OrderHistory.fxml");
     }
 
     @FXML
-    public void clickServiceHistory(ActionEvent actionEvent) {
+    public void clickServiceHistory() {
         loadView("/project/demo/FXMLProfilePage/ServiceHistory.fxml");
     }
 
     @FXML
-    public void clickManageAddresses(ActionEvent actionEvent) {
+    public void clickManageAddresses() {
         loadView("/project/demo/FXMLProfilePage/ManageAddresses.fxml");
     }
 
     @FXML
-    public void clickPaymentMethods(ActionEvent actionEvent) {
+    public void clickPaymentMethods() {
         loadView("/project/demo/FXMLProfilePage/PaymentFXML/PaymentMethods.fxml");
     }
 }

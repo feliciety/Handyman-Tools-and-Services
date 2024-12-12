@@ -25,6 +25,12 @@ public class BookServiceManager {
                 .anyMatch(service -> service.getServiceName().equals(newService.getServiceName()));
 
         if (!exists) {
+            // Set the remove logic before adding
+            newService.setOnRemoveAction(() -> {
+                System.out.println("[DEBUG] Removing service via callback: " + newService.getServiceName());
+                removeService(newService);
+            });
+
             bookedServices.add(newService);
             System.out.println("[DEBUG] Added new service: " + newService.getServiceName());
         } else {
@@ -33,7 +39,17 @@ public class BookServiceManager {
     }
 
     public void removeService(BookServiceItem service) {
-        bookedServices.remove(service);
-        System.out.println("[DEBUG] Removed service: " + service.getServiceName());
+        if (bookedServices.contains(service)) {
+            bookedServices.remove(service);
+            System.out.println("[DEBUG] Successfully removed service: " + service.getServiceName());
+        } else {
+            System.out.println("[ERROR] Service not found in the list: " + service.getServiceName());
+        }
+    }
+
+    public void revokeAllServices() {
+        System.out.println("[DEBUG] Revoking all services...");
+        bookedServices.clear();
+        System.out.println("[DEBUG] All services have been removed.");
     }
 }

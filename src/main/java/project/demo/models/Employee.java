@@ -7,20 +7,27 @@ public class Employee {
     private String status;
     private String description;
     private String profilePicture;
-    private String phoneNumber; // New field for phone number
+    private String phoneNumber;
+    private String serviceName; // New field for service name
 
-    // Constructor
-    public Employee(int id, String name, String role, String status, String description, String profilePicture, String phoneNumber) {
+    // Constructor with serviceName
+    public Employee(int id, String name, String role, String status, String description,
+                    String profilePicture, String phoneNumber, String serviceName) {
         this.id = id;
         this.name = name;
         this.role = role;
         this.status = status;
         this.description = description;
         this.profilePicture = profilePicture;
-        this.phoneNumber = phoneNumber; // Initialize phone number
+        this.phoneNumber = phoneNumber;
+        this.serviceName = serviceName;
     }
 
     // Getters and Setters
+    public String getServiceName() { return serviceName; }
+    public void setServiceName(String serviceName) { this.serviceName = serviceName; }
+
+// Getters and Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
