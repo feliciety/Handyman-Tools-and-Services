@@ -267,7 +267,7 @@ public class LogInPageController {
             pause.setOnFinished(event -> {
                 try {
                     // Load MainStructure.fxml
-                    String mainStructurePath = "/project/demo/FXMLMainStructure/MainStructure.fxml";
+                    String mainStructurePath = "/project/demo/MainStructure.fxml";
                     FXMLLoader mainLoader = new FXMLLoader(getClass().getResource(mainStructurePath));
                     Parent mainRoot = mainLoader.load();
 

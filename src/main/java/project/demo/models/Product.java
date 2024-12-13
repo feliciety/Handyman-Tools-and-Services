@@ -10,12 +10,29 @@ public class Product {
     private final double price; // Store price as a double
     private final String imagePath;
     private final String category;
+    private int productId;
 
     public Product(String name, double price, String imagePath, String category) {
         this.name = name;
         this.price = price;
         this.imagePath = imagePath;
         this.category = category;
+    }
+
+    public Product(int productId, String name, double price, String category) {
+        this.name = name;
+        this.price = price;
+        this.imagePath = null; // Default to null if no image specified
+        this.category = category;
+        this.productId = productId; // Initialize productId field
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public String getName() {
