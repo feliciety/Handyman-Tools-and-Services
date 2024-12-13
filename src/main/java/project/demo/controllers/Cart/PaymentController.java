@@ -91,29 +91,45 @@ public class PaymentController {
                     if (controller instanceof GCashEditController) {
                         GCashEditController gcashController = (GCashEditController) controller;
                         GCash existingGCash = gcashDAO.getGCashByUserId(userId);
+                        if (existingGCash == null) {
+                            System.out.println("[INFO] No GCash record found for user. Initializing empty fields.");
+                            existingGCash = new GCash(0, userId, "", "");
+                        }
                         gcashController.setFields(existingGCash);
                         gcashController.hideButtons();
                     }
                     break;
+
                 case "CreditCard":
                     if (controller instanceof CreditCardEditController) {
                         CreditCardEditController cardController = (CreditCardEditController) controller;
                         CreditCard existingCard = creditCardDAO.getCreditCardByUserId(userId);
+                        if (existingCard == null) {
+                            System.out.println("[INFO] No Credit Card record found for user. Initializing empty fields.");
+                            existingCard = new CreditCard(0, userId, "", "", "", "", "", "");
+                        }
                         cardController.setFields(existingCard);
                         cardController.hideButtons();
                     }
                     break;
+
                 case "PayPal":
                     if (controller instanceof PayPalEditController) {
                         PayPalEditController paypalController = (PayPalEditController) controller;
                         PayPal existingPayPal = payPalDAO.getPayPalByUserId(userId);
+                        if (existingPayPal == null) {
+                            System.out.println("[INFO] No PayPal record found for user. Initializing empty fields.");
+                            existingPayPal = new PayPal(0, userId, "", "");
+                        }
                         paypalController.setFields(existingPayPal);
                         paypalController.hideButtons();
                     }
                     break;
+
                 default:
-                    throw new IllegalArgumentException("[ERROR] Unsupported payment data type!");
+                    throw new IllegalArgumentException("[ERROR] Unsupported payment data type! Type: " + type);
             }
+
 
             paymentDetailsBox.getChildren().clear();
             paymentDetailsBox.getChildren().add(paymentPane);

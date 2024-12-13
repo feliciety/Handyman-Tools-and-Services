@@ -80,3 +80,17 @@
     }
 }
 
+/* Button base style */
+.topbtn-hover-effect {
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-border-width: 0;
+    -fx-padding: 5 10;
+    -fx-cursor: hand;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-underline: false;
+    -fx-alignment: center;
+}
+

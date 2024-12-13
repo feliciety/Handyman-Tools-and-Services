@@ -8,8 +8,6 @@ public class GCash {
     private String accountName;
     private String phoneNumber;
 
-    public GCash(int userId, TextField gcashAccountField, TextField gcashPhoneField) {
-    }
 
     public GCash(int id, int userId, String accountName, String phoneNumber) {
         this.id = id;

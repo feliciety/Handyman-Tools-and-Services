@@ -128,7 +128,7 @@ public class ServicePageController {
 
             subcategoryButton.setPrefWidth(200);
             subcategoryButton.setStyle(
-                    "-fx-background-color: linear-gradient(to bottom, #555555, #444444);" + // Lighter gray gradient
+                    "-fx-background-color: linear-gradient(to bottom, #555555, #444444);" +
                             "-fx-text-fill: white;" +
                             "-fx-font-weight: bold;" +
                             "-fx-background-radius: 12px;" +
@@ -138,10 +138,16 @@ public class ServicePageController {
                             "-fx-effect: dropshadow(three-pass-box, #222222, 0, 1, 0, 3);"
             );
 
+            // Add Action Logic to Filter Services
+            subcategoryButton.setOnAction(event -> {
+                System.out.println("[DEBUG] Subcategory Button Clicked: " + subcategory);
+                populateServices(subcategory); // Filter services for the selected subcategory
+            });
+
             // Hover Effect
             subcategoryButton.setOnMouseEntered(event -> {
                 subcategoryButton.setStyle(
-                        "-fx-background-color: linear-gradient(to bottom, #666666, #555555);" + // Lighter on hover
+                        "-fx-background-color: linear-gradient(to bottom, #666666, #555555);" +
                                 "-fx-text-fill: white;" +
                                 "-fx-font-weight: bold;" +
                                 "-fx-background-radius: 12px;" +
@@ -169,20 +175,20 @@ public class ServicePageController {
             // Pressed Effect
             subcategoryButton.setOnMousePressed(event -> {
                 subcategoryButton.setStyle(
-                        "-fx-background-color: #444444;" + // Solid lighter gray when pressed
+                        "-fx-background-color: #444444;" +
                                 "-fx-text-fill: white;" +
                                 "-fx-font-weight: bold;" +
                                 "-fx-background-radius: 12px;" +
                                 "-fx-border-radius: 12px;" +
                                 "-fx-padding: 10px 20px;" +
-                                "-fx-translate-y: 3px;" + // Simulate button press
+                                "-fx-translate-y: 3px;" +
                                 "-fx-effect: none;"
                 );
             });
 
             subcategoryButton.setOnMouseReleased(event -> {
                 subcategoryButton.setStyle(
-                        "-fx-background-color: linear-gradient(to bottom, #666666, #555555);" + // Back to hover effect
+                        "-fx-background-color: linear-gradient(to bottom, #666666, #555555);" +
                                 "-fx-text-fill: white;" +
                                 "-fx-font-weight: bold;" +
                                 "-fx-background-radius: 12px;" +

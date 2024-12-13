@@ -57,6 +57,13 @@ public class BookServiceItem {
 
         // Create the remove button
         this.removeButton = createRemoveButton();
+
+        // Listener to recalculate service fee in real-time
+        this.jobComplexity.addListener((observable, oldValue, newValue) -> {
+            this.serviceFee.set(calculateServiceFee());
+            System.out.println("[INFO] Job complexity changed from " + oldValue + " to " + newValue +
+                    ", Updated Service Fee: " + serviceFee.get());
+        });
     }
 
     // Set the callback for row removal
@@ -75,24 +82,21 @@ public class BookServiceItem {
     }
 
     // Calculate the service fee based on job complexity
-    // Calculate the service fee based on job complexity
     private double calculateServiceFee() {
         return switch (jobComplexity.get().toLowerCase()) {
-            case "high" -> Math.round(maxPrice * 100.0) / 100.0; // Round to 2 decimal places
-            case "medium" -> Math.round(((minPrice + maxPrice) / 2) * 100.0) / 100.0; // Midpoint
-            case "low" -> Math.round(minPrice * 100.0) / 100.0;
-            default -> 0.0;
+            case "high" -> Math.round(maxPrice * 100.0) / 100.0; // Use maxPrice directly
+            case "medium" -> Math.round(midPrice * 100.0) / 100.0; // Midpoint
+            case "low" -> Math.round(minPrice * 100.0) / 100.0; // Use minPrice directly
+            default -> Math.round(minPrice * 100.0) / 100.0; // Default fallback
         };
     }
 
-    // New method to return formatted service fee as String
+    // Dynamically bind formatted service fee
     public StringBinding formattedServiceFeeProperty() {
-        // Dynamically bind the formatted service fee with peso sign
         return new StringBinding() {
             {
-                bind(serviceFee); // Bind to the DoubleProperty serviceFee
+                bind(serviceFee);
             }
-
             @Override
             protected String computeValue() {
                 return String.format("₱%.2f", serviceFee.get());
@@ -100,11 +104,11 @@ public class BookServiceItem {
         };
     }
 
-
+    // Set job complexity and update fee
     public void setJobComplexity(String complexity) {
         this.jobComplexity.set(complexity);
-        this.serviceFee.set(calculateServiceFee()); // Recalculate service fee
     }
+
     // Create service image view
     private ImageView createServiceImageView(String serviceImagePath) {
         ImageView imageView = new ImageView();
@@ -131,7 +135,6 @@ public class BookServiceItem {
             if (jobComplexity.get().equals("low")) setJobComplexity("medium");
             else if (jobComplexity.get().equals("medium")) setJobComplexity("high");
             complexityLabel.setText(jobComplexity.get());
-            updateServiceFee(); // Update the service fee in real time
         });
 
         // Decrease job complexity
@@ -139,17 +142,10 @@ public class BookServiceItem {
             if (jobComplexity.get().equals("high")) setJobComplexity("medium");
             else if (jobComplexity.get().equals("medium")) setJobComplexity("low");
             complexityLabel.setText(jobComplexity.get());
-            updateServiceFee(); // Update the service fee in real time
         });
 
         return new HBox(5, downButton, complexityLabel, upButton);
     }
-
-    // Update service fee when job complexity changes
-    private void updateServiceFee() {
-        this.serviceFee.set(calculateServiceFee());
-    }
-
 
     // Create remove button
     private Button createRemoveButton() {
@@ -158,7 +154,7 @@ public class BookServiceItem {
         button.setOnAction(event -> {
             if (onRemoveAction != null) {
                 System.out.println("[DEBUG] Remove button clicked for: " + getServiceName());
-                onRemoveAction.run(); // Trigger removal callback
+                onRemoveAction.run();
             } else {
                 System.out.println("[ERROR] onRemoveAction is not set for: " + getServiceName());
             }
@@ -166,7 +162,16 @@ public class BookServiceItem {
         return button;
     }
 
-
+    public void setBookingDate(String bookingDate) {
+        if (bookingDate != null && !bookingDate.isEmpty()) {
+            this.bookingDate.set(LocalDate.parse(bookingDate));
+        } else {
+            this.bookingDate.set(LocalDate.now());
+        }
+    }
+    public ObjectProperty<LocalDate> bookingDateProperty() {
+        return bookingDate;
+    }
 
     // Getters for table properties
     public String getServiceName() {
@@ -181,7 +186,6 @@ public class BookServiceItem {
         return jobComplexityControl;
     }
 
-
     public double getServiceFee() {
         return serviceFee.get();
     }
@@ -194,38 +198,15 @@ public class BookServiceItem {
         return bookingDatePicker;
     }
 
-    // Property methods for TableView binding
-    public StringProperty serviceNameProperty() {
-        return serviceName;
+    public StringProperty jobComplexityProperty() {
+        return jobComplexity;
     }
 
     public DoubleProperty serviceFeeProperty() {
         return serviceFee;
     }
 
-    public ObjectProperty<LocalDate> bookingDateProperty() {
-        return bookingDate;
-    }
-
-
-    public void setBookingDate(String bookingDate) {
-        if (bookingDate != null && !bookingDate.isEmpty()) {
-            this.bookingDate.set(LocalDate.parse(bookingDate));
-        } else {
-            this.bookingDate.set(LocalDate.now());
-        }
-    }
-    // Restored jobComplexityProperty
-    public StringProperty jobComplexityProperty() {
-        return jobComplexity; // Return the job complexity property
-    }
-
-
-    // Getter for service fee with peso sign for display purposes
     public String getFormattedServiceFee() {
         return String.format("₱%.2f", serviceFee.get());
     }
-
-
-
 }

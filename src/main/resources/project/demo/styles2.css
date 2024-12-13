@@ -1,0 +1,17 @@
+/* Button base style */
+.button-underline {
+    -fx-font-size: 14px;
+    -fx-padding: 5 10;
+    -fx-background-insets: 0, 0 0 2px 0; /* Reserve space for the underline */
+    -fx-background-size: 0% 2px, auto; /* Initial underline width: 0% */
+    -fx-background-position: bottom left; /* Position the underline at the bottom */
+    -fx-background-repeat: no-repeat;
+    -fx-background-color: rgba(255, 255, 255, 0), #ffffff; /* First layer transparent, second layer is underline */
+    -fx-cursor: hand; /* Pointer cursor */
+    -fx-transition: all 0.3s ease-in-out; /* Smooth animation */
+}
+
+/* On hover, expand the underline */
+.button-underline:hover {
+    -fx-background-size: 100% 2px, auto; /* Expand underline to 100% width */
+}

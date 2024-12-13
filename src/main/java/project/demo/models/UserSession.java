@@ -15,9 +15,11 @@ public class UserSession {
     private final StringProperty contactNumber = new SimpleStringProperty();
     private String userImagePath; // Stores the file path for the profile picture
 
+
     // Constructor is private for Singleton pattern
     private UserSession() {
     }
+
 
     // Singleton instance accessor
     public static UserSession getInstance() {

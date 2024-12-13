@@ -103,6 +103,12 @@ public class PaymentMethodsController {
     public void editGCashEditPopup(ActionEvent actionEvent) {
         int userId = UserSession.getInstance().getUserId();
         GCash gcash = gcashDAO.getGCashByUserId(userId);
+
+        // Pass a new GCash object if none exists
+        if (gcash == null) {
+            gcash = new GCash(0, userId, "", "");
+        }
+
         openPaymentPopup(
                 "/project/demo/FXMLProfilePage/PaymentFXML/GCashEditPopup.fxml",
                 "Edit GCash Details",
@@ -112,31 +118,35 @@ public class PaymentMethodsController {
                     if (updatedGCash != null) {
                         gcashNumberLabel.setText(updatedGCash.getPhoneNumber());
                         System.out.println("[INFO] GCash details updated successfully.");
-                    } else {
-                        System.err.println("[ERROR] Failed to retrieve updated GCash details.");
                     }
                 }
         );
     }
 
+
     public void editCreditCardEditPopup(ActionEvent actionEvent) {
         int userId = UserSession.getInstance().getUserId();
         CreditCard creditCard = creditCardDAO.getCreditCardByUserId(userId);
+
+        // Pass a new CreditCard object if none exists
+        if (creditCard == null) {
+            creditCard = new CreditCard(0, userId, "", "", "", "", "", "");
+        }
+
         openPaymentPopup(
                 "/project/demo/FXMLProfilePage/PaymentFXML/CreditCardEditPopup.fxml",
                 "Edit Credit Card Details",
                 creditCard,
                 () -> {
-                    CreditCard updatedCreditCard = creditCardDAO.getCreditCardByUserId(userId);
-                    if (updatedCreditCard != null) {
-                        creditCardNumLabel.setText(updatedCreditCard.getCardNumber());
+                    CreditCard updatedCard = creditCardDAO.getCreditCardByUserId(userId);
+                    if (updatedCard != null) {
+                        creditCardNumLabel.setText(updatedCard.getCardNumber());
                         System.out.println("[INFO] Credit Card details updated successfully.");
-                    } else {
-                        System.err.println("[ERROR] Failed to retrieve updated Credit Card details.");
                     }
                 }
         );
     }
+
 
     public void editPayPalEditPopup(ActionEvent actionEvent) {
         int userId = UserSession.getInstance().getUserId();

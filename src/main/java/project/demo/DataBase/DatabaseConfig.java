@@ -23,7 +23,7 @@ public class DatabaseConfig {
     }
 
     // Method to establish a connection
-    public Connection getConnection() {
+    public static Connection getConnection() {
         try {
             System.out.println("Connecting to database...");
             Connection connection = DriverManager.getConnection(URL, USER, PASS);

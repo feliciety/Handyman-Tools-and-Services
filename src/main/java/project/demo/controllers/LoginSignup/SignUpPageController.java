@@ -8,10 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -25,6 +22,7 @@ import java.util.List;
 
 public class SignUpPageController {
 
+    public Button signUpButton;
     @FXML private TextField usernameField;
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
@@ -187,6 +185,14 @@ public class SignUpPageController {
     public void setMainPaneController(MainPaneController mainPaneController) {
         this.mainPaneController = mainPaneController;
     }
+    @FXML
+    public void initialize() {
+        signUpButton.setOnAction(event -> {
+            // Load LogInPage with loading screen
+            mainPaneController.loadLogInPage();
+        });
+    }
+
 
     @FXML
     public void LogInSwap() {

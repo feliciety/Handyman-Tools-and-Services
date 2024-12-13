@@ -10,7 +10,7 @@ import project.demo.dao.PayPalDAOImpl;
 import project.demo.models.PayPal;
 import project.demo.models.UserSession;
 
-public class PayPalEditController {
+public class  PayPalEditController {
 
     @FXML
     private TextField paypalEmailField;

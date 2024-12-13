@@ -1,77 +1,86 @@
 package project.demo.dao;
 
-import project.demo.DataBase.DatabaseConfig;
 import project.demo.models.GCash;
+import project.demo.DataBase.DatabaseConfig;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class GCashDAOImpl implements GCashDAO {
-    private final DatabaseConfig dbConfig = new DatabaseConfig();
 
     @Override
     public boolean saveOrUpdateGCashAccount(GCash gcash) {
-        String selectQuery = "SELECT id FROM gcash WHERE user_id = ?";
-        String updateQuery = "UPDATE gcash SET account_name = ?, phone_number = ? WHERE user_id = ?";
-        String insertQuery = "INSERT INTO gcash (user_id, account_name, phone_number) VALUES (?, ?, ?)";
+        String query;
+        boolean isUpdate = doesGCashExist(gcash.getUserId()); // Check if a GCash account already exists
 
-        try (Connection connection = dbConfig.getConnection();
-             PreparedStatement selectStatement = connection.prepareStatement(selectQuery)) {
+        if (isUpdate) {
+            query = "UPDATE GCash SET account_name = ?, phone_number = ? WHERE user_id = ?";
+        } else {
+            query = "INSERT INTO GCash (user_id, account_name, phone_number) VALUES (?, ?, ?)";
+        }
 
-            selectStatement.setInt(1, gcash.getUserId());
-            ResultSet resultSet = selectStatement.executeQuery();
+        try (Connection connection = DatabaseConfig.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
 
-            if (resultSet.next()) {
-                // Update existing record
-                try (PreparedStatement updateStatement = connection.prepareStatement(updateQuery)) {
-                    updateStatement.setString(1, gcash.getAccountName());
-                    updateStatement.setString(2, gcash.getPhoneNumber());
-                    updateStatement.setInt(3, gcash.getUserId());
-                    updateStatement.executeUpdate();
-                    return true;
-                }
+            if (isUpdate) {
+                statement.setString(1, gcash.getAccountName());
+                statement.setString(2, gcash.getPhoneNumber());
+                statement.setInt(3, gcash.getUserId());
             } else {
-                // Insert new record
-                try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
-                    insertStatement.setInt(1, gcash.getUserId());
-                    insertStatement.setString(2, gcash.getAccountName());
-                    insertStatement.setString(3, gcash.getPhoneNumber());
-                    insertStatement.executeUpdate();
-                    return true;
-                }
+                statement.setInt(1, gcash.getUserId());
+                statement.setString(2, gcash.getAccountName());
+                statement.setString(3, gcash.getPhoneNumber());
             }
-        } catch (SQLException e) {
+
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (Exception e) {
+            System.err.println("[ERROR] Failed to save or update GCash account: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
     }
 
+
+    private boolean doesGCashExist(int userId) {
+        String query = "SELECT 1 FROM GCash WHERE user_id = ?";
+        try (Connection connection = DatabaseConfig.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet.next(); // Returns true if a record exists
+        } catch (Exception e) {
+            System.err.println("[ERROR] Failed to check GCash existence: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     @Override
     public GCash getGCashByUserId(int userId) {
-        String query = "SELECT * FROM gcash WHERE user_id = ?";
-        try (Connection connection = dbConfig.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, userId);
-            ResultSet resultSet = preparedStatement.executeQuery();
+        String query = "SELECT id, user_id, account_name, phone_number FROM GCash WHERE user_id = ?";
+        try (Connection connection = DatabaseConfig.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+
             if (resultSet.next()) {
-                GCash gcash = new GCash(
+                return new GCash(
                         resultSet.getInt("id"),
                         resultSet.getInt("user_id"),
                         resultSet.getString("account_name"),
                         resultSet.getString("phone_number")
                 );
-                System.out.println("[DEBUG] Retrieved GCash: " + gcash);
-                return gcash;
-            } else {
-                System.err.println("[ERROR] No GCash found for user_id: " + userId);
             }
-        } catch (SQLException e) {
-            System.err.println("[ERROR] Failed to retrieve GCash: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("[ERROR] Failed to fetch GCash by user ID: " + e.getMessage());
+            e.printStackTrace();
         }
         return null;
     }
 
 }
-

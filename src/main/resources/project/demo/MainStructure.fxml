@@ -16,24 +16,25 @@
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="76.0" prefWidth="1253.0" spacing="20" style="-fx-background-color: #222222; -fx-padding: 10;">
          <children>
-            <HBox alignment="CENTER" prefHeight="55.0" prefWidth="954.0">
+            <HBox alignment="CENTER" prefHeight="55.0" prefWidth="994.0">
                <children>
-                  <ImageView fitHeight="55.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@imagelogo/logo3.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets right="-50.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <Button onAction="#handleHomeClick" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Home">
-                     <HBox.margin>
-                        <Insets left="150.0" />
-                     </HBox.margin></Button>
-                  <Button onAction="#handleAboutUsClick" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="About Us" />
-                  <Button onAction="#handleShopClick" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Shop" />
-                  <Button onAction="#handleServiceClick" prefWidth="100.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Services" />
-                  <Button onAction="#handleEmployeeClick" prefWidth="100.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Employees" />
+                  <HBox alignment="CENTER" spacing="5.0">
+                     <children>
+                        <ImageView fitHeight="55.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imagelogo/logo3.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="200.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Button onAction="#handleHomeClick" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-text-fill: white;" styleClass="button-underline" stylesheets="@styles2.css" text="Home" />
+                        <Button onAction="#handleAboutUsClick" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-text-fill: white;" styleClass="button-underline" stylesheets="@styles2.css" text="About Us" />
+                        <Button onAction="#handleShopClick" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-text-fill: white;" styleClass="button-underline" stylesheets="@styles2.css" text="Shop" />
+                        <Button onAction="#handleServiceClick" prefWidth="100.0" style="-fx-background-color: #222222; -fx-text-fill: white;" styleClass="button-underline" stylesheets="@styles2.css" text="Services" />
+                        <Button onAction="#handleEmployeeClick" prefWidth="100.0" style="-fx-background-color: #222222; -fx-text-fill: white;" styleClass="button-underline" stylesheets="@styles2.css" text="Employees" />
+                     </children>
+                  </HBox>
                </children>
                <HBox.margin>
                   <Insets right="80.0" />

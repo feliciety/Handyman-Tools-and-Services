@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import project.demo.DataBase.DatabaseConfig;
 import project.demo.models.Address;
+import project.demo.models.UserSession;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -77,6 +78,7 @@ public class DetailsController {
                 addressGridPane.add(row, 0, i);
             } catch (IOException e) {
                 e.printStackTrace();
+                System.err.println("[ERROR] Failed to load address row: " + e.getMessage());
             }
         }
     }
@@ -88,7 +90,10 @@ public class DetailsController {
         try (Connection connection = db.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setInt(1, 1); // Replace with user session ID
+            // Fetch the user ID from the session
+            int userId = UserSession.getInstance().getUserId();
+            preparedStatement.setInt(1, userId);
+
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -104,6 +109,7 @@ public class DetailsController {
                 addresses.add(address);
             }
         } catch (Exception e) {
+            System.err.println("[ERROR] Failed to fetch addresses for user ID: " + e.getMessage());
             e.printStackTrace();
         }
 

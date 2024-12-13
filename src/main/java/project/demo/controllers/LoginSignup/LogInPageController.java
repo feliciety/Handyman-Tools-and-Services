@@ -2,12 +2,14 @@ package project.demo.controllers.LoginSignup;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
+import javafx.animation.PauseTransition;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -18,6 +20,7 @@ import javafx.util.Duration;
 import project.demo.DataBase.DatabaseConfig;
 import project.demo.models.UserSession;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,6 +29,7 @@ import java.util.List;
 
 public class LogInPageController {
 
+    public Button LogInButton;
     @FXML
     private TextField emailOrUsernameField;
 
@@ -194,6 +198,8 @@ public class LogInPageController {
         this.mainPaneController = mainPaneController;
     }
 
+
+
     @FXML
     public void SignInSwap() {
         if (mainPaneController != null) {
@@ -222,5 +228,66 @@ public class LogInPageController {
     private boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         return email.matches(emailRegex);
+    }
+
+    @FXML
+    public void initialize() {
+        LogInButton.setOnAction(event -> {
+            loadMainStructurePage();
+        });
+    }
+
+    /**
+     * Replaces the current stage with MainStructure.fxml.
+     */
+    @FXML
+    private void loadMainStructurePage() {
+        try {
+            // Load the Loading Page
+            String loadingPagePath = "/project/demo/FXMLLoginSignup/LoadingPage.fxml";
+            FXMLLoader loadingLoader = new FXMLLoader(getClass().getResource(loadingPagePath));
+            Parent loadingRoot = loadingLoader.load();
+
+            // Get the current stage and set the Loading Page
+            Stage stage = (Stage) LogInButton.getScene().getWindow();
+            Scene loadingScene = new Scene(loadingRoot);
+            stage.setScene(loadingScene);
+            stage.centerOnScreen();
+
+            System.out.println("[INFO] Displaying Loading Page with Fade-in...");
+
+            // Apply Fade-In Transition
+            FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), loadingRoot);
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+            fadeIn.play();
+
+            // Simulate a delay for loading (e.g., 2 seconds) and switch to MainStructure.fxml
+            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+            pause.setOnFinished(event -> {
+                try {
+                    // Load MainStructure.fxml
+                    String mainStructurePath = "/project/demo/FXMLMainStructure/MainStructure.fxml";
+                    FXMLLoader mainLoader = new FXMLLoader(getClass().getResource(mainStructurePath));
+                    Parent mainRoot = mainLoader.load();
+
+                    // Replace the scene with MainStructure
+                    stage.setScene(new Scene(mainRoot));
+                    stage.centerOnScreen();
+                    System.out.println("[INFO] Successfully loaded MainStructure.fxml");
+
+                } catch (IOException e) {
+                    System.err.println("[ERROR] Failed to load MainStructure.fxml");
+                    e.printStackTrace();
+                }
+            });
+
+            // Start the delay after Fade-In completes
+            fadeIn.setOnFinished(event -> pause.play());
+
+        } catch (IOException e) {
+            System.err.println("[ERROR] Failed to load LoadingPage.fxml");
+            e.printStackTrace();
+        }
     }
 }

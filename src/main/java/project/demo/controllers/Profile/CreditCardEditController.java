@@ -40,16 +40,15 @@ public class CreditCardEditController {
     private CreditCard creditCard;
 
     public void setFields(CreditCard creditCard) {
-        this.creditCard = creditCard; // Assign the passed CreditCard object
-        if (creditCard != null) {
-            cardNameField.setText(creditCard.getCardName());
-            cardNumberField.setText(creditCard.getCardNumber());
-            cvvField.setText(creditCard.getCvv());
-            expiryField.setText(creditCard.getExpiry());
-            billingAddressField.setText(creditCard.getBillingAddress());
-            zipCodeField.setText(creditCard.getZipCode());
-        }
+        this.creditCard = creditCard;
+        cardNameField.setText(creditCard.getCardName() != null ? creditCard.getCardName() : "");
+        cardNumberField.setText(creditCard.getCardNumber() != null ? creditCard.getCardNumber() : "");
+        cvvField.setText(creditCard.getCvv() != null ? creditCard.getCvv() : "");
+        expiryField.setText(creditCard.getExpiry() != null ? creditCard.getExpiry() : "");
+        billingAddressField.setText(creditCard.getBillingAddress() != null ? creditCard.getBillingAddress() : "");
+        zipCodeField.setText(creditCard.getZipCode() != null ? creditCard.getZipCode() : "");
     }
+
 
     @FXML
     public void onSave(ActionEvent actionEvent) {

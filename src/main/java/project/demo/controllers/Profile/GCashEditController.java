@@ -26,14 +26,12 @@ public class GCashEditController {
     private final GCashDAO gcashDAO = new GCashDAOImpl();
     private GCash gcash;
 
-    // Sets the fields with data from the GCash object
     public void setFields(GCash gcash) {
         this.gcash = gcash;
-        if (gcash != null) {
-            gcashAccountField.setText(gcash.getAccountName());
-            gcashPhoneField.setText(gcash.getPhoneNumber());
-        }
+        gcashAccountField.setText(gcash.getAccountName() != null ? gcash.getAccountName() : "");
+        gcashPhoneField.setText(gcash.getPhoneNumber() != null ? gcash.getPhoneNumber() : "");
     }
+
 
     // Saves or updates the GCash account
     @FXML
@@ -75,4 +73,6 @@ public class GCashEditController {
         saveButton.setVisible(false);
         cancelButton.setVisible(false);
     }
+
+
 }
