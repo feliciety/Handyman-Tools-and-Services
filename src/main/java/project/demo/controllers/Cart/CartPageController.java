@@ -17,13 +17,10 @@ import java.util.Map;
 
 public class CartPageController {
     @FXML
-    private AnchorPane mainPane; // Shared parent of receiptPane and thankYouPane
+    private AnchorPane thankYouPane;
 
     @FXML
-    private AnchorPane receiptPane; // Reference to receiptPane
-
-    @FXML
-    private AnchorPane thankYouPane; // Reference to thankYouPane
+    private AnchorPane receiptPane; // Reference to the receipt pane
 
     @FXML
     AnchorPane contentPane; // Dynamic content pane
@@ -67,6 +64,13 @@ public class CartPageController {
 
     @FXML
     public void initialize() {
+        if (thankYouPane != null) {
+            System.out.println("[DEBUG] thankYouPane successfully initialized.");
+            thankYouPane.setVisible(false); // Ensure it's hidden by default
+        } else {
+            System.err.println("[ERROR] thankYouPane is null.");
+        }
+
         // Bind labels to their respective properties
         subtotalLabel.textProperty().bind(subtotal.asString("₱%.2f"));
         shippingLabel.textProperty().bind(shippingFee.asString("₱%.2f"));
@@ -160,6 +164,7 @@ public class CartPageController {
         removeCouponButton.setVisible(false);
     }
 
+    @FXML
     public void loadView(String fxmlPath) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -177,27 +182,49 @@ public class CartPageController {
             } else if (controller instanceof PaymentController paymentController) {
                 paymentController.setMainController(this);
             } else if (controller instanceof PaymentSuccessController successController) {
+                showThankYouPane();
                 successController.setMainController(this);
-                System.out.println("[DEBUG] Replacing receiptPane with thankYouPane.");
             }
 
-            contentPane.getChildren().clear(); // Clear existing view
-            contentPane.getChildren().add(newView); // Add new view
+            contentPane.getChildren().clear(); // Clear current view
+            contentPane.getChildren().add(newView); // Add the new view
+
+
         } catch (IOException e) {
             System.err.println("[ERROR] Failed to load FXML file: " + fxmlPath);
             e.printStackTrace();
         }
     }
 
+    public void showThankYouPane() {
+        if (!contentPane.getChildren().contains(thankYouPane)) {
+            contentPane.getChildren().add(thankYouPane);
+        }
+        thankYouPane.toFront(); // Bring thankYouPane to the front
+        thankYouPane.setVisible(true);
+        System.out.println("[DEBUG] showThankYouPane() called: thankYouPane is now visible.");
+    }
 
     public void hideReceiptPane() {
         if (receiptPane != null) {
             receiptPane.setVisible(false);
+            System.out.println("[INFO] Receipt pane hidden.");
+        } else {
+            System.err.println("[ERROR] Receipt pane is null.");
         }
     }
 
     public void removeCartItem(CartItem cartItem) {
-        cartItems.remove(cartItem);
-        recalculateSubtotal();
+        if (cartItem != null) {
+            cartItems.remove(cartItem);
+            recalculateSubtotal();
+            System.out.println("[INFO] Removed item: " + cartItem.getProductName());
+        } else {
+            System.err.println("[ERROR] Cannot remove a null cart item.");
+        }
+    }
+
+    public AnchorPane getThankYouPane() {
+        return thankYouPane;
     }
 }

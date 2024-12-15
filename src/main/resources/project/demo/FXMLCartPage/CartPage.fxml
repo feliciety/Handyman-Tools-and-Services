@@ -4,8 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -13,14 +11,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="651.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.CartPageController">
+<AnchorPane fx:id="mainPane" prefHeight="651.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.CartPageController">
     <children>
-        <!-- Dynamic Content Pane (Cart Table) -->
-        <AnchorPane fx:id="contentPane" layoutX="37.0" layoutY="64.0" prefHeight="522.0" prefWidth="762.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #dcdcdc; -fx-background-color: #f5f5f5;" AnchorPane.leftAnchor="37.0" AnchorPane.topAnchor="64.0" />
       <AnchorPane fx:id="receiptPane" layoutX="825.0" layoutY="84.0" prefHeight="482.0" prefWidth="342.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #dcdcdc; -fx-background-color: #f5f5f5;">
          <children>
       
-                                            <!-- Static Order Summary -->
+                                                  <!-- Static Order Summary -->
               <VBox layoutX="21.0" layoutY="39.0" prefHeight="403.0" prefWidth="300.0" spacing="5.0">
                   <children>
                       <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="34.0" prefWidth="300.0" style="-fx-font-size: 25; -fx-font-weight: bold;" text="Order Summary">
@@ -37,7 +33,7 @@
                     </columnConstraints>
                   </GridPane>
       
-                                                    <!-- Subtotal Section -->
+                                                          <!-- Subtotal Section -->
                       <HBox prefHeight="26.0" prefWidth="300.0" spacing="10" style="-fx-padding: 5;">
                           <Label prefHeight="27.0" prefWidth="156.0" text="Subtotal: ">
                         <HBox.margin>
@@ -74,7 +70,7 @@
                      </children>
                   </HBox>
       
-                                                    <!-- Shipping Section -->
+                                                          <!-- Shipping Section -->
                       <HBox spacing="10" style="-fx-padding: 5;">
                           <Label prefHeight="27.0" prefWidth="155.0" text="Shipping: ">
                         <HBox.margin>
@@ -117,7 +113,7 @@
                      </font>
                   </Label>
       
-                                                    <!-- Total Section -->
+                                                          <!-- Total Section -->
                       <HBox prefHeight="27.0" prefWidth="285.0" spacing="10">
                           <Label prefHeight="27.0" prefWidth="134.0" text="Total: ">
                         <HBox.margin>
@@ -137,65 +133,13 @@
                      </VBox.margin>
                       </HBox>
       
-                                                    <!-- Promo Code Section -->
+                                                          <!-- Promo Code Section -->
                       <VBox spacing="10" style="-fx-padding: 10;" />
                   </children>
               </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="thankYouPane" layoutX="813.0" layoutY="64.0" prefHeight="522.0" prefWidth="359.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #dcdcdc; -fx-background-color: #f5f5f5;" visible="false">
-         <children>
-            <VBox alignment="CENTER" layoutX="32.0" layoutY="6.0" prefHeight="510.0" prefWidth="295.0">
-               <children>
-                  <Label alignment="CENTER" prefHeight="31.0" prefWidth="295.0" text="Thank you for choosing" textAlignment="CENTER" textFill="#403e3e" wrapText="true">
-                     <font>
-                        <Font name="Inter UI Black Italic" size="20.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="215.0" fitWidth="228.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imagelogo/logo5.png" />
-                     </image>
-                  </ImageView>
-                  <Label prefHeight="76.0" prefWidth="295.0" text="Your trust in our expertise helps us keep your spaces functional and your projects running smoothly. We look forward to assisting you again for any repair, installation, or home improvement needs!" textAlignment="CENTER" wrapText="true">
-                     <font>
-                        <Font name="Inter Light Italic BETA" size="12.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="5.0" top="-10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="22.0" prefWidth="228.0" text="Your satisfaction is our priority." textAlignment="CENTER" wrapText="true">
-                     <font>
-                        <Font name="Inter Semi Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="28.0" prefWidth="295.0" text="Need help again? Reach out anytime." textAlignment="CENTER" wrapText="true">
-                     <font>
-                        <Font name="Inter Light Italic BETA" size="12.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="28.0" prefWidth="295.0" text="🔧 Fixing it right, one job at a time!" textAlignment="CENTER" wrapText="true">
-                     <font>
-                        <Font name="Inter Light BETA" size="12.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="295.0" text="-The HandyMan Tools N' Services Team&quot;" textAlignment="CENTER" wrapText="true">
-                     <font>
-                        <Font name="Inter Light BETA" size="12.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Label>
-                  <Button mnemonicParsing="false" prefHeight="9.0" prefWidth="295.0" stylesheets="@../styles.css" text="Back to Shop">
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-            </VBox>
-         </children>
-      </AnchorPane>
+        <!-- Dynamic Content Pane (Cart Table) -->
+        <AnchorPane fx:id="contentPane" layoutX="37.0" layoutY="64.0" prefHeight="522.0" prefWidth="762.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #dcdcdc; -fx-background-color: #f5f5f5;" AnchorPane.leftAnchor="37.0" AnchorPane.topAnchor="64.0" />
     </children>
 </AnchorPane>

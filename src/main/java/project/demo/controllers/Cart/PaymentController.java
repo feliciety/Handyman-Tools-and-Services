@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
-import project.demo.controllers.Main.MainStructureController;
 import project.demo.controllers.Profile.CreditCardEditController;
 import project.demo.controllers.Profile.GCashEditController;
 import project.demo.controllers.Profile.PayPalEditController;
@@ -54,32 +53,36 @@ public class PaymentController {
     /**
      * Confirm the payment and navigate to the success page.
      */
-    public void confirmPayment() {
+    public void confirmPayment(ActionEvent actionEvent) {
         try {
-            // Data retrieval for the order
-            String shippingAddress = "123 Sample Street"; // Example address
-            String shippingMethod = "Standard";
-            String paymentMethod = "Credit Card";
-            double totalPrice = 199.99; // Example total price including shipping
-            String shippingNote = "Leave the package at the doorstep.";
+            // Retrieve necessary details
+            Address shippingAddress = DetailsController.getChosenAddress();
+            String shippingNote = ShippingController.getInstance().getShippingNote();
+            String shippingMethod = ShippingController.getInstance().getSelectedShippingMethod();
+            double shippingFee = ShippingController.getInstance().getShippingFee();
+            String paymentMethod = selectedPaymentMethod;
 
-            // Example orderId
-            int orderId = 1001;
+            // Insert order into the database and retrieve the orderId
+            int orderId = insertOrder(shippingFee, shippingMethod, shippingNote, paymentMethod);
 
-            // Load the PaymentSuccess view into MainStructure content container
-            MainStructureController.getInstance().loadPage("/project/demo/FXMLCartPage/PaymentSuccess.fxml");
+            if (orderId > 0) {
+                // Insert order items linked to the generated orderId
+                insertOrderItems(orderId);
 
-            // Set order details in the PaymentSuccessController
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLCartPage/PaymentSuccess.fxml"));
-            loader.load(); // Load the FXML to retrieve its controller
+                // Load success page
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLCartPage/PaymentSuccess.fxml"));
+                AnchorPane successPage = loader.load();
 
-            PaymentSuccessController controller = loader.getController();
-            if (controller != null) {
-                controller.setOrderDetails(orderId, totalPrice, shippingAddress, shippingMethod, paymentMethod, shippingNote);
+                PaymentSuccessController controller = loader.getController();
+                controller.setOrderDetails(orderId, CartManager.getInstance().getTotalPrice() + shippingFee,
+                        shippingAddress.getFullAddress(), shippingMethod, paymentMethod, shippingNote);
+
+                mainController.contentPane.getChildren().setAll(successPage);
+            } else {
+                System.err.println("[ERROR] Failed to create order.");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println("[ERROR] Payment confirmation failed.");
         }
     }
 
