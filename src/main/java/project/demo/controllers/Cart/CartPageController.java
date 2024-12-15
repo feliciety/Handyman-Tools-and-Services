@@ -16,6 +16,14 @@ import java.io.IOException;
 import java.util.Map;
 
 public class CartPageController {
+    @FXML
+    private AnchorPane mainPane; // Shared parent of receiptPane and thankYouPane
+
+    @FXML
+    private AnchorPane receiptPane; // Reference to receiptPane
+
+    @FXML
+    private AnchorPane thankYouPane; // Reference to thankYouPane
 
     @FXML
     AnchorPane contentPane; // Dynamic content pane
@@ -35,6 +43,8 @@ public class CartPageController {
     @FXML
     private Label appliedCouponLabel;
 
+    private static CartPageController instance;
+
     @FXML
     private Button removeCouponButton;
 
@@ -43,20 +53,14 @@ public class CartPageController {
 
     private final ObservableList<CartItem> cartItems = CartManager.getInstance().getCartItems();
     private final SimpleDoubleProperty subtotal = new SimpleDoubleProperty(0.0);
-    private final SimpleDoubleProperty shippingFee = new SimpleDoubleProperty(0.0); // Dynamic shipping fee
+    private final SimpleDoubleProperty shippingFee = new SimpleDoubleProperty(0.0);
     private final SimpleDoubleProperty couponDiscount = new SimpleDoubleProperty(0.0);
 
+    // Promo codes map
     private final Map<String, Double> promoCodes = Map.of(
-            "SAVE10", 10.0,         // Flat $10 discount
-            "FREESHIP", 0.0,        // Free shipping
-            "DISCOUNT20", 20.0,     // Flat $20 discount
-            "SAVE5", 5.0,           // Flat $5 discount
-            "BLACKFRIDAY", 15.0,    // Flat $15 discount for Black Friday
-            "CYBERMONDAY", 20.0,    // Flat $20 discount for Cyber Monday
-            "WELCOME", 10.0,        // Discount for new users
-            "WINTER30", 0.3,        // 30% off
-            "WINTER40", 0.4,        // 40% off
-            "WINTER50", 0.5         // 50% off
+            "SAVE10", 10.0, "FREESHIP", 0.0, "DISCOUNT20", 20.0,
+            "SAVE5", 5.0, "BLACKFRIDAY", 15.0, "CYBERMONDAY", 20.0,
+            "WELCOME", 10.0, "WINTER30", 0.3, "WINTER40", 0.4, "WINTER50", 0.5
     );
 
     private String appliedCoupon = null;
@@ -71,82 +75,72 @@ public class CartPageController {
                 subtotal.subtract(couponDiscount).add(shippingFee).asString("₱%.2f")
         );
 
-        // Add listener to cart items for real-time updates
+        // Listen for changes in the cart item list and recalculate subtotal
         cartItems.addListener((ListChangeListener<CartItem>) change -> {
             while (change.next()) {
                 if (change.wasAdded()) {
-                    change.getAddedSubList().forEach(item -> {
-                        item.quantityProperty().addListener((observable, oldValue, newValue) -> recalculateSubtotal());
-                    });
+                    change.getAddedSubList().forEach(item ->
+                            item.quantityProperty().addListener((observable, oldValue, newValue) -> recalculateSubtotal())
+                    );
                 }
                 recalculateSubtotal();
             }
         });
 
-        // Load initial view (e.g., CartTable)
+        // Load initial cart table view
         loadView("/project/demo/FXMLCartPage/CartTable.fxml");
 
-        // Recalculate subtotal for any pre-existing items
-        cartItems.forEach(item -> {
-            item.quantityProperty().addListener((observable, oldValue, newValue) -> recalculateSubtotal());
-        });
+        // Set up quantity listeners for existing items
+        cartItems.forEach(item ->
+                item.quantityProperty().addListener((observable, oldValue, newValue) -> recalculateSubtotal())
+        );
+
         recalculateSubtotal();
     }
 
-    /**
-     * Updates the shipping fee dynamically and recalculates the total.
-     *
-     * @param fee The new shipping fee.
-     */
+    public CartPageController() {
+        instance = this;
+    }
+
+    public static CartPageController getInstance() {
+        return instance;
+    }
+
     public void updateShippingFee(double fee) {
         System.out.println("[DEBUG] Shipping fee updated to: " + fee);
         shippingFee.set(fee);
         recalculateTotal();
     }
 
-    /**
-     * Recalculates the subtotal and updates the coupon discount dynamically.
-     */
     public void recalculateSubtotal() {
         double total = cartItems.stream()
                 .mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity())
                 .sum();
         subtotal.set(total);
 
-        // Dynamically recalculate the coupon discount
+        // Apply the coupon discount if applicable
         if (appliedCoupon != null && promoCodes.containsKey(appliedCoupon)) {
             double discount = promoCodes.get(appliedCoupon);
-
-            // Check if the discount is a percentage or flat
             if (discount < 1.0) {
                 couponDiscount.set(subtotal.get() * discount); // Percentage discount
             } else {
-                couponDiscount.set(Math.min(discount, subtotal.get())); // Flat discount (capped at subtotal)
+                couponDiscount.set(Math.min(discount, subtotal.get())); // Fixed amount discount
             }
         } else {
-            couponDiscount.set(0.0); // No discount
+            couponDiscount.set(0.0);
         }
     }
 
-    /**
-     * Recalculates the total dynamically.
-     */
     private void recalculateTotal() {
         double totalAmount = subtotal.get() - couponDiscount.get() + shippingFee.get();
-        totalLabel.setText(String.format("₱%.2f", totalAmount));
         System.out.println("[DEBUG] Total recalculated: " + totalAmount);
     }
 
-    /**
-     * Applies a promo code entered by the user.
-     */
     @FXML
     public void applyPromoCode() {
         String promoCode = promoCodeField.getText().toUpperCase();
         if (promoCodes.containsKey(promoCode)) {
             appliedCoupon = promoCode;
-
-            // Dynamically update the discount based on the current subtotal
             recalculateSubtotal();
 
             appliedCouponLabel.setText("Applied: " + promoCode);
@@ -158,9 +152,6 @@ public class CartPageController {
         }
     }
 
-    /**
-     * Removes the applied promo code.
-     */
     @FXML
     public void removeCoupon() {
         appliedCoupon = null;
@@ -169,42 +160,44 @@ public class CartPageController {
         removeCouponButton.setVisible(false);
     }
 
-    @FXML
     public void loadView(String fxmlPath) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             AnchorPane newView = loader.load();
 
             Object controller = loader.getController();
-            if (controller instanceof CartTableController) {
-                ((CartTableController) controller).setMainController(this);
-            } else if (controller instanceof DetailsController) {
-                ((DetailsController) controller).setMainController(this);
-            } else if (controller instanceof ShippingController) {
-                ShippingController shippingController = (ShippingController) controller;
+
+            if (controller instanceof CartTableController cartTableController) {
+                cartTableController.setMainController(this);
+            } else if (controller instanceof DetailsController detailsController) {
+                detailsController.setMainController(this);
+            } else if (controller instanceof ShippingController shippingController) {
                 shippingController.setMainController(this);
                 shippingController.setShippingFeeListener(shippingFee);
-            } else if (controller instanceof PaymentController) {
-                ((PaymentController) controller).setMainController(this);
-            } else if (controller instanceof PaymentSuccessController) {
-                ((PaymentSuccessController) controller).setMainController(this);
+            } else if (controller instanceof PaymentController paymentController) {
+                paymentController.setMainController(this);
+            } else if (controller instanceof PaymentSuccessController successController) {
+                successController.setMainController(this);
+                System.out.println("[DEBUG] Replacing receiptPane with thankYouPane.");
             }
 
-            contentPane.getChildren().clear();
-            contentPane.getChildren().add(newView);
+            contentPane.getChildren().clear(); // Clear existing view
+            contentPane.getChildren().add(newView); // Add new view
         } catch (IOException e) {
             System.err.println("[ERROR] Failed to load FXML file: " + fxmlPath);
             e.printStackTrace();
         }
     }
 
-    public void removeCartItem(CartItem cartItem) {
-        if (cartItem != null) {
-            cartItems.remove(cartItem);
-            recalculateSubtotal();
-            System.out.println("[INFO] Removed item: " + cartItem.getProductName());
-        } else {
-            System.err.println("[ERROR] Cannot remove a null cart item.");
+
+    public void hideReceiptPane() {
+        if (receiptPane != null) {
+            receiptPane.setVisible(false);
         }
+    }
+
+    public void removeCartItem(CartItem cartItem) {
+        cartItems.remove(cartItem);
+        recalculateSubtotal();
     }
 }

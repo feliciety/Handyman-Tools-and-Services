@@ -68,11 +68,11 @@ public class ShippingController {
      */
     private void updateSelectedShipping() {
         if (standardShipping.isSelected()) {
-            updateShippingDetails("Standard Shipping", 5.00);
+            updateShippingDetails("Standard Shipping", 250.00);
         } else if (expressShipping.isSelected()) {
-            updateShippingDetails("Express Shipping", 15.00);
+            updateShippingDetails("Express Shipping", 750.00);
         } else if (priorityShipping.isSelected()) {
-            updateShippingDetails("Priority Shipping", 25.00);
+            updateShippingDetails("Priority Shipping", 1250.00);
         } else {
             System.out.println("[DEBUG] No shipping option selected.");
         }
@@ -87,18 +87,16 @@ public class ShippingController {
         System.out.println("[DEBUG] Selected Shipping Method: " + method + " | Fee: $" + fee);
     }
 
+    public double getShippingFee() {
+        return shippingFee.get();
+    }
+
     public String getShippingNote() {
-        return shippingNote != null ? shippingNote : "";
+        return DetailsController.getShippingNote(); // Retrieve shipping note dynamically
     }
 
 
-    /**
-     * Sets the shipping note from DetailsController.
-     */
-    public void setShippingNote(String note) {
-        this.shippingNote = note;
-        System.out.println("[DEBUG] Shipping Note set: " + note);
-    }
+
 
     /**
      * Allows external controllers to listen for shipping fee updates.

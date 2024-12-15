@@ -17,15 +17,18 @@ public class OrderManager {
      * @param shippingAddress The shipping address for the order.
      * @param shippingMethod  The selected shipping method.
      * @param paymentMethod   The payment method used.
-     * @param shippingNote
+     * @param shippingNote    The shipping note entered by the user.
      * @param cartItems       The list of items in the cart.
      * @return The generated order ID.
      * @throws SQLException If there is an error saving to the database.
      */
-    public static int saveOrder(int userId, double totalPrice, String shippingAddress, String shippingMethod, String paymentMethod, String shippingNote, List<CartItem> cartItems) throws SQLException {
+    public static int saveOrder(int userId, double totalPrice, String shippingAddress,
+                                String shippingMethod, String paymentMethod, String shippingNote,
+                                List<CartItem> cartItems) throws SQLException {
         int orderId = -1;
 
-        String insertOrderSQL = "INSERT INTO orders (user_id, total_price, shipping_address, shipping_method, payment_method) VALUES (?, ?, ?, ?, ?)";
+        String insertOrderSQL = "INSERT INTO orders (user_id, total_price, shipping_address, " +
+                "shipping_method, payment_method, shipping_note) VALUES (?, ?, ?, ?, ?, ?)";
         String insertOrderItemSQL = "INSERT INTO order_items (order_id, product_name, quantity, price) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConfig.getConnection()) {
@@ -38,6 +41,7 @@ public class OrderManager {
                 orderStmt.setString(3, shippingAddress);
                 orderStmt.setString(4, shippingMethod);
                 orderStmt.setString(5, paymentMethod);
+                orderStmt.setString(6, shippingNote != null ? shippingNote : "");
 
                 int rowsAffected = orderStmt.executeUpdate();
                 if (rowsAffected == 0) {
@@ -63,7 +67,7 @@ public class OrderManager {
                     itemStmt.setDouble(4, item.getProduct().getPrice());
                     itemStmt.addBatch();
                 }
-                itemStmt.executeBatch(); // Execute batch insert for items
+                itemStmt.executeBatch();
             }
 
             conn.commit(); // Commit transaction

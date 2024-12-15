@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="595.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.ShippingController">
+<AnchorPane prefHeight="595.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.ShippingController">
     <VBox layoutX="96.0" layoutY="36.0" prefHeight="524.0" prefWidth="570.0" spacing="10.0" AnchorPane.leftAnchor="96.0" AnchorPane.topAnchor="36.0">
         <children>
 
@@ -42,11 +42,11 @@
                                               <Image url="@../imagelogo/truck.png" />
                                           </image>
                                       </ImageView>
-                                      <VBox>
+                                      <VBox prefHeight="38.0" prefWidth="303.0">
                                           <Label prefHeight="26.0" prefWidth="326.0" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Standard Shipping" />
                                           <Label style="-fx-font-size: 12px; -fx-text-fill: #666;" text="3-5 business days" />
                                       </VBox>
-                                      <Label style="-fx-font-size: 14px; -fx-text-fill: #555; -fx-alignment: center-right;" text="5.00">
+                                      <Label style="-fx-font-size: 14px; -fx-text-fill: #555; -fx-alignment: center-right;" text="₱250.00">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
@@ -75,11 +75,11 @@
                                               <Image url="@../imagelogo/bolt.png" />
                                           </image>
                                       </ImageView>
-                                      <VBox prefHeight="43.0" prefWidth="324.0">
+                                      <VBox prefHeight="38.0" prefWidth="304.0">
                                           <Label style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Express Shipping" />
                                           <Label style="-fx-font-size: 12px; -fx-text-fill: #666;" text="1-2 business days" />
                                       </VBox>
-                                      <Label style="-fx-font-size: 14px; -fx-text-fill: #555; -fx-alignment: center-right;" text="15.00">
+                                      <Label style="-fx-font-size: 14px; -fx-text-fill: #555; -fx-alignment: center-right;" text="₱750.00">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
@@ -105,11 +105,11 @@
                                               <Image url="@../imagelogo/clock.png" />
                                           </image>
                                       </ImageView>
-                                      <VBox>
+                                      <VBox prefHeight="38.0" prefWidth="299.0">
                                           <Label prefHeight="26.0" prefWidth="322.0" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Priority Shipping" />
                                           <Label style="-fx-font-size: 12px; -fx-text-fill: #666;" text="Next day delivery" />
                                       </VBox>
-                                      <Label style="-fx-font-size: 14px; -fx-text-fill: #555; -fx-alignment: center-right;" text="25.00">
+                                      <Label style="-fx-font-size: 14px; -fx-text-fill: #555; -fx-alignment: center-right;" text="₱1250.00">
                                  <font>
                                     <Font size="13.0" />
                                  </font>

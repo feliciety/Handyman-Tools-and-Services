@@ -3,11 +3,13 @@ package project.demo.controllers.Cart;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import project.demo.DataBase.DatabaseConfig;
 import project.demo.models.Address;
 import project.demo.models.UserSession;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DetailsController {
+
 
     private CartPageController mainController; // Reference to the main controller
 
@@ -44,20 +47,19 @@ public class DetailsController {
     @FXML
     private TextField shippingNoteField; // Shipping note input field
 
-    private static Address chosenAddress; // Static field to hold the selected address
-    private static String shippingNote = ""; // Static field to hold the shipping note
-
-    private ToggleGroup addressToggleGroup = new ToggleGroup(); // ToggleGroup for address radio buttons
+    private static Address chosenAddress;
+    private static String shippingNote = "";
+    private ToggleGroup addressToggleGroup = new ToggleGroup();
 
     private final DatabaseConfig db = new DatabaseConfig();
     private Address address;
 
-    // Method to get the selected shipping note
     public static String getShippingNote() {
         return shippingNote;
     }
 
     // Method to get the chosen address
+
     public static Address getChosenAddress() {
         return chosenAddress;
     }
@@ -66,9 +68,14 @@ public class DetailsController {
         this.mainController = mainController;
         System.out.println("[DEBUG] Main controller set in DetailsController.");
     }
+
     @FXML
     public void initialize() {
-        loadAddresses(); // Load addresses into the grid
+        if (addressGridPane == null) {
+            System.err.println("[ERROR] addressGridPane is not initialized. Check FXML mappings.");
+            return;
+        }
+        loadAddresses();
     }
 
     /**
@@ -127,12 +134,11 @@ public class DetailsController {
         String query = "SELECT * FROM addresses WHERE user_id = ?";
 
         try (Connection connection = db.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+             PreparedStatement statement = connection.prepareStatement(query)) {
 
-            int userId = UserSession.getInstance().getUserId();
-            preparedStatement.setInt(1, userId);
+            statement.setInt(1, 1); // Assuming a static user ID for testing
+            ResultSet resultSet = statement.executeQuery();
 
-            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Address address = new Address(
                         resultSet.getInt("id"),
@@ -146,11 +152,12 @@ public class DetailsController {
                 addresses.add(address);
             }
         } catch (Exception e) {
-            System.err.println("[ERROR] Failed to fetch addresses: " + e.getMessage());
             e.printStackTrace();
         }
         return addresses;
     }
+
+
 
     /**
      * Saves the manually entered shipping note and address fields.
@@ -173,20 +180,19 @@ public class DetailsController {
     /**
      * Navigates to the shipping page.
      */
+    @FXML
     public void goToShipping(ActionEvent actionEvent) {
-        if (mainController != null) {
-            shippingNote = shippingNoteField.getText(); // Capture the shipping note
-            mainController.loadView("/project/demo/FXMLCartPage/Shipping.fxml");
+        // Capture the shipping note when navigating to Shipping
+        shippingNote = shippingNoteField.getText();
+        System.out.println("[DEBUG] Shipping Note Captured: " + shippingNote);
 
-            // Pass the shipping note to ShippingController
-            ShippingController shippingController = ShippingController.getInstance();
-            if (shippingController != null) {
-                shippingController.setShippingNote(shippingNote);
-            }
-        } else {
-            System.err.println("[ERROR] Main controller is not set!");
+        CartPageController mainController = CartPageController.getInstance();
+        if (mainController != null) {
+            mainController.loadView("/project/demo/FXMLCartPage/Shipping.fxml");
         }
     }
+
+
 
     /**
      * Navigates back to the cart page.
@@ -198,8 +204,8 @@ public class DetailsController {
             System.err.println("[ERROR] Main controller is not set!");
         }
     }
-    
-     private void populateFields() {
+
+    private void populateFields() {
         addressField.setText(address.getStreet());
         cityField.setText(address.getCity());
         postalCodeField.setText(address.getPostalCode());

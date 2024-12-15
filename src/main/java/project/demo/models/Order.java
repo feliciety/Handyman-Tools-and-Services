@@ -13,6 +13,8 @@ public class Order {
     private String shippingMethod;
     private String paymentMethod;
     private List<CartItem> items;
+    private String shippingNote;
+
 
     // Constructor
     public Order(int orderId, int userId, Timestamp orderDate, double totalPrice,
@@ -83,6 +85,15 @@ public class Order {
     public void setItems(List<CartItem> items) {
         this.items = items;
     }
+
+    public String getShippingNote() {
+        return shippingNote;
+    }
+
+    public void setShippingNote(String shippingNote) {
+        this.shippingNote = shippingNote;
+    }
+
 
     // toString for debugging
     @Override

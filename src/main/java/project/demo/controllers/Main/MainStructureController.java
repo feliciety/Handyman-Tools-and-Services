@@ -27,6 +27,16 @@ public class MainStructureController {
     @FXML
     private Label cartCounterLabel;
 
+    private static MainStructureController instance; // Singleton instance
+
+    public MainStructureController() {
+        instance = this;
+    }
+
+    public static MainStructureController getInstance() {
+        return instance;
+    }
+
     @FXML
     public void initialize() {
 
@@ -53,7 +63,7 @@ public class MainStructureController {
      *
      * @param fxmlPath Path to the FXML file.
      */
-    private void loadPage(String fxmlPath) {
+    public void loadPage(String fxmlPath) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             AnchorPane newPage = loader.load();
