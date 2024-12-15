@@ -115,7 +115,7 @@ public class BookingPaymentController {
     public void confirmPayment(ActionEvent actionEvent) {
         if (mainController != null) {
             System.out.println("Navigating to Payment Success view...");
-            mainController.loadView("/project/demo/FXMLCartPage/PaymentSuccess.fxml");
+            mainController.loadView("/project/demo/FXMLBookingPage/PaymentSuccess.fxml");
         } else {
             System.err.println("Main controller is not set!");
         }

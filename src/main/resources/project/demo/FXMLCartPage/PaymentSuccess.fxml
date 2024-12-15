@@ -1,17 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="595.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.PaymentSuccessController">
-   <children>
-       <Circle fx:id="loadingCircle" fill="transparent" layoutX="381.0" layoutY="217.0" radius="85.0" stroke="#a9d9a3" strokeWidth="15.0" />
-      <Label layoutX="129.0" layoutY="348.0" text="Payment Successful!" textFill="#a9d9a3">
-         <font>
-            <Font name="Inter Extra Bold" size="48.0" />
-         </font>
-      </Label>
-   </children>
+<AnchorPane fx:id="successPage" prefHeight="595.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.PaymentSuccessController">
+   <VBox alignment="TOP_CENTER" layoutX="144.0" layoutY="24.0" prefHeight="548.0" prefWidth="474.0" spacing="10">
+      <!-- Title -->
+      <Label style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-padding: 10 0 10 0;" text="Payment Receipt" />
+      <Separator prefWidth="300" />
+
+      <!-- Receipt Content -->
+      <VBox alignment="CENTER_LEFT" spacing="8">
+         <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Order Details:" />
+         <Separator />
+         <HBox>
+            <children>
+               <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-size: 14px;" text="Order ID: #" />
+               <Label fx:id="orderIdLabel" prefHeight="20.0" prefWidth="174.0" style="-fx-font-size: 14px;" text="id" />
+            </children>
+         </HBox>
+         <HBox>
+            <children>
+               <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-size: 14px;" text="Order Date: " />
+               <Label fx:id="orderDateLabel" prefHeight="20.0" prefWidth="174.0" style="-fx-font-size: 14px;" text="date" textAlignment="RIGHT" />
+            </children>
+         </HBox>
+         <HBox>
+            <children>
+               <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-size: 14px;" text="Shipping Method: " />
+               <Label fx:id="shippingMethodLabel" prefHeight="20.0" prefWidth="179.0" style="-fx-font-size: 14px;" text="method" textAlignment="RIGHT" />
+            </children>
+         </HBox>
+         <VBox>
+            <children>
+               <HBox>
+                  <children>
+                     <Label prefHeight="20.0" prefWidth="270.0" style="-fx-font-size: 14px;" text="Shipping Address:" />
+                     <Label fx:id="shippingAddressLabel" alignment="TOP_LEFT" prefHeight="56.0" prefWidth="220.0" style="-fx-font-size: 14px;" text="address" wrapText="true" />
+                  </children>
+               </HBox>
+            </children>
+         </VBox>
+         <VBox>
+            <children>
+               <Label prefHeight="20.0" prefWidth="229.0" style="-fx-font-size: 14px;" text="Note:" />
+               <Label fx:id="shippingNoteLabel" prefHeight="20.0" prefWidth="402.0" style="-fx-font-size: 14px;" text="shippingNoteLabel" wrapText="true" />
+            </children>
+         </VBox>
+         <Separator />
+
+         <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Payment Summary:" />
+         <Separator />
+         <HBox>
+            <children>
+               <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-size: 14px;" text="Payment Method: " />
+               <Label fx:id="paymentMethodLabel" prefHeight="20.0" prefWidth="171.0" style="-fx-font-size: 14px;" text="payment" textAlignment="RIGHT" />
+            </children>
+         </HBox>
+         <HBox>
+            <children>
+               <Label prefHeight="26.0" prefWidth="262.0" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Total Price: " />
+               <Label fx:id="totalPriceLabel" prefHeight="26.0" prefWidth="208.0" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="0" />
+            </children>
+         </HBox>
+         <Separator />
+      </VBox>
+
+      <!-- Footer -->
+      <Label style="-fx-font-size: 16px; -fx-font-style: italic; -fx-padding: 10 0 0 0;" text="Thank you for your purchase!" />
+      <Separator prefWidth="300" />
+      <Button fx:id="backToHomeButton" style="-fx-font-size: 14px; -fx-background-color: #4CAF50; -fx-text-fill: white;" text="Back to Home" />
+   </VBox>
 </AnchorPane>

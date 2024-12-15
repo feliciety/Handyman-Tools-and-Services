@@ -10,8 +10,6 @@ public class Address {
     private String province;
     private String postalCode;
     private String region;
-    private String country;
-
     // Constructor
     public Address() {}
 
@@ -96,5 +94,11 @@ public class Address {
 
     public void setRegion(String region) {
         this.region = region;
+    }
+
+    // Method to combine the address into a single string
+    public String getFullAddress() {
+        return String.format("%s, %s, %s, %s, Postal Code: %s",
+                street, city, province, region, postalCode);
     }
 }

@@ -7,21 +7,26 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 
 public class UserSession {
+    // Singleton instance
     private static UserSession instance;
 
+    // Properties for user data
     private final IntegerProperty userId = new SimpleIntegerProperty();
     private final StringProperty username = new SimpleStringProperty();
     private final StringProperty email = new SimpleStringProperty();
     private final StringProperty contactNumber = new SimpleStringProperty();
     private String userImagePath; // Stores the file path for the profile picture
 
-
-    // Constructor is private for Singleton pattern
+    // Private constructor for Singleton pattern
     private UserSession() {
     }
-    
 
-    // Singleton instance accessor
+    /**
+     * Get the singleton instance of UserSession.
+     * Ensures only one instance of the session is used.
+     *
+     * @return the singleton instance of UserSession
+     */
     public static UserSession getInstance() {
         if (instance == null) {
             instance = new UserSession();
@@ -29,12 +34,15 @@ public class UserSession {
         return instance;
     }
 
-    // Method to clear session data
+    /**
+     * Clear the session data. Used during logout.
+     */
     public void clearSession() {
+        // Clear existing instance
         instance = null;
     }
 
-    // Real-time properties
+    // Properties for JavaFX bindings
     public IntegerProperty userIdProperty() {
         return userId;
     }
@@ -51,7 +59,7 @@ public class UserSession {
         return contactNumber;
     }
 
-    // Getters and setters for userId
+    // Getters and setters for User ID
     public int getUserId() {
         return userId.get();
     }
@@ -60,7 +68,7 @@ public class UserSession {
         this.userId.set(userId);
     }
 
-    // Getters and setters for username
+    // Getters and setters for Username
     public String getUsername() {
         return username.get();
     }
@@ -69,7 +77,7 @@ public class UserSession {
         this.username.set(username);
     }
 
-    // Getters and setters for email
+    // Getters and setters for Email
     public String getEmail() {
         return email.get();
     }
@@ -78,7 +86,7 @@ public class UserSession {
         this.email.set(email);
     }
 
-    // Getters and setters for contactNumber
+    // Getters and setters for Contact Number
     public String getContactNumber() {
         return contactNumber.get();
     }
@@ -87,7 +95,7 @@ public class UserSession {
         this.contactNumber.set(contactNumber);
     }
 
-    // Getters and setters for userImagePath
+    // Getters and setters for the User's Profile Image Path
     public String getUserImagePath() {
         return userImagePath;
     }
@@ -96,11 +104,16 @@ public class UserSession {
         this.userImagePath = userImagePath;
     }
 
-    // Method to get the user's profile image
+    /**
+     * Load the user's profile image.
+     * If the image path is invalid or empty, load a default fallback image.
+     *
+     * @return Image object of the user's profile picture
+     */
     public Image getUserImage() {
         try {
             if (userImagePath != null && !userImagePath.isEmpty()) {
-                return new Image(userImagePath); // Load user image from path
+                return new Image(userImagePath); // Load user image from specified path
             }
         } catch (Exception e) {
             System.err.println("[ERROR] Failed to load user image: " + e.getMessage());
@@ -109,27 +122,28 @@ public class UserSession {
         return new Image(getClass().getResource("/project/demo/imagelogo/user.png").toString());
     }
 
-    // New logic: Integration with database actions
     /**
-     * Retrieve the user ID for database queries.
-     * Ensures that the user is logged in before proceeding.
+     * Retrieve the User ID for database-related queries.
+     * Ensures that a valid session is active before proceeding.
      *
-     * @return User ID or throws IllegalStateException if the session is not set.
+     * @return the user's ID
+     * @throws IllegalStateException if no valid session is found
      */
     public int retrieveUserIdForDatabase() {
-        if (instance == null || getUserId() == 0) {
-            throw new IllegalStateException("[ERROR] User session is not initialized.");
+        if (getUserId() == 0) {
+            throw new IllegalStateException("[ERROR] User session is not initialized. Please log in.");
         }
         return getUserId();
     }
 
     /**
-     * Populate session details from database or login operation.
+     * Populate the session with user data after a successful login.
+     * This should be called immediately upon successful login to set session details.
      *
-     * @param userId The user's ID.
-     * @param username The user's name.
-     * @param email The user's email address.
-     * @param contactNumber The user's contact number.
+     * @param userId        The user's unique ID
+     * @param username      The username of the user
+     * @param email         The email address of the user
+     * @param contactNumber The contact number of the user
      */
     public void populateSession(int userId, String username, String email, String contactNumber) {
         setUserId(userId);

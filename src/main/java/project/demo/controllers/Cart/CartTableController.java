@@ -170,8 +170,8 @@ public class  CartTableController {
      */
     public void setMainController(CartPageController mainController) {
         this.mainController = mainController;
+        System.out.println("[DEBUG] Main controller set in CartTableController.");
     }
-
     /**
      * Navigates to the Details page.
      */

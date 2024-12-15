@@ -38,4 +38,16 @@ public class CartManager {
             listener.changed(null, null, cartItems.size());
         });
     }
+
+    public void clearCart() {
+        cartItems.clear();
+        System.out.println("[INFO] Cart cleared.");
+    }
+
+    public double getTotalPrice() {
+        return cartItems.stream()
+                .mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity())
+                .sum();
+    }
+
 }

@@ -22,20 +22,24 @@ public class CartAddressRowController {
     private Label ProvinceRegionLabel;
 
     private Address address;
+
     private TextField addressField, cityField, postalCodeField;
     private TextField provinceField, regionField;
 
-    // Set the address and display its details
     public void setAddress(Address address) {
         this.address = address;
         AddressTyepeLabel.setText(address.getType());
         StreetCityPostalCodeLabel.setText(address.getStreet() + ", " + address.getCity() + ", " + address.getPostalCode());
         ProvinceRegionLabel.setText(address.getProvince() + ", " + address.getRegion());
+        selectAddressRadioButton.setUserData(address); // Attach Address object
     }
 
-    // Set the shared ToggleGroup for the RadioButton
-    public void setToggleGroup(ToggleGroup toggleGroup) {
-        selectAddressRadioButton.setToggleGroup(toggleGroup);
+    public void setToggleGroup(ToggleGroup group) {
+        selectAddressRadioButton.setToggleGroup(group);
+    }
+
+    public RadioButton getRadioButton() {
+        return selectAddressRadioButton;
     }
 
     // Set fields for address population
@@ -63,4 +67,6 @@ public class CartAddressRowController {
         provinceField.setText(address.getProvince());
         regionField.setText(address.getRegion());
     }
+
+
 }

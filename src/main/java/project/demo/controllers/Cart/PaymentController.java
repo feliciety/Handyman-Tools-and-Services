@@ -13,12 +13,10 @@ import project.demo.dao.GCashDAO;
 import project.demo.dao.GCashDAOImpl;
 import project.demo.dao.PayPalDAO;
 import project.demo.dao.PayPalDAOImpl;
-import project.demo.models.CreditCard;
-import project.demo.models.GCash;
-import project.demo.models.PayPal;
-import project.demo.models.UserSession;
+import project.demo.models.*;
 
 import java.io.IOException;
+import java.util.List;
 
 public class PaymentController {
 
@@ -31,52 +29,123 @@ public class PaymentController {
     private final PayPalDAO payPalDAO = new PayPalDAOImpl();
 
     private CartPageController mainController; // Reference to the main controller
+    private String selectedPaymentMethod = "COD"; // Default payment method
 
     public void setMainController(CartPageController mainController) {
         this.mainController = mainController;
+        System.out.println("[DEBUG] Main controller set in PaymentController..");
     }
 
-    @FXML
+    private ShippingController shippingController; // Reference to ShippingController
+
+    public void setShippingController(ShippingController shippingController) {
+        this.shippingController = shippingController;
+    }
+
+    /**
+     * Confirm the payment and navigate to the success page.
+     */
     public void confirmPayment(ActionEvent actionEvent) {
-        if (mainController != null) {
-            System.out.println("Navigating to Payment Success view...");
-            mainController.loadView("/project/demo/FXMLCartPage/PaymentSuccess.fxml");
-        } else {
-            System.err.println("Main controller is not set!");
+        try {
+            String shippingNote = ShippingController.getInstance().getShippingNote(); // Fetch shipping note
+            Address selectedAddress = DetailsController.getChosenAddress();
+
+            if (selectedAddress == null) {
+                System.err.println("[ERROR] No shipping address selected!");
+                return;
+            }
+
+            String shippingAddress = selectedAddress.getFullAddress();
+            double totalPrice = CartManager.getInstance().getTotalPrice();
+            String shippingMethod = ShippingController.getInstance().getSelectedShippingMethod();
+            List<CartItem> cartItems = CartManager.getInstance().getCartItems();
+
+            // Save order details including shipping note
+            int orderId = OrderManager.saveOrder(
+                    UserSession.getInstance().getUserId(),
+                    totalPrice,
+                    shippingAddress,
+                    shippingMethod,
+                    selectedPaymentMethod,
+                    shippingNote, // Pass the shipping note
+                    cartItems
+            );
+
+            System.out.println("[INFO] Order saved successfully with ID: " + orderId);
+
+            loadSuccessPage(orderId, totalPrice, shippingAddress, shippingMethod, selectedPaymentMethod, shippingNote);
+            CartManager.getInstance().clearCart();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+    /**
+     * Loads the PaymentSuccess.fxml page with the given order details.
+     */
+    private void loadSuccessPage(int orderId, double totalPrice, String shippingAddress,
+                                 String shippingMethod, String paymentMethod, String shippingNote) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLCartPage/PaymentSuccess.fxml"));
+        AnchorPane successPage = loader.load();
 
+        PaymentSuccessController controller = loader.getController();
+        controller.setOrderDetails(orderId, totalPrice, shippingAddress, shippingMethod, paymentMethod, "");
+
+        mainController.contentPane.getChildren().setAll(successPage);
+    }
+
+    /**
+     * Go back to the shipping page.
+     */
     @FXML
     public void backToShipping(ActionEvent actionEvent) {
         if (mainController != null) {
-            System.out.println("Navigating back to Shipping view...");
-            mainController.loadView("project/demo/FXMLCartPage/Shipping.fxml");
+            mainController.loadView("/project/demo/FXMLCartPage/Shipping.fxml");
         } else {
-            System.err.println("Main controller is not set!");
+            System.err.println("[ERROR] Main controller is not set!");
         }
     }
 
+    /**
+     * Select COD payment method.
+     */
+    @FXML
+    public void showCODFields(ActionEvent actionEvent) {
+        selectedPaymentMethod = "COD";
+        paymentDetailsBox.getChildren().clear();
+        System.out.println("[INFO] COD payment selected. No additional fields needed.");
+    }
+
+    /**
+     * Select GCash payment method.
+     */
     @FXML
     public void showGcashFields(ActionEvent actionEvent) {
+        selectedPaymentMethod = "GCash";
         loadPaymentDetails("/project/demo/FXMLProfilePage/PaymentFXML/GCashEditPopup.fxml", "GCash");
     }
 
+    /**
+     * Select Credit Card payment method.
+     */
     @FXML
     public void showCardFields(ActionEvent actionEvent) {
+        selectedPaymentMethod = "CreditCard";
         loadPaymentDetails("/project/demo/FXMLProfilePage/PaymentFXML/CreditCardEditPopup.fxml", "CreditCard");
     }
 
+    /**
+     * Select PayPal payment method.
+     */
     @FXML
     public void showPayPalFields(ActionEvent actionEvent) {
+        selectedPaymentMethod = "PayPal";
         loadPaymentDetails("/project/demo/FXMLProfilePage/PaymentFXML/PayPalEditPopup.fxml", "PayPal");
     }
 
-    @FXML
-    public void showCODFields(ActionEvent actionEvent) {
-        paymentDetailsBox.getChildren().clear();
-        System.out.println("COD payment selected. No additional fields needed.");
-    }
-
+    /**
+     * Load specific payment details based on the selected payment method.
+     */
     private void loadPaymentDetails(String fxmlPath, String type) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -85,59 +154,36 @@ public class PaymentController {
             Object controller = loader.getController();
             int userId = UserSession.getInstance().getUserId();
 
-            // Populate fields based on payment type
             switch (type) {
                 case "GCash":
-                    if (controller instanceof GCashEditController) {
-                        GCashEditController gcashController = (GCashEditController) controller;
-                        GCash existingGCash = gcashDAO.getGCashByUserId(userId);
-                        if (existingGCash == null) {
-                            System.out.println("[INFO] No GCash record found for user. Initializing empty fields.");
-                            existingGCash = new GCash(0, userId, "", "");
-                        }
-                        gcashController.setFields(existingGCash);
-                        gcashController.hideButtons();
-                    }
+                    GCashEditController gcashController = (GCashEditController) controller;
+                    gcashController.setFields(gcashDAO.getGCashByUserId(userId));
+                    gcashController.hideButtons();
                     break;
 
                 case "CreditCard":
-                    if (controller instanceof CreditCardEditController) {
-                        CreditCardEditController cardController = (CreditCardEditController) controller;
-                        CreditCard existingCard = creditCardDAO.getCreditCardByUserId(userId);
-                        if (existingCard == null) {
-                            System.out.println("[INFO] No Credit Card record found for user. Initializing empty fields.");
-                            existingCard = new CreditCard(0, userId, "", "", "", "", "", "");
-                        }
-                        cardController.setFields(existingCard);
-                        cardController.hideButtons();
-                    }
+                    CreditCardEditController cardController = (CreditCardEditController) controller;
+                    cardController.setFields(creditCardDAO.getCreditCardByUserId(userId));
+                    cardController.hideButtons();
                     break;
 
                 case "PayPal":
-                    if (controller instanceof PayPalEditController) {
-                        PayPalEditController paypalController = (PayPalEditController) controller;
-                        PayPal existingPayPal = payPalDAO.getPayPalByUserId(userId);
-                        if (existingPayPal == null) {
-                            System.out.println("[INFO] No PayPal record found for user. Initializing empty fields.");
-                            existingPayPal = new PayPal(0, userId, "", "");
-                        }
-                        paypalController.setFields(existingPayPal);
-                        paypalController.hideButtons();
-                    }
+                    PayPalEditController paypalController = (PayPalEditController) controller;
+                    paypalController.setFields(payPalDAO.getPayPalByUserId(userId));
+                    paypalController.hideButtons();
                     break;
-
-                default:
-                    throw new IllegalArgumentException("[ERROR] Unsupported payment data type! Type: " + type);
             }
-
 
             paymentDetailsBox.getChildren().clear();
             paymentDetailsBox.getChildren().add(paymentPane);
+
         } catch (IOException e) {
+            System.err.println("[ERROR] Failed to load payment details FXML: " + fxmlPath);
             e.printStackTrace();
-            System.err.println("[ERROR] Failed to load payment details FXML: " + e.getMessage());
-        } catch (IllegalArgumentException e) {
-            System.err.println(e.getMessage());
         }
+    }
+
+    public String getSelectedPaymentMethod() {
+        return selectedPaymentMethod;
     }
 }

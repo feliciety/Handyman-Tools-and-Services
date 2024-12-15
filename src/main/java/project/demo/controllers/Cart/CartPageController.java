@@ -18,7 +18,7 @@ import java.util.Map;
 public class CartPageController {
 
     @FXML
-    private AnchorPane contentPane; // Dynamic content pane
+    AnchorPane contentPane; // Dynamic content pane
 
     @FXML
     private Label subtotalLabel;
@@ -43,7 +43,7 @@ public class CartPageController {
 
     private final ObservableList<CartItem> cartItems = CartManager.getInstance().getCartItems();
     private final SimpleDoubleProperty subtotal = new SimpleDoubleProperty(0.0);
-    private final SimpleDoubleProperty shippingFee = new SimpleDoubleProperty(0.0); // Example fixed fee
+    private final SimpleDoubleProperty shippingFee = new SimpleDoubleProperty(0.0); // Dynamic shipping fee
     private final SimpleDoubleProperty couponDiscount = new SimpleDoubleProperty(0.0);
 
     private final Map<String, Double> promoCodes = Map.of(
@@ -64,12 +64,12 @@ public class CartPageController {
     @FXML
     public void initialize() {
         // Bind labels to their respective properties
-        subtotalLabel.textProperty().bind(subtotal.asString("$%.2f"));
-        couponDiscountLabel.textProperty().bind(couponDiscount.asString("-$%.2f"));
+        subtotalLabel.textProperty().bind(subtotal.asString("₱%.2f"));
+        shippingLabel.textProperty().bind(shippingFee.asString("₱%.2f"));
+        couponDiscountLabel.textProperty().bind(couponDiscount.asString("-₱%.2f"));
         totalLabel.textProperty().bind(
-                subtotal.subtract(couponDiscount).add(shippingFee).asString("$%.2f")
+                subtotal.subtract(couponDiscount).add(shippingFee).asString("₱%.2f")
         );
-        shippingLabel.textProperty().bind(shippingFee.asString("$%.2f"));
 
         // Add listener to cart items for real-time updates
         cartItems.addListener((ListChangeListener<CartItem>) change -> {
@@ -94,11 +94,22 @@ public class CartPageController {
     }
 
     /**
+     * Updates the shipping fee dynamically and recalculates the total.
+     *
+     * @param fee The new shipping fee.
+     */
+    public void updateShippingFee(double fee) {
+        System.out.println("[DEBUG] Shipping fee updated to: " + fee);
+        shippingFee.set(fee);
+        recalculateTotal();
+    }
+
+    /**
      * Recalculates the subtotal and updates the coupon discount dynamically.
      */
     public void recalculateSubtotal() {
         double total = cartItems.stream()
-                .mapToDouble(item -> Double.parseDouble(item.getTotalPrice().replace("₱", "")))
+                .mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity())
                 .sum();
         subtotal.set(total);
 
@@ -115,6 +126,15 @@ public class CartPageController {
         } else {
             couponDiscount.set(0.0); // No discount
         }
+    }
+
+    /**
+     * Recalculates the total dynamically.
+     */
+    private void recalculateTotal() {
+        double totalAmount = subtotal.get() - couponDiscount.get() + shippingFee.get();
+        totalLabel.setText(String.format("₱%.2f", totalAmount));
+        System.out.println("[DEBUG] Total recalculated: " + totalAmount);
     }
 
     /**
@@ -147,65 +167,44 @@ public class CartPageController {
         couponDiscount.set(0.0);
         appliedCouponLabel.setText("No coupon applied");
         removeCouponButton.setVisible(false);
-        System.out.println("Coupon removed.");
     }
 
-    /**
-     * Dynamically loads a new view into the content pane.
-     *
-     * @param fxmlPath The FXML file path to load.
-     */
     @FXML
     public void loadView(String fxmlPath) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             AnchorPane newView = loader.load();
 
-            // Set reference to the main controller in subcontrollers
             Object controller = loader.getController();
             if (controller instanceof CartTableController) {
                 ((CartTableController) controller).setMainController(this);
             } else if (controller instanceof DetailsController) {
                 ((DetailsController) controller).setMainController(this);
             } else if (controller instanceof ShippingController) {
-                ((ShippingController) controller).setMainController(this);
+                ShippingController shippingController = (ShippingController) controller;
+                shippingController.setMainController(this);
+                shippingController.setShippingFeeListener(shippingFee);
             } else if (controller instanceof PaymentController) {
                 ((PaymentController) controller).setMainController(this);
+            } else if (controller instanceof PaymentSuccessController) {
+                ((PaymentSuccessController) controller).setMainController(this);
             }
 
             contentPane.getChildren().clear();
             contentPane.getChildren().add(newView);
-
-            AnchorPane.setTopAnchor(newView, 0.0);
-            AnchorPane.setBottomAnchor(newView, 0.0);
-            AnchorPane.setLeftAnchor(newView, 0.0);
-            AnchorPane.setRightAnchor(newView, 0.0);
-
         } catch (IOException e) {
+            System.err.println("[ERROR] Failed to load FXML file: " + fxmlPath);
             e.printStackTrace();
         }
     }
 
-
-    /**
-     * Removes a cart item from the cartItems list and updates the subtotal.
-     *
-     * @param cartItem The CartItem to be removed.
-     */
     public void removeCartItem(CartItem cartItem) {
         if (cartItem != null) {
             cartItems.remove(cartItem);
-
-            // Recalculate the subtotal and update the UI
             recalculateSubtotal();
-
             System.out.println("[INFO] Removed item: " + cartItem.getProductName());
         } else {
             System.err.println("[ERROR] Cannot remove a null cart item.");
         }
-    }
-
-    public void setShippingFee(double shippingFee) {
-        this.shippingFee.set(shippingFee);
     }
 }
