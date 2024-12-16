@@ -133,7 +133,7 @@ public class ShopPageController {
 
                 productGrid.add(productCard, column, row);
                 column++;
-                if (column == 3) { // 3 columns per row
+                if (column == 4) { // 3 columns per row
                     column = 0;
                     row++;
                 }

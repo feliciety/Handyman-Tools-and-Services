@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="595.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.DetailsController">
+<AnchorPane prefHeight="595.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.DetailsController">
    <children>
       <VBox layoutX="59.2" layoutY="12.8" prefHeight="576.0" prefWidth="646.0" spacing="10.0" AnchorPane.leftAnchor="59.0" AnchorPane.topAnchor="13.0">
          <children>
@@ -30,7 +30,7 @@
                   </ScrollPane>
                </children>
             </AnchorPane>
-            <HBox spacing="10.0">
+            <HBox spacing="10.0" stylesheets="@../styles.css">
                <children>
                    <TextField fx:id="addressField" prefHeight="40.0" prefWidth="210.0" promptText="Street Name, Building, House No." />
                    <TextField fx:id="cityField" prefHeight="40.0" prefWidth="210.0" promptText="City" />
@@ -42,15 +42,15 @@
             </HBox>
             <HBox prefHeight="42.0" prefWidth="751.0" spacing="10.0">
                <children>
-                  <TextField fx:id="provinceField" prefHeight="40.0" prefWidth="322.0" promptText="Province" />
-                  <TextField fx:id="regionField" prefHeight="40.0" prefWidth="317.0" promptText="Region" />
+                  <TextField fx:id="provinceField" prefHeight="40.0" prefWidth="322.0" promptText="Province" stylesheets="@../styles.css" />
+                  <TextField fx:id="regionField" prefHeight="40.0" prefWidth="317.0" promptText="Region" stylesheets="@../styles.css" />
                </children>
             </HBox>
-             <TextField fx:id="shippingNoteField" prefHeight="67.0" prefWidth="646.0" promptText="Shipping note (optional)" />
+             <TextField fx:id="shippingNoteField" prefHeight="67.0" prefWidth="646.0" promptText="Shipping note (optional)" stylesheets="@../styles.css" />
             <HBox prefHeight="54.0" prefWidth="646.0" spacing="10.0">
                <children>
-                   <Button fx:id="backToCartButton" onAction="#goToCart" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #F4F4F5; -fx-text-fill: black;" text="Back to Cart" />
-                   <Button fx:id="toShippingButton" alignment="CENTER" onAction="#goToShipping" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #ffdb00; -fx-text-fill: #222222;" text="Go to Shipping">
+                   <Button fx:id="backToCartButton" onAction="#goToCart" prefHeight="40.0" prefWidth="150.0" stylesheets="@../styles2.css" text="Back to Cart" />
+                   <Button fx:id="toShippingButton" alignment="CENTER" onAction="#goToShipping" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #ffdb00; -fx-text-fill: #222222;" stylesheets="@../styles.css" text="Go to Shipping">
                      <HBox.margin>
                         <Insets left="335.0" />
                      </HBox.margin>

@@ -2,21 +2,31 @@ package project.demo.controllers.Cart;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.geometry.Pos;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
+import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
+import project.demo.controllers.Cart.CartPageController;
+import project.demo.controllers.Main.MainStructureController;
 import project.demo.models.CartItem;
 import project.demo.models.CartManager;
 import project.demo.models.Product;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.geometry.Pos;
+import javafx.scene.layout.HBox;
 
-public class  CartTableController {
+import java.io.IOException;
+
+public class CartTableController {
 
     @FXML
     private TableView<CartItem> cartTable;
+
+    @FXML
+    public AnchorPane contentPane;
 
     @FXML
     private TableColumn<CartItem, ImageView> productImageCol;
@@ -36,7 +46,16 @@ public class  CartTableController {
     private final ObservableList<CartItem> cartItems = CartManager.getInstance().getCartItems();
 
     private CartPageController mainController;
+    private MainStructureController mainStructureController; // Reference for main structure navigation
 
+    public void setMainStructureController(MainStructureController mainStructureController) {
+        this.mainStructureController = mainStructureController;
+        if (this.mainStructureController != null) {
+            System.out.println("[DEBUG] MainStructureController has been properly set in CartTableController.");
+        } else {
+            System.out.println("[ERROR] Failed to set MainStructureController in CartTableController.");
+        }
+    }
     @FXML
     public void initialize() {
 
@@ -69,9 +88,6 @@ public class  CartTableController {
         cartTable.setItems(cartItems);
     }
 
-    /**
-     * Adds a delete button to each row in the Delete column.
-     */
     private void addDeleteButtonToTable() {
         deleteButtonCol.setCellFactory(tc -> new TableCell<>() {
             private final Button deleteButton = new Button("X");
@@ -166,28 +182,27 @@ public class  CartTableController {
     }
 
     /**
-     * Sets the reference to the main controller.
+     * Sets the reference to the CartPageController.
      */
     public void setMainController(CartPageController mainController) {
         this.mainController = mainController;
         System.out.println("[DEBUG] Main controller set in CartTableController.");
     }
+
     /**
      * Navigates to the Details page.
      */
     @FXML
     public void goToDetails(ActionEvent actionEvent) {
-        if (mainController != null) {
-            mainController.loadView("/project/demo/FXMLCartPage/Details.fxml");
-        } else {
-            System.err.println("Main controller is not set!");
-        }
+        mainController.goToDetails();
     }
 
-
-    public void goToShop(ActionEvent actionEvent) {
-        if (mainController != null) {
-            mainController.loadView("/project/demo/FXMLCartPage/CartTable.fxml"); // Ensure this path is correct
+    @FXML
+    private void goToShop() {
+        if (mainStructureController != null) {
+            mainStructureController.navigateTo("/project/demo/FXMLShopPage/ShopPage.fxml");
+        } else {
+            System.err.println("[ERROR] MainStructureController is not set in CartTableController.");
         }
     }
 }

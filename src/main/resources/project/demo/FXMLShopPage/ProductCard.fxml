@@ -9,8 +9,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="315.0" prefWidth="222.0" spacing="5.0" style="-fx-border-width: 1; -fx-padding: 10; -fx-background-color: #E4EAEA; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Shop.ProductCardController">
-    <ImageView fx:id="productImage" fitHeight="170.0" fitWidth="175.0" preserveRatio="true" styleClass="rounded-image">
+<VBox alignment="CENTER" prefHeight="297.0" prefWidth="201.0" spacing="5.0" style="-fx-border-width: 1; -fx-padding: 10; -fx-background-color: #E4EAEA; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Shop.ProductCardController">
+    <ImageView fx:id="productImage" fitHeight="165.0" fitWidth="179.0" preserveRatio="true" styleClass="rounded-image">
       <VBox.margin>
          <Insets />
       </VBox.margin></ImageView>
@@ -26,11 +26,11 @@
          <Font size="14.0" />
       </font></Label>
 
-    <StackPane fx:id="cartPane" alignment="CENTER" prefHeight="43.0" prefWidth="170.0">
+    <StackPane fx:id="cartPane" alignment="CENTER" prefHeight="31.0" prefWidth="160.0">
 
         <!-- Add to Cart Button -->
         <StackPane alignment="CENTER" prefHeight="48.0" prefWidth="222.0">
-            <Button fx:id="addToCartButton" prefHeight="40.0" prefWidth="184.0" stylesheets="@../application.css">
+            <Button fx:id="addToCartButton" prefHeight="20.0" prefWidth="154.0" stylesheets="@../application.css">
                 <font>
                     <Font size="14.0" />
                 </font>
@@ -38,7 +38,7 @@
                     <Insets top="10.0" />
                 </VBox.margin>
          </Button>
-            <Label fx:id="buttonText" style="-fx-font-size: 12px;" text="+ Add to Cart" />
+            <Label fx:id="buttonText" prefHeight="8.0" prefWidth="74.0" style="-fx-font-size: 12px;" text="+ Add to Cart" />
             <ImageView fx:id="cartIcon" fitHeight="41.0" fitWidth="43.0" layoutX="150" layoutY="100" opacity="0" visible="false" />
          <stylesheets>
             <URL value="@../application.css" />

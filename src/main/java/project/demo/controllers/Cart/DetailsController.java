@@ -3,6 +3,7 @@ package project.demo.controllers.Cart;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -10,6 +11,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import project.demo.DataBase.DatabaseConfig;
 import project.demo.models.Address;
 import project.demo.models.UserSession;
@@ -61,12 +63,16 @@ public class DetailsController {
     // Method to get the chosen address
 
     public static Address getChosenAddress() {
+        if (chosenAddress == null) {
+            System.err.println("[ERROR] No address chosen. Returning default address.");
+            return new Address(0, "Default", "No Street", "No City", "0000", "No Province", "No Region");
+        }
         return chosenAddress;
     }
 
+
     public void setMainController(CartPageController mainController) {
         this.mainController = mainController;
-        System.out.println("[DEBUG] Main controller set in DetailsController.");
     }
 
     @FXML
@@ -176,33 +182,17 @@ public class DetailsController {
         shippingNote = shippingNoteField.getText();
         System.out.println("[INFO] Custom address saved: " + chosenAddress.getFullAddress());
     }
-
-    /**
-     * Navigates to the shipping page.
-     */
     @FXML
-    public void goToShipping(ActionEvent actionEvent) {
-        // Capture the shipping note when navigating to Shipping
-        shippingNote = shippingNoteField.getText();
-        System.out.println("[DEBUG] Shipping Note Captured: " + shippingNote);
+    private AnchorPane contentPane;
 
-        CartPageController mainController = CartPageController.getInstance();
-        if (mainController != null) {
-            mainController.loadView("/project/demo/FXMLCartPage/Shipping.fxml");
-        }
+    @FXML
+    private void goToShipping() {
+        mainController.goToShipping();
     }
 
-
-
-    /**
-     * Navigates back to the cart page.
-     */
+    @FXML
     public void goToCart(ActionEvent actionEvent) {
-        if (mainController != null) {
-            mainController.loadView("/project/demo/FXMLCartPage/CartTable.fxml");
-        } else {
-            System.err.println("[ERROR] Main controller is not set!");
-        }
+        mainController.goToCart();
     }
 
     private void populateFields() {

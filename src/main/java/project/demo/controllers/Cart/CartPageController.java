@@ -5,10 +5,12 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import project.demo.controllers.Main.MainStructureController;
 import project.demo.models.CartItem;
 import project.demo.models.CartManager;
 
@@ -16,8 +18,6 @@ import java.io.IOException;
 import java.util.Map;
 
 public class CartPageController {
-    @FXML
-    private AnchorPane thankYouPane;
 
     @FXML
     private AnchorPane receiptPane; // Reference to the receipt pane
@@ -60,18 +60,16 @@ public class CartPageController {
             "WELCOME", 10.0, "WINTER30", 0.3, "WINTER40", 0.4, "WINTER50", 0.5
     );
 
+    public AnchorPane getContentPane() {
+        return contentPane;
+    }
+
     private String appliedCoupon = null;
+
 
     @FXML
     public void initialize() {
-        if (thankYouPane != null) {
-            System.out.println("[DEBUG] thankYouPane successfully initialized.");
-            thankYouPane.setVisible(false); // Ensure it's hidden by default
-        } else {
-            System.err.println("[ERROR] thankYouPane is null.");
-        }
-
-        // Bind labels to their respective properties
+           // Bind labels to their respective properties
         subtotalLabel.textProperty().bind(subtotal.asString("₱%.2f"));
         shippingLabel.textProperty().bind(shippingFee.asString("₱%.2f"));
         couponDiscountLabel.textProperty().bind(couponDiscount.asString("-₱%.2f"));
@@ -164,12 +162,14 @@ public class CartPageController {
         removeCouponButton.setVisible(false);
     }
 
+
     @FXML
     public void loadView(String fxmlPath) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             AnchorPane newView = loader.load();
 
+            // Get the controller for the new view and set the main controller
             Object controller = loader.getController();
 
             if (controller instanceof CartTableController cartTableController) {
@@ -182,27 +182,16 @@ public class CartPageController {
             } else if (controller instanceof PaymentController paymentController) {
                 paymentController.setMainController(this);
             } else if (controller instanceof PaymentSuccessController successController) {
-                showThankYouPane();
                 successController.setMainController(this);
             }
 
             contentPane.getChildren().clear(); // Clear current view
             contentPane.getChildren().add(newView); // Add the new view
 
-
         } catch (IOException e) {
             System.err.println("[ERROR] Failed to load FXML file: " + fxmlPath);
             e.printStackTrace();
         }
-    }
-
-    public void showThankYouPane() {
-        if (!contentPane.getChildren().contains(thankYouPane)) {
-            contentPane.getChildren().add(thankYouPane);
-        }
-        thankYouPane.toFront(); // Bring thankYouPane to the front
-        thankYouPane.setVisible(true);
-        System.out.println("[DEBUG] showThankYouPane() called: thankYouPane is now visible.");
     }
 
     public void hideReceiptPane() {
@@ -223,8 +212,45 @@ public class CartPageController {
             System.err.println("[ERROR] Cannot remove a null cart item.");
         }
     }
+    public void startNavigatingWithLoader(String targetFxmlPath, String gifKey) {
+        try {
+            // Load the LoadingPageCart.fxml as the loading screen
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLCartPage/LoadingPageCart.fxml"));
+            Parent loadingView = loader.load();
 
-    public AnchorPane getThankYouPane() {
-        return thankYouPane;
+            // Get the controller for the loading page
+            LoadingPageCartController loadingController = loader.getController();
+
+            // Initialize the loading screen and provide it with the target FXML and GIF key
+            loadingController.initializeLoading(contentPane, targetFxmlPath, gifKey);
+
+            // Display the loading screen in the contentPane
+            contentPane.getChildren().setAll(loadingView);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("[ERROR] Failed to load LoadingPageCart.fxml.");
+        }
     }
+
+
+    public void goToCart() {
+        startNavigatingWithLoader("/project/demo/FXMLCartPage/CartTable.fxml", "loadingCart");
+    }
+
+    public void goToPayment() {
+        startNavigatingWithLoader("/project/demo/FXMLCartPage/Payment.fxml", "loadingPayment");
+    }
+    public void goToDetails() {
+        startNavigatingWithLoader("/project/demo/FXMLCartPage/Details.fxml", "loadingDetails");
+    }
+
+    public void goToShipping() {
+        startNavigatingWithLoader("/project/demo/FXMLCartPage/Shipping.fxml", "loadingShipping");
+    }
+
+    public void confirmPayment(){
+        startNavigatingWithLoader("/project/demo/FXMLCartPage/PaymentSuccess.fxml", "loadingPaymentSuccess");
+    }
+
 }

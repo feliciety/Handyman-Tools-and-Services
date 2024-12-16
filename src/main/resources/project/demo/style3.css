@@ -1,0 +1,25 @@
+/* Default Button Style */
+.button {
+    -fx-background-color: #222222; /* Dark Gray */
+    -fx-text-fill: #ffffff; /* White Text */
+    -fx-font-size: 12px;
+    -fx-font-weight: normal;
+    -fx-background-radius: 8px; /* Slightly rounded corners */
+    -fx-border-radius: 8px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+
+    /* Smooth Transition */
+    -fx-transition: -fx-background-color 0.3s ease-in-out;
+}
+
+/* Hover State: Slightly Lighter Color */
+.button:hover {
+    -fx-background-color: #333333; /* Slightly Lighter Dark Gray */
+}
+
+/* Click (Pressed) State: Same as Hover State */
+.button:pressed {
+    -fx-background-color: #333333; /* Same lighter color when clicked */
+    -fx-translate-y: 1px; /* Subtle press-down effect */
+}

@@ -80,24 +80,17 @@ public class PaymentSuccessController {
      */
     public void setOrderDetails(int orderId, double totalPrice, String shippingAddress,
                                 String shippingMethod, String paymentMethod, String shippingNote) {
-        // Set order details into their respective labels
-        orderIdLabel.setText("#" + orderId);
-        orderDateLabel.setText(java.time.LocalDate.now().toString()); // Assume current date
-        shippingMethodLabel.setText(shippingMethod);
+        orderIdLabel.setText("Order ID: #" + orderId);
+        orderDateLabel.setText("Date: " + java.time.LocalDate.now());
         shippingAddressLabel.setText(shippingAddress);
+        shippingMethodLabel.setText(shippingMethod);
         shippingNoteLabel.setText(shippingNote);
         paymentMethodLabel.setText(paymentMethod);
         totalPriceLabel.setText(String.format("₱%.2f", totalPrice));
 
-        if (mainController != null) {
-            mainController.hideReceiptPane();
-        }
-        // Populate the order items for the current order ID
         populateOrderItems(orderId);
-        // Clear the cart after placing order
-        clearCart();
-
     }
+
 
     /**
      * Dynamically populates the order items belonging to a specific order into the `orderItemsGridPane`.
@@ -107,40 +100,32 @@ public class PaymentSuccessController {
     private void populateOrderItems(int orderId) {
         String query = "SELECT product_name, quantity, price FROM order_items WHERE order_id = ?";
 
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            preparedStatement.setInt(1, orderId);
+            stmt.setInt(1, orderId);
+            ResultSet rs = stmt.executeQuery();
+            int rowIndex = 0;
 
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                int rowIndex = 0;
+            while (rs.next()) {
+                String productName = rs.getString("product_name");
+                int quantity = rs.getInt("quantity");
+                double price = rs.getDouble("price");
+                double totalPrice = quantity * price;
 
-                // Loop through each item and add a row to the grid pane
-                while (resultSet.next()) {
-                    String productName = resultSet.getString("product_name");
-                    int quantity = resultSet.getInt("quantity");
-                    double price = resultSet.getDouble("price");
-                    double totalPrice = price * quantity;
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLCartPage/OrderItemsRow.fxml"));
+                HBox row = loader.load();
 
-                    // Load the FXML row for each item
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLCartPage/OrderItemsRow.fxml"));
-                    HBox row = loader.load();
+                OrderItemRowController controller = loader.getController();
+                controller.setOrderItemData(productName, quantity, totalPrice);
 
-                    // Set data into the row's controller
-                    OrderItemRowController controller = loader.getController();
-                    controller.setOrderItemData(productName, quantity, totalPrice);
-
-                    // Add the populated row to the grid pane
-                    orderItemsGridPane.add(row, 0, rowIndex++);
-                }
+                orderItemsGridPane.add(row, 0, rowIndex++);
             }
-
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, "[ERROR] Failed to fetch order items from the database", e);
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, "[ERROR] Failed to load OrderItemsRow.fxml", e);
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
         }
     }
+
 
     /**
      * Clears the cart after the order has been confirmed.
@@ -173,17 +158,5 @@ public class PaymentSuccessController {
      */
     public void setMainController(CartPageController mainController) {
         this.mainController = mainController;
-
-        if (mainController != null) {
-            AnchorPane thankYouPane = mainController.getThankYouPane();
-            if (thankYouPane != null) {
-                thankYouPane.setVisible(true); // Show thankYouPane
-                System.out.println("[DEBUG] thankYouPane is now set to visible by PaymentSuccessController.");
-            } else {
-                System.err.println("[ERROR] thankYouPane is null in CartPageController.");
-            }
-        } else {
-            System.err.println("[ERROR] MainController is null. Cannot access thankYouPane.");
-        }
     }
 }

@@ -1,17 +1,30 @@
-/* Button base style */
-.button-underline {
-    -fx-font-size: 14px;
-    -fx-padding: 5 10;
-    -fx-background-insets: 0, 0 0 2px 0; /* Reserve space for the underline */
-    -fx-background-size: 0% 2px, auto; /* Initial underline width: 0% */
-    -fx-background-position: bottom left; /* Position the underline at the bottom */
-    -fx-background-repeat: no-repeat;
-    -fx-background-color: rgba(255, 255, 255, 0), #ffffff; /* First layer transparent, second layer is underline */
-    -fx-cursor: hand; /* Pointer cursor */
-    -fx-transition: all 0.3s ease-in-out; /* Smooth animation */
+/* Default Button Appearance */
+.button {
+    -fx-background-color: #dfdfdf; /* White to Light Gray Gradient */
+    -fx-text-fill: #333333; /* Dark Gray Text */
+    -fx-font-size: 12px;
+    -fx-font-weight: normal;
+    -fx-background-radius: 12px; /* Rounded corners */
+    -fx-border-radius: 12px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+
+    /* Dark Gray Solid Shadow */
+    -fx-effect: dropshadow(three-pass-box, #555555, 0, 1, 0, 3); /* Dark Gray Shadow */
+    -fx-transition: all 0.2s ease-in-out;
 }
 
-/* On hover, expand the underline */
-.button-underline:hover {
-    -fx-background-size: 100% 2px, auto; /* Expand underline to 100% width */
+/* Hover State: Add more brightness and elevate the shadow */
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #f0f0f0, #e6e6e6); /* Lighter White to Gray Gradient */
+    -fx-effect: dropshadow(three-pass-box, #555555, 0, 1, 0, 6); /* Darker and Slightly Bigger Shadow */
+}
+
+/* Pressed State: Flatten the button with no shadow */
+.button:pressed {
+    -fx-background-color: #f5f5f5; /* Solid Light Gray */
+    -fx-effect: none; /* Remove Shadow for Flat Look */
+    -fx-translate-y: 3px; /* Simulate Press Effect */
+    -fx-background-radius: 12px; /* Keep Rounded Corners */
+    -fx-border-color: transparent;
 }

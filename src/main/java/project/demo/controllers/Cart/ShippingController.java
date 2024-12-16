@@ -3,10 +3,14 @@ package project.demo.controllers.Cart;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
 import project.demo.DataBase.DatabaseConfig;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -96,8 +100,6 @@ public class ShippingController {
     }
 
 
-
-
     /**
      * Allows external controllers to listen for shipping fee updates.
      */
@@ -180,22 +182,15 @@ public class ShippingController {
     }
 
     @FXML
+    public AnchorPane contentPane;
+
+    @FXML
     public void goToPayment(ActionEvent actionEvent) {
-        System.out.println("[DEBUG] goToPayment() called.");
-        if (mainController != null) {
-            mainController.loadView("/project/demo/FXMLCartPage/Payment.fxml");
-        } else {
-            System.err.println("[ERROR] Main controller is not set!");
-        }
+        mainController.goToPayment();
     }
 
     @FXML
     public void goToDetails(ActionEvent actionEvent) {
-        System.out.println("[DEBUG] goToDetails() called.");
-        if (mainController != null) {
-            mainController.loadView("/project/demo/FXMLCartPage/Details.fxml");
-        } else {
-            System.err.println("[ERROR] Main controller is not set!");
-        }
+        mainController.goToDetails();
     }
 }

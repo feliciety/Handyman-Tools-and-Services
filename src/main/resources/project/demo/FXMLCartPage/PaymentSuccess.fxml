@@ -10,17 +10,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.ColumnConstraints?>
 <AnchorPane fx:id="successPage" prefHeight="595.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.PaymentSuccessController">
    <HBox layoutX="43.0" layoutY="36.0" spacing="30.0">
       <children>
          <AnchorPane prefHeight="524.0" prefWidth="713.0" styleClass="my-style" stylesheets="@../styles.css">
             <children>
-               <Separator layoutX="15.0" layoutY="96.0" prefHeight="3.0" prefWidth="696.0" />
                <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="105.0" prefHeight="402.0" prefWidth="332.0" spacing="10" styleClass="my-style" stylesheets="@../styles.css">
             
                   <!-- Receipt Content -->
@@ -33,25 +30,37 @@
                      </Separator>
                      <HBox>
                         <children>
-                           <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Order ID: #" textFill="#7b7474" />
+                           <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Order ID: #" textFill="#535353">
+                              <font>
+                                 <Font name="Inter Medium Italic" size="12.0" />
+                              </font></Label>
                            <Label fx:id="orderIdLabel" prefHeight="20.0" prefWidth="174.0" text="id" />
                         </children>
                      </HBox>
                      <HBox>
                         <children>
-                           <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Order Date: " textFill="#7b7474" />
+                           <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Order Date: " textFill="#535353">
+                              <font>
+                                 <Font name="Inter Medium Italic" size="12.0" />
+                              </font></Label>
                            <Label fx:id="orderDateLabel" prefHeight="20.0" prefWidth="174.0" text="date" textAlignment="RIGHT" />
                         </children>
                      </HBox>
                      <HBox>
                         <children>
-                           <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Shipping Method: " textFill="#7b7474" />
+                           <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Shipping Method: " textFill="#535353">
+                              <font>
+                                 <Font name="Inter Medium Italic" size="12.0" />
+                              </font></Label>
                            <Label fx:id="shippingMethodLabel" prefHeight="20.0" prefWidth="179.0" text="method" textAlignment="RIGHT" />
                         </children>
                      </HBox>
                      <VBox>
                         <children>
-                           <Label prefHeight="20.0" prefWidth="270.0" style="-fx-font-weight: bold;" text="Shipping Address:" textFill="#7b7474" />
+                           <Label prefHeight="20.0" prefWidth="270.0" style="-fx-font-weight: bold;" text="Shipping Address:" textFill="#535353">
+                              <font>
+                                 <Font name="Inter Medium Italic" size="12.0" />
+                              </font></Label>
                            <Label fx:id="shippingAddressLabel" alignment="TOP_LEFT" prefHeight="44.0" prefWidth="354.0" text="address" wrapText="true" />
                         </children>
                      </VBox>
@@ -75,7 +84,10 @@
                      </Separator>
                      <HBox>
                         <children>
-                           <Label prefHeight="20.0" prefWidth="256.0" style="-fx-font-size: 12px;" text="Payment Method: " />
+                           <Label prefHeight="20.0" prefWidth="256.0" style="-fx-font-size: 12px; -fx-font-weight: bold;" text="Payment Method: " textFill="#535353">
+                              <font>
+                                 <Font name="Inter Medium Italic" size="12.0" />
+                              </font></Label>
                            <Label fx:id="paymentMethodLabel" prefHeight="20.0" prefWidth="171.0" style="-fx-font-size: 12px;" text="payment" textAlignment="RIGHT" />
                         </children>
                      </HBox>
@@ -108,19 +120,14 @@
                   <children>
                      <Separator layoutX="20.0" layoutY="42.0" prefHeight="3.0" prefWidth="294.0" />
                      <Label alignment="CENTER" layoutX="11.0" layoutY="14.0" prefHeight="30.0" prefWidth="138.0" style="-fx-font-size: 15px; -fx-font-weight: bold;" text="Items Purchased:" />
-                     <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="23.0" layoutY="84.0" prefHeight="291.0" prefWidth="288.0" vbarPolicy="NEVER">
+                     <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="23.0" layoutY="84.0" prefHeight="272.0" prefWidth="288.0" style="-fx-background-color: #f5f5f5;" vbarPolicy="NEVER">
                         <content>
-                           <GridPane fx:id="orderItemsGridPane" prefHeight="26.0" prefWidth="286.0" vgap="10.0">
-                              <columnConstraints>
-                                 <ColumnConstraints minWidth="150" halignment="LEFT" />
-                                 <ColumnConstraints minWidth="50" halignment="CENTER" />
-                                 <ColumnConstraints minWidth="70" halignment="RIGHT" />
-                              </columnConstraints>
+                           <GridPane fx:id="orderItemsGridPane" alignment="CENTER" prefHeight="26.0" prefWidth="258.0">
                            </GridPane>
                         </content>
                      </ScrollPane>
                      <Separator layoutX="20.0" layoutY="67.0" prefHeight="3.0" prefWidth="294.0" />
-                     <Label alignment="CENTER" layoutX="-20.0" layoutY="42.0" prefHeight="30.0" prefWidth="350.0" style="-fx-font-size: 12; -fx-font-weight: bold;" text="     Product Name             Quantity               Price " textFill="#7b7474" />
+                     <Label alignment="CENTER" layoutX="-20.0" layoutY="42.0" prefHeight="30.0" prefWidth="350.0" style="-fx-font-size: 12; -fx-font-weight: bold;" text="     Product Name             Quantity               Price " textFill="#535353" />
                   </children>
                </AnchorPane>
                <ImageView fitHeight="44.0" fitWidth="159.0" layoutX="293.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
@@ -136,7 +143,7 @@
          </AnchorPane>
          <AnchorPane fx:id="thankYouPane" prefHeight="522.0" prefWidth="359.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #dcdcdc; -fx-background-color: #f5f5f5;">
             <children>
-               <VBox alignment="CENTER" layoutX="32.0" layoutY="6.0" prefHeight="510.0" prefWidth="295.0">
+               <VBox alignment="CENTER" layoutX="32.0" layoutY="55.0" prefHeight="356.0" prefWidth="295.0">
                   <children>
                      <Label alignment="CENTER" prefHeight="31.0" prefWidth="295.0" text="Thank you for choosing" textAlignment="CENTER" textFill="#403e3e" wrapText="true">
                         <font>
@@ -147,28 +154,13 @@
                         <image>
                            <Image url="@../imagelogo/logo5.png" />
                         </image>
-                     </ImageView>
-                     <Label prefHeight="76.0" prefWidth="295.0" text="Your trust in our expertise helps us keep your spaces functional and your projects running smoothly. We look forward to assisting you again for any repair, installation, or home improvement needs!" textAlignment="CENTER" wrapText="true">
-                        <font>
-                           <Font name="Inter Light Italic BETA" size="12.0" />
-                        </font>
                         <VBox.margin>
-                           <Insets bottom="5.0" top="-10.0" />
+                           <Insets bottom="50.0" />
                         </VBox.margin>
-                     </Label>
+                     </ImageView>
                      <Label alignment="CENTER" prefHeight="22.0" prefWidth="228.0" text="Your satisfaction is our priority." textAlignment="CENTER" wrapText="true">
                         <font>
                            <Font name="Inter Semi Bold" size="13.0" />
-                        </font>
-                     </Label>
-                     <Label alignment="CENTER" prefHeight="28.0" prefWidth="295.0" text="Need help again? Reach out anytime." textAlignment="CENTER" wrapText="true">
-                        <font>
-                           <Font name="Inter Light Italic BETA" size="12.0" />
-                        </font>
-                     </Label>
-                     <Label alignment="CENTER" prefHeight="28.0" prefWidth="295.0" text="🔧 Fixing it right, one job at a time!" textAlignment="CENTER" wrapText="true">
-                        <font>
-                           <Font name="Inter Light BETA" size="12.0" />
                         </font>
                      </Label>
                      <Label alignment="CENTER" prefHeight="30.0" prefWidth="295.0" text="-The HandyMan Tools N' Services Team&quot;" textAlignment="CENTER" wrapText="true">
@@ -176,16 +168,12 @@
                            <Font name="Inter Light BETA" size="12.0" />
                         </font>
                         <VBox.margin>
-                           <Insets />
+                           <Insets bottom="50.0" />
                         </VBox.margin>
                      </Label>
-                     <Button fx:id="backToHomeButton" mnemonicParsing="false" prefHeight="9.0" prefWidth="295.0" stylesheets="@../styles.css" text="Back to Shop">
-                        <VBox.margin>
-                           <Insets top="20.0" />
-                        </VBox.margin>
-                     </Button>
                   </children>
                </VBox>
+               <Button fx:id="backToHomeButton" layoutX="31.0" layoutY="464.0" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="9.0" prefWidth="295.0" stylesheets="@../styles.css" text="Back to Shop" />
             </children>
          </AnchorPane>
       </children>

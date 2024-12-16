@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="595.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.CartTableController">
+<AnchorPane prefHeight="595.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.CartTableController">
    <children>
       <VBox layoutX="59.2" layoutY="14.0" prefHeight="560.0" prefWidth="646.0" AnchorPane.leftAnchor="59.0" AnchorPane.topAnchor="14.0">
          <children>
@@ -26,8 +26,8 @@
              </TableView>
             <HBox prefHeight="50.0" prefWidth="570.0" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#goToShop" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #F4F4F5; -fx-text-fill: black;" text="Back to Shop" />
-                  <Button mnemonicParsing="false" onAction="#goToDetails" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #ffdb00; -fx-text-fill: #222222;" text="Checkout">
+                  <Button mnemonicParsing="false" onAction="#goToShop" prefHeight="40.0" prefWidth="150.0" stylesheets="@../styles2.css" text="Back to Shop" />
+                  <Button mnemonicParsing="false" onAction="#goToDetails" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #ffdb00; -fx-text-fill: #222222;" stylesheets="@../styles.css" text="Checkout">
                      <HBox.margin>
                         <Insets left="335.0" />
                      </HBox.margin>

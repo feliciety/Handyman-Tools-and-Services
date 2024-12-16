@@ -22,7 +22,7 @@
 .button {
     -fx-background-color: linear-gradient(to bottom, #ffdb00, #e6c200); /* Default yellow gradient */
     -fx-text-fill: #000000; /* Black text */
-    -fx-font-size: 14px;
+    -fx-font-size: 12px;
     -fx-font-weight: normal; /* No bold */
     -fx-background-radius: 12px; /* Rounded corners */
     -fx-border-radius: 12px;

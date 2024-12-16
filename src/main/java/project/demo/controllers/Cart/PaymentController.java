@@ -3,6 +3,7 @@ package project.demo.controllers.Cart;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import project.demo.controllers.Profile.CreditCardEditController;
 import project.demo.controllers.Profile.GCashEditController;
@@ -43,79 +44,61 @@ public class PaymentController {
         this.mainController = mainController;
         System.out.println("[DEBUG] Main controller set in PaymentController..");
     }
-
-    private ShippingController shippingController; // Reference to ShippingController
-
-    public void setShippingController(ShippingController shippingController) {
-        this.shippingController = shippingController;
-    }
+    
 
     /**
      * Confirm the payment and navigate to the success page.
      */
     public void confirmPayment(ActionEvent actionEvent) {
         try {
-            // Retrieve necessary details
             Address shippingAddress = DetailsController.getChosenAddress();
-            String shippingNote = ShippingController.getInstance().getShippingNote();
             String shippingMethod = ShippingController.getInstance().getSelectedShippingMethod();
             double shippingFee = ShippingController.getInstance().getShippingFee();
-            String paymentMethod = selectedPaymentMethod;
+            String shippingNote = ShippingController.getInstance().getShippingNote();
+            int userId = UserSession.getInstance().getUserId();
 
-            // Insert order into the database and retrieve the orderId
-            int orderId = insertOrder(shippingFee, shippingMethod, shippingNote, paymentMethod);
+            System.out.println("[DEBUG] User ID: " + userId);
+            System.out.println("[DEBUG] Shipping Address: " + shippingAddress.getFullAddress());
+
+            int orderId = insertOrder(userId, shippingAddress.getFullAddress(), shippingFee, shippingMethod, shippingNote);
 
             if (orderId > 0) {
-                // Insert order items linked to the generated orderId
                 insertOrderItems(orderId);
-
-                // Load success page
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLCartPage/PaymentSuccess.fxml"));
-                AnchorPane successPage = loader.load();
-
-                PaymentSuccessController controller = loader.getController();
-                controller.setOrderDetails(orderId, CartManager.getInstance().getTotalPrice() + shippingFee,
-                        shippingAddress.getFullAddress(), shippingMethod, paymentMethod, shippingNote);
-
-                mainController.contentPane.getChildren().setAll(successPage);
+                navigateToSuccessPage(orderId, shippingFee, shippingMethod, shippingNote, selectedPaymentMethod);
             } else {
-                System.err.println("[ERROR] Failed to create order.");
+                System.err.println("[ERROR] Order creation failed.");
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private int insertOrder(double shippingFee, String shippingMethod, String shippingNote, String paymentMethod) {
-        String query = "INSERT INTO orders (user_id, shipping_address, shipping_fee, shipping_method, shipping_note, payment_method, total_price, order_date) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
+    private int insertOrder(int userId, String shippingAddress, double shippingFee, String shippingMethod, String shippingNote) {
+        String query = "INSERT INTO orders (user_id, shipping_address, shipping_fee, shipping_method, shipping_note, payment_method, total_price, order_date) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
         int orderId = -1;
 
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
-            int userId = UserSession.getInstance().getUserId(); // Get the user ID from session
-
-            stmt.setInt(1, userId); // Set the user_id
-            stmt.setString(2, "123 Main Street"); // Replace with dynamic shipping address
-            stmt.setDouble(3, shippingFee);       // Set the shipping fee
-            stmt.setString(4, shippingMethod);    // Set the shipping method
-            stmt.setString(5, shippingNote != null ? shippingNote : ""); // Set the shipping note or default to empty
-            stmt.setString(6, paymentMethod);     // Set the payment method
-            stmt.setDouble(7, CartManager.getInstance().getTotalPrice() + shippingFee); // Set the total price
+            stmt.setInt(1, userId);
+            stmt.setString(2, shippingAddress);
+            stmt.setDouble(3, shippingFee);
+            stmt.setString(4, shippingMethod);
+            stmt.setString(5, shippingNote);
+            stmt.setString(6, selectedPaymentMethod);
+            stmt.setDouble(7, CartManager.getInstance().getTotalPrice() + shippingFee);
 
             int rowsInserted = stmt.executeUpdate();
-
             if (rowsInserted > 0) {
                 ResultSet generatedKeys = stmt.getGeneratedKeys();
                 if (generatedKeys.next()) {
-                    orderId = generatedKeys.getInt(1); // Retrieve the generated order ID
-                    System.out.println("[INFO] Order created successfully with ID: " + orderId);
+                    orderId = generatedKeys.getInt(1);
+                    System.out.println("[INFO] Order created successfully. Order ID: " + orderId);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println("[ERROR] Failed to insert order.");
         }
         return orderId;
     }
@@ -135,20 +118,31 @@ public class PaymentController {
             }
 
             int[] rowsInserted = stmt.executeBatch();
-            System.out.println("[INFO] Order items inserted successfully. Rows affected: " + rowsInserted.length);
-
+            System.out.println("[INFO] Order items inserted. Rows affected: " + rowsInserted.length);
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println("[ERROR] Failed to insert order items.");
         }
     }
 
-    @FXML
-    public void backToShipping(ActionEvent actionEvent) {
-        if (mainController != null) {
-            mainController.loadView("/project/demo/FXMLCartPage/Shipping.fxml");
-        } else {
-            System.err.println("[ERROR] Main controller is not set!");
+    private void navigateToSuccessPage(int orderId, double shippingFee, String shippingMethod, String shippingNote, String paymentMethod) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLCartPage/PaymentSuccess.fxml"));
+            Parent successView = loader.load();
+
+            PaymentSuccessController controller = loader.getController();
+            controller.setOrderDetails(
+                    orderId,
+                    CartManager.getInstance().getTotalPrice() + shippingFee,
+                    DetailsController.getChosenAddress().getFullAddress(),
+                    shippingMethod,
+                    paymentMethod,
+                    shippingNote
+            );
+
+            mainController.getContentPane().getChildren().setAll(successView);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("[ERROR] Failed to load PaymentSuccess.fxml");
         }
     }
 
@@ -231,5 +225,12 @@ public class PaymentController {
 
     public String getSelectedPaymentMethod() {
         return selectedPaymentMethod;
+    }
+
+    private AnchorPane contentPane; // Must match fx:id in FXML
+
+    @FXML
+    public void backToShipping(ActionEvent actionEvent) {
+        mainController.goToShipping();
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -12,27 +13,49 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="801.0" prefWidth="1251.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Main.MainStructureController">
+<AnchorPane prefHeight="801.0" prefWidth="1225.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Main.MainStructureController">
    <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="76.0" prefWidth="1253.0" spacing="20" style="-fx-background-color: #222222; -fx-padding: 10;">
+      <HBox alignment="CENTER_LEFT" prefHeight="84.0" prefWidth="1246.0" spacing="20" style="-fx-background-color: #222222; -fx-padding: 10;">
          <children>
-            <HBox alignment="CENTER" prefHeight="55.0" prefWidth="994.0">
+            <HBox alignment="TOP_RIGHT" prefHeight="63.0" prefWidth="985.0">
                <children>
-                  <HBox alignment="CENTER" spacing="5.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="63.0" prefWidth="920.0" spacing="5.0">
                      <children>
-                        <ImageView fitHeight="55.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@imagelogo/logo3.png" />
-                           </image>
+                        <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleHomeClick" prefHeight="63.0" prefWidth="202.0" style="-fx-background-color: transparent;">
+                           <graphic>
+                              <ImageView fitHeight="55.0" fitWidth="225.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@imagelogo/logo3.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                           </graphic>
                            <HBox.margin>
-                              <Insets right="200.0" />
+                              <Insets right="150.0" />
                            </HBox.margin>
-                        </ImageView>
-                        <Button onAction="#handleHomeClick" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-text-fill: white;" styleClass="button-underline" stylesheets="@styles2.css" text="Home" />
-                        <Button onAction="#handleAboutUsClick" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-text-fill: white;" styleClass="button-underline" stylesheets="@styles2.css" text="About Us" />
-                        <Button onAction="#handleShopClick" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #222222; -fx-text-fill: white;" styleClass="button-underline" stylesheets="@styles2.css" text="Shop" />
-                        <Button onAction="#handleServiceClick" prefWidth="100.0" style="-fx-background-color: #222222; -fx-text-fill: white;" styleClass="button-underline" stylesheets="@styles2.css" text="Services" />
-                        <Button onAction="#handleEmployeeClick" prefWidth="100.0" style="-fx-background-color: #222222; -fx-text-fill: white;" styleClass="button-underline" stylesheets="@styles2.css" text="Employees" />
+                        </Button>
+                        <Button onAction="#handleHomeClick" prefHeight="41.0" prefWidth="97.0" styleClass="button-underline" stylesheets="@style3.css" text="Home">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin></Button>
+                        <Button onAction="#handleAboutUsClick" prefHeight="41.0" prefWidth="100.0" stylesheets="@style3.css" text="About Us">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin></Button>
+                        <Button onAction="#handleShopClick" prefHeight="41.0" prefWidth="100.0" stylesheets="@style3.css" text="Shop">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin></Button>
+                        <Button onAction="#handleServiceClick" prefHeight="41.0" prefWidth="100.0" stylesheets="@style3.css" text="Services">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin></Button>
+                        <Button onAction="#handleEmployeeClick" prefHeight="41.0" prefWidth="100.0" stylesheets="@style3.css" text="Employees">
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin></Button>
                      </children>
                   </HBox>
                </children>
@@ -61,6 +84,9 @@
                      </Label>
                   </StackPane>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button onAction="#handleBookingClick" prefHeight="43.0" prefWidth="41.0" style="-fx-background-color: transparent; -fx-text-fill: white;">
                <graphic>
@@ -68,16 +94,22 @@
                      <Image url="@imagelogo/booking.png" />
                   </ImageView>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Circle fx:id="profileImageCircle" fill="WHITE" onMouseClicked="#handleProfileClick" radius="22.0" stroke="BLACK" strokeType="INSIDE">
                <HBox.margin>
                   <Insets bottom="-10.0" left="10.0" top="-10.0" />
                </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Circle>
             <Label onMouseClicked="#handleProfileClick" prefHeight="35.0" prefWidth="46.0" />
          </children>
       </HBox>
-      <VBox alignment="CENTER" layoutY="751.0" prefHeight="50.0" prefWidth="1253.0" style="-fx-background-color: #222222; -fx-padding: 10;">
+      <VBox alignment="CENTER" layoutY="751.0" prefHeight="50.0" prefWidth="1246.0" style="-fx-background-color: #222222; -fx-padding: 10;">
          <HBox alignment="CENTER">
             <ImageView fitHeight="30.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>
@@ -115,6 +147,6 @@
          </HBox>
          <HBox spacing="10" />
       </VBox>
-      <AnchorPane fx:id="contentContainer" layoutY="77.0" prefHeight="674.0" prefWidth="1254.0" />
+      <AnchorPane fx:id="contentContainer" layoutY="77.0" prefHeight="674.0" prefWidth="1246.0" />
    </children>
 </AnchorPane>
