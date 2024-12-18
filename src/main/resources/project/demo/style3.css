@@ -1,25 +1,30 @@
-/* Default Button Style */
+/* Default Button Appearance */
 .button {
-    -fx-background-color: #222222; /* Dark Gray */
-    -fx-text-fill: #ffffff; /* White Text */
+    -fx-background-color: #222222; /* White to Light Gray Gradient */
+    -fx-text-fill: #ffffff; /* Dark Gray Text */
     -fx-font-size: 12px;
     -fx-font-weight: normal;
-    -fx-background-radius: 8px; /* Slightly rounded corners */
-    -fx-border-radius: 8px;
+    -fx-background-radius: 12px; /* Rounded corners */
+    -fx-border-radius: 12px;
     -fx-padding: 10px 20px;
     -fx-cursor: hand;
 
-    /* Smooth Transition */
-    -fx-transition: -fx-background-color 0.3s ease-in-out;
+    /* Dark Gray Solid Shadow */
+    -fx-effect: dropshadow(three-pass-box, #555555, 0, 1, 0, 3); /* Dark Gray Shadow */
+    -fx-transition: all 0.2s ease-in-out;
 }
 
-/* Hover State: Slightly Lighter Color */
+/* Hover State: Add more brightness and elevate the shadow */
 .button:hover {
-    -fx-background-color: #333333; /* Slightly Lighter Dark Gray */
+    -fx-background-color: linear-gradient(to bottom, #323232,#222222); /* Lighter White to Gray Gradient */
+    -fx-effect: dropshadow(three-pass-box, #555555, 0, 1, 0, 3); /* Darker and Slightly Bigger Shadow */
 }
 
-/* Click (Pressed) State: Same as Hover State */
+/* Pressed State: Flatten the button with no shadow */
 .button:pressed {
-    -fx-background-color: #333333; /* Same lighter color when clicked */
-    -fx-translate-y: 1px; /* Subtle press-down effect */
+    -fx-background-color: #222222; /* Solid Light Gray */
+    -fx-effect: none; /* Remove Shadow for Flat Look */
+    -fx-translate-y: 3px; /* Simulate Press Effect */
+    -fx-background-radius: 12px; /* Keep Rounded Corners */
+    -fx-border-color: transparent;
 }
