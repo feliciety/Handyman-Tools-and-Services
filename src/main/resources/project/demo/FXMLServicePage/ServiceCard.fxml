@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -32,16 +33,22 @@
           </Label>
       </children>
    </VBox>
-   <Pane>
+   <Pane prefHeight="34.0" prefWidth="223.0">
       <VBox.margin>
          <Insets top="10.0" />
       </VBox.margin>
       <children>
-          <Button fx:id="bookNowButton" layoutX="9.0" layoutY="-24.0" onAction="#onBookNowClicked" prefHeight="41.0" prefWidth="197.0" stylesheets="@../styles.css" text="Book Now">
-              <font>
-                  <Font name="Inter Light BETA" size="14.0" />
-              </font>
-          </Button>
+         <StackPane fx:id="successPane" layoutX="9.0" layoutY="-24.0">
+            <children>
+                <Button fx:id="bookNowButton" onAction="#onBookNowClicked" prefHeight="41.0" prefWidth="197.0" stylesheets="@../styles.css">
+                    <font>
+                        <Font name="Inter Light BETA" size="14.0" />
+                    </font>
+                </Button>
+               <Label fx:id="buttonText" alignment="CENTER" prefHeight="18.0" prefWidth="130.0" text="Book Service" />
+               <ImageView fx:id="successIcon" fitHeight="41.0" fitWidth="43.0" opacity="0" visible="false" />
+            </children>
+         </StackPane>
       </children>
    </Pane>
 </VBox>
