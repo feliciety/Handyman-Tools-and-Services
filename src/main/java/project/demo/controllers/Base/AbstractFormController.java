@@ -1,4 +1,4 @@
-package project.demo.controllers.Profile.PaymentMethod;
+package project.demo.controllers.Base;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

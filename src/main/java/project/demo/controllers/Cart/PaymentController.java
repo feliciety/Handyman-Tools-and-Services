@@ -129,7 +129,7 @@ public class PaymentController {
 
     private void navigateToSuccessPage(int orderId, double shippingFee, String shippingMethod, String shippingNote, String paymentMethod) {
         try {
-            System.out.println("[DEBUG] Navigating to PaymentSuccess.fxml");
+            System.out.println("[DEBUG] Navigating to BookingPaymentSuccess.fxml");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLCartPage/PaymentSuccess.fxml"));
             Parent successView = loader.load();
 
@@ -158,7 +158,7 @@ public class PaymentController {
             System.out.println("[DEBUG] Success page displayed.");
 
         } catch (IOException e) {
-            System.err.println("[ERROR] Failed to load PaymentSuccess.fxml: " + e.getMessage());
+            System.err.println("[ERROR] Failed to load BookingPaymentSuccess.fxml: " + e.getMessage());
             e.printStackTrace();
         }
     }

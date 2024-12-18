@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
-import project.demo.controllers.Profile.PaymentMethod.AbstractFormController;
+import project.demo.controllers.Base.AbstractFormController;
 import project.demo.dao.*;
 import project.demo.models.CreditCard;
 import project.demo.models.GCash;
@@ -110,7 +110,7 @@ public class BookingPaymentController {
     public void confirmPayment(ActionEvent actionEvent) {
         if (mainController != null) {
             System.out.println("Navigating to Payment Success view...");
-            mainController.loadView("/project/demo/FXMLBookingPage/PaymentSuccess.fxml");
+            mainController.loadView("/project/demo/FXMLBookingPage/BookingPaymentSuccess.fxml");
         } else {
             System.err.println("Main controller is not set!");
         }
