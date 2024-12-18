@@ -1,6 +1,5 @@
 package project.demo.controllers.Booking;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.RadioButton;
@@ -9,6 +8,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import project.demo.DataBase.DatabaseConfig;
+import project.demo.controllers.Cart.CartPageController;
 import project.demo.models.Address;
 import project.demo.models.UserSession;
 
@@ -23,30 +23,23 @@ public class AddressBookingDetailsController {
 
     private BookingPageController mainController; // Reference to the main controller
 
-    @FXML
-    private GridPane addressGridPane;
+    @FXML private GridPane addressGridPane;
 
-    @FXML
-    private TextField addressField;
-    @FXML
-    private TextField cityField;
-    @FXML
-    private TextField postalCodeField;
-    @FXML
-    private TextField provinceField;
-    @FXML
-    private TextField regionField;
-    @FXML
-    private TextField bookingNoteField; // Shipping note equivalent for bookings
-
+    @FXML private TextField addressField;
+    @FXML private TextField cityField;
+    @FXML private TextField postalCodeField;
+    @FXML private TextField provinceField;
+    @FXML private TextField regionField;
+    @FXML private TextField shippingNoteField;
 
     private static Address chosenAddress;
-    private static String bookingNote = "";
-    private ToggleGroup addressToggleGroup = new ToggleGroup(); // Shared toggle group for radio buttons
+    private static String shippingNote = "";
+
+    private ToggleGroup addressToggleGroup = new ToggleGroup();
     private final DatabaseConfig db = new DatabaseConfig();
 
-    public static String getBookingNote() {
-        return bookingNote;
+    public static String getShippingNote() {
+        return shippingNote;
     }
 
     public static Address getChosenAddress() {
@@ -56,27 +49,29 @@ public class AddressBookingDetailsController {
         return chosenAddress;
     }
 
-    public void setMainController(BookingPageController mainController) {
-        this.mainController = mainController;
-        System.out.println("MainController set: " + mainController);
+    public static AddressBookingDetailsController getInstance() {
+        return new AddressBookingDetailsController();
     }
 
+    public void setMainController(BookingPageController mainController) {
+        this.mainController = mainController;
+    }
 
     @FXML
     public void initialize() {
         if (addressGridPane == null) {
-            System.err.println("[ERROR] addressGridPane is not initialized. Check FXML bindings.");
+            System.err.println("[ERROR] addressGridPane is not initialized. Check FXML mappings.");
             return;
         }
         loadAddresses();
     }
 
     /**
-     * Loads the addresses from the database and populates the grid pane.
+     * Loads the addresses for the current logged-in user from the database and populates the grid pane.
      */
     private void loadAddresses() {
-        int currentUserId = UserSession.getInstance().getUserId(); // Fetch current user ID
-        List<Address> addresses = fetchAddressesFromDatabase(currentUserId);
+        int currentUserId = UserSession.getInstance().getUserId(); // Get current user ID
+        List<Address> addresses = fetchAddressesFromDatabase(currentUserId); // Pass currentUserId
         addressGridPane.getChildren().clear();
 
         for (int i = 0; i < addresses.size(); i++) {
@@ -105,13 +100,15 @@ public class AddressBookingDetailsController {
                 addressGridPane.add(row, 0, i);
             } catch (IOException e) {
                 e.printStackTrace();
-                System.err.println("[ERROR] Failed to load address row.");
             }
         }
     }
 
     /**
      * Fetches addresses from the database for the current logged-in user.
+     *
+     * @param userId The ID of the logged-in user.
+     * @return List of Address objects
      */
     private List<Address> fetchAddressesFromDatabase(int userId) {
         List<Address> addresses = new ArrayList<>();
@@ -120,7 +117,7 @@ public class AddressBookingDetailsController {
         try (Connection connection = db.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
 
-            statement.setInt(1, userId);
+            statement.setInt(1, userId); // Use current user ID from UserSession
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -148,20 +145,18 @@ public class AddressBookingDetailsController {
         provinceField.setText(chosenAddress.getProvince());
         regionField.setText(chosenAddress.getRegion());
     }
+    @FXML
+    private AnchorPane contentPane;
 
     @FXML
-    public void goToBookingCartTable(ActionEvent actionEvent) {
+    private void goToBookingCartTable() {
+
         mainController.goToBookingCartTable();
     }
 
     @FXML
-    public void goToPayment(ActionEvent actionEvent) {
-            if (mainController == null) {
-                System.err.println("MainController is null in goToPayment!");
-                return;
-            }
-            System.out.println("Navigating to payment...");
-            mainController.goToPayment();
-        }
+    public void goToPayment() {
+        mainController.goToPayment();
     }
 
+}

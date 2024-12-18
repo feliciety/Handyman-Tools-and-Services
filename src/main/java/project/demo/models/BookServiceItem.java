@@ -178,35 +178,19 @@ public class BookServiceItem {
         return serviceName.get();
     }
 
-    public ImageView getServiceImageView() {
-        return serviceImageView;
-    }
-
-    public HBox getJobComplexityControl() {
-        return jobComplexityControl;
-    }
-
     public double getServiceFee() {
         return serviceFee.get();
-    }
-
-    public Button getRemoveButton() {
-        return removeButton;
-    }
-
-    public DatePicker getBookingDatePicker() {
-        return bookingDatePicker;
     }
 
     public StringProperty jobComplexityProperty() {
         return jobComplexity;
     }
 
-    public DoubleProperty serviceFeeProperty() {
-        return serviceFee;
+    public Service getService() {
+        return service;
     }
 
-    public String getFormattedServiceFee() {
-        return String.format("₱%.2f", serviceFee.get());
+    public String getJobComplexity() {
+        return jobComplexity.get();
     }
 }

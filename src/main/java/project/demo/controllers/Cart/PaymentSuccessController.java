@@ -155,6 +155,8 @@ public class PaymentSuccessController {
         }
     }
 
+
+
     /**
      * Populate the order items grid.
      */
@@ -187,6 +189,7 @@ public class PaymentSuccessController {
             System.err.println("[ERROR] Failed to populate order items: " + e.getMessage());
         }
     }
+
 
     @FXML
     public void handleDownloadReceipt() {

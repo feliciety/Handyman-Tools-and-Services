@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import project.demo.controllers.Booking.AddressBookingDetailsController;
 import project.demo.controllers.Cart.LoadingPageCartController;
 import project.demo.models.BookServiceItem;
 import project.demo.models.BookServiceManager;
@@ -227,12 +228,13 @@ public class BookingPageController {
         loadViewWithLoading("/project/demo/FXMLBookingPage/BookingPaymentSuccess.fxml", "loadingBookPaymentSuccess");
     }
 
-    public double getServiceFee() {
+    public double getSubtotal() {
         return totalServiceFee.get();
     }
 
     public double getCouponDiscount() {
         return couponDiscount.get();
     }
+
 
 }

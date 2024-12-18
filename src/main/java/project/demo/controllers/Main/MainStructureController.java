@@ -87,17 +87,23 @@ public class MainStructureController {
 
             // Retrieve and inject MainStructureController into CartTableController
             CartTableController cartController = loader.getController();
-            cartController.setMainStructureController(this);
+            if (cartController != null) {
+                cartController.setMainStructureController(this);
+                System.out.println("[INFO] MainStructureController injected into CartTableController.");
+            } else {
+                System.err.println("[ERROR] CartTableController is NULL.");
+            }
 
             contentContainer.getChildren().clear();
             contentContainer.getChildren().add(cartView);
 
-            System.out.println("[INFO] Successfully loaded CartTable.fxml and injected MainStructureController.");
+            System.out.println("[INFO] Successfully loaded CartTable.fxml.");
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("[ERROR] Failed to load CartTable.fxml.");
         }
     }
+
 
     /**
      * Updates the cart counter label in the UI whenever the cart size changes.

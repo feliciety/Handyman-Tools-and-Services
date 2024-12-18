@@ -5,22 +5,31 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
-import project.demo.controllers.Base.AbstractFormController;
-import project.demo.dao.*;
-import project.demo.models.CreditCard;
-import project.demo.models.GCash;
-import project.demo.models.PayPal;
-import project.demo.models.UserSession;
+import project.demo.controllers.Profile.PaymentMethod.CreditCardEditController;
+import project.demo.controllers.Profile.PaymentMethod.GCashEditController;
+import project.demo.controllers.Profile.PaymentMethod.PayPalEditController;
+import project.demo.dao.CreditCardDAO;
+import project.demo.dao.CreditCardDAOImpl;
+import project.demo.dao.GCashDAO;
+import project.demo.dao.GCashDAOImpl;
+import project.demo.dao.PayPalDAO;
+import project.demo.dao.PayPalDAOImpl;
+import project.demo.models.*;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 
 public class BookingPaymentController {
+
 
     @FXML
     private AnchorPane paymentDetailsBox;
 
-
+    // DAO objects
     private final GCashDAO gcashDAO = new GCashDAOImpl();
     private final CreditCardDAO creditCardDAO = new CreditCardDAOImpl();
     private final PayPalDAO payPalDAO = new PayPalDAOImpl();
@@ -29,31 +38,36 @@ public class BookingPaymentController {
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";
 
-    private BookingPageController mainController;
-
-    private String selectedPaymentMethod = "COD"; // Default payment method
+    private BookingPageController mainController; // Reference to the main controller
+    private String selectedPaymentMethod = "Credit Card"; // Default payment method
 
     public void setMainController(BookingPageController mainController) {
         this.mainController = mainController;
+        System.out.println("[DEBUG] Main controller set in PaymentController.");
     }
 
     /**
-     * Confirm the payment and create a new service order.
+     * Confirm the payment and navigate to the success page.
      */
     @FXML
     public void confirmPayment(ActionEvent actionEvent) {
         try {
+            Address shippingAddress = AddressBookingDetailsController.getChosenAddress();
+            String shippingNote = AddressBookingDetailsController.getInstance().getShippingNote();
             int userId = UserSession.getInstance().getUserId();
-            String serviceAddress = AddressBookingDetailsController.getChosenAddress().getFullAddress();
-            String paymentMethod = selectedPaymentMethod;
 
-            int bookingId = insertBookedService(userId, serviceAddress, paymentMethod);
+            System.out.println("[DEBUG] User ID: " + userId);
+            System.out.println("[DEBUG] Shipping Address: " + shippingAddress.getFullAddress());
 
-            if (bookingId > 0) {
-                insertBookedServiceItems(bookingId);
-                navigateToSuccessPage(bookingId);
+            int orderId = insertServiceOrders( userId, String.valueOf(shippingAddress), shippingNote);
+
+            if (orderId > 0) {
+                insertBookedService(orderId);
+                double totalServiceFee = BookingPageController.getInstance().getSubtotal(); // Get the cart subtotal
+                double couponDiscount = BookingPageController.getInstance().getCouponDiscount();
+                navigateToSuccessPageWithPaymentDetails(orderId, shippingNote, selectedPaymentMethod);
             } else {
-                System.err.println("[ERROR] Service booking creation failed.");
+                System.err.println("[ERROR] Order creation failed.");
             }
 
         } catch (Exception e) {
@@ -61,102 +75,130 @@ public class BookingPaymentController {
         }
     }
 
-    /**
-     * Insert a new record into service_orders.
-     */
-    private int insertBookedService(int userId, String serviceAddress, String paymentMethod) {
-        String query = "INSERT INTO service_orders (user_id, service_address, payment_method, total_price, booking_date, service_status) VALUES (?, ?, ?, ?, NOW(), 'Processing')";
+    private int insertServiceOrders(int userId, String serviceAddress, String additionalNotes) {
+        String query = "INSERT INTO service_orders (user_id, service_address, payment_method, additional_notes, booking_date, service_fee, total_price, service_status) " +
+                "VALUES (?, ?, ?, ?, NOW(), ?, ?, 'Pending')"; // Default status 'Pending'
         int bookingId = -1;
 
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
-            double totalPrice = BookingPageController.getInstance().getTotalPrice();
+            double serviceFee = BookingPageController.getInstance().getSubtotal();
+            double totalPrice = serviceFee;
 
+            // Set parameters
             stmt.setInt(1, userId);
             stmt.setString(2, serviceAddress);
-            stmt.setString(3, paymentMethod);
-            stmt.setDouble(4, totalPrice);
+            stmt.setString(3, selectedPaymentMethod);
+            stmt.setString(4, additionalNotes);
+            stmt.setDouble(5, serviceFee);
+            stmt.setDouble(6, totalPrice);
 
+            // Execute query
             int rowsInserted = stmt.executeUpdate();
             if (rowsInserted > 0) {
                 ResultSet generatedKeys = stmt.getGeneratedKeys();
                 if (generatedKeys.next()) {
                     bookingId = generatedKeys.getInt(1);
-                    System.out.println("[INFO] Service booking created successfully. Booking ID: " + bookingId);
+                    System.out.println("[INFO] Service order created successfully. Booking ID: " + bookingId);
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
+            System.err.println("[ERROR] Failed to insert service order: " + e.getMessage());
             e.printStackTrace();
         }
         return bookingId;
     }
 
-    /**
-     * Insert services into the booked_services table.
-     */
-    private void insertBookedServiceItems(int bookingId) {
-        String query = "INSERT INTO booked_services (booking_id, service_id, service_name, price, quantity, subtotal) VALUES (?, ?, ?, ?, ?, ?)";
+    private void navigateToSuccessPageWithPaymentDetails(int bookingId, String additionalNotes, String paymentMethod) {
+        try {
+            System.out.println("[DEBUG] Navigating to BookingPaymentSuccess.fxml");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLBookingPage/BookingPaymentSuccess.fxml"));
+            Parent successView = loader.load();
+
+            BookPaymentSuccessController controller = loader.getController();
+            if (controller == null) {
+                System.err.println("[ERROR] BookPaymentSuccessController is NULL.");
+                return;
+            }
+
+            double serviceFee = BookingPageController.getInstance().getSubtotal();
+            controller.setOrderDetails(bookingId, serviceFee, AddressBookingDetailsController.getChosenAddress().getFullAddress(),
+                    additionalNotes, paymentMethod);
+
+            mainController.getContentPane().getChildren().setAll(successView);
+            System.out.println("[DEBUG] Success page displayed.");
+        } catch (IOException e) {
+            System.err.println("[ERROR] Failed to load BookingPaymentSuccess.fxml: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+
+
+    private void insertBookedService(int serviceOrderId) {
+        String query = "INSERT INTO booked_service (service_order_id, service_name, job_complexity, service_fee) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            for (BookedServiceItem item : BookingCartTableController.getInstance().getBookedServices()) {
-                stmt.setInt(1, bookingId);
-                stmt.setInt(2, item.getService().getServiceId());
-                stmt.setString(3, item.getService().getServiceName());
-                stmt.setDouble(4, item.getService().getServicePrice());
-                stmt.setInt(5, item.getQuantity());
-                stmt.setDouble(6, item.getSubtotal());
+            // Loop through booked services from BookServiceManager
+            for (BookServiceItem item : BookServiceManager.getInstance().getBookedServices()) {
+                stmt.setInt(1, serviceOrderId);                      // service_order_id
+                stmt.setString(2, item.getServiceName());           // service_name
+                stmt.setString(3, item.jobComplexityProperty().get()); // job_complexity
+                stmt.setDouble(4, item.getServiceFee());            // service_fee
                 stmt.addBatch();
             }
 
             int[] rowsInserted = stmt.executeBatch();
             System.out.println("[INFO] Booked services inserted. Rows affected: " + rowsInserted.length);
-        } catch (SQLException e) {
+        } catch (Exception e) {
+            System.err.println("[ERROR] Failed to insert booked services: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    /**
-     * Navigate to the success page after confirming payment.
-     */
-    private void navigateToSuccessPage(int bookingId) {
+    private void navigateToSuccessPage(int bookingId, String additionalNotes, String paymentMethod) {
         try {
+            System.out.println("[DEBUG] Navigating to BookingPaymentSuccess.fxml");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLBookingPage/BookingPaymentSuccess.fxml"));
             Parent successView = loader.load();
 
-            BookingPaymentSuccessController controller = loader.getController();
-            double totalPrice = BookingCartController.getInstance().getTotalPrice();
-            controller.setBookingDetails(bookingId, totalPrice);
+            BookPaymentSuccessController controller = loader.getController();
+            if (controller == null) {
+                System.err.println("[ERROR] BookPaymentSuccessController is NULL.");
+                return;
+            }
+
+            double serviceFee = BookingPageController.getInstance().getSubtotal();
+            controller.setOrderDetails(bookingId, serviceFee, AddressBookingDetailsController.getChosenAddress().getFullAddress(),
+                    additionalNotes, paymentMethod);
 
             mainController.getContentPane().getChildren().setAll(successView);
-            System.out.println("[INFO] Booking success page displayed.");
+            System.out.println("[DEBUG] Success page displayed.");
         } catch (IOException e) {
+            System.err.println("[ERROR] Failed to load BookingPaymentSuccess.fxml: " + e.getMessage());
             e.printStackTrace();
-            System.err.println("[ERROR] Failed to load BookingSuccess.fxml");
         }
     }
 
     @FXML
     public void showGcashFields(ActionEvent actionEvent) {
+        selectedPaymentMethod = "GCash";
         loadPaymentDetails("/project/demo/FXMLProfilePage/PaymentFXML/GCashEditPopup.fxml", "GCash");
     }
 
     @FXML
     public void showCardFields(ActionEvent actionEvent) {
+        selectedPaymentMethod = "CreditCard";
         loadPaymentDetails("/project/demo/FXMLProfilePage/PaymentFXML/CreditCardEditPopup.fxml", "CreditCard");
     }
 
     @FXML
     public void showPayPalFields(ActionEvent actionEvent) {
+        selectedPaymentMethod = "PayPal";
         loadPaymentDetails("/project/demo/FXMLProfilePage/PaymentFXML/PayPalEditPopup.fxml", "PayPal");
-    }
-
-    @FXML
-    public void showCODFields(ActionEvent actionEvent) {
-        paymentDetailsBox.getChildren().clear();
-        System.out.println("COD payment selected. No additional fields needed.");
     }
 
     private void loadPaymentDetails(String fxmlPath, String type) {
@@ -164,51 +206,39 @@ public class BookingPaymentController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             AnchorPane paymentPane = loader.load();
 
-            AbstractFormController<?> controller = loader.getController();
+            Object controller = loader.getController();
             int userId = UserSession.getInstance().getUserId();
 
-            // Populate fields based on payment type using AbstractFormController
             switch (type) {
-                case "GCash":
-                    GCash existingGCash = gcashDAO.getGCashByUserId(userId);
-                    if (controller instanceof AbstractFormController<?>) {
-                        AbstractFormController<GCash> gcashController = (AbstractFormController<GCash>) controller;
-                        gcashController.setFields(existingGCash);
-                        gcashController.hideButtons();
-                    }
-                    break;
-                case "CreditCard":
-                    CreditCard existingCard = creditCardDAO.getCreditCardByUserId(userId);
-                    if (controller instanceof AbstractFormController<?>) {
-                        AbstractFormController<CreditCard> cardController = (AbstractFormController<CreditCard>) controller;
-                        cardController.setFields(existingCard);
-                        cardController.hideButtons();
-                    }
-                    break;
-                case "PayPal":
-                    PayPal existingPayPal = payPalDAO.getPayPalByUserId(userId);
-                    if (controller instanceof AbstractFormController<?>) {
-                        AbstractFormController<PayPal> paypalController = (AbstractFormController<PayPal>) controller;
-                        paypalController.setFields(existingPayPal);
-                        paypalController.hideButtons();
-                    }
-                    break;
-                default:
-                    throw new IllegalArgumentException("[ERROR] Unsupported payment data type!");
+                case "GCash" -> {
+                    GCashEditController gcashController = (GCashEditController) controller;
+                    gcashController.setFields(gcashDAO.getGCashByUserId(userId));
+                    gcashController.hideButtons();
+                }
+                case "CreditCard" -> {
+                    CreditCardEditController cardController = (CreditCardEditController) controller;
+                    cardController.setFields(creditCardDAO.getCreditCardByUserId(userId));
+                    cardController.hideButtons();
+                }
+                case "PayPal" -> {
+                    PayPalEditController payPalController = (PayPalEditController) controller;
+                    payPalController.setFields(payPalDAO.getPayPalByUserId(userId));
+                    payPalController.hideButtons();
+                }
             }
 
             paymentDetailsBox.getChildren().clear();
             paymentDetailsBox.getChildren().add(paymentPane);
+
         } catch (IOException e) {
+            System.err.println("[ERROR] Failed to load payment details FXML: " + fxmlPath);
             e.printStackTrace();
-            System.err.println("[ERROR] Failed to load payment details FXML: " + e.getMessage());
-        } catch (IllegalArgumentException e) {
-            System.err.println(e.getMessage());
         }
     }
 
-    public void backToAddressBookingDetails(ActionEvent actionEvent) {
+    @FXML
+    public void backToShipping(ActionEvent actionEvent) {
         mainController.goToAddressBookingDetails();
+        System.out.println("[DEBUG] Back to details page.");
     }
-
 }

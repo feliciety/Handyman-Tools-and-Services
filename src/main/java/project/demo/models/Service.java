@@ -91,4 +91,8 @@ public class Service {
                 ", imagePath='" + imagePath + '\'' +
                 '}';
     }
+
+    public String getServiceName() {
+        return name;
+    }
 }

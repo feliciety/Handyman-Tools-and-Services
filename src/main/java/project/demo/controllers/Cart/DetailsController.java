@@ -33,9 +33,9 @@ public class DetailsController {
     @FXML private TextField shippingNoteField;
 
     private static Address chosenAddress;
-    private static String shippingNote = "";
+    private static final String shippingNote = "";
 
-    private ToggleGroup addressToggleGroup = new ToggleGroup();
+    private final ToggleGroup addressToggleGroup = new ToggleGroup();
     private final DatabaseConfig db = new DatabaseConfig();
 
     public static String getShippingNote() {
@@ -47,6 +47,10 @@ public class DetailsController {
             return new Address(0, "Default", "No Street", "No City", "0000", "No Province", "No Region");
         }
         return chosenAddress;
+    }
+
+    public static DetailsController getInstance() {
+        return new DetailsController();
     }
 
     public void setMainController(CartPageController mainController) {

@@ -28,7 +28,7 @@ public class BookServiceManager {
             // Set the remove logic before adding
             newService.setOnRemoveAction(() -> {
                 System.out.println("[DEBUG] Removing service via callback: " + newService.getServiceName());
-                removeService(newService);
+                removeService();
             });
 
             bookedServices.add(newService);
@@ -38,12 +38,10 @@ public class BookServiceManager {
         }
     }
 
-    public void removeService(BookServiceItem service) {
-        if (bookedServices.contains(service)) {
-            bookedServices.remove(service);
-            System.out.println("[DEBUG] Successfully removed service: " + service.getServiceName());
-        } else {
-            System.out.println("[ERROR] Service not found in the list: " + service.getServiceName());
+    public void removeService() {
+        if (bookedServices.isEmpty()) {
+            bookedServices.clear();
         }
+
     }
 }

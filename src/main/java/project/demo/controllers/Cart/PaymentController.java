@@ -53,7 +53,7 @@ public class PaymentController {
             Address shippingAddress = DetailsController.getChosenAddress();
             String shippingMethod = ShippingController.getInstance().getSelectedShippingMethod();
             double shippingFee = ShippingController.getInstance().getShippingFee();
-            String shippingNote = ShippingController.getInstance().getShippingNote();
+            String shippingNote = DetailsController.getInstance().getShippingNote();
             int userId = UserSession.getInstance().getUserId();
 
             System.out.println("[DEBUG] User ID: " + userId);
@@ -130,7 +130,7 @@ public class PaymentController {
     private void navigateToSuccessPage(int orderId, double shippingFee, String shippingMethod, String shippingNote, String paymentMethod) {
         try {
             System.out.println("[DEBUG] Navigating to BookingPaymentSuccess.fxml");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLBookingPage/PaymentSuccess.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLCartPage/PaymentSuccess.fxml"));
             Parent successView = loader.load();
 
             PaymentSuccessController controller = loader.getController();

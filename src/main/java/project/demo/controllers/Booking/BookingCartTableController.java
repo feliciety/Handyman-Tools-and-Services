@@ -13,7 +13,6 @@ import javafx.event.ActionEvent;
 import project.demo.controllers.Main.MainStructureController;
 import project.demo.models.BookServiceItem;
 import project.demo.models.BookServiceManager;
-import project.demo.models.Service;
 
 import java.time.LocalDate;
 
@@ -68,7 +67,7 @@ public class BookingCartTableController {
                 removeButton.setOnAction(event -> {
                     BookServiceItem item = getTableView().getItems().get(getIndex());
                     if (item != null) {
-                        BookServiceManager.getInstance().removeService(item); // Remove from manager
+                        BookServiceManager.getInstance().removeService(); // Remove from manager
                         bookingTable.refresh();
                     }
                 });
