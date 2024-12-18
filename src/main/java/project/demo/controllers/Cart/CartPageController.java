@@ -6,10 +6,12 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import project.demo.controllers.Main.MainStructureController;
 import project.demo.models.CartItem;
 import project.demo.models.CartManager;
@@ -69,7 +71,7 @@ public class CartPageController {
 
     @FXML
     public void initialize() {
-           // Bind labels to their respective properties
+        // Bind labels to their respective properties
         subtotalLabel.textProperty().bind(subtotal.asString("₱%.2f"));
         shippingLabel.textProperty().bind(shippingFee.asString("₱%.2f"));
         couponDiscountLabel.textProperty().bind(couponDiscount.asString("-₱%.2f"));
@@ -212,6 +214,7 @@ public class CartPageController {
             System.err.println("[ERROR] Cannot remove a null cart item.");
         }
     }
+
     public void startNavigatingWithLoader(String targetFxmlPath, String gifKey) {
         try {
             // Load the LoadingPageCart.fxml as the loading screen
@@ -241,6 +244,7 @@ public class CartPageController {
     public void goToPayment() {
         startNavigatingWithLoader("/project/demo/FXMLCartPage/Payment.fxml", "loadingPayment");
     }
+
     public void goToDetails() {
         startNavigatingWithLoader("/project/demo/FXMLCartPage/Details.fxml", "loadingDetails");
     }
@@ -249,8 +253,12 @@ public class CartPageController {
         startNavigatingWithLoader("/project/demo/FXMLCartPage/Shipping.fxml", "loadingShipping");
     }
 
-    public void confirmPayment(){
-        startNavigatingWithLoader("/project/demo/FXMLCartPage/PaymentSuccess.fxml", "loadingPaymentSuccess");
+    public double getSubtotal() {
+        return subtotal.get();
+    }
+
+    public double getCouponDiscount() {
+        return couponDiscount.get();
     }
 
 }

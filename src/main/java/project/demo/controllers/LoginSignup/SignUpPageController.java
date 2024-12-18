@@ -1,7 +1,6 @@
 package project.demo.controllers.LoginSignup;
 
 import javafx.animation.FadeTransition;
-import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,26 +16,37 @@ import project.demo.DataBase.DatabaseConfig;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Arrays;
 import java.util.List;
 
 public class SignUpPageController {
 
-    public Button signUpButton;
-    @FXML private TextField usernameField;
-    @FXML private TextField emailField;
-    @FXML private PasswordField passwordField;
-    @FXML private PasswordField confirmPasswordField;
-    @FXML private CheckBox termsCheckBox;
-    @FXML private Label warningLabel;
+    @FXML
+    private Button signUpButton;
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private PasswordField confirmPasswordField;
+    @FXML
+    private CheckBox termsCheckBox;
+    @FXML
+    private Label warningLabel;
 
-    @FXML private StackPane fullNameWarningImage;
-    @FXML private StackPane emailWarningImage;
-    @FXML private StackPane passwordWarningImage;
-    @FXML private StackPane confirmWarningImage;
+    @FXML
+    private StackPane fullNameWarningImage;
+    @FXML
+    private StackPane emailWarningImage;
+    @FXML
+    private StackPane passwordWarningImage;
+    @FXML
+    private StackPane confirmWarningImage;
 
     private MainPaneController mainPaneController;
-
 
     private final DatabaseConfig db = new DatabaseConfig();
 
@@ -61,6 +71,7 @@ public class SignUpPageController {
         boolean valid = true;
 
         if (username.isEmpty() && email.isEmpty() && password.isEmpty() && confirmPassword.isEmpty()) {
+            // When all fields are empty
             showWarning("All fields are required.");
             handleAllFieldsEmpty();
             return false;
@@ -101,22 +112,69 @@ public class SignUpPageController {
     }
 
     private void insertUserData(String username, String email, String password) {
-        String query = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
-        try (Connection connection = db.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+        String checkQuery = "SELECT COUNT(*) FROM users WHERE username = ? OR email = ?";
+        String insertQuery = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
 
-            statement.setString(1, username);
-            statement.setString(2, email);
-            statement.setString(3, password);
+        try (Connection connection = db.getConnection()) {
+            if (connection == null) {
+                showWarning("Database connection failed. Please check configuration.");
+                return;
+            }
 
-            statement.executeUpdate();
-            showSuccess("Account created successfully!");
-            navigateToPage("/project/demo/FXMLLoginSignup/LogInPage.fxml", "Login");
+            // Check if username or email already exists
+            PreparedStatement checkStmt = connection.prepareStatement(checkQuery);
+            checkStmt.setString(1, username);
+            checkStmt.setString(2, email);
+
+            ResultSet resultSet = checkStmt.executeQuery();
+            resultSet.next();
+
+            if (resultSet.getInt(1) > 0) {
+                showWarning("Username or email already exists. Please try a different one.");
+                return;
+            }
+
+            // If not exists, insert the user data
+            PreparedStatement insertStmt = connection.prepareStatement(insertQuery);
+            insertStmt.setString(1, username);
+            insertStmt.setString(2, email);
+            insertStmt.setString(3, password);
+
+            int rowsAffected = insertStmt.executeUpdate();
+            if (rowsAffected > 0) {
+                showSuccess("Account created successfully!");
+                navigateToPage("/project/demo/FXMLLoginSignup/LogInPage.fxml", "Login");
+            } else {
+                showWarning("Insert failed: No rows affected.");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
-            showWarning("Database connection failed.");
+            showWarning("Error saving data: " + e.getMessage());
         }
+    }
+
+
+    /**
+     * Apply both shake animation to the warning image and the provided field.
+     */
+    private void handleFieldWarning(Node field, StackPane warningImage, String message) {
+        showWarning(message);
+
+        // Set field border color
+        if (field instanceof TextField) {
+            ((TextField) field).setStyle("-fx-border-color: red; -fx-border-width: 2;");
+        } else if (field instanceof PasswordField) {
+            ((PasswordField) field).setStyle("-fx-border-color: red; -fx-border-width: 2;");
+        }
+
+        // Apply animations
+        if (warningImage != null) {
+            warningImage.setVisible(true);
+            createShakeAnimation(warningImage).play(); // Shake the warning image
+        }
+
+        createShakeAnimation(field).play(); // Shake the input field
     }
 
     private void handleAllFieldsEmpty() {
@@ -124,17 +182,8 @@ public class SignUpPageController {
                 .forEach(field -> field.setStyle("-fx-border-color: red; -fx-border-width: 2;"));
 
         showFieldAnimations(Arrays.asList(fullNameWarningImage, emailWarningImage, passwordWarningImage, confirmWarningImage));
-    }
-
-    private void handleFieldWarning(Node field, StackPane warningImage, String message) {
-        showWarning(message);
-        if (field instanceof TextField) {
-            ((TextField) field).setStyle("-fx-border-color: red; -fx-border-width: 2;");
-        }
-        if (warningImage != null) {
-            warningImage.setVisible(true);
-            createShakeAnimation(warningImage).play();
-        }
+        Arrays.asList(usernameField, emailField, passwordField, confirmPasswordField)
+                .forEach(this::createShakeAnimation);
     }
 
     private void showWarning(String message) {
@@ -159,15 +208,15 @@ public class SignUpPageController {
     }
 
     private TranslateTransition createShakeAnimation(Node node) {
-        TranslateTransition shake = new TranslateTransition(Duration.millis(100), node);
-        shake.setByX(10);
-        shake.setCycleCount(6);
+        TranslateTransition shake = new TranslateTransition(Duration.millis(150), node);
+        shake.setByX(8); // Matches LogInPage
+        shake.setCycleCount(4);
         shake.setAutoReverse(true);
         return shake;
     }
 
     private FadeTransition createFadeOutAnimation(Node node) {
-        FadeTransition fade = new FadeTransition(Duration.seconds(4), node);
+        FadeTransition fade = new FadeTransition(Duration.seconds(1.5), node);
         fade.setFromValue(1.0);
         fade.setToValue(0.0);
         return fade;
@@ -175,24 +224,21 @@ public class SignUpPageController {
 
     private void clearWarnings() {
         warningLabel.setVisible(false);
-        Arrays.asList(fullNameWarningImage, emailWarningImage, passwordWarningImage, confirmWarningImage)
-                .forEach(image -> image.setVisible(false));
-
         Arrays.asList(usernameField, emailField, passwordField, confirmPasswordField)
                 .forEach(field -> field.setStyle(""));
+
+        Arrays.asList(fullNameWarningImage, emailWarningImage, passwordWarningImage, confirmWarningImage)
+                .forEach(image -> image.setVisible(false));
     }
 
     public void setMainPaneController(MainPaneController mainPaneController) {
         this.mainPaneController = mainPaneController;
     }
+
     @FXML
     public void initialize() {
-        signUpButton.setOnAction(event -> {
-            // Load LogInPage with loading screen
-            mainPaneController.loadLogInPage();
-        });
+        signUpButton.setOnAction(event -> signUpButtonClicked());
     }
-
 
     @FXML
     public void LogInSwap() {

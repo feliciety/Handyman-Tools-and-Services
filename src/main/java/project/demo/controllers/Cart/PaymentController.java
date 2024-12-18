@@ -5,9 +5,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
-import project.demo.controllers.Profile.CreditCardEditController;
-import project.demo.controllers.Profile.GCashEditController;
-import project.demo.controllers.Profile.PayPalEditController;
+import project.demo.controllers.Profile.PaymentMethod.CreditCardEditController;
+import project.demo.controllers.Profile.PaymentMethod.GCashEditController;
+import project.demo.controllers.Profile.PaymentMethod.PayPalEditController;
 import project.demo.dao.CreditCardDAO;
 import project.demo.dao.CreditCardDAOImpl;
 import project.demo.dao.GCashDAO;
@@ -21,7 +21,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
 
 public class PaymentController {
 
@@ -42,13 +41,13 @@ public class PaymentController {
 
     public void setMainController(CartPageController mainController) {
         this.mainController = mainController;
-        System.out.println("[DEBUG] Main controller set in PaymentController..");
+        System.out.println("[DEBUG] Main controller set in PaymentController.");
     }
-    
 
     /**
      * Confirm the payment and navigate to the success page.
      */
+    @FXML
     public void confirmPayment(ActionEvent actionEvent) {
         try {
             Address shippingAddress = DetailsController.getChosenAddress();
@@ -64,6 +63,8 @@ public class PaymentController {
 
             if (orderId > 0) {
                 insertOrderItems(orderId);
+                double subtotal = CartPageController.getInstance().getSubtotal(); // Get the cart subtotal
+                double couponDiscount = CartPageController.getInstance().getCouponDiscount();
                 navigateToSuccessPage(orderId, shippingFee, shippingMethod, shippingNote, selectedPaymentMethod);
             } else {
                 System.err.println("[ERROR] Order creation failed.");
@@ -81,13 +82,16 @@ public class PaymentController {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
+            double subtotal = CartPageController.getInstance().getSubtotal(); // Fetch subtotal from cart
+            double totalPrice = subtotal + shippingFee; // Calculate total price
+
             stmt.setInt(1, userId);
             stmt.setString(2, shippingAddress);
             stmt.setDouble(3, shippingFee);
             stmt.setString(4, shippingMethod);
             stmt.setString(5, shippingNote);
             stmt.setString(6, selectedPaymentMethod);
-            stmt.setDouble(7, CartManager.getInstance().getTotalPrice() + shippingFee);
+            stmt.setDouble(7, totalPrice);
 
             int rowsInserted = stmt.executeUpdate();
             if (rowsInserted > 0) {
@@ -102,7 +106,6 @@ public class PaymentController {
         }
         return orderId;
     }
-
     private void insertOrderItems(int orderId) {
         String query = "INSERT INTO order_items (order_id, product_name, quantity, price) VALUES (?, ?, ?, ?)";
 
@@ -126,29 +129,40 @@ public class PaymentController {
 
     private void navigateToSuccessPage(int orderId, double shippingFee, String shippingMethod, String shippingNote, String paymentMethod) {
         try {
+            System.out.println("[DEBUG] Navigating to PaymentSuccess.fxml");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLCartPage/PaymentSuccess.fxml"));
             Parent successView = loader.load();
 
             PaymentSuccessController controller = loader.getController();
-            controller.setOrderDetails(
-                    orderId,
-                    CartManager.getInstance().getTotalPrice() + shippingFee,
-                    DetailsController.getChosenAddress().getFullAddress(),
-                    shippingMethod,
-                    paymentMethod,
-                    shippingNote
+            if (controller == null) {
+                System.err.println("[ERROR] PaymentSuccessController is NULL.");
+                return;
+            }
+
+            System.out.println("[DEBUG] PaymentSuccessController loaded successfully.");
+
+            double subtotal = CartPageController.getInstance().getSubtotal();
+            double discount = CartPageController.getInstance().getCouponDiscount();
+            double totalPrice = subtotal + shippingFee;
+
+            controller.setOrderDetails(orderId, totalPrice, DetailsController.getChosenAddress().getFullAddress(),
+                    shippingMethod, paymentMethod, shippingNote, shippingFee);
+
+            controller.setSubtotalAndCoupon(
+                    String.format("₱%.2f", subtotal),
+                    String.format("₱%.2f", discount)
             );
 
             mainController.getContentPane().getChildren().setAll(successView);
+            System.out.println("[DEBUG] Success page displayed.");
+
         } catch (IOException e) {
+            System.err.println("[ERROR] Failed to load PaymentSuccess.fxml: " + e.getMessage());
             e.printStackTrace();
-            System.err.println("[ERROR] Failed to load PaymentSuccess.fxml");
         }
     }
 
-    /**
-     * Select COD payment method.
-     */
+
     @FXML
     public void showCODFields(ActionEvent actionEvent) {
         selectedPaymentMethod = "COD";
@@ -156,36 +170,24 @@ public class PaymentController {
         System.out.println("[INFO] COD payment selected. No additional fields needed.");
     }
 
-    /**
-     * Select GCash payment method.
-     */
     @FXML
     public void showGcashFields(ActionEvent actionEvent) {
         selectedPaymentMethod = "GCash";
         loadPaymentDetails("/project/demo/FXMLProfilePage/PaymentFXML/GCashEditPopup.fxml", "GCash");
     }
 
-    /**
-     * Select Credit Card payment method.
-     */
     @FXML
     public void showCardFields(ActionEvent actionEvent) {
         selectedPaymentMethod = "CreditCard";
         loadPaymentDetails("/project/demo/FXMLProfilePage/PaymentFXML/CreditCardEditPopup.fxml", "CreditCard");
     }
 
-    /**
-     * Select PayPal payment method.
-     */
     @FXML
     public void showPayPalFields(ActionEvent actionEvent) {
         selectedPaymentMethod = "PayPal";
         loadPaymentDetails("/project/demo/FXMLProfilePage/PaymentFXML/PayPalEditPopup.fxml", "PayPal");
     }
 
-    /**
-     * Load specific payment details based on the selected payment method.
-     */
     private void loadPaymentDetails(String fxmlPath, String type) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -195,23 +197,21 @@ public class PaymentController {
             int userId = UserSession.getInstance().getUserId();
 
             switch (type) {
-                case "GCash":
+                case "GCash" -> {
                     GCashEditController gcashController = (GCashEditController) controller;
                     gcashController.setFields(gcashDAO.getGCashByUserId(userId));
                     gcashController.hideButtons();
-                    break;
-
-                case "CreditCard":
+                }
+                case "CreditCard" -> {
                     CreditCardEditController cardController = (CreditCardEditController) controller;
                     cardController.setFields(creditCardDAO.getCreditCardByUserId(userId));
                     cardController.hideButtons();
-                    break;
-
-                case "PayPal":
-                    PayPalEditController paypalController = (PayPalEditController) controller;
-                    paypalController.setFields(payPalDAO.getPayPalByUserId(userId));
-                    paypalController.hideButtons();
-                    break;
+                }
+                case "PayPal" -> {
+                    PayPalEditController payPalController = (PayPalEditController) controller;
+                    payPalController.setFields(payPalDAO.getPayPalByUserId(userId));
+                    payPalController.hideButtons();
+                }
             }
 
             paymentDetailsBox.getChildren().clear();
@@ -222,12 +222,6 @@ public class PaymentController {
             e.printStackTrace();
         }
     }
-
-    public String getSelectedPaymentMethod() {
-        return selectedPaymentMethod;
-    }
-
-    private AnchorPane contentPane; // Must match fx:id in FXML
 
     @FXML
     public void backToShipping(ActionEvent actionEvent) {

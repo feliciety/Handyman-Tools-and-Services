@@ -13,169 +13,291 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="successPage" prefHeight="595.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.PaymentSuccessController">
-   <HBox layoutX="43.0" layoutY="36.0" spacing="30.0">
+<AnchorPane fx:id="successPage" prefHeight="567.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.PaymentSuccessController">
+   <HBox layoutX="45.0" layoutY="19.0" prefHeight="523.0" prefWidth="1112.0" spacing="30.0">
       <children>
-         <AnchorPane prefHeight="524.0" prefWidth="713.0" styleClass="my-style" stylesheets="@../styles.css">
+         <AnchorPane prefHeight="550.0" prefWidth="714.0" styleClass="my-style" stylesheets="@../styles.css">
             <children>
-               <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="105.0" prefHeight="402.0" prefWidth="332.0" spacing="10" styleClass="my-style" stylesheets="@../styles.css">
-            
-                  <!-- Receipt Content -->
-                  <VBox alignment="CENTER_LEFT" prefHeight="363.0" prefWidth="332.0" spacing="8">
-                     <Label style="-fx-font-size: 15px; -fx-font-weight: bold;" text="Order Details:" />
-                     <Separator>
-                        <VBox.margin>
-                           <Insets />
-                        </VBox.margin>
-                     </Separator>
-                     <HBox>
-                        <children>
-                           <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Order ID: #" textFill="#535353">
-                              <font>
-                                 <Font name="Inter Medium Italic" size="12.0" />
-                              </font></Label>
-                           <Label fx:id="orderIdLabel" prefHeight="20.0" prefWidth="174.0" text="id" />
-                        </children>
-                     </HBox>
-                     <HBox>
-                        <children>
-                           <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Order Date: " textFill="#535353">
-                              <font>
-                                 <Font name="Inter Medium Italic" size="12.0" />
-                              </font></Label>
-                           <Label fx:id="orderDateLabel" prefHeight="20.0" prefWidth="174.0" text="date" textAlignment="RIGHT" />
-                        </children>
-                     </HBox>
-                     <HBox>
-                        <children>
-                           <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Shipping Method: " textFill="#535353">
-                              <font>
-                                 <Font name="Inter Medium Italic" size="12.0" />
-                              </font></Label>
-                           <Label fx:id="shippingMethodLabel" prefHeight="20.0" prefWidth="179.0" text="method" textAlignment="RIGHT" />
-                        </children>
-                     </HBox>
-                     <VBox>
-                        <children>
-                           <Label prefHeight="20.0" prefWidth="270.0" style="-fx-font-weight: bold;" text="Shipping Address:" textFill="#535353">
-                              <font>
-                                 <Font name="Inter Medium Italic" size="12.0" />
-                              </font></Label>
-                           <Label fx:id="shippingAddressLabel" alignment="TOP_LEFT" prefHeight="44.0" prefWidth="354.0" text="address" wrapText="true" />
-                        </children>
+               <ScrollPane hbarPolicy="NEVER" layoutX="103.0" layoutY="27.200000000000003" prefHeight="417.0" prefWidth="534.0" AnchorPane.topAnchor="21.0">
+                  <content>
+                     <VBox fx:id="ReceiptPane" alignment="TOP_CENTER" prefHeight="972.0" prefWidth="546.0" spacing="10" styleClass="my-style" stylesheets="@../styles.css">
+                        <ImageView fitHeight="67.0" fitWidth="203.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagelogo/logo4.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="18.0" prefWidth="240.0" text="Your Trusted Tools and Services Provider!">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                  
+                                    <!-- Receipt Content -->
+                        <VBox alignment="CENTER_LEFT" prefHeight="363.0" prefWidth="332.0" spacing="8">
+                           <VBox fx:id="OrderDetails1" prefHeight="203.0" prefWidth="463.0" spacing="5.0">
+                              <children>
+                                 <Label style="-fx-font-size: 15px; -fx-font-weight: bold;" text="Business Information" />
+                                 <Separator />
+                                 <HBox>
+                                    <children>
+                                       <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Company Name:" textFill="#535353">
+                                          <font>
+                                             <Font name="Inter Medium Italic" size="12.0" />
+                                          </font>
+                                       </Label>
+                                       <Label prefHeight="20.0" prefWidth="174.0" text="Handyman Tools N' Services" />
+                                    </children>
+                                 </HBox>
+                                 <HBox>
+                                    <children>
+                                       <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Contact:" textFill="#535353">
+                                          <font>
+                                             <Font name="Inter Medium Italic" size="12.0" />
+                                          </font>
+                                       </Label>
+                                       <Label prefHeight="20.0" prefWidth="174.0" text="(0912) 345-6789" />
+                                    </children>
+                                 </HBox>
+                                 <HBox>
+                                    <children>
+                                       <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Website:" textFill="#535353">
+                                          <font>
+                                             <Font name="Inter Medium Italic" size="12.0" />
+                                          </font>
+                                       </Label>
+                                       <Label prefHeight="20.0" prefWidth="174.0" text="www.Handyman.com" textAlignment="RIGHT" />
+                                    </children>
+                                 </HBox>
+                                 <HBox>
+                                    <children>
+                                       <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Business Registration No.:" textFill="#535353">
+                                          <font>
+                                             <Font name="Inter Medium Italic" size="12.0" />
+                                          </font>
+                                       </Label>
+                                       <Label prefHeight="20.0" prefWidth="179.0" text="123-456-789 (TIN/VAT)" textAlignment="RIGHT" />
+                                    </children>
+                                 </HBox>
+                              </children>
+                           </VBox>
+                           <VBox fx:id="OrderDetails2" spacing="5.0">
+                              <children>
+                                 <Label style="-fx-font-size: 15px; -fx-font-weight: bold;" text="Transaction Details" />
+                                 <Separator />
+                                 <HBox>
+                                    <children>
+                                       <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Transaction ID: " textFill="#535353">
+                                          <font>
+                                             <Font name="Inter Medium Italic" size="12.0" />
+                                          </font>
+                                       </Label>
+                                       <Label fx:id="transactionIdLabel" prefHeight="20.0" prefWidth="174.0" text="username" />
+                                    </children>
+                                 </HBox>
+                                 <HBox>
+                                    <children>
+                                       <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Payment Status:" textFill="#535353">
+                                          <font>
+                                             <Font name="Inter Medium Italic" size="12.0" />
+                                          </font>
+                                       </Label>
+                                       <Label prefHeight="20.0" prefWidth="174.0" text="Complete" />
+                                    </children>
+                                 </HBox>
+                                 <HBox>
+                                    <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Payment Method: " textFill="#535353">
+                                       <font>
+                                          <Font name="Inter Medium Italic" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="paymentMethodLabel" prefHeight="20.0" prefWidth="171.0" style="-fx-font-size: 12px;" text="payment" textAlignment="RIGHT" />
+                                 </HBox>
+                              </children>
+                           </VBox>
+                           <VBox fx:id="OrderDetails" spacing="5.0">
+                              <children>
+                                 <Label style="-fx-font-size: 15px; -fx-font-weight: bold;" text="Customer Information" />
+                                 <Separator />
+                                 <HBox>
+                                    <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Customer Name:" textFill="#535353">
+                                       <font>
+                                          <Font name="Inter Medium Italic" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="nameLabel" prefHeight="20.0" prefWidth="174.0" text="username" />
+                                 </HBox>
+                                 <HBox>
+                                    <children>
+                                       <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Contact Number:" textFill="#535353">
+                                          <font>
+                                             <Font name="Inter Medium Italic" size="12.0" />
+                                          </font>
+                                       </Label>
+                                       <Label fx:id="phoneNumberLabel" prefHeight="20.0" prefWidth="174.0" text="phone number" />
+                                    </children>
+                                 </HBox>
+                                 <HBox>
+                                    <children>
+                                       <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Order ID: #" textFill="#535353">
+                                          <font>
+                                             <Font name="Inter Medium Italic" size="12.0" />
+                                          </font>
+                                       </Label>
+                                       <Label fx:id="orderIdLabel" prefHeight="20.0" prefWidth="174.0" text="id" />
+                                    </children>
+                                 </HBox>
+                                 <HBox>
+                                    <children>
+                                       <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Order Date: " textFill="#535353">
+                                          <font>
+                                             <Font name="Inter Medium Italic" size="12.0" />
+                                          </font>
+                                       </Label>
+                                       <Label fx:id="orderDateLabel" prefHeight="20.0" prefWidth="174.0" text="date" textAlignment="RIGHT" />
+                                    </children>
+                                 </HBox>
+                                 <HBox>
+                                    <children>
+                                       <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Shipping Method: " textFill="#535353">
+                                          <font>
+                                             <Font name="Inter Medium Italic" size="12.0" />
+                                          </font>
+                                       </Label>
+                                       <Label fx:id="shippingMethodLabel" prefHeight="20.0" prefWidth="179.0" text="method" textAlignment="RIGHT" />
+                                    </children>
+                                 </HBox>
+                                 <VBox>
+                                    <children>
+                                       <Label prefHeight="20.0" prefWidth="270.0" style="-fx-font-weight: bold;" text="Shipping Address:" textFill="#535353">
+                                          <font>
+                                             <Font name="Inter Medium Italic" size="12.0" />
+                                          </font>
+                                       </Label>
+                                       <Label fx:id="shippingAddressLabel" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="473.0" text="address" wrapText="true" />
+                                    </children>
+                                 </VBox>
+                              </children>
+                           </VBox>
+                           <VBox fx:id="PurchasedItems" alignment="CENTER" prefHeight="339.0" prefWidth="462.0">
+                              <Label alignment="CENTER" prefHeight="30.0" prefWidth="138.0" style="-fx-font-size: 15px; -fx-font-weight: bold;" text="Order Summary" />
+                              <Separator prefHeight="3.0" prefWidth="294.0" />
+                              <Label prefHeight="18.0" prefWidth="520.0" style="-fx-font-size: 12; -fx-font-weight: bold;" text="Product Name                         Quantity                         Unit Price                       Subtotal" textFill="#535353" />
+                              <Separator prefHeight="3.0" prefWidth="294.0" />
+                              <GridPane fx:id="orderItemsGridPane" alignment="CENTER" prefHeight="26.0" prefWidth="258.0">
+                              </GridPane>
+                           </VBox>
+                           <Separator>
+                              <VBox.margin>
+                                 <Insets />
+                              </VBox.margin>
+                           </Separator>
+                  
+                                       <Label alignment="CENTER" prefHeight="22.0" prefWidth="513.0" style="-fx-font-size: 15; -fx-font-weight: bold;" text="Order Totals" />
+                           <Separator>
+                              <VBox.margin>
+                                 <Insets />
+                              </VBox.margin>
+                           </Separator>
+                           <HBox>
+                              <Label prefHeight="20.0" prefWidth="256.0" style="-fx-font-size: 12px; -fx-font-weight: bold;" text="Subtotal:" textFill="#535353">
+                                 <font>
+                                    <Font name="Inter Medium Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="subtotalLabel" prefHeight="20.0" prefWidth="171.0" style="-fx-font-size: 12px;" textAlignment="RIGHT" />
+                              <HBox />
+                           </HBox>
+                           <HBox>
+                              <children>
+                                 <Label prefHeight="20.0" prefWidth="256.0" style="-fx-font-size: 12px; -fx-font-weight: bold;" text="Discount:" textFill="#535353">
+                                    <font>
+                                       <Font name="Inter Medium Italic" size="12.0" />
+                                    </font>
+                                 </Label>
+                                 <Label fx:id="couponDiscountLabel" prefHeight="20.0" prefWidth="171.0" style="-fx-font-size: 12px;" textAlignment="RIGHT" />
+                              </children>
+                           </HBox>
+                           <HBox>
+                              <children>
+                                 <Label prefHeight="20.0" prefWidth="256.0" style="-fx-font-size: 12px; -fx-font-weight: bold;" text="Shipping Fee:" textFill="#535353">
+                                    <font>
+                                       <Font name="Inter Medium Italic" size="12.0" />
+                                    </font>
+                                 </Label>
+                                 <Label fx:id="shippingFeeLabel" prefHeight="20.0" prefWidth="171.0" style="-fx-font-size: 12px;" text="shipping price" textAlignment="RIGHT" />
+                              </children>
+                           </HBox>
+                           <HBox>
+                              <VBox.margin>
+                                 <Insets bottom="-10.0" top="10.0" />
+                              </VBox.margin>
+                              <Label prefHeight="26.0" prefWidth="291.0" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Total Price: " />
+                              <Label fx:id="totalPriceLabel" prefHeight="26.0" prefWidth="208.0" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="0" />
+                           </HBox>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                        <Separator prefWidth="300">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Separator>
+                        <VBox>
+                           <Label prefHeight="20.0" prefWidth="229.0" style="-fx-font-weight: bold;" text="Delivery Instructions:" textFill="#7b7474" />
+                           <Label fx:id="shippingNoteLabel" prefHeight="38.0" prefWidth="529.0" text="shippingNoteLabel" wrapText="true" />
+                        </VBox>
+                        <Separator prefWidth="300" />
+                        <Label prefHeight="22.0" prefWidth="537.0" style="-fx-font-size: 15px; -fx-font-weight: bold;" text="Customer Information" />
+                        <Label prefHeight="73.0" prefWidth="524.0" text="Items can be returned within 14 days of delivery with proof of receipt. Please contact support at support@handyman.com for returns or exchanges." wrapText="true">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font>
+                        </Label>
+                        <padding>
+                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        </padding>
                      </VBox>
-                     <VBox>
-                        <children>
-                           <Label prefHeight="20.0" prefWidth="229.0" style="-fx-font-weight: bold;" text="Note:" textFill="#7b7474" />
-                           <Label fx:id="shippingNoteLabel" prefHeight="20.0" prefWidth="402.0" text="shippingNoteLabel" wrapText="true" />
-                        </children>
-                     </VBox>
-                     <Separator>
-                        <VBox.margin>
-                           <Insets />
-                        </VBox.margin>
-                     </Separator>
-            
-                     <Label style="-fx-font-size: 15; -fx-font-weight: bold;" text="Payment Summary:" />
-                     <Separator>
-                        <VBox.margin>
-                           <Insets />
-                        </VBox.margin>
-                     </Separator>
-                     <HBox>
-                        <children>
-                           <Label prefHeight="20.0" prefWidth="256.0" style="-fx-font-size: 12px; -fx-font-weight: bold;" text="Payment Method: " textFill="#535353">
-                              <font>
-                                 <Font name="Inter Medium Italic" size="12.0" />
-                              </font></Label>
-                           <Label fx:id="paymentMethodLabel" prefHeight="20.0" prefWidth="171.0" style="-fx-font-size: 12px;" text="payment" textAlignment="RIGHT" />
-                        </children>
-                     </HBox>
-                     <HBox>
-                        <children>
-                           <Label prefHeight="26.0" prefWidth="291.0" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Total Price: " />
-                           <Label fx:id="totalPriceLabel" prefHeight="26.0" prefWidth="208.0" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="0" />
-                        </children>
-                        <VBox.margin>
-                           <Insets bottom="-10.0" top="10.0" />
-                        </VBox.margin>
-                     </HBox>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </VBox>
-                  <Separator prefWidth="300">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Separator>
-                  <padding>
-                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                  </padding>
-               </VBox>
-               <AnchorPane layoutX="379.0" layoutY="105.0" prefHeight="402.0" prefWidth="332.0" styleClass="my-style" stylesheets="@../styles.css">
-                  <children>
-                     <Separator layoutX="20.0" layoutY="42.0" prefHeight="3.0" prefWidth="294.0" />
-                     <Label alignment="CENTER" layoutX="11.0" layoutY="14.0" prefHeight="30.0" prefWidth="138.0" style="-fx-font-size: 15px; -fx-font-weight: bold;" text="Items Purchased:" />
-                     <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="23.0" layoutY="84.0" prefHeight="272.0" prefWidth="288.0" style="-fx-background-color: #f5f5f5;" vbarPolicy="NEVER">
-                        <content>
-                           <GridPane fx:id="orderItemsGridPane" alignment="CENTER" prefHeight="26.0" prefWidth="258.0">
-                           </GridPane>
-                        </content>
-                     </ScrollPane>
-                     <Separator layoutX="20.0" layoutY="67.0" prefHeight="3.0" prefWidth="294.0" />
-                     <Label alignment="CENTER" layoutX="-20.0" layoutY="42.0" prefHeight="30.0" prefWidth="350.0" style="-fx-font-size: 12; -fx-font-weight: bold;" text="     Product Name             Quantity               Price " textFill="#535353" />
-                  </children>
-               </AnchorPane>
-               <ImageView fitHeight="44.0" fitWidth="159.0" layoutX="293.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../imagelogo/logo4.png" />
-                  </image>
-               </ImageView>
-               <Label layoutX="288.0" layoutY="59.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Payment Receipt" />
+                  </content>
+               </ScrollPane>
             </children>
             <padding>
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </padding>
          </AnchorPane>
-         <AnchorPane fx:id="thankYouPane" prefHeight="522.0" prefWidth="359.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #dcdcdc; -fx-background-color: #f5f5f5;">
-            <children>
-               <VBox alignment="CENTER" layoutX="32.0" layoutY="55.0" prefHeight="356.0" prefWidth="295.0">
-                  <children>
-                     <Label alignment="CENTER" prefHeight="31.0" prefWidth="295.0" text="Thank you for choosing" textAlignment="CENTER" textFill="#403e3e" wrapText="true">
-                        <font>
-                           <Font name="Inter UI Black Italic" size="20.0" />
-                        </font>
-                     </Label>
-                     <ImageView fitHeight="215.0" fitWidth="228.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                           <Image url="@../imagelogo/logo5.png" />
-                        </image>
-                        <VBox.margin>
-                           <Insets bottom="50.0" />
-                        </VBox.margin>
-                     </ImageView>
-                     <Label alignment="CENTER" prefHeight="22.0" prefWidth="228.0" text="Your satisfaction is our priority." textAlignment="CENTER" wrapText="true">
-                        <font>
-                           <Font name="Inter Semi Bold" size="13.0" />
-                        </font>
-                     </Label>
-                     <Label alignment="CENTER" prefHeight="30.0" prefWidth="295.0" text="-The HandyMan Tools N' Services Team&quot;" textAlignment="CENTER" wrapText="true">
-                        <font>
-                           <Font name="Inter Light BETA" size="12.0" />
-                        </font>
-                        <VBox.margin>
-                           <Insets bottom="50.0" />
-                        </VBox.margin>
-                     </Label>
-                  </children>
-               </VBox>
-               <Button fx:id="backToHomeButton" layoutX="31.0" layoutY="464.0" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="9.0" prefWidth="295.0" stylesheets="@../styles.css" text="Back to Shop" />
-            </children>
+         <AnchorPane fx:id="thankYouPane" prefHeight="470.0" prefWidth="359.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #dcdcdc; -fx-background-color: #f5f5f5;">
+            <VBox alignment="CENTER" layoutX="32.0" layoutY="54.0" prefHeight="380.0" prefWidth="295.0">
+               <Label alignment="CENTER" prefHeight="31.0" prefWidth="295.0" text="Thank you for choosing" textAlignment="CENTER" textFill="#403e3e" wrapText="true">
+                  <font>
+                     <Font name="Inter UI Black Italic" size="20.0" />
+                  </font>
+               </Label>
+               <ImageView fitHeight="215.0" fitWidth="228.0" pickOnBounds="true" preserveRatio="true">
+                  <VBox.margin>
+                     <Insets bottom="30.0" />
+                  </VBox.margin>
+                  <Image url="@../imagelogo/logo5.png" />
+               </ImageView>
+               <Label alignment="CENTER" prefHeight="22.0" prefWidth="228.0" text="Your satisfaction is our priority." textAlignment="CENTER" wrapText="true">
+                  <font>
+                     <Font name="Inter Semi Bold" size="13.0" />
+                  </font>
+               </Label>
+               <Label alignment="CENTER" prefHeight="30.0" prefWidth="295.0" text="-The HandyMan Tools N' Services Team&quot;" textAlignment="CENTER" wrapText="true">
+                  <font>
+                     <Font name="Inter Light BETA" size="12.0" />
+                  </font>
+                  <VBox.margin>
+                     <Insets bottom="50.0" />
+                  </VBox.margin>
+               </Label>
+               <Button fx:id="backToHomeButton" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="9.0" prefWidth="295.0" stylesheets="@../styles.css" text="Back to Shop" />
+            </VBox>
          </AnchorPane>
       </children>
    </HBox>
+   <Button fx:id="downloadReceiptBTN" layoutX="-29.4" layoutY="490.0" mnemonicParsing="false" onAction="#handleDownloadReceipt" prefHeight="38.0" prefWidth="158.0" stylesheets="@../styles2.css" text="Download Receipt" AnchorPane.leftAnchor="330.0" AnchorPane.topAnchor="480.0" />
 </AnchorPane>

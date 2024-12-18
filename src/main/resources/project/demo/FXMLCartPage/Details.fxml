@@ -50,7 +50,7 @@
             <HBox prefHeight="54.0" prefWidth="646.0" spacing="10.0">
                <children>
                    <Button fx:id="backToCartButton" onAction="#goToCart" prefHeight="40.0" prefWidth="150.0" stylesheets="@../styles2.css" text="Back to Cart" />
-                   <Button fx:id="toShippingButton" alignment="CENTER" onAction="#goToShipping" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #ffdb00; -fx-text-fill: #222222;" stylesheets="@../styles.css" text="Go to Shipping">
+                   <Button fx:id="toShippingButton" alignment="CENTER" onAction="#goToShipping" prefHeight="40.0" prefWidth="150.0" stylesheets="@../styles.css" text="Go to Shipping">
                      <HBox.margin>
                         <Insets left="335.0" />
                      </HBox.margin>

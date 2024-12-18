@@ -65,11 +65,7 @@ public class CreditCard {
         this.cvv = cvv;
     }
 
-    public String getExpiryDate() {
-        return expiryDate;
-    }
-
-    public void setExpiryDate(String expiryDate) {
+    public void setExpiry(String expiryDate) {
         this.expiryDate = expiryDate;
     }
 

@@ -96,7 +96,7 @@ public class ShippingController {
     }
 
     public String getShippingNote() {
-        return DetailsController.getShippingNote(); // Retrieve shipping note dynamically
+        return String.valueOf(DetailsController.getShippingNote()); // Retrieve shipping note dynamically
     }
 
 

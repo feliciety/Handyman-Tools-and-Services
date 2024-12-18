@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox fx:id="itemRow" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="63.0" prefWidth="520.0" spacing="25.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.OrderItemRowController">
+   <children>
+      <Label fx:id="nameLabel" prefHeight="43.0" prefWidth="171.0" text="name" wrapText="true" />
+      <Label fx:id="quantityLabel" alignment="CENTER" prefHeight="18.0" prefWidth="63.0" text=" 0" />
+      <Label fx:id="priceLabel" alignment="CENTER" prefHeight="18.0" prefWidth="117.0" text="0" />
+      <Label fx:id="totalPriceLabels" alignment="CENTER" prefHeight="18.0" prefWidth="117.0" text="0" />
+   </children>
+</HBox>

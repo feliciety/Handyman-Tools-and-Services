@@ -17,7 +17,7 @@
 /* Hover State: Add more brightness and elevate the shadow */
 .button:hover {
     -fx-background-color: linear-gradient(to bottom, #f0f0f0, #e6e6e6); /* Lighter White to Gray Gradient */
-    -fx-effect: dropshadow(three-pass-box, #555555, 0, 1, 0, 6); /* Darker and Slightly Bigger Shadow */
+    -fx-effect: dropshadow(three-pass-box, #555555, 0, 1, 0, 3); /* Darker and Slightly Bigger Shadow */
 }
 
 /* Pressed State: Flatten the button with no shadow */

@@ -95,6 +95,7 @@ public class UserSession {
         this.contactNumber.set(contactNumber);
     }
 
+
     // Getters and setters for the User's Profile Image Path
     public String getUserImagePath() {
         return userImagePath;

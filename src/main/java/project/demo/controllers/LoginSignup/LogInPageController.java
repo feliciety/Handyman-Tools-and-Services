@@ -167,16 +167,16 @@ public class LogInPageController {
         );
     }
 
-    private TranslateTransition createShakeAnimation(Object node) {
-        TranslateTransition shake = new TranslateTransition(Duration.millis(100), (Node) node);
-        shake.setByX(10);
-        shake.setCycleCount(6);
+    private TranslateTransition createShakeAnimation(Node node) {
+        TranslateTransition shake = new TranslateTransition(Duration.millis(150), node);
+        shake.setByX(8); // Matches LogInPage
+        shake.setCycleCount(4);
         shake.setAutoReverse(true);
         return shake;
     }
 
-    private FadeTransition createFadeOutAnimation(Object node) {
-        FadeTransition fade = new FadeTransition(Duration.seconds(2), (Node) node);
+    private FadeTransition createFadeOutAnimation(Node node) {
+        FadeTransition fade = new FadeTransition(Duration.seconds(1.5), node);
         fade.setFromValue(1.0);
         fade.setToValue(0.0);
         return fade;
