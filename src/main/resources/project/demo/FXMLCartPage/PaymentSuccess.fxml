@@ -16,11 +16,11 @@
 <AnchorPane fx:id="successPage" prefHeight="567.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.PaymentSuccessController">
    <HBox layoutX="45.0" layoutY="19.0" prefHeight="523.0" prefWidth="1112.0" spacing="30.0">
       <children>
-         <AnchorPane prefHeight="550.0" prefWidth="714.0" styleClass="my-style" stylesheets="@../styles.css">
+         <AnchorPane prefHeight="530.0" prefWidth="714.0" styleClass="my-style" stylesheets="@../styles.css">
             <children>
-               <ScrollPane hbarPolicy="NEVER" layoutX="103.0" layoutY="17.6" prefHeight="433.0" prefWidth="534.0" AnchorPane.topAnchor="11.0">
+               <ScrollPane hbarPolicy="NEVER" layoutX="103.0" layoutY="37.6" prefHeight="406.0" prefWidth="534.0" AnchorPane.topAnchor="31.0">
                   <content>
-                     <VBox fx:id="ReceiptPane" alignment="TOP_CENTER" prefHeight="972.0" prefWidth="546.0" spacing="10" styleClass="my-style" stylesheets="@../styles.css">
+                     <VBox fx:id="ReceiptPane" alignment="TOP_CENTER" prefHeight="985.0" prefWidth="546.0" spacing="10" styleClass="my-style" stylesheets="@../styles.css">
                         <ImageView fitHeight="67.0" fitWidth="203.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagelogo/logo4.png" />
@@ -294,7 +294,7 @@
                      <Insets bottom="50.0" />
                   </VBox.margin>
                </Label>
-               <Button fx:id="backToHomeButton" mnemonicParsing="false" onAction="#handleBackToHome" prefHeight="9.0" prefWidth="295.0" stylesheets="@../styles.css" text="Back to Shop" />
+               <Button fx:id="backToShopButton" mnemonicParsing="false" onAction="#handleBackToShop" prefHeight="9.0" prefWidth="295.0" stylesheets="@../styles.css" text="Back to Shop" />
             </VBox>
          </AnchorPane>
       </children>

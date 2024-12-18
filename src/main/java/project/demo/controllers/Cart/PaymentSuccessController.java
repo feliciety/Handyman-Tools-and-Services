@@ -11,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import project.demo.controllers.Main.MainStructureController;
 import project.demo.models.CartManager;
 import project.demo.models.UserSession;
 
@@ -54,7 +55,7 @@ public class PaymentSuccessController {
     public VBox ReceiptPane;
 
     @FXML
-    private Button backToHomeButton;
+    private Button backToShopButton;
 
     @FXML
     private Label orderIdLabel;
@@ -92,8 +93,8 @@ public class PaymentSuccessController {
     }
 
     private void validateFXMLBindings() {
-        if (backToHomeButton == null) {
-            logger.severe("[ERROR] backToHomeButton is not properly initialized. Check fx:id in FXML.");
+        if (backToShopButton == null) {
+            logger.severe("[ERROR] backToShopButton is not properly initialized. Check fx:id in FXML.");
         }
         if (orderItemsGridPane == null) {
             logger.severe("[ERROR] orderItemsGridPane is not properly initialized. Check fx:id in FXML.");
@@ -216,10 +217,31 @@ public class PaymentSuccessController {
     }
 
     @FXML
-    public void handleBackToHome(ActionEvent event) {
-        System.out.println("[INFO] Redirecting back to home...");
-        // Implement navigation to the home page
+    public void handleBackToShop(ActionEvent event) {
+        System.out.println("[INFO] Navigating back to the Shop Page...");
+
+        try {
+            // Load MainStructureController as the parent container
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/MainStructure.fxml"));
+            AnchorPane mainStructure = loader.load();
+
+            // Get the controller instance
+            MainStructureController mainController = loader.getController();
+
+            // Use the navigateTo method to load ShopPage
+            mainController.navigateTo("/project/demo/FXMLShopPage/ShopPage.fxml");
+
+            // Replace the current root with the MainStructure (and embedded Shop Page)
+            Stage stage = (Stage) backToShopButton.getScene().getWindow();
+            stage.getScene().setRoot(mainStructure);
+
+            System.out.println("[INFO] Successfully navigated back to the Shop Page.");
+        } catch (IOException e) {
+            System.err.println("[ERROR] Failed to navigate to the Shop Page: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
+
 
     public void setMainController(CartPageController mainController) {
         this.mainController = mainController;

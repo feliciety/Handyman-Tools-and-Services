@@ -1,23 +1,23 @@
 package project.demo.controllers.Booking;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
-import project.demo.controllers.Cart.CartPageController;
+import javafx.event.ActionEvent;
 
-public class PaymentSuccessController extends Application {
 
+
+public class PaymentSuccessController {
     private BookingPageController mainController;
 
-    public static void main(String[] args) {
-        launch(args);
+    public void handleBackToHome(ActionEvent actionEvent) {
     }
 
-    @Override
-    public void start(Stage primaryStage) {
-
+    public void handleBackToSerives(ActionEvent actionEvent) {
     }
 
-    public void setMainController(BookingPageController bookingPageController) {
+    public void handleDownloadReceipt(ActionEvent actionEvent) {
+    }
+
+    public void setMainController(BookingPageController mainController) {
         this.mainController = mainController;
     }
+
 }
