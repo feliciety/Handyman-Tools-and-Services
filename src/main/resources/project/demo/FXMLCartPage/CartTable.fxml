@@ -24,20 +24,17 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
              </TableView>
-            <HBox prefHeight="50.0" prefWidth="570.0" spacing="10.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#goToShop" prefHeight="40.0" prefWidth="150.0" stylesheets="@../styles2.css" text="Back to Shop" />
-                  <Button mnemonicParsing="false" onAction="#goToDetails" prefHeight="40.0" prefWidth="150.0" stylesheets="@../styles.css" text="Checkout">
-                     <HBox.margin>
-                        <Insets left="335.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="10.0" top="30.0" />
-               </VBox.margin>
-            </HBox>
          </children>
       </VBox>
+      <HBox layoutX="59.0" layoutY="529.0" prefHeight="50.0" prefWidth="646.0" spacing="10.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#goToShop" prefHeight="40.0" prefWidth="150.0" stylesheets="@../styles2.css" text="Back to Shop" />
+            <Button mnemonicParsing="false" onAction="#goToDetails" prefHeight="40.0" prefWidth="150.0" stylesheets="@../styles.css" text="Checkout">
+               <HBox.margin>
+                  <Insets left="335.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>
