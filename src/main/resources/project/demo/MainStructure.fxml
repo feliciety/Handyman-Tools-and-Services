@@ -36,23 +36,23 @@
                               <Insets right="150.0" />
                            </HBox.margin>
                         </Button>
-                        <Button onAction="#handleHomeClick" prefHeight="41.0" prefWidth="97.0" styleClass="button-underline" stylesheets="@style3.css" text="Home">
+                        <Button onAction="#handleHomeClick" prefHeight="41.0" prefWidth="97.0" stylesheets="@styles4.css" text="Home">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin></Button>
-                        <Button onAction="#handleAboutUsClick" prefHeight="41.0" prefWidth="100.0" stylesheets="@style3.css" text="About Us">
+                        <Button onAction="#handleAboutUsClick" prefHeight="41.0" prefWidth="100.0" stylesheets="@styles4.css" text="About Us">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin></Button>
-                        <Button onAction="#handleShopClick" prefHeight="41.0" prefWidth="100.0" stylesheets="@style3.css" text="Shop">
+                        <Button onAction="#handleShopClick" prefHeight="41.0" prefWidth="100.0" stylesheets="@styles4.css" text="Shop">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin></Button>
-                        <Button onAction="#handleServiceClick" prefHeight="41.0" prefWidth="100.0" stylesheets="@style3.css" text="Services">
+                        <Button onAction="#handleServiceClick" prefHeight="41.0" prefWidth="100.0" stylesheets="@styles4.css" text="Services">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin></Button>
-                        <Button onAction="#handleEmployeeClick" prefHeight="41.0" prefWidth="100.0" stylesheets="@style3.css" text="Employees">
+                        <Button onAction="#handleEmployeeClick" prefHeight="41.0" prefWidth="100.0" stylesheets="@styles4.css" text="Employees">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin></Button>
@@ -139,7 +139,7 @@
                </HBox.margin>
                <Image url="@imagelogo/phone.png" />
             </ImageView>
-            <Label text="(+63) 912-345-6789" textFill="WHITE">
+            <Label text="support@handyman.com | (0912) 345-6789" textFill="WHITE">
                <HBox.margin>
                   <Insets right="50.0" />
                </HBox.margin>
