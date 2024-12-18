@@ -5,10 +5,12 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import project.demo.controllers.Cart.LoadingPageCartController;
 import project.demo.models.BookServiceItem;
 import project.demo.models.BookServiceManager;
 
@@ -37,6 +39,17 @@ public class BookingPageController {
 
     @FXML
     private TextField promoCodeField;
+
+    private static BookingPageController instance;
+
+    public static BookingPageController getInstance() {
+        return instance;
+    }
+
+    public AnchorPane getContentPane() {
+        return contentPane;
+    }
+
 
     private final ObservableList<BookServiceItem> bookedItems = BookServiceManager.getInstance().getBookedServices();
     private final SimpleDoubleProperty totalServiceFee = new SimpleDoubleProperty(0.0);
@@ -157,8 +170,8 @@ public class BookingPageController {
                 ((AddressBookingDetailsController) controller).setMainController(this);
             } else if (controller instanceof BookingPaymentController) {
                 ((BookingPaymentController) controller).setMainController(this);
-            } else if (controller instanceof PaymentSuccessController) {
-                ((PaymentSuccessController) controller).setMainController(this);
+            } else if (controller instanceof BookPaymentSuccessController) {
+                ((BookPaymentSuccessController) controller).setMainController(this);
             }
 
             contentPane.getChildren().clear();
@@ -174,4 +187,52 @@ public class BookingPageController {
             e.printStackTrace();
         }
     }
+
+    private void loadViewWithLoading(String targetFxmlPath, String gifKey) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLBookingPage/LoadingPageBooking.fxml"));
+            Parent loadingView = loader.load();
+
+            // Get the controller for the loading page
+            LoadingPageBookingController loadingController = loader.getController();
+
+            // Initialize the loading screen and provide it with the target FXML and GIF key
+            loadingController.initializeLoading(contentPane, targetFxmlPath, gifKey, this);
+
+            // Display the loading screen in the contentPane
+            contentPane.getChildren().setAll(loadingView);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("[ERROR] Failed to load LoadingPageCart.fxml.");
+        }
+    }
+
+
+
+    public void goToBookingCartTable() {
+
+        loadViewWithLoading("/project/demo/FXMLBookingPage/BookingCartTable.fxml", "loadingBookingCartTable");
+    }
+
+    public void goToAddressBookingDetails() {
+        loadViewWithLoading("/project/demo/FXMLBookingPage/AddressBookingDetails.fxml", "loadingAddressBookingDetails");
+    }
+
+    public void goToPayment() {
+        loadViewWithLoading("/project/demo/FXMLBookingPage/BookingPayment.fxml", "loadingBookingPayment");
+    }
+
+    public void confirmBookingPayment() {
+        loadViewWithLoading("/project/demo/FXMLBookingPage/BookingPaymentSuccess.fxml", "loadingBookPaymentSuccess");
+    }
+
+    public double getServiceFee() {
+        return totalServiceFee.get();
+    }
+
+    public double getCouponDiscount() {
+        return couponDiscount.get();
+    }
+
 }

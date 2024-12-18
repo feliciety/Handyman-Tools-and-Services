@@ -50,7 +50,7 @@
                   <TextField fx:id="regionField" prefHeight="40.0" prefWidth="317.0" promptText="Region" />
                </children>
             </HBox>
-             <TextField fx:id="shippingNoteField" prefHeight="67.0" prefWidth="646.0" promptText="Shipping note (optional)" />
+             <TextField fx:id="AdressNoteField" prefHeight="67.0" prefWidth="646.0" promptText="Address Note (optional)" />
             <HBox prefHeight="54.0" prefWidth="646.0">
                <children>
                    <Button fx:id="backToCartButton" onAction="#goToBookingCartTable" prefHeight="40.0" prefWidth="166.0" stylesheets="@../styles2.css" text="Back to Booking Cart" />

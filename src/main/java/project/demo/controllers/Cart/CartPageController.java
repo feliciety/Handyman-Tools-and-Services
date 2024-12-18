@@ -71,6 +71,9 @@ public class CartPageController {
 
     @FXML
     public void initialize() {
+        // Load initial cart table view
+        loadView("/project/demo/FXMLCartPage/CartTable.fxml");
+
         // Bind labels to their respective properties
         subtotalLabel.textProperty().bind(subtotal.asString("₱%.2f"));
         shippingLabel.textProperty().bind(shippingFee.asString("₱%.2f"));
@@ -91,8 +94,7 @@ public class CartPageController {
             }
         });
 
-        // Load initial cart table view
-        loadView("/project/demo/FXMLCartPage/CartTable.fxml");
+
 
         // Set up quantity listeners for existing items
         cartItems.forEach(item ->
@@ -196,14 +198,6 @@ public class CartPageController {
         }
     }
 
-    public void hideReceiptPane() {
-        if (receiptPane != null) {
-            receiptPane.setVisible(false);
-            System.out.println("[INFO] Receipt pane hidden.");
-        } else {
-            System.err.println("[ERROR] Receipt pane is null.");
-        }
-    }
 
     public void removeCartItem(CartItem cartItem) {
         if (cartItem != null) {
@@ -258,7 +252,7 @@ public class CartPageController {
     }
 
     public double getCouponDiscount() {
-        return couponDiscount.get();
+            return couponDiscount.get();
     }
 
 }

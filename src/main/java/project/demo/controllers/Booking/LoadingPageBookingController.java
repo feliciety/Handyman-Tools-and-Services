@@ -1,4 +1,4 @@
-package project.demo.controllers.Cart;
+package project.demo.controllers.Booking;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoadingPageCartController {
+public class LoadingPageBookingController {
 
     public AnchorPane loadingContainer;
     @FXML
@@ -29,27 +29,18 @@ public class LoadingPageCartController {
      */
     private static Map<String, String> createGifMap() {
         Map<String, String> map = new HashMap<>();
-        map.put("loadingCart", "/project/demo/imagelogo/cartshop.gif");
-        map.put("loadingDetails", "/project/demo/imagelogo/mapa.gif");
-        map.put("loadingShipping", "/project/demo/imagelogo/truck.gif");
-        map.put("loadingPayment", "/project/demo/imagelogo/payment.gif");
-        map.put("loadingPaymentSuccess", "/project/demo/imagelogo/done.gif");
+        map.put("loadingBookingCartTable", "/project/demo/imagelogo/cartshop.gif");
+        map.put("loadingAddressBookingDetails", "/project/demo/imagelogo/mapa.gif");
+        map.put("loadingBookingPayment", "/project/demo/imagelogo/payment.gif");
+        map.put("loadingBookPaymentSuccess", "/project/demo/imagelogo/done.gif");
         // Add more mappings as needed
         return map;
     }
 
-    /**
-     * Initializes the loading page logic by setting the parent container, target FXML,
-     * and dynamically selecting the GIF to display.
-     *
-     * @param parentContainer The parent container where the target FXML will replace the loading screen.
-     * @param targetFxmlPath  Path to the target FXML file to be loaded after the loading animation.
-     * @param gifKey          Key to select the appropriate GIF to display.
-     */
-    public void initializeLoading(AnchorPane parentContainer, String targetFxmlPath, String gifKey) {
+
+    public void initializeLoading(AnchorPane parentContainer, String targetFxmlPath, String gifKey, BookingPageController mainController) {
         this.parentContainer = parentContainer;
 
-        // Load GIF based on gifKey
         String gifPath = gifMap.get(gifKey);
         if (gifPath != null) {
             try {
@@ -63,38 +54,37 @@ public class LoadingPageCartController {
             System.err.println("[ERROR] No matching GIF found for key: " + gifKey);
         }
 
-        // Start fade-in animation and loading
+        // Start fade-in animation
         FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), gifLoader);
         fadeIn.setFromValue(0.0);
         fadeIn.setToValue(1.0);
 
         fadeIn.setOnFinished(event -> {
-            PauseTransition pause = new PauseTransition(Duration.seconds(2)); // Loading duration
-            pause.setOnFinished(e -> loadTargetView(targetFxmlPath)); // Load target FXML after fade-out
+            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+            pause.setOnFinished(e -> loadTargetView(targetFxmlPath, mainController)); // Pass mainController
             pause.play();
         });
 
         fadeIn.play();
     }
 
-    private void loadTargetView(String targetFxmlPath) {
+    private void loadTargetView(String targetFxmlPath, BookingPageController mainController) {
         try {
-            // Load the target FXML
             FXMLLoader targetLoader = new FXMLLoader(getClass().getResource(targetFxmlPath));
             Parent targetView = targetLoader.load();
 
-            // Set the main controller reference if applicable
+            // Get the controller for the target FXML
             Object controller = targetLoader.getController();
-            if (controller instanceof CartTableController cartTableController) {
-                cartTableController.setMainController(CartPageController.getInstance());
-            } else if (controller instanceof DetailsController detailsController) {
-                detailsController.setMainController(CartPageController.getInstance());
-            } else if (controller instanceof ShippingController shippingController) {
-                shippingController.setMainController(CartPageController.getInstance());
-            } else if (controller instanceof PaymentController paymentController) {
-                paymentController.setMainController(CartPageController.getInstance());
-            } else if (controller instanceof PaymentSuccessController paymentSuccessController) {
-                paymentSuccessController.setMainController(CartPageController.getInstance());
+
+            // Set the main controller reference
+            if (controller instanceof AddressBookingDetailsController) {
+                ((AddressBookingDetailsController) controller).setMainController(mainController);
+            } else if (controller instanceof BookingCartTableController) {
+                ((BookingCartTableController) controller).setMainController(mainController);
+            } else if (controller instanceof BookingPaymentController) {
+                ((BookingPaymentController) controller).setMainController(mainController);
+            } else if (controller instanceof BookPaymentSuccessController) {
+                ((BookPaymentSuccessController) controller).setMainController(mainController);
             }
 
             // Replace content in the parent container

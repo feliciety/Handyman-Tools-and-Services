@@ -133,13 +133,6 @@ public class DetailsController {
         return addresses;
     }
 
-    @FXML
-    public void saveDetails() {
-        chosenAddress = new Address(0, "Custom", addressField.getText(), cityField.getText(),
-                postalCodeField.getText(), provinceField.getText(), regionField.getText());
-        shippingNote = shippingNoteField.getText();
-        System.out.println("[INFO] Shipping Note Saved: " + shippingNote);
-    }
 
     private void populateFields() {
         addressField.setText(chosenAddress.getStreet());

@@ -42,7 +42,7 @@
                </stylesheets></Button>
             </HBox>
         </VBox>
-      <AnchorPane fx:id="paymentDetailsBox">
+      <AnchorPane fx:id="paymentDetailsBox" stylesheets="@../styles.css">
          <children>
       
               <!-- Payment Details Form -->

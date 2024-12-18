@@ -46,10 +46,4 @@ public class BookServiceManager {
             System.out.println("[ERROR] Service not found in the list: " + service.getServiceName());
         }
     }
-
-    public void revokeAllServices() {
-        System.out.println("[DEBUG] Revoking all services...");
-        bookedServices.clear();
-        System.out.println("[DEBUG] All services have been removed.");
-    }
 }

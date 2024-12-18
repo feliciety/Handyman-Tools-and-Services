@@ -130,16 +130,16 @@ public class PaymentController {
     private void navigateToSuccessPage(int orderId, double shippingFee, String shippingMethod, String shippingNote, String paymentMethod) {
         try {
             System.out.println("[DEBUG] Navigating to BookingPaymentSuccess.fxml");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLCartPage/PaymentSuccess.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLBookingPage/PaymentSuccess.fxml"));
             Parent successView = loader.load();
 
             PaymentSuccessController controller = loader.getController();
             if (controller == null) {
-                System.err.println("[ERROR] PaymentSuccessController is NULL.");
+                System.err.println("[ERROR] BookPaymentSuccessController is NULL.");
                 return;
             }
 
-            System.out.println("[DEBUG] PaymentSuccessController loaded successfully.");
+            System.out.println("[DEBUG] BookPaymentSuccessController loaded successfully.");
 
             double subtotal = CartPageController.getInstance().getSubtotal();
 

@@ -12,388 +12,435 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="673.0" prefWidth="1254.0" style="-fx-background-color: #F4F4F5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.AboutUs.AboutUsPageController">
-   <children>
-      <ScrollPane hbarPolicy="NEVER" layoutX="-1.0" layoutY="-1.0" prefHeight="673.0" prefWidth="1254.0" vbarPolicy="NEVER">
-         <content>
-            <VBox prefHeight="5000.0" prefWidth="1226.0" spacing="10.0">
-               <children>
-                  <AnchorPane fx:id="HeroSection" prefHeight="498.0" prefWidth="1370.0" style="-fx-background-color: #F4F4F5;">
-                     <children>
-                        <ImageView fitHeight="677.0" fitWidth="1253.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imageAboutUs/AUbg.png" />
-                           </image>
-                        </ImageView>
-                        <Label layoutX="433.0" layoutY="119.0" text="About Us" textFill="WHITE">
-                           <font>
-                              <Font name="Inter Extra Bold" size="96.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="424.0" layoutY="221.0" prefHeight="164.0" prefWidth="475.0" text="Welcome to                                                         , where quality, trust, and convenience come together to meet all your home improvement and handyman needs." textFill="WHITE" wrapText="true">
-                           <font>
-                              <Font name="Inter Light BETA" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="533.0" layoutY="268.0" text="Handyman Tools and Services" textFill="WHITE">
-                           <font>
-                              <Font name="Inter Black" size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane fx:id="WhoWeAre" prefHeight="574.0" prefWidth="1240.0" style="-fx-background-color: #F4F4F5;">
-                     <children>
-                        <ImageView fitHeight="641.0" fitWidth="1228.0" layoutX="1.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imageAboutUs/line1.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="656.0" fitWidth="1227.0" layoutX="-1.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imageAboutUs/Aboutus1.png" />
-                           </image>
-                        </ImageView>
-                        <Circle fill="#ffffff90" layoutX="732.0" layoutY="83.0" radius="69.0" stroke="#ffffff00" strokeType="INSIDE" />
-                        <Circle fill="#3e4546" layoutX="731.0" layoutY="84.0" radius="57.0" stroke="#ffffff00" strokeType="INSIDE" />
-                        <ImageView fitHeight="97.0" fitWidth="125.0" layoutX="684.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imagelogo/logo2.png" />
-                           </image>
-                        </ImageView>
-                        <VBox layoutX="102.0" layoutY="65.0">
-                           <children>
-                              <Label text="Who We Are" textFill="#363232">
-                                 <font>
-                                    <Font name="Inter Extra Bold" size="64.0" />
-                                 </font>
-                              </Label>
-                              <Label prefHeight="188.0" prefWidth="570.0" text="&quot;We are a passionate team dedicated to making home improvement and maintenance simple, efficient, and stress-free. From skilled professionals to top-quality tools, we provide everything you need to get the job done right. Whether you’re fixing a leaky pipe, upgrading your interiors, or tackling DIY projects, we’ve got your back every step of the way.&quot;" textAlignment="JUSTIFY" wrapText="true">
-                                 <font>
-                                    <Font name="Inter Extra Light BETA" size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label prefHeight="188.0" prefWidth="570.0" text="Here at                                                        , we understand that maintaining and improving your home can be a challenge. That’s why we bring together trusted experts and premium tools on one user-friendly platform, ensuring a seamless experience for homeowners, professionals, and DIY enthusiasts alike." textAlignment="JUSTIFY" wrapText="true">
-                                 <font>
-                                    <Font name="Inter Extra Light BETA" size="18.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </VBox>
-                        <Label layoutX="180.0" layoutY="366.0" text="Handyman Tools and Services">
-                           <font>
-                              <Font name="Inter Black" size="20.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <VBox.margin>
-                        <Insets top="-50.0" />
-                     </VBox.margin>
-                  </AnchorPane>
-                  <AnchorPane fx:id="MissionVission" prefHeight="1060.0" prefWidth="1240.0" style="-fx-background-color: #F4F4F5;">
-                     <children>
-                        <ImageView fitHeight="667.0" fitWidth="1247.0" layoutX="-5.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imageAboutUs/line2.png" />
-                           </image>
-                        </ImageView>
-                        <Pane layoutX="88.0" layoutY="148.0" prefHeight="263.0" prefWidth="1066.0" style="-fx-background-color: #FBC428;">
-                           <children>
-                              <Label layoutX="36.0" layoutY="25.0" prefHeight="231.0" prefWidth="377.0" text="&quot;To provide top-notch handyman services that make your home or workplace a more comfortable and functional space.Let us handle the hard work while you enjoy peace of mind knowing that your project is in good hands.&quot;" wrapText="true">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </Pane>
-                        <ImageView fitHeight="506.0" fitWidth="1067.0" layoutX="279.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imageAboutUs/AUpage3.png" />
-                           </image>
-                        </ImageView>
-                        <Label layoutX="132.0" layoutY="105.0" text="Our Mission" textFill="#363232">
-                           <font>
-                              <Font name="Inter Extra Bold" size="64.0" />
-                           </font>
-                        </Label>
-                        <Pane layoutX="185.0" layoutY="640.0" prefHeight="297.0" prefWidth="1007.0" style="-fx-background-color: #ffdb00;">
-                           <children>
-                              <Label layoutX="605.0" layoutY="43.0" prefHeight="231.0" prefWidth="377.0" text="&quot;To be the leading platform for home improvement services and tools, empowering customers to maintain and enhance their homes effortlessly, we aim to connect you with the best professionals in your area, equip you with tools that stand the test of time, and be your trusted partner for every project, big or small.&quot;" wrapText="true">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <ImageView fitHeight="552.0" fitWidth="930.0" layoutX="-143.0" layoutY="-131.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../imageAboutUs/aubg5.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </Pane>
-                        <Label layoutX="786.0" layoutY="598.0" text="Our Vision" textFill="#363232">
-                           <font>
-                              <Font name="Inter Extra Bold" size="64.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane fx:id="WhatWeOffer" prefHeight="671.0" prefWidth="1242.0" style="-fx-background-color: #F4F4F5;">
-                     <children>
-                        <VBox alignment="CENTER" layoutX="191.0" layoutY="26.0" spacing="20.0">
-                           <children>
-                              <Label text="What We Offer" textFill="#363232">
-                                 <font>
-                                    <Font name="Inter Extra Bold" size="64.0" />
-                                 </font>
-                              </Label>
-                              <Label prefHeight="32.0" prefWidth="720.0" text="Our platform connects you with skilled, licensed professionals for a wide range of services:" textFill="#949393" wrapText="true">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="20.0" top="-30.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <VBox spacing="50.0">
+<AnchorPane prefHeight="673.0" prefWidth="1254.0" style="-fx-background-color: #F4F4F5;"
+            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="project.demo.controllers.AboutUs.AboutUsPageController">
+   <ScrollPane hbarPolicy="NEVER" layoutX="-1.0" layoutY="-1.0" prefHeight="673.0" prefWidth="1254.0"
+               vbarPolicy="NEVER">
+      <VBox prefHeight="5000.0" prefWidth="1226.0" spacing="10.0">
+         <AnchorPane fx:id="HeroSection" prefHeight="498.0" prefWidth="1370.0"
+                     style="-fx-background-color: #F4F4F5;">
+            <ImageView fitHeight="677.0" fitWidth="1253.0" layoutY="-2.0" pickOnBounds="true"
+                       preserveRatio="true">
+               <Image url="@../imageAboutUs/AUbg.png"/>
+            </ImageView>
+            <Label layoutX="433.0" layoutY="119.0" text="About Us" textFill="WHITE">
+               <font>
+                  <Font name="Inter Extra Bold" size="96.0"/>
+               </font>
+            </Label>
+            <Label layoutX="424.0" layoutY="221.0" prefHeight="164.0" prefWidth="475.0"
+                   text="Welcome to                                                         , where quality, trust, and convenience come together to meet all your home improvement and handyman needs."
+                   textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="Inter Light BETA" size="18.0"/>
+               </font>
+            </Label>
+            <Label layoutX="533.0" layoutY="268.0" text="Handyman Tools and Services" textFill="WHITE">
+               <font>
+                  <Font name="Inter Black" size="18.0"/>
+               </font>
+            </Label>
+         </AnchorPane>
+         <AnchorPane fx:id="WhoWeAre" prefHeight="574.0" prefWidth="1240.0"
+                     style="-fx-background-color: #F4F4F5;">
+            <VBox.margin>
+               <Insets top="-50.0"/>
+            </VBox.margin>
+            <ImageView fitHeight="641.0" fitWidth="1228.0" layoutX="1.0" layoutY="1.0" pickOnBounds="true"
+                       preserveRatio="true">
+               <Image url="@../imageAboutUs/line1.png"/>
+            </ImageView>
+            <ImageView fitHeight="656.0" fitWidth="1227.0" layoutX="-1.0" layoutY="-5.0" pickOnBounds="true"
+                       preserveRatio="true">
+               <Image url="@../imageAboutUs/Aboutus1.png"/>
+            </ImageView>
+            <Circle fill="#ffffff90" layoutX="732.0" layoutY="83.0" radius="69.0" stroke="#ffffff00"
+                    strokeType="INSIDE"/>
+            <Circle fill="#3e4546" layoutX="731.0" layoutY="84.0" radius="57.0" stroke="#ffffff00"
+                    strokeType="INSIDE"/>
+            <ImageView fitHeight="97.0" fitWidth="125.0" layoutX="684.0" layoutY="34.0" pickOnBounds="true"
+                       preserveRatio="true">
+               <Image url="@../imagelogo/logo2.png"/>
+            </ImageView>
+            <VBox layoutX="102.0" layoutY="65.0">
+               <Label text="Who We Are" textFill="#363232">
+                  <font>
+                     <Font name="Inter Extra Bold" size="64.0"/>
+                  </font>
+               </Label>
+               <Label prefHeight="188.0" prefWidth="570.0"
+                      text="&quot;We are a passionate team dedicated to making home improvement and maintenance simple, efficient, and stress-free. From skilled professionals to top-quality tools, we provide everything you need to get the job done right. Whether you’re fixing a leaky pipe, upgrading your interiors, or tackling DIY projects, we’ve got your back every step of the way.&quot;"
+                      textAlignment="JUSTIFY" wrapText="true">
+                  <font>
+                     <Font name="Inter Extra Light BETA" size="18.0"/>
+                  </font>
+               </Label>
+               <Label prefHeight="188.0" prefWidth="570.0"
+                      text="Here at                                                        , we understand that maintaining and improving your home can be a challenge. That’s why we bring together trusted experts and premium tools on one user-friendly platform, ensuring a seamless experience for homeowners, professionals, and DIY enthusiasts alike."
+                      textAlignment="JUSTIFY" wrapText="true">
+                  <font>
+                     <Font name="Inter Extra Light BETA" size="18.0"/>
+                  </font>
+               </Label>
+            </VBox>
+            <Label layoutX="180.0" layoutY="366.0" text="Handyman Tools and Services">
+               <font>
+                  <Font name="Inter Black" size="20.0"/>
+               </font>
+            </Label>
+         </AnchorPane>
+         <AnchorPane fx:id="MissionVission" prefHeight="1060.0" prefWidth="1240.0"
+                     style="-fx-background-color: #F4F4F5;">
+            <children>
+               <ImageView fitHeight="667.0" fitWidth="1247.0" layoutX="-5.0" layoutY="214.0" pickOnBounds="true"
+                          preserveRatio="true">
+                  <image>
+                     <Image url="@../imageAboutUs/line2.png"/>
+                  </image>
+               </ImageView>
+               <Pane layoutX="88.0" layoutY="148.0" prefHeight="263.0" prefWidth="1066.0"
+                     style="-fx-background-color: #FBC428;">
+                  <children>
+                     <Label layoutX="36.0" layoutY="25.0" prefHeight="231.0" prefWidth="377.0"
+                            text="&quot;To provide top-notch handyman services that make your home or workplace a more comfortable and functional space.Let us handle the hard work while you enjoy peace of mind knowing that your project is in good hands.&quot;"
+                            wrapText="true">
+                        <font>
+                           <Font size="18.0"/>
+                        </font>
+                     </Label>
+                  </children>
+               </Pane>
+               <ImageView fitHeight="506.0" fitWidth="1067.0" layoutX="279.0" layoutY="75.0" pickOnBounds="true"
+                          preserveRatio="true">
+                  <image>
+                     <Image url="@../imageAboutUs/AUpage3.png"/>
+                  </image>
+               </ImageView>
+               <Label layoutX="132.0" layoutY="105.0" text="Our Mission" textFill="#363232">
+                  <font>
+                     <Font name="Inter Extra Bold" size="64.0"/>
+                  </font>
+               </Label>
+               <Pane layoutX="185.0" layoutY="640.0" prefHeight="297.0" prefWidth="1007.0"
+                     style="-fx-background-color: #ffdb00;">
+                  <children>
+                     <Label layoutX="605.0" layoutY="43.0" prefHeight="231.0" prefWidth="377.0"
+                            text="&quot;To be the leading platform for home improvement services and tools, empowering customers to maintain and enhance their homes effortlessly, we aim to connect you with the best professionals in your area, equip you with tools that stand the test of time, and be your trusted partner for every project, big or small.&quot;"
+                            wrapText="true">
+                        <font>
+                           <Font size="18.0"/>
+                        </font>
+                     </Label>
+                     <ImageView fitHeight="552.0" fitWidth="930.0" layoutX="-143.0" layoutY="-131.0"
+                                pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../imageAboutUs/aubg5.png"/>
+                        </image>
+                     </ImageView>
+                  </children>
+               </Pane>
+               <Label layoutX="786.0" layoutY="598.0" text="Our Vision" textFill="#363232">
+                  <font>
+                     <Font name="Inter Extra Bold" size="64.0"/>
+                  </font>
+               </Label>
+            </children>
+         </AnchorPane>
+         <AnchorPane fx:id="WhatWeOffer" prefHeight="671.0" prefWidth="1242.0"
+                     style="-fx-background-color: #F4F4F5;">
+            <children>
+               <VBox alignment="CENTER" layoutX="191.0" layoutY="26.0" spacing="20.0">
+                  <children>
+                     <Label text="What We Offer" textFill="#363232">
+                        <font>
+                           <Font name="Inter Extra Bold" size="64.0"/>
+                        </font>
+                     </Label>
+                     <Label prefHeight="32.0" prefWidth="720.0"
+                            text="Our platform connects you with skilled, licensed professionals for a wide range of services:"
+                            textFill="#949393" wrapText="true">
+                        <font>
+                           <Font size="18.0"/>
+                        </font>
+                        <VBox.margin>
+                           <Insets bottom="20.0" top="-30.0"/>
+                        </VBox.margin>
+                     </Label>
+                     <VBox spacing="50.0">
+                        <children>
+                           <HBox spacing="100.0">
+                              <children>
+                                 <VBox alignment="CENTER">
+                                    <children>
+                                       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true"
+                                                  preserveRatio="true">
+                                          <image>
+                                             <Image url="@../imageAboutUs/mason.png"/>
+                                          </image>
+                                       </ImageView>
+                                       <Label prefHeight="32.0" prefWidth="83.0" text="Masonry" textFill="#333333"
+                                              wrapText="true">
+                                          <font>
+                                             <Font name="Inter Black" size="18.0"/>
+                                          </font>
+                                       </Label>
+                                    </children>
+                                 </VBox>
+                                 <VBox alignment="CENTER">
+                                    <children>
+                                       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true"
+                                                  preserveRatio="true">
+                                          <image>
+                                             <Image url="@../imageAboutUs/painting.png"/>
+                                          </image>
+                                       </ImageView>
+                                       <Label prefHeight="32.0" prefWidth="76.0" text="Painting"
+                                              textFill="#333333" wrapText="true">
+                                          <font>
+                                             <Font name="Inter Black" size="18.0"/>
+                                          </font>
+                                       </Label>
+                                    </children>
+                                 </VBox>
+                                 <VBox alignment="CENTER">
+                                    <children>
+                                       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true"
+                                                  preserveRatio="true">
+                                          <image>
+                                             <Image url="@../imageAboutUs/plumbing.png"/>
+                                          </image>
+                                       </ImageView>
+                                       <Label prefHeight="32.0" prefWidth="86.0" text="Plumbing"
+                                              textFill="#333333" wrapText="true">
+                                          <font>
+                                             <Font name="Inter Black" size="18.0"/>
+                                          </font>
+                                       </Label>
+                                    </children>
+                                 </VBox>
+                                 <VBox alignment="CENTER">
+                                    <children>
+                                       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true"
+                                                  preserveRatio="true">
+                                          <image>
+                                             <Image url="@../imageAboutUs/roofing.png"/>
+                                          </image>
+                                       </ImageView>
+                                       <Label prefHeight="32.0" prefWidth="71.0" text="Roofing" textFill="#333333"
+                                              wrapText="true">
+                                          <font>
+                                             <Font name="Inter Black" size="18.0"/>
+                                          </font>
+                                       </Label>
+                                    </children>
+                                 </VBox>
+                              </children>
+                           </HBox>
+                           <HBox spacing="100.0">
+                              <VBox alignment="CENTER">
+                                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true"
+                                            preserveRatio="true">
+                                    <Image url="@../imageAboutUs/carpentry.png"/>
+                                 </ImageView>
+                                 <Label prefHeight="32.0" prefWidth="96.0" text="Carpentry" textFill="#333333"
+                                        wrapText="true">
+                                    <font>
+                                       <Font name="Inter Black" size="18.0"/>
+                                    </font>
+                                 </Label>
+                              </VBox>
+                              <VBox alignment="CENTER">
                                  <children>
-                                    <HBox spacing="100.0">
-                                       <children>
-                                          <VBox alignment="CENTER">
-                                             <children>
-                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../imageAboutUs/mason.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <Label prefHeight="32.0" prefWidth="83.0" text="Masonry" textFill="#333333" wrapText="true">
-                                                   <font>
-                                                      <Font name="Inter Black" size="18.0" />
-                                                   </font>
-                                                </Label>
-                                             </children>
-                                          </VBox>
-                                          <VBox alignment="CENTER">
-                                             <children>
-                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../imageAboutUs/painting.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <Label prefHeight="32.0" prefWidth="76.0" text="Painting" textFill="#333333" wrapText="true">
-                                                   <font>
-                                                      <Font name="Inter Black" size="18.0" />
-                                                   </font>
-                                                </Label>
-                                             </children>
-                                          </VBox>
-                                          <VBox alignment="CENTER">
-                                             <children>
-                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../imageAboutUs/plumbing.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <Label prefHeight="32.0" prefWidth="86.0" text="Plumbing" textFill="#333333" wrapText="true">
-                                                   <font>
-                                                      <Font name="Inter Black" size="18.0" />
-                                                   </font>
-                                                </Label>
-                                             </children>
-                                          </VBox>
-                                          <VBox alignment="CENTER">
-                                             <children>
-                                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../imageAboutUs/roofing.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <Label prefHeight="32.0" prefWidth="71.0" text="Roofing" textFill="#333333" wrapText="true">
-                                                   <font>
-                                                      <Font name="Inter Black" size="18.0" />
-                                                   </font>
-                                                </Label>
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </HBox>
-                                    <HBox spacing="100.0">
-                                       <VBox alignment="CENTER">
-                                          <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                             <Image url="@../imageAboutUs/carpentry.png" />
-                                          </ImageView>
-                                          <Label prefHeight="32.0" prefWidth="96.0" text="Carpentry" textFill="#333333" wrapText="true">
-                                             <font>
-                                                <Font name="Inter Black" size="18.0" />
-                                             </font>
-                                          </Label>
-                                       </VBox>
-                                       <VBox alignment="CENTER">
-                                          <children>
-                                             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                                <image>
-                                                   <Image url="@../imageAboutUs/clean.png" />
-                                                </image>
-                                             </ImageView>
-                                             <Label prefHeight="32.0" prefWidth="82.0" text="Cleaning" textFill="#333333" wrapText="true">
-                                                <font>
-                                                   <Font name="Inter Black" size="18.0" />
-                                                </font>
-                                             </Label>
-                                          </children>
-                                       </VBox>
-                                       <VBox alignment="CENTER">
-                                          <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../imageAboutUs/electric.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Label prefHeight="32.0" prefWidth="141.0" text="Electrical Work" textFill="#333333" wrapText="true">
-                                             <font>
-                                                <Font name="Inter Black" size="18.0" />
-                                             </font>
-                                          </Label>
-                                       </VBox>
-                                       <VBox alignment="CENTER">
-                                          <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../imageAboutUs/flooring.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Label prefHeight="32.0" prefWidth="78.0" text="Flooring" textFill="#333333" wrapText="true">
-                                             <font>
-                                                <Font name="Inter Black" size="18.0" />
-                                             </font>
-                                          </Label>
-                                       </VBox>
-                                    </HBox>
+                                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true"
+                                               preserveRatio="true">
+                                       <image>
+                                          <Image url="@../imageAboutUs/clean.png"/>
+                                       </image>
+                                    </ImageView>
+                                    <Label prefHeight="32.0" prefWidth="82.0" text="Cleaning" textFill="#333333"
+                                           wrapText="true">
+                                       <font>
+                                          <Font name="Inter Black" size="18.0"/>
+                                       </font>
+                                    </Label>
                                  </children>
                               </VBox>
-                              <Label prefHeight="58.0" prefWidth="720.0" text="&quot;No matter the task, our professionals are vetted, reliable, and equipped to deliver results you can trust.&quot;" textAlignment="CENTER" textFill="#595959" wrapText="true">
-                                 <font>
-                                    <Font name="Inter Extra Light Italic BETA" size="14.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </VBox>
-                     </children>
-                     <VBox.margin>
-                        <Insets top="50.0" />
-                     </VBox.margin>
-                  </AnchorPane>
-                  <AnchorPane fx:id="WhyChooseUs" prefHeight="1023.0" prefWidth="1359.0" style="-fx-background-color: #F4F4F5;">
-                     <VBox.margin>
-                        <Insets top="50.0" />
-                     </VBox.margin>
-                     <ImageView fitHeight="834.0" fitWidth="1561.0" layoutX="-139.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
-                        <Image url="@../imageAboutUs/line3.png" />
-                     </ImageView>
-                     <VBox alignment="CENTER" layoutX="327.0" layoutY="36.0" spacing="20.0">
-                        <children>
-                           <Label text="Why Choose Us?" textFill="#363232">
-                              <font>
-                                 <Font name="Inter Extra Bold" size="64.0" />
-                              </font>
-                           </Label>
-                           <VBox spacing="50.0">
-                              <HBox spacing="100.0">
-                                 <children>
-                                    <VBox alignment="CENTER" />
-                                    <VBox alignment="CENTER" />
-                                    <VBox alignment="CENTER" />
-                                    <VBox alignment="CENTER" />
-                                 </children>
-                              </HBox>
-                           </VBox>
+                              <VBox alignment="CENTER">
+                                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true"
+                                            preserveRatio="true">
+                                    <image>
+                                       <Image url="@../imageAboutUs/electric.png"/>
+                                    </image>
+                                 </ImageView>
+                                 <Label prefHeight="32.0" prefWidth="141.0" text="Electrical Work"
+                                        textFill="#333333" wrapText="true">
+                                    <font>
+                                       <Font name="Inter Black" size="18.0"/>
+                                    </font>
+                                 </Label>
+                              </VBox>
+                              <VBox alignment="CENTER">
+                                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true"
+                                            preserveRatio="true">
+                                    <image>
+                                       <Image url="@../imageAboutUs/flooring.png"/>
+                                    </image>
+                                 </ImageView>
+                                 <Label prefHeight="32.0" prefWidth="78.0" text="Flooring" textFill="#333333"
+                                        wrapText="true">
+                                    <font>
+                                       <Font name="Inter Black" size="18.0"/>
+                                    </font>
+                                 </Label>
+                              </VBox>
+                           </HBox>
                         </children>
                      </VBox>
-                     <VBox fx:id="onetofive" layoutX="136.0" layoutY="162.0">
+                     <Label prefHeight="58.0" prefWidth="720.0"
+                            text="&quot;No matter the task, our professionals are vetted, reliable, and equipped to deliver results you can trust.&quot;"
+                            textAlignment="CENTER" textFill="#595959" wrapText="true">
+                        <font>
+                           <Font name="Inter Extra Light Italic BETA" size="14.0"/>
+                        </font>
+                     </Label>
+                  </children>
+               </VBox>
+            </children>
+            <VBox.margin>
+               <Insets top="50.0"/>
+            </VBox.margin>
+         </AnchorPane>
+         <AnchorPane fx:id="WhyChooseUs" prefHeight="1023.0" prefWidth="1359.0"
+                     style="-fx-background-color: #F4F4F5;">
+            <VBox.margin>
+               <Insets top="50.0"/>
+            </VBox.margin>
+            <ImageView fitHeight="834.0" fitWidth="1561.0" layoutX="-139.0" layoutY="96.0" pickOnBounds="true"
+                       preserveRatio="true">
+               <Image url="@../imageAboutUs/line3.png"/>
+            </ImageView>
+            <VBox alignment="CENTER" layoutX="327.0" layoutY="36.0" spacing="20.0">
+               <children>
+                  <Label text="Why Choose Us?" textFill="#363232">
+                     <font>
+                        <Font name="Inter Extra Bold" size="64.0"/>
+                     </font>
+                  </Label>
+                  <VBox spacing="50.0">
+                     <HBox spacing="100.0">
                         <children>
-                           <VBox prefHeight="143.0" prefWidth="302.0">
-                              <children>
-                                 <Label prefHeight="32.0" prefWidth="334.0" text="1. Trusted Professionals" textFill="#434343" wrapText="true">
-                                    <font>
-                                       <Font name="Inter Black" size="24.0" />
-                                    </font>
-                                 </Label>
-                                 <Label prefHeight="85.0" prefWidth="291.0" text="Our handymen are vetted, licensed, and experienced, giving you peace of mind that your project is in expert hands." textFill="#949393" wrapText="true">
-                                    <font>
-                                       <Font size="14.0" />
-                                    </font>
-                                 </Label>
-                              </children>
-                           </VBox>
-                           <VBox prefHeight="153.0" prefWidth="302.0">
-                              <children>
-                                 <Label prefHeight="32.0" prefWidth="334.0" text="2. High-Quality Tools" textFill="#434343" wrapText="true">
-                                    <font>
-                                       <Font name="Inter Black" size="24.0" />
-                                    </font>
-                                 </Label>
-                                 <Label prefHeight="118.0" prefWidth="291.0" text="Access tools that deliver exceptional performance, handpicked for quality and reliability." textFill="#949393" wrapText="true">
-                                    <font>
-                                       <Font size="14.0" />
-                                    </font>
-                                 </Label>
-                              </children>
-                           </VBox>
-                           <VBox prefHeight="117.0" prefWidth="302.0">
-                              <children>
-                                 <Label prefHeight="32.0" prefWidth="334.0" text="3. Convenience" textFill="#434343" wrapText="true">
-                                    <font>
-                                       <Font name="Inter Black" size="24.0" />
-                                    </font>
-                                 </Label>
-                                 <Label prefHeight="94.0" prefWidth="291.0" text="From booking a service to purchasing tools, our user-friendly platform makes everything effortless." textFill="#949393" wrapText="true">
-                                    <font>
-                                       <Font size="14.0" />
-                                    </font>
-                                 </Label>
-                              </children>
-                           </VBox>
-                           <VBox prefHeight="203.0" prefWidth="301.0">
-                              <children>
-                                 <Label prefHeight="102.0" prefWidth="302.0" text="4.  Affordable and Transparent Pricing" textFill="#434343" wrapText="true">
-                                    <font>
-                                       <Font name="Inter Black" size="24.0" />
-                                    </font>
-                                 </Label>
-                                 <Label prefHeight="57.0" prefWidth="291.0" text="No hidden fees. Get clear, upfront pricing that fits your budget." textFill="#949393" wrapText="true">
-                                    <font>
-                                       <Font size="14.0" />
-                                    </font>
-                                 </Label>
-                              </children>
-                           </VBox>
-                           <VBox prefHeight="127.0" prefWidth="302.0">
-                              <children>
-                                 <Label prefHeight="102.0" prefWidth="302.0" text="5. Customer Satisfaction" textFill="#434343" wrapText="true">
-                                    <font>
-                                       <Font name="Inter Black" size="24.0" />
-                                    </font>
-                                 </Label>
-                                 <Label prefHeight="171.0" prefWidth="291.0" text="Your satisfaction is our top priority. We ensure excellent results through quality service and consistent support." textFill="#949393" wrapText="true">
-                                    <font>
-                                       <Font size="14.0" />
-                                    </font>
-                                 </Label>
-                              </children>
-                           </VBox>
+                           <VBox alignment="CENTER"/>
+                           <VBox alignment="CENTER"/>
+                           <VBox alignment="CENTER"/>
+                           <VBox alignment="CENTER"/>
                         </children>
-                     </VBox>
-                     <ImageView fitHeight="458.0" fitWidth="807.0" layoutX="565.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                           <Image url="@../imageAboutUs/AUbg7.png" />
-                        </image>
-                     </ImageView>
-                     <ImageView fitHeight="451.0" fitWidth="777.0" layoutX="559.0" layoutY="505.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                           <Image url="@../imageAboutUs/AUp8.png" />
-                        </image>
-                     </ImageView>
-                  </AnchorPane>
+                     </HBox>
+                  </VBox>
                </children>
             </VBox>
-         </content>
-      </ScrollPane>
-   </children>
+            <VBox fx:id="onetofive" layoutX="136.0" layoutY="162.0">
+               <children>
+                  <VBox prefHeight="143.0" prefWidth="302.0">
+                     <children>
+                        <Label prefHeight="32.0" prefWidth="334.0" text="1. Trusted Professionals"
+                               textFill="#434343" wrapText="true">
+                           <font>
+                              <Font name="Inter Black" size="24.0"/>
+                           </font>
+                        </Label>
+                        <Label prefHeight="85.0" prefWidth="291.0"
+                               text="Our handymen are vetted, licensed, and experienced, giving you peace of mind that your project is in expert hands."
+                               textFill="#949393" wrapText="true">
+                           <font>
+                              <Font size="14.0"/>
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="153.0" prefWidth="302.0">
+                     <children>
+                        <Label prefHeight="32.0" prefWidth="334.0" text="2. High-Quality Tools" textFill="#434343"
+                               wrapText="true">
+                           <font>
+                              <Font name="Inter Black" size="24.0"/>
+                           </font>
+                        </Label>
+                        <Label prefHeight="118.0" prefWidth="291.0"
+                               text="Access tools that deliver exceptional performance, handpicked for quality and reliability."
+                               textFill="#949393" wrapText="true">
+                           <font>
+                              <Font size="14.0"/>
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="117.0" prefWidth="302.0">
+                     <children>
+                        <Label prefHeight="32.0" prefWidth="334.0" text="3. Convenience" textFill="#434343"
+                               wrapText="true">
+                           <font>
+                              <Font name="Inter Black" size="24.0"/>
+                           </font>
+                        </Label>
+                        <Label prefHeight="94.0" prefWidth="291.0"
+                               text="From booking a service to purchasing tools, our user-friendly platform makes everything effortless."
+                               textFill="#949393" wrapText="true">
+                           <font>
+                              <Font size="14.0"/>
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="203.0" prefWidth="301.0">
+                     <children>
+                        <Label prefHeight="102.0" prefWidth="302.0" text="4.  Affordable and Transparent Pricing"
+                               textFill="#434343" wrapText="true">
+                           <font>
+                              <Font name="Inter Black" size="24.0"/>
+                           </font>
+                        </Label>
+                        <Label prefHeight="57.0" prefWidth="291.0"
+                               text="No hidden fees. Get clear, upfront pricing that fits your budget."
+                               textFill="#949393" wrapText="true">
+                           <font>
+                              <Font size="14.0"/>
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="127.0" prefWidth="302.0">
+                     <children>
+                        <Label prefHeight="102.0" prefWidth="302.0" text="5. Customer Satisfaction"
+                               textFill="#434343" wrapText="true">
+                           <font>
+                              <Font name="Inter Black" size="24.0"/>
+                           </font>
+                        </Label>
+                        <Label prefHeight="171.0" prefWidth="291.0"
+                               text="Your satisfaction is our top priority. We ensure excellent results through quality service and consistent support."
+                               textFill="#949393" wrapText="true">
+                           <font>
+                              <Font size="14.0"/>
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <ImageView fitHeight="458.0" fitWidth="807.0" layoutX="565.0" layoutY="141.0" pickOnBounds="true"
+                       preserveRatio="true">
+               <image>
+                  <Image url="@../imageAboutUs/AUbg7.png"/>
+               </image>
+            </ImageView>
+            <ImageView fitHeight="451.0" fitWidth="777.0" layoutX="559.0" layoutY="505.0" pickOnBounds="true"
+                       preserveRatio="true">
+               <image>
+                  <Image url="@../imageAboutUs/AUp8.png"/>
+               </image>
+            </ImageView>
+         </AnchorPane>
+      </VBox>
+   </ScrollPane>
 </AnchorPane>

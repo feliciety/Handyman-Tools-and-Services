@@ -88,7 +88,7 @@ public class PaymentSuccessController {
 
     @FXML
     public void initialize() {
-        System.out.println("[DEBUG] Initializing PaymentSuccessController...");
+        System.out.println("[DEBUG] Initializing BookPaymentSuccessController...");
         validateFXMLBindings();
     }
 
@@ -203,7 +203,7 @@ public class PaymentSuccessController {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save Receipt");
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG Files", "*.png"));
-            fileChooser.setInitialFileName("HandymanReceipt.png" + orderIdLabel);
+            fileChooser.setInitialFileName("HandymanReceipt" + orderIdLabel + ".png");
 
             File outputFile = fileChooser.showSaveDialog(new Stage());
             if (outputFile != null) {

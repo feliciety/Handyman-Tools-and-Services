@@ -10,6 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.event.ActionEvent;
+import project.demo.controllers.Main.MainStructureController;
 import project.demo.models.BookServiceItem;
 import project.demo.models.BookServiceManager;
 import project.demo.models.Service;
@@ -41,6 +42,16 @@ public class BookingCartTableController {
 
     private final ObservableList<BookServiceItem> bookedItems = BookServiceManager.getInstance().getBookedServices();
     private BookingPageController mainController;
+    private MainStructureController mainStructureController; // Reference for main structure navigation
+
+    public void setMainStructureController(MainStructureController mainStructureController) {
+        this.mainStructureController = mainStructureController;
+        if (this.mainStructureController != null) {
+            System.out.println("[DEBUG] MainStructureController has been properly set in CartTableController.");
+        } else {
+            System.out.println("[ERROR] Failed to set MainStructureController in CartTableController.");
+        }
+    }
 
     @FXML
     public void initialize() {
@@ -156,15 +167,15 @@ public class BookingCartTableController {
 
 
     public void goToServices(ActionEvent actionEvent) {
-        if (mainController != null) {
-            mainController.loadView("/project/demo/FXMLBookingPage/BookingCartTable.fxml");
+        if (mainStructureController != null) {
+            mainStructureController.navigateTo("/project/demo/FXMLServicePage/ServicePage.fxml");
+        } else {
+            System.err.println("[ERROR] MainStructureController is not set in BookingCartTableController.");
         }
     }
 
     public void goToAddressBookingDetails(ActionEvent actionEvent) {
-        if (mainController != null) {
-            mainController.loadView("/project/demo/FXMLBookingPage/AddressBookingDetails.fxml");
-        }
+        mainController.goToAddressBookingDetails();
     }
 
     public void setMainController(BookingPageController mainController) {

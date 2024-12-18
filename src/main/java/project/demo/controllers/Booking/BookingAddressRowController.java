@@ -3,72 +3,64 @@ package project.demo.controllers.Booking;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import project.demo.models.Address;
 
 public class BookingAddressRowController {
 
-    @FXML
-    private Label streetLabel; // Display the street of the address
+    @FXML   public Label StreetCityPostalCodeLabel;
+    @FXML  public Label ProvinceRegionLabel;
+    @FXML  public Label AddressTyepeLabel;
+    @FXML  public RadioButton selectAddressRadioButton;
 
-    @FXML
-    private Label cityLabel; // Display the city of the address
-
-    @FXML
-    private Label postalCodeLabel; // Display the postal code
-
-    @FXML
-    private Label provinceLabel; // Display the province
-
-    @FXML
-    private Label regionLabel; // Display the region
-
-    @FXML
-    private RadioButton selectRadioButton; // Allow user to select this address
 
     private Address address; // Store the current address data
 
-    /**
-     * Sets the address for this row and populates the UI elements.
-     *
-     * @param address The address data to display.
-     */
+    private TextField addressField, cityField, postalCodeField;
+    private TextField provinceField, regionField;
+
     public void setAddress(Address address) {
         this.address = address;
-
-        // Populate UI elements with address details
-        streetLabel.setText(address.getStreet());
-        cityLabel.setText(address.getCity());
-        postalCodeLabel.setText(address.getPostalCode());
-        provinceLabel.setText(address.getProvince());
-        regionLabel.setText(address.getRegion());
+        AddressTyepeLabel.setText(address.getType());
+        StreetCityPostalCodeLabel.setText(address.getStreet() + ", " + address.getCity() + ", " + address.getPostalCode());
+        ProvinceRegionLabel.setText(address.getProvince() + ", " + address.getRegion());
+        selectAddressRadioButton.setUserData(address); // Attach Address object
     }
 
-    /**
-     * Sets the toggle group for the radio button. This ensures only one radio button
-     * can be selected at a time in the parent container.
-     *
-     * @param toggleGroup The ToggleGroup to assign.
-     */
-    public void setToggleGroup(ToggleGroup toggleGroup) {
-        selectRadioButton.setToggleGroup(toggleGroup);
+    public void setToggleGroup(ToggleGroup group) {
+        selectAddressRadioButton.setToggleGroup(group);
     }
 
-    /**
-     * Gets the RadioButton instance for selecting this address.
-     *
-     * @return The RadioButton instance.
-     */
     public RadioButton getRadioButton() {
-        return selectRadioButton;
+        return selectAddressRadioButton;
     }
 
-    /**
-     * Gets the selected address displayed in this row.
-     *
-     * @return The Address instance.
-     */
-    public Address getAddress() {
-        return address;
+    // Set fields for address population
+    public void setFields(TextField addressField, TextField cityField, TextField postalCodeField,
+                          TextField provinceField, TextField regionField) {
+        this.addressField = addressField;
+        this.cityField = cityField;
+        this.postalCodeField = postalCodeField;
+        this.provinceField = provinceField;
+        this.regionField = regionField;
+
+        // Add listener for when the radio button is selected
+        selectAddressRadioButton.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                populateFields();
+            }
+        });
     }
+
+    // Populate fields with the selected address details
+    private void populateFields() {
+        addressField.setText(address.getStreet());
+        cityField.setText(address.getCity());
+        postalCodeField.setText(address.getPostalCode());
+        provinceField.setText(address.getProvince());
+        regionField.setText(address.getRegion());
+    }
+
+
 }

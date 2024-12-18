@@ -42,11 +42,9 @@
             </stylesheets>
          </Button>
          </HBox>
-     </VBox>
-    <AnchorPane fx:id="paymentDetailsBox" layoutX="57.0" layoutY="167.0" prefHeight="355.0" prefWidth="648.0"
-                styleClass="my-style" stylesheets="@../styles.css"><!-- Payment Details Form -->
-        <VBox layoutY="-1.0" prefHeight="327.0" prefWidth="646.0" spacing="15.0"/>
-    </AnchorPane>
+     </VBox><!-- Payment Details Form -->
+     <VBox layoutX="57.0" layoutY="167.0" prefHeight="327.0" prefWidth="646.0" spacing="15.0" />
+    <AnchorPane fx:id="paymentDetailsBox" layoutX="57.0" layoutY="167.0" prefHeight="355.0" prefWidth="648.0" styleClass="my-style" stylesheets="@../styles.css" />
 
      <!-- Buttons -->
      <HBox alignment="CENTER_LEFT" layoutX="57.0" layoutY="522.0" prefHeight="74.0" prefWidth="646.0" spacing="20.0">

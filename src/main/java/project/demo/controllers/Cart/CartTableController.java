@@ -173,17 +173,7 @@ public class CartTableController {
         cartTable.refresh();
     }
 
-    /**
-     * Adds a product to the cart.
-     */
-    public void addToCart(Product product) {
-        CartManager.getInstance().addProductToCart(product);
-        updateTable();
-    }
 
-    /**
-     * Sets the reference to the CartPageController.
-     */
     public void setMainController(CartPageController mainController) {
         this.mainController = mainController;
         System.out.println("[DEBUG] Main controller set in CartTableController.");
