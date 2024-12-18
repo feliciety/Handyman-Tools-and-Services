@@ -202,7 +202,7 @@ public class PaymentSuccessController {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save Receipt");
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG Files", "*.png"));
-            fileChooser.setInitialFileName("Receipt.png");
+            fileChooser.setInitialFileName("HandymanReceipt.png" + orderIdLabel);
 
             File outputFile = fileChooser.showSaveDialog(new Stage());
             if (outputFile != null) {

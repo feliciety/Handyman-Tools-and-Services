@@ -142,8 +142,9 @@ public class PaymentController {
             System.out.println("[DEBUG] PaymentSuccessController loaded successfully.");
 
             double subtotal = CartPageController.getInstance().getSubtotal();
+
             double discount = CartPageController.getInstance().getCouponDiscount();
-            double totalPrice = subtotal + shippingFee;
+            double totalPrice = subtotal + shippingFee -discount;
 
             controller.setOrderDetails(orderId, totalPrice, DetailsController.getChosenAddress().getFullAddress(),
                     shippingMethod, paymentMethod, shippingNote, shippingFee);

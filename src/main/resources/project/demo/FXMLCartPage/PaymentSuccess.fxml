@@ -18,7 +18,7 @@
       <children>
          <AnchorPane prefHeight="550.0" prefWidth="714.0" styleClass="my-style" stylesheets="@../styles.css">
             <children>
-               <ScrollPane hbarPolicy="NEVER" layoutX="103.0" layoutY="27.200000000000003" prefHeight="417.0" prefWidth="534.0" AnchorPane.topAnchor="21.0">
+               <ScrollPane hbarPolicy="NEVER" layoutX="103.0" layoutY="17.6" prefHeight="433.0" prefWidth="534.0" AnchorPane.topAnchor="11.0">
                   <content>
                      <VBox fx:id="ReceiptPane" alignment="TOP_CENTER" prefHeight="972.0" prefWidth="546.0" spacing="10" styleClass="my-style" stylesheets="@../styles.css">
                         <ImageView fitHeight="67.0" fitWidth="203.0" pickOnBounds="true" preserveRatio="true">
@@ -40,7 +40,7 @@
                                  <Separator />
                                  <HBox>
                                     <children>
-                                       <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Company Name:" textFill="#535353">
+                                       <Label prefHeight="20.0" prefWidth="330.0" style="-fx-font-weight: bold;" text="Company Name:" textFill="#535353">
                                           <font>
                                              <Font name="Inter Medium Italic" size="12.0" />
                                           </font>
@@ -50,7 +50,7 @@
                                  </HBox>
                                  <HBox>
                                     <children>
-                                       <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Contact:" textFill="#535353">
+                                       <Label prefHeight="20.0" prefWidth="330.0" style="-fx-font-weight: bold;" text="Contact:" textFill="#535353">
                                           <font>
                                              <Font name="Inter Medium Italic" size="12.0" />
                                           </font>
@@ -60,7 +60,7 @@
                                  </HBox>
                                  <HBox>
                                     <children>
-                                       <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Website:" textFill="#535353">
+                                       <Label prefHeight="20.0" prefWidth="330.0" style="-fx-font-weight: bold;" text="Website:" textFill="#535353">
                                           <font>
                                              <Font name="Inter Medium Italic" size="12.0" />
                                           </font>
@@ -70,7 +70,7 @@
                                  </HBox>
                                  <HBox>
                                     <children>
-                                       <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Business Registration No.:" textFill="#535353">
+                                       <Label prefHeight="20.0" prefWidth="330.0" style="-fx-font-weight: bold;" text="Business Registration No.:" textFill="#535353">
                                           <font>
                                              <Font name="Inter Medium Italic" size="12.0" />
                                           </font>
@@ -86,7 +86,7 @@
                                  <Separator />
                                  <HBox>
                                     <children>
-                                       <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Transaction ID: " textFill="#535353">
+                                       <Label prefHeight="20.0" prefWidth="330.0" style="-fx-font-weight: bold;" text="Transaction ID: " textFill="#535353">
                                           <font>
                                              <Font name="Inter Medium Italic" size="12.0" />
                                           </font>
@@ -96,7 +96,7 @@
                                  </HBox>
                                  <HBox>
                                     <children>
-                                       <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Payment Status:" textFill="#535353">
+                                       <Label prefHeight="20.0" prefWidth="330.0" style="-fx-font-weight: bold;" text="Payment Status:" textFill="#535353">
                                           <font>
                                              <Font name="Inter Medium Italic" size="12.0" />
                                           </font>
@@ -105,7 +105,7 @@
                                     </children>
                                  </HBox>
                                  <HBox>
-                                    <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Payment Method: " textFill="#535353">
+                                    <Label prefHeight="20.0" prefWidth="330.0" style="-fx-font-weight: bold;" text="Payment Method: " textFill="#535353">
                                        <font>
                                           <Font name="Inter Medium Italic" size="12.0" />
                                        </font>
@@ -119,7 +119,7 @@
                                  <Label style="-fx-font-size: 15px; -fx-font-weight: bold;" text="Customer Information" />
                                  <Separator />
                                  <HBox>
-                                    <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Customer Name:" textFill="#535353">
+                                    <Label prefHeight="20.0" prefWidth="330.0" style="-fx-font-weight: bold;" text="Customer Name:" textFill="#535353">
                                        <font>
                                           <Font name="Inter Medium Italic" size="12.0" />
                                        </font>
@@ -128,7 +128,7 @@
                                  </HBox>
                                  <HBox>
                                     <children>
-                                       <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Contact Number:" textFill="#535353">
+                                       <Label prefHeight="20.0" prefWidth="330.0" style="-fx-font-weight: bold;" text="Contact Number:" textFill="#535353">
                                           <font>
                                              <Font name="Inter Medium Italic" size="12.0" />
                                           </font>
@@ -138,7 +138,7 @@
                                  </HBox>
                                  <HBox>
                                     <children>
-                                       <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Order ID: #" textFill="#535353">
+                                       <Label prefHeight="20.0" prefWidth="330.0" style="-fx-font-weight: bold;" text="Order ID: #" textFill="#535353">
                                           <font>
                                              <Font name="Inter Medium Italic" size="12.0" />
                                           </font>
@@ -148,7 +148,7 @@
                                  </HBox>
                                  <HBox>
                                     <children>
-                                       <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Order Date: " textFill="#535353">
+                                       <Label prefHeight="20.0" prefWidth="330.0" style="-fx-font-weight: bold;" text="Order Date: " textFill="#535353">
                                           <font>
                                              <Font name="Inter Medium Italic" size="12.0" />
                                           </font>
@@ -158,7 +158,7 @@
                                  </HBox>
                                  <HBox>
                                     <children>
-                                       <Label prefHeight="20.0" prefWidth="262.0" style="-fx-font-weight: bold;" text="Shipping Method: " textFill="#535353">
+                                       <Label prefHeight="20.0" prefWidth="330.0" style="-fx-font-weight: bold;" text="Shipping Method: " textFill="#535353">
                                           <font>
                                              <Font name="Inter Medium Italic" size="12.0" />
                                           </font>
@@ -199,7 +199,7 @@
                               </VBox.margin>
                            </Separator>
                            <HBox>
-                              <Label prefHeight="20.0" prefWidth="256.0" style="-fx-font-size: 12px; -fx-font-weight: bold;" text="Subtotal:" textFill="#535353">
+                              <Label prefHeight="18.0" prefWidth="330.0" style="-fx-font-size: 12px; -fx-font-weight: bold;" text="Subtotal:" textFill="#535353">
                                  <font>
                                     <Font name="Inter Medium Italic" size="12.0" />
                                  </font>
@@ -209,7 +209,7 @@
                            </HBox>
                            <HBox>
                               <children>
-                                 <Label prefHeight="20.0" prefWidth="256.0" style="-fx-font-size: 12px; -fx-font-weight: bold;" text="Discount:" textFill="#535353">
+                                 <Label prefHeight="20.0" prefWidth="330.0" style="-fx-font-size: 12px; -fx-font-weight: bold;" text="Discount:" textFill="#535353">
                                     <font>
                                        <Font name="Inter Medium Italic" size="12.0" />
                                     </font>
@@ -219,7 +219,7 @@
                            </HBox>
                            <HBox>
                               <children>
-                                 <Label prefHeight="20.0" prefWidth="256.0" style="-fx-font-size: 12px; -fx-font-weight: bold;" text="Shipping Fee:" textFill="#535353">
+                                 <Label prefHeight="20.0" prefWidth="330.0" style="-fx-font-size: 12px; -fx-font-weight: bold;" text="Shipping Fee:" textFill="#535353">
                                     <font>
                                        <Font name="Inter Medium Italic" size="12.0" />
                                     </font>
@@ -231,7 +231,7 @@
                               <VBox.margin>
                                  <Insets bottom="-10.0" top="10.0" />
                               </VBox.margin>
-                              <Label prefHeight="26.0" prefWidth="291.0" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Total Price: " />
+                              <Label prefHeight="26.0" prefWidth="362.0" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Total Price: " />
                               <Label fx:id="totalPriceLabel" prefHeight="26.0" prefWidth="208.0" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="0" />
                            </HBox>
                            <VBox.margin>
