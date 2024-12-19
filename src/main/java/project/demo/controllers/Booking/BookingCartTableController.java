@@ -67,7 +67,7 @@ public class BookingCartTableController {
                 removeButton.setOnAction(event -> {
                     BookServiceItem item = getTableView().getItems().get(getIndex());
                     if (item != null) {
-                        BookServiceManager.getInstance().removeService(); // Remove from manager
+                        BookServiceManager.getInstance().removeService(item); // Remove from manager
                         bookingTable.refresh();
                     }
                 });

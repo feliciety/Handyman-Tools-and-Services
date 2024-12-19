@@ -44,12 +44,17 @@ public class BookingPageController {
     private static BookingPageController instance;
 
     public static BookingPageController getInstance() {
+        if (instance == null) {
+            instance = new BookingPageController();
+        }
         return instance;
     }
+
 
     public AnchorPane getContentPane() {
         return contentPane;
     }
+
 
 
     private final ObservableList<BookServiceItem> bookedItems = BookServiceManager.getInstance().getBookedServices();
@@ -70,6 +75,7 @@ public class BookingPageController {
 
     @FXML
     public void initialize() {
+        instance = this;
         loadView("/project/demo/FXMLBookingPage/BookingCartTable.fxml");
 
         // Listen for changes in booked items
