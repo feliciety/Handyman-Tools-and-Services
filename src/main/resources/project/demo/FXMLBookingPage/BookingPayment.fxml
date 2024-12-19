@@ -35,7 +35,7 @@
                <URL value="@../style3.css" />
             </stylesheets>
          </Button>
-             <Button onAction="#showCODFields" prefHeight="40.0" prefWidth="150.0" text="Cash on Delivery ">
+             <Button onAction="#showCODFields" prefHeight="40.0" prefWidth="150.0" text="Cash on Service">
             <stylesheets>
                <URL value="@../styles2.css" />
                <URL value="@../style3.css" />
