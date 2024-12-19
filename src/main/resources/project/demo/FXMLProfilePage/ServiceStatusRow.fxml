@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox alignment="CENTER" prefHeight="86.0" prefWidth="640.0" spacing="10.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Profile.ServiceStatusRowController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <ImageView fitHeight="40.0" fitWidth="40.0">
+        <HBox.margin>
+            <Insets right="20.0" />
+        </HBox.margin>
+        <Image url="@../imagelogo/toolbox.png" />
+    </ImageView>
+    <VBox alignment="CENTER_LEFT" prefWidth="500.0" spacing="2.0">
+        <Label fx:id="serviceNoLabel" style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Order #1" />
+        <Label fx:id="dateLabel" style="-fx-text-fill: #666666;" text="2023-05-01" />
+    </VBox>
+    <VBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="522.0" spacing="2.0">
+        <Label fx:id="totalPriceLabel" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="390.0" style="-fx-font-weight: bold; -fx-font-size: 14px;" text="125.99" textAlignment="RIGHT" />
+        <Label fx:id="ServiceStatusLabel" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="360.0" style="-fx-text-fill: #1ecd97; -fx-font-size: 12px;" text="Delivered" />
+    </VBox>
+</HBox>
