@@ -13,14 +13,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="successPage" prefHeight="567.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Booking.BookPaymentSuccessController">
-   <HBox layoutX="45.0" layoutY="19.0" prefHeight="523.0" prefWidth="1112.0" spacing="30.0">
-      <AnchorPane prefHeight="530.0" prefWidth="714.0" styleClass="my-style" stylesheets="@../styles.css">
+<AnchorPane prefHeight="625.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Booking.BookPaymentSuccessController">
+   <HBox alignment="CENTER" layoutX="48.0" layoutY="76.0" prefHeight="484.0" prefWidth="1112.0" spacing="30.0">
+      <AnchorPane prefHeight="1041.0" prefWidth="714.0" styleClass="my-style" stylesheets="@../styles.css">
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
-         <ScrollPane hbarPolicy="NEVER" layoutX="103.0" layoutY="24.799999999999997" prefHeight="976.0" prefWidth="534.0" AnchorPane.topAnchor="18.0">
-            <VBox fx:id="ReceiptPane" alignment="TOP_CENTER" prefHeight="985.0" prefWidth="546.0" spacing="10" styleClass="my-style" stylesheets="@../styles.css">
+         <ScrollPane hbarPolicy="NEVER" layoutX="91.0" layoutY="79.0" prefHeight="318.0" prefWidth="534.0" AnchorPane.topAnchor="79.0">
+            <VBox fx:id="ReceiptPane" alignment="TOP_CENTER" prefHeight="972.0" prefWidth="546.0" spacing="10" styleClass="my-style" stylesheets="@../styles.css">
                <ImageView fitHeight="67.0" fitWidth="203.0" pickOnBounds="true" preserveRatio="true">
                   <Image url="@../imagelogo/logo4.png" />
                </ImageView>
@@ -29,7 +29,7 @@
                      <Font name="System Bold" size="12.0" />
                   </font>
                </Label>
-
+      
                <!-- Receipt Content -->
                <VBox alignment="CENTER_LEFT" prefHeight="363.0" prefWidth="332.0" spacing="8">
                   <VBox fx:id="OrderDetails1" prefHeight="203.0" prefWidth="463.0" spacing="5.0">
@@ -121,7 +121,7 @@
                               <Font name="Inter Medium Italic" size="12.0" />
                            </font>
                         </Label>
-                        <Label fx:id="orderIdLabel" prefHeight="20.0" prefWidth="174.0" text="id" />
+                        <Label fx:id="bookingIdLabel" prefHeight="20.0" prefWidth="174.0" text="id" />
                      </HBox>
                      <HBox>
                         <Label prefHeight="20.0" prefWidth="330.0" style="-fx-font-weight: bold;" text="Booking Date: " textFill="#535353">
@@ -129,21 +129,23 @@
                               <Font name="Inter Medium Italic" size="12.0" />
                            </font>
                         </Label>
-                        <Label fx:id="orderDateLabel" prefHeight="20.0" prefWidth="174.0" text="date" textAlignment="RIGHT" />
+                        <Label fx:id="bookingDateLabel" prefHeight="20.0" prefWidth="174.0" text="date" textAlignment="RIGHT" />
                      </HBox>
                      <VBox>
-                        <Label prefHeight="20.0" prefWidth="270.0" style="-fx-font-weight: bold;" text="Client's Address:" textFill="#535353">
-                           <font>
-                              <Font name="Inter Medium Italic" size="12.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="shippingAddressLabel" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="473.0" text="address" wrapText="true" />
+                        <children>
+                           <Label prefHeight="20.0" prefWidth="270.0" style="-fx-font-weight: bold;" text="Client's Address:" textFill="#535353">
+                              <font>
+                                 <Font name="Inter Medium Italic" size="12.0" />
+                              </font>
+                           </Label>
+                           <Label fx:id="shippingAddressLabel" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="473.0" text="address" wrapText="true" />
+                        </children>
                      </VBox>
                   </VBox>
                   <VBox fx:id="PurchasedItems" alignment="CENTER" prefHeight="339.0" prefWidth="462.0">
                      <Label alignment="CENTER" prefHeight="30.0" prefWidth="138.0" style="-fx-font-size: 15px; -fx-font-weight: bold;" text="Order Summary" />
                      <Separator prefHeight="3.0" prefWidth="294.0" />
-                     <Label prefHeight="18.0" prefWidth="520.0" style="-fx-font-size: 12; -fx-font-weight: bold;" text="Service Name                                           Job complexity                           Service Fee" textFill="#535353" />
+                     <Label prefHeight="18.0" prefWidth="520.0" style="-fx-font-size: 12; -fx-font-weight: bold;" text="Service Name                                                 Complexity                           Service Fee" textFill="#535353" />
                      <Separator prefHeight="3.0" prefWidth="294.0" />
                      <GridPane fx:id="orderItemsGridPane" alignment="CENTER" prefHeight="26.0" prefWidth="258.0">
                      </GridPane>
@@ -153,30 +155,13 @@
                         <Insets />
                      </VBox.margin>
                   </Separator>
-
+      
                   <Label alignment="CENTER" prefHeight="22.0" prefWidth="513.0" style="-fx-font-size: 15; -fx-font-weight: bold;" text="Order Totals" />
                   <Separator>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </Separator>
-                  <HBox>
-                     <Label prefHeight="18.0" prefWidth="330.0" style="-fx-font-size: 12px; -fx-font-weight: bold;" text="Subtotal:" textFill="#535353">
-                        <font>
-                           <Font name="Inter Medium Italic" size="12.0" />
-                        </font>
-                     </Label>
-                     <Label fx:id="subtotalLabel" prefHeight="20.0" prefWidth="171.0" style="-fx-font-size: 12px;" textAlignment="RIGHT" />
-                     <HBox />
-                  </HBox>
-                  <HBox>
-                     <Label prefHeight="20.0" prefWidth="330.0" style="-fx-font-size: 12px; -fx-font-weight: bold;" text="Discount:" textFill="#535353">
-                        <font>
-                           <Font name="Inter Medium Italic" size="12.0" />
-                        </font>
-                     </Label>
-                     <Label fx:id="couponDiscountLabel" prefHeight="20.0" prefWidth="171.0" style="-fx-font-size: 12px;" textAlignment="RIGHT" />
-                  </HBox>
                   <HBox>
                      <VBox.margin>
                         <Insets bottom="-10.0" top="10.0" />
@@ -197,12 +182,12 @@
                   </VBox.margin>
                </Separator>
                <VBox>
-                  <Label prefHeight="20.0" prefWidth="229.0" style="-fx-font-weight: bold;" text="Additional Instructions:" textFill="#7b7474" />
+                  <Label prefHeight="20.0" prefWidth="229.0" style="-fx-font-weight: bold;" text="Delivery Instructions:" textFill="#7b7474" />
                   <Label fx:id="shippingNoteLabel" prefHeight="38.0" prefWidth="529.0" text="shippingNoteLabel" wrapText="true" />
                </VBox>
                <Separator prefWidth="300" />
                <Label prefHeight="22.0" prefWidth="537.0" style="-fx-font-size: 15px; -fx-font-weight: bold;" text="Customer Information" />
-               <Label prefHeight="73.0" prefWidth="524.0" text="Items can be returned within 14 days of delivery with proof of receipt. Please contact support at support@handyman.com for returns or exchanges." wrapText="true">
+               <Label prefHeight="73.0" prefWidth="524.0" text="&quot;Services provided are subject to quality assurance. If you experience any issues within 14 days of service completion, please contact support at support@handyman.com for assistance or adjustments.&quot;" wrapText="true">
                   <font>
                      <Font name="System Italic" size="12.0" />
                   </font>
@@ -212,6 +197,11 @@
                </padding>
             </VBox>
          </ScrollPane>
+         <Label alignment="CENTER" layoutX="204.0" layoutY="19.0" prefHeight="31.0" prefWidth="295.0" text="Payment Receipt" textAlignment="CENTER" textFill="#403e3e" wrapText="true">
+            <font>
+               <Font name="Inter Black" size="20.0" />
+            </font>
+         </Label>
       </AnchorPane>
       <AnchorPane fx:id="thankYouPane" prefHeight="470.0" prefWidth="359.0" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #dcdcdc; -fx-background-color: #f5f5f5;">
          <VBox alignment="CENTER" layoutX="32.0" layoutY="54.0" prefHeight="380.0" prefWidth="295.0">
@@ -239,9 +229,9 @@
                   <Insets bottom="50.0" />
                </VBox.margin>
             </Label>
-            <Button fx:id="backToShopButton" mnemonicParsing="false" onAction="#handleBackToServices" prefHeight="9.0" prefWidth="295.0" stylesheets="@../styles.css" text="Back to Shop" />
+            <Button fx:id="backToServicesBTN" mnemonicParsing="false" onAction="#handleBackToServices" prefHeight="9.0" prefWidth="295.0" stylesheets="@../styles.css" text="Back to Services" />
          </VBox>
       </AnchorPane>
    </HBox>
-   <Button fx:id="downloadReceiptBTN" layoutX="-29.4" layoutY="490.0" mnemonicParsing="false" onAction="#handleDownloadReceipt" prefHeight="38.0" prefWidth="158.0" stylesheets="@../styles2.css" text="Download Receipt" AnchorPane.leftAnchor="330.0" AnchorPane.topAnchor="480.0" />
+   <Button fx:id="downloadReceiptBTN" layoutX="308.0" layoutY="506.2" mnemonicParsing="false" onAction="#handleDownloadReceipt" prefHeight="38.0" prefWidth="158.0" stylesheets="@../styles2.css" text="Download Receipt" AnchorPane.leftAnchor="308.0" AnchorPane.topAnchor="506.2" />
 </AnchorPane>

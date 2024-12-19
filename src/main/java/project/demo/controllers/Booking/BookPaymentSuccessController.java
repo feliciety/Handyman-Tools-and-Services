@@ -7,12 +7,13 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import project.demo.controllers.Cart.OrderItemRowController;
+import project.demo.controllers.Main.MainStructureController;
 import project.demo.models.BookServiceManager;
 import project.demo.models.UserSession;
 
@@ -44,32 +45,31 @@ public class BookPaymentSuccessController {
     @FXML  public Label shippingNoteLabel;
     public Label subtotalLabel;
     public GridPane orderItemsGridPane;
-    public Label orderDateLabel;
-    public Label orderIdLabel;
+
+    public Button backToServicesBTN;
     @FXML  private BookingPageController mainController;
 
 
-    public void setOrderDetails(int orderId, double totalPrice, String shippingAddress,
-                                String shippingMethod, String paymentMethod) {
+    public void setOrderDetails(int bookingId, double totalPrice, String shippingAddress, String paymentMethod, String method) {
 
-        System.out.println("[DEBUG] setOrderDetails called for Order ID: " + orderId);
+        System.out.println("[DEBUG] setOrderDetails called for Order ID: " + bookingId);
 
         nameLabel.setText(UserSession.getInstance().getUsername());
         phoneNumberLabel.setText(UserSession.getInstance().getContactNumber());
-        bookingIdLabel.setText("#" + orderId);
+        bookingIdLabel.setText("#" + bookingId);
         bookingDateLabel.setText(String.valueOf(java.time.LocalDate.now()));
         shippingAddressLabel.setText(shippingAddress);
         paymentMethodLabel.setText(paymentMethod);
         totalPriceLabel.setText(String.format("₱%.2f", totalPrice));
 
-        populateOrderItems(orderId);
+        populateServiceRows(bookingId);
         clearCartAfterDisplay();
         System.out.println("[DEBUG] Order details populated.");
     }
 
     private void clearCartAfterDisplay() {
         System.out.println("[INFO] Clearing cart after displaying all data...");
-        BookServiceManager.getInstance().removeService();
+        BookServiceManager.getInstance().clearService();
     }
     public void setSubtotalAndCoupon(String subtotal, String couponDiscount) {
         System.out.println("[DEBUG] setSubtotalAndCoupon called...");
@@ -89,35 +89,39 @@ public class BookPaymentSuccessController {
         }
     }
 
-    private void populateOrderItems(int orderId) {
-        String query = "SELECT product_name, quantity, price FROM order_items WHERE order_id = ?";
+    private void populateServiceRows(int bookingId) {
+        String query = "SELECT service_name, service_fee, job_complexity FROM booked_service WHERE booking_id = ?";
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setInt(1, orderId);
+            stmt.setInt(1, bookingId);
             ResultSet rs = stmt.executeQuery();
             int rowIndex = 0;
 
             while (rs.next()) {
-                String productName = rs.getString("product_name");
-                int quantity = rs.getInt("quantity");
-                double price = rs.getDouble("price");
-                double totalPrice = quantity * price;
+                String serviceName = rs.getString("service_name");
+                double serviceFee = rs.getDouble("service_fee");
+                String jobComplexity = rs.getString("job_complexity");
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLCartPage/OrderItemRow.fxml"));
+                // Load the BookedServiceRow FXML dynamically
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/FXMLBookingPage/BookedServiceRow.fxml"));
                 HBox row = loader.load();
 
-                OrderItemRowController controller = loader.getController();
-                controller.setOrderItemData(productName, quantity, price, totalPrice);
+                // Set data for the row controller
+                BookedServiceRowController controller = loader.getController();
+                controller.setServiceData(serviceName, serviceFee, jobComplexity);
 
+                // Add row to the grid
                 orderItemsGridPane.add(row, 0, rowIndex++);
             }
 
-            System.out.println("[DEBUG] Order items populated successfully.");
+            System.out.println("[DEBUG] Service rows populated successfully.");
         } catch (SQLException | IOException e) {
-            System.err.println("[ERROR] Failed to populate order items: " + e.getMessage());
+            System.err.println("[ERROR] Failed to populate booked services: " + e.getMessage());
+            e.printStackTrace();
         }
     }
+
 
 
     public void setMainController(BookingPageController mainController) {
@@ -151,5 +155,27 @@ public class BookPaymentSuccessController {
         }
     }
     public void handleBackToServices(ActionEvent actionEvent) {
+        try {
+            // Load MainStructureController as the parent container
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/demo/MainStructure.fxml"));
+            AnchorPane mainStructure = loader.load();
+
+            // Get the controller instance
+            MainStructureController mainController = loader.getController();
+
+            // Use the navigateTo method to load ShopPage
+            mainController.navigateTo("/project/demo/FXMLServicePage/ServicePage.fxml");
+
+            // Replace the current root with the MainStructure (and embedded Shop Page)
+            Stage stage = (Stage) backToServicesBTN.getScene().getWindow();
+            stage.getScene().setRoot(mainStructure);
+
+            System.out.println("[INFO] Successfully navigated back to the Shop Page.");
+        } catch (IOException e) {
+            System.err.println("[ERROR] Failed to navigate to the Shop Page: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
+
 }
+
