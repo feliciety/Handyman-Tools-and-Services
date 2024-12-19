@@ -190,6 +190,22 @@ public class BookServiceItem {
         return service;
     }
 
+    public ImageView getServiceImageView() {
+        return serviceImageView;
+    }
+    public Button getRemoveButton() {
+        return removeButton;
+    }
+
+    public DatePicker getBookingDatePicker() {
+        return bookingDatePicker;
+    }
+
+    public HBox getJobComplexityControl() {
+        return jobComplexityControl;
+    }
+
+
     public String getJobComplexity() {
         return jobComplexity.get();
     }
