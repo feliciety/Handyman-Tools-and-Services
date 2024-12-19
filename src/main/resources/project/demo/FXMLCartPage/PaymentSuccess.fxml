@@ -13,12 +13,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="successPage" prefHeight="567.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.PaymentSuccessController">
-   <HBox layoutX="45.0" layoutY="19.0" prefHeight="523.0" prefWidth="1112.0" spacing="30.0">
+<AnchorPane fx:id="successPage" prefHeight="625.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.PaymentSuccessController">
+   <HBox alignment="CENTER" layoutX="45.0" layoutY="56.0" prefHeight="523.0" prefWidth="1112.0" spacing="30.0">
       <children>
          <AnchorPane prefHeight="530.0" prefWidth="714.0" styleClass="my-style" stylesheets="@../styles.css">
             <children>
-               <ScrollPane hbarPolicy="NEVER" layoutX="103.0" layoutY="37.6" prefHeight="406.0" prefWidth="534.0" AnchorPane.topAnchor="31.0">
+               <ScrollPane hbarPolicy="NEVER" layoutX="103.0" layoutY="95.2" prefHeight="355.0" prefWidth="534.0" AnchorPane.topAnchor="89.0">
                   <content>
                      <VBox fx:id="ReceiptPane" alignment="TOP_CENTER" prefHeight="985.0" prefWidth="546.0" spacing="10" styleClass="my-style" stylesheets="@../styles.css">
                         <ImageView fitHeight="67.0" fitWidth="203.0" pickOnBounds="true" preserveRatio="true">
@@ -32,7 +32,7 @@
                            </font>
                         </Label>
                   
-                                    <!-- Receipt Content -->
+                                          <!-- Receipt Content -->
                         <VBox alignment="CENTER_LEFT" prefHeight="363.0" prefWidth="332.0" spacing="8">
                            <VBox fx:id="OrderDetails1" prefHeight="203.0" prefWidth="463.0" spacing="5.0">
                               <children>
@@ -192,7 +192,7 @@
                               </VBox.margin>
                            </Separator>
                   
-                                       <Label alignment="CENTER" prefHeight="22.0" prefWidth="513.0" style="-fx-font-size: 15; -fx-font-weight: bold;" text="Order Totals" />
+                                             <Label alignment="CENTER" prefHeight="22.0" prefWidth="513.0" style="-fx-font-size: 15; -fx-font-weight: bold;" text="Order Totals" />
                            <Separator>
                               <VBox.margin>
                                  <Insets />
@@ -263,6 +263,11 @@
                      </VBox>
                   </content>
                </ScrollPane>
+               <Label alignment="CENTER" layoutX="224.0" layoutY="17.0" prefHeight="31.0" prefWidth="295.0" text="Payment Receipt" textAlignment="CENTER" textFill="#403e3e" wrapText="true">
+                  <font>
+                     <Font name="Inter Black" size="20.0" />
+                  </font>
+               </Label>
             </children>
             <padding>
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -299,5 +304,5 @@
          </AnchorPane>
       </children>
    </HBox>
-   <Button fx:id="downloadReceiptBTN" layoutX="-29.4" layoutY="490.0" mnemonicParsing="false" onAction="#handleDownloadReceipt" prefHeight="38.0" prefWidth="158.0" stylesheets="@../styles2.css" text="Download Receipt" AnchorPane.leftAnchor="330.0" AnchorPane.topAnchor="480.0" />
+   <Button fx:id="downloadReceiptBTN" layoutX="333.0" layoutY="524.0" mnemonicParsing="false" onAction="#handleDownloadReceipt" prefHeight="38.0" prefWidth="158.0" stylesheets="@../styles2.css" text="Download Receipt" AnchorPane.leftAnchor="333.0" AnchorPane.topAnchor="524.0" />
 </AnchorPane>
