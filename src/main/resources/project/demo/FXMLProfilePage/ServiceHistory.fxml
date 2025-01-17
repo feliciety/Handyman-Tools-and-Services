@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="444.0" prefWidth="793.6" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Profile.ServiceHistoryController">
+   <VBox layoutX="95.0" layoutY="26.0" prefHeight="391.0" prefWidth="602.0" spacing="15.0" stylesheets="@../styles.css">
+      <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Order History" />
+      <Label style="-fx-text-fill: #666666; -fx-font-size: 14px;" text="View your past orders and their status." />
+      <ScrollPane hbarPolicy="NEVER" prefHeight="312.0" prefWidth="602.0" styleClass="my-style" stylesheets="@../styles.css" vbarPolicy="NEVER">
+         <GridPane fx:id="ServiceStatusGrid" prefHeight="30.0" prefWidth="594.0">
+            <columnConstraints>
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+         </GridPane>
+      </ScrollPane>
+   </VBox>
+</AnchorPane>

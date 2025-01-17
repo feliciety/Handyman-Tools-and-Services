@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="595.0" prefWidth="762.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Cart.PaymentController">
+
+    <!-- Main Container -->
+    <VBox layoutX="60.2" layoutY="16.8" prefHeight="572.0" prefWidth="646.0" AnchorPane.leftAnchor="60.2" AnchorPane.topAnchor="16.8">
+        <!-- Header -->
+        <Label prefHeight="71.0" prefWidth="241.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Complete Your Order" />
+
+        <!-- Payment Methods -->
+        <VBox prefHeight="100.0" prefWidth="650.0" spacing="15.0">
+            <Label style="-fx-font-size: 14px;" text="Choose your payment method and enter your details." />
+            <!-- Payment Method Selection -->
+            <HBox prefHeight="50.0" prefWidth="650.0" spacing="15.0">
+                <Button onAction="#showCardFields" prefHeight="40.0" prefWidth="140.0" text="Credit/Debit Card">
+               <stylesheets>
+                  <URL value="@../styles2.css" />
+                  <URL value="@../style3.css" />
+               </stylesheets></Button>
+                <Button onAction="#showPayPalFields" prefHeight="40.0" prefWidth="140.0" text="PayPal">
+               <stylesheets>
+                  <URL value="@../styles2.css" />
+                  <URL value="@../style3.css" />
+               </stylesheets></Button>
+                <Button onAction="#showGcashFields" prefHeight="40.0" prefWidth="140.0" text="Bank Transfer">
+               <stylesheets>
+                  <URL value="@../styles2.css" />
+                  <URL value="@../style3.css" />
+               </stylesheets></Button>
+                <Button onAction="#showCODFields" prefHeight="40.0" prefWidth="180.0" text="Cash on Delivery (COD)">
+               <stylesheets>
+                  <URL value="@../styles2.css" />
+                  <URL value="@../style3.css" />
+               </stylesheets></Button>
+            </HBox>
+        </VBox>
+      <AnchorPane fx:id="paymentDetailsBox" stylesheets="@../styles.css">
+         <children>
+      
+              <!-- Payment Details Form -->
+              <VBox prefHeight="332.0" prefWidth="646.0" spacing="15.0" style="-fx-padding: 10; -fx-border-color: lightgray; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #f9f9f9;" stylesheets="@../styles2.css" />
+         </children>
+      </AnchorPane>
+
+        <!-- Buttons -->
+        <HBox alignment="CENTER_LEFT" prefHeight="74.0" prefWidth="570.0" spacing="20.0">
+            <Button onAction="#backToShipping" prefHeight="40.0" prefWidth="151.0" stylesheets="@../styles2.css" text="Back to Shipping" />
+            <Button onAction="#confirmPayment" prefHeight="40.0" prefWidth="150.0" stylesheets="@../styles.css" text="Confirm Payment">
+                <HBox.margin>
+                    <Insets left="328.0" />
+                </HBox.margin></Button>
+            <VBox.margin>
+                <Insets />
+            </VBox.margin>
+        </HBox>
+    </VBox>
+</AnchorPane>

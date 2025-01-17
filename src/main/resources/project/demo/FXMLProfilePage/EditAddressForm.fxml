@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="563.0" prefWidth="385.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="19.0" layoutY="9.0" prefHeight="545.0" prefWidth="348.0" spacing="20.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="18.0" prefWidth="354.0" text="Edit Address Form" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_LEFT" spacing="30.0">
+               <children>
+                  <Label prefHeight="18.0" prefWidth="94.0" style="-fx-font-weight: bold;" text="Address Type:" textFill="#2e2929" />
+                  <RadioButton fx:id="workRBTN" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="20.0" prefWidth="98.0" text="Work">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </RadioButton>
+                  <RadioButton fx:id="homeRBTN" contentDisplay="CENTER" mnemonicParsing="false" text="Home">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </RadioButton>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <VBox>
+               <children>
+                  <Label style="-fx-font-weight: bold;" text="Street:" textFill="#2e2929" />
+                  <TextField fx:id="streetField" prefHeight="40.0" promptText="Street" styleClass="text-field" />
+               </children>
+            </VBox>
+            <HBox spacing="5.0">
+               <children>
+                  <VBox>
+                     <children>
+                        <Label style="-fx-font-weight: bold;" text="Barangay:" textFill="#2e2929" />
+                        <TextField fx:id="barangayField" prefHeight="40.0" prefWidth="489.0" promptText="Barangay" styleClass="text-field" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox spacing="5.0">
+               <children>
+                  <VBox>
+                     <children>
+                        <Label style="-fx-font-weight: bold;" text="City:" textFill="#2e2929" />
+                        <TextField fx:id="cityField" prefHeight="40.0" prefWidth="200.0" promptText="City" styleClass="text-field" />
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label style="-fx-font-weight: bold;" text="Postal Code:" textFill="#2e2929" />
+                        <TextField fx:id="postalCodeField" prefHeight="40.0" prefWidth="200.0" promptText="Postal Code" styleClass="text-field" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Label style="-fx-font-weight: bold;" text="Province:" textFill="#2e2929">
+               <VBox.margin>
+                  <Insets bottom="-20.0" />
+               </VBox.margin>
+            </Label>
+            <ComboBox fx:id="provinceComboBox" editable="true" prefHeight="40.0" prefWidth="356.0" promptText="Province" />
+            <Label style="-fx-font-weight: bold;" text="Region:" textFill="#2e2929">
+               <VBox.margin>
+                  <Insets bottom="-20.0" />
+               </VBox.margin>
+            </Label>
+            <ComboBox fx:id="regionComboBox" editable="true" prefHeight="40.0" prefWidth="349.0" promptText="Region" />
+            <HBox prefHeight="53.0" prefWidth="348.0" spacing="30.0">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               <children>
+                  <Button onAction="#onCancel" prefHeight="40.0" prefWidth="200.0" stylesheets="@../styles2.css" text="Cancel" />
+                  <Button fx:id="saveButton" onAction="#onSave" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ffdb00; -fx-text-fill: #222222;" stylesheets="@../styles.css" text="Add" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

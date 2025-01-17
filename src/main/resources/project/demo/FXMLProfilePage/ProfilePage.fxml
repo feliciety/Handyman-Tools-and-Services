@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="661.0" prefWidth="1218.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.demo.controllers.Profile.ProfilePageController">
+   <children>
+      <VBox layoutX="225.0" layoutY="36.0" prefHeight="606.0" prefWidth="793.0">
+         <children>
+             <HBox alignment="CENTER_LEFT" prefHeight="110.0" prefWidth="306.0" spacing="10">
+                 <children>
+                     <VBox alignment="CENTER" spacing="5">
+                         <children>
+                        <Circle fx:id="profileImageCircle" fill="DODGERBLUE" onMouseClicked="#handleImageChange" radius="48.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #E4EAEA; -fx-stroke: white;" />
+                         </children>
+                     </VBox>
+                     <VBox alignment="CENTER_LEFT">
+                         <children>
+                             <Label fx:id="nameLabel" style="-fx-font-weight: bold; -fx-font-size: 30px;" text="Name">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                             <Label fx:id="emailLabel" style="-fx-text-fill: gray;" text="email">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                         </children>
+                     </VBox>
+                 </children>
+             </HBox>
+      
+             <HBox prefHeight="50.0" prefWidth="656.0" spacing="10.0" style="-fx-background-color: F4F4F5;" styleClass="buttonpfp" stylesheets="@../application.css">
+               <children>
+                   <Button fx:id="editProfileButton" onAction="#clickEditProfile" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: #E4EAEA;" text="Edit Profile" />
+                   <Button fx:id="orderHistoryButton" onAction="#clickOrderHistory" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: #E4EAEA;" text="Order History" />
+                   <Button fx:id="serviceHistoryButton" onAction="#clickServiceHistory" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: #E4EAEA;" text="Service History" />
+                   <Button fx:id="addressesButton" onAction="#clickManageAddresses" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: #E4EAEA;" text="Manage Addresses" />
+                  <Button fx:id="paymentMethodsButton" onAction="#clickPaymentMethods" prefHeight="50.0" prefWidth="160.0" style="-fx-background-color: #E4EAEA;" text="Payment Methods" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </HBox>
+             <AnchorPane fx:id="contentPane" prefHeight="444.0" prefWidth="656.0" style="-fx-background-color: #f5f5f5; -fx-background-radius: 5; -fx-border-color: #dcdcdc; -fx-border-radius: 5;" />
+         </children>
+      </VBox>
+      <Button fx:id="imageChanger" layoutX="71.0" layoutY="65.0" mnemonicParsing="false" onAction="#handleImageChange" prefHeight="71.0" prefWidth="55.0" style="-fx-background-color: transparent;" />
+   </children>
+</AnchorPane>
