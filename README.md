@@ -36,10 +36,12 @@ This Java-based desktop application is designed to streamline the process of boo
 - **Service & Order History**: Access a comprehensive history of your service bookings and tool rentals.
 
 <div style="display: flex; flex-wrap: wrap; gap: 50px;">
-  <img src="/src/main/resources/project/demo/applicationImage/PAymentmethosedit.jpg" alt="Profile Page Payment Method Edit" width="48%">
-  <img src="/src/main/resources/project/demo/applicationImage/ShippingAddressedit.jpg" alt="Profile Page Shipping Address Edit" width="48%">
-  <img src="/src/main/resources/project/demo/applicationImage/orderhsitory.jpg" alt="Profile Page Shipping Order History" width="48%">
-  
+ <img src="/src/main/resources/project/demo/applicationImage/ProfileEdit.png" alt="Profile Page Shipping Order History" width="48%"> 
+ <img src="/src/main/resources/project/demo/applicationImage/PAymentmethosedit.jpg" alt="Profile Page Payment Method Edit" width="48%">
+ <img src="/src/main/resources/project/demo/applicationImage/ShippingAddressedit.jpg" alt="Profile Page Shipping Address Edit" width="48%">
+ <img src="/src/main/resources/project/demo/applicationImage/orderhsitory.jpg" alt="Profile Page Shipping Order History" width="48%">
+  <img src="/src/main/resources/project/demo/applicationImage/Service History.jpg" alt="Profile Page Shipping Order History" width="48%">
+   
 </div>
 
 
